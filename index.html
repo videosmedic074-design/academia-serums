@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aula Virtual ENCAPS - Academia SERUMS</title>
+    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://hjhtpfqkpcixwlanhxzw.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqaHRwZnFrcGNpd3hsYW5oeHp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2MjY3OTUsImV4cCI6MjEwODIwMjc5NX0.TpEvdIQCnbLIhtLKkRJ-NLj_BBR81uTKTgVyOynDlZM';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        
+        let supabase = null;
+        function getSupabase() {
+            if (!supabase && window.supabase && typeof window.supabase.createClient === 'function') {
+                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            }
+            return supabase;
+        }
     </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
@@ -230,7 +238,9 @@
         }
 
         async function checkSesion() {
-            const { data: { session } } = await supabase.auth.getSession();
+            const sb = getSupabase();
+            if (!sb) return;
+            const { data: { session } } = await sb.auth.getSession();
             if (session) {
                 user = session.user;
                 await cargarPerfil();
@@ -240,11 +250,12 @@
                 ver('vista-login');
             }
         }
-        checkSesion();
+        window.addEventListener('DOMContentLoaded', checkSesion);
 
-        // 1. Manejo de Inicio de Sesión
+        // 1. Login
         document.getElementById('f-login').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const sb = getSupabase();
             const btn = document.getElementById('btn-login');
             const email = document.getElementById('l-email').value.trim();
             const password = document.getElementById('l-pass').value;
@@ -254,7 +265,7 @@
             btn.innerText = 'Verificando...';
             errDiv.style.display = 'none';
 
-            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            const { data, error } = await sb.auth.signInWithPassword({ email, password });
             btn.disabled = false;
             btn.innerText = 'Ingresar al Aula';
 
@@ -269,12 +280,20 @@
             }
         });
 
-        // 2. Manejo de Registro Robusto con Feedback Visual
+        // 2. Registro Robusto
         document.getElementById('f-reg').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const sb = getSupabase();
             const btn = document.getElementById('btn-reg');
             const msg = document.getElementById('msg-reg');
             msg.style.display = 'none';
+
+            if (!sb) {
+                msg.innerText = 'Error: No se pudo conectar con la base de datos. Recarga la página.';
+                msg.className = 'alerta alerta-err';
+                msg.style.display = 'block';
+                return;
+            }
 
             const nombres = document.getElementById('r-nom').value.trim();
             const apellidos = document.getElementById('r-ape').value.trim();
@@ -290,7 +309,6 @@
                 return;
             }
 
-            // Calcular edad
             let edadCalculada = 25;
             if (fechaNac) {
                 const nac = new Date(fechaNac);
@@ -304,8 +322,7 @@
             btn.innerText = 'Creando cuenta...';
 
             try {
-                // Registrar credenciales
-                const { data: auth, error: aErr } = await supabase.auth.signUp({
+                const { data: auth, error: aErr } = await sb.auth.signUp({
                     email: email,
                     password: pass
                 });
@@ -313,8 +330,7 @@
                 if (aErr) throw aErr;
 
                 if (auth && auth.user) {
-                    // Guardar perfil en tabla perfiles
-                    const { error: pErr } = await supabase.from('perfiles').insert([{
+                    await sb.from('perfiles').insert([{
                         id: auth.user.id,
                         nombres: nombres,
                         apellidos: apellidos,
@@ -326,10 +342,7 @@
                         preguntas_hoy: 0
                     }]);
 
-                    if (pErr) console.warn("Advertencia al guardar perfil:", pErr);
-
-                    // Inicializar mascota
-                    await supabase.from('perfil_mascota').insert([{ user_id: auth.user.id }]);
+                    await sb.from('perfil_mascota').insert([{ user_id: auth.user.id }]);
                 }
 
                 msg.innerText = '¡Registro completado! Ya puedes iniciar sesión con tus credenciales.';
@@ -343,7 +356,7 @@
                 }, 2000);
 
             } catch (err) {
-                console.error("Error en el registro:", err);
+                console.error("Error en registro:", err);
                 msg.innerText = 'Error al registrar: ' + (err.message || 'Error de conexión');
                 msg.className = 'alerta alerta-err';
                 msg.style.display = 'block';
@@ -354,8 +367,9 @@
         });
 
         async function cargarPerfil() {
-            if (!user) return;
-            const { data: p } = await supabase.from('perfiles').select('*').eq('id', user.id).single();
+            const sb = getSupabase();
+            if (!user || !sb) return;
+            const { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
             if (p) {
                 perfilUsuario = p;
                 document.getElementById('txt-saludo').innerText = 'Hola, Dr. ' + p.apellidos;
@@ -373,7 +387,7 @@
                 perfilUsuario = { plan: 'gratuito', preguntas_hoy: 0, apellidos: 'Colega' };
             }
 
-            const { data: m } = await supabase.from('perfil_mascota').select('*').eq('user_id', user.id).single();
+            const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
             if (m) {
                 perfilMascota = m;
                 document.getElementById('m-monedas').innerText = m.monedas;
@@ -381,12 +395,17 @@
         }
 
         async function cargarCursosDashboard() {
+            const sb = getSupabase();
             const cont = document.getElementById('grid-cursos-dashboard');
             cont.innerHTML = 'Cargando cursos...';
-            const { data: areas } = await supabase.from('areas').select('*');
             
-            let lista = areas;
-            if (!lista || lista.length === 0) {
+            let lista = null;
+            if (sb) {
+                const { data: areas } = await sb.from('areas').select('*');
+                if (areas && areas.length > 0) lista = areas;
+            }
+            
+            if (!lista) {
                 lista = [
                     { id: 1, nombre: 'Salud Pública', color_hex: '#007bff' },
                     { id: 2, nombre: 'Cuidado Integral de Salud', color_hex: '#28a745' },
@@ -414,6 +433,7 @@
         }
 
         async function cargarSiguientePregunta() {
+            const sb = getSupabase();
             document.getElementById('sim-fb').style.display = 'none';
             document.getElementById('btn-sig').style.display = 'none';
 
@@ -432,7 +452,7 @@
                 document.getElementById('contador-diario').innerText = 'Acceso Ilimitado';
             }
 
-            let consulta = supabase.from('preguntas').select('*');
+            let consulta = sb.from('preguntas').select('*');
             if (areaFiltroActual) consulta = consulta.eq('area_id', areaFiltroActual);
 
             const { data } = await consulta;
@@ -456,6 +476,7 @@
         }
 
         async function responder(btn, opt) {
+            const sb = getSupabase();
             document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
             const esOk = (opt === preguntaActual.respuesta_correcta);
             const fb = document.getElementById('sim-fb');
@@ -464,9 +485,9 @@
                 btn.classList.add('correcta');
                 fb.className = 'fb-box fb-ok';
                 document.getElementById('fb-tit').innerText = '¡Correcto!';
-                if (perfilMascota) {
+                if (perfilMascota && sb) {
                     const m = perfilMascota.monedas + 2;
-                    await supabase.from('perfil_mascota').update({ monedas: m }).eq('user_id', user.id);
+                    await sb.from('perfil_mascota').update({ monedas: m }).eq('user_id', user.id);
                     perfilMascota.monedas = m;
                     document.getElementById('m-monedas').innerText = m;
                 }
@@ -480,24 +501,29 @@
             fb.style.display = 'block';
             document.getElementById('btn-sig').style.display = 'block';
 
-            if (perfilUsuario && perfilUsuario.plan === 'gratuito') {
+            if (perfilUsuario && perfilUsuario.plan === 'gratuito' && sb) {
                 perfilUsuario.preguntas_hoy += 1;
-                await supabase.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
+                await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
             }
 
-            await supabase.from('intentos_usuario').insert([{
-                user_id: user.id,
-                pregunta_id: preguntaActual.id,
-                area_id: preguntaActual.area_id,
-                tema_id: preguntaActual.tema_id,
-                es_correcta: esOk
-            }]);
+            if (sb) {
+                await sb.from('intentos_usuario').insert([{
+                    user_id: user.id,
+                    pregunta_id: preguntaActual.id,
+                    area_id: preguntaActual.area_id,
+                    tema_id: preguntaActual.tema_id,
+                    es_correcta: esOk
+                }]);
+            }
         }
 
         async function cargarTemasTeoricos() {
+            const sb = getSupabase();
             const cont = document.getElementById('lista-temas-contenedor');
             cont.innerHTML = 'Consultando temario...';
-            const { data: temas } = await supabase.from('temas').select('*').order('id', { ascending: true });
+            
+            if (!sb) return;
+            const { data: temas } = await sb.from('temas').select('*').order('id', { ascending: true });
             
             if (!temas || temas.length === 0) {
                 cont.innerHTML = '<p>No hay temas teóricos cargados aún.</p>';
@@ -523,8 +549,9 @@
         }
 
         async function cargarEstadisticas() {
-            if (!user) return;
-            const { data } = await supabase.from('intentos_usuario').select('es_correcta').eq('user_id', user.id);
+            const sb = getSupabase();
+            if (!user || !sb) return;
+            const { data } = await sb.from('intentos_usuario').select('es_correcta').eq('user_id', user.id);
             if (data && data.length > 0) {
                 document.getElementById('st-total').innerText = data.length;
                 const ok = data.filter(i => i.es_correcta).length;
@@ -533,12 +560,13 @@
         }
 
         async function alimentarMascota() {
-            if (!perfilMascota || perfilMascota.monedas < 10) {
+            const sb = getSupabase();
+            if (!perfilMascota || perfilMascota.monedas < 10 || !sb) {
                 alert('No tienes suficientes monedas. ¡Resuelve preguntas para ganar más!');
                 return;
             }
             const nuevasMonedas = perfilMascota.monedas - 10;
-            await supabase.from('perfil_mascota').update({ monedas: nuevasMonedas }).eq('user_id', user.id);
+            await sb.from('perfil_mascota').update({ monedas: nuevasMonedas }).eq('user_id', user.id);
             perfilMascota.monedas = nuevasMonedas;
             document.getElementById('m-monedas').innerText = nuevasMonedas;
             alert('¡Alimentaste a tu mascota médica!');
@@ -549,7 +577,8 @@
         }
 
         async function salir() {
-            await supabase.auth.signOut();
+            const sb = getSupabase();
+            if (sb) await sb.auth.signOut();
             user = null;
             ver('vista-login');
         }
