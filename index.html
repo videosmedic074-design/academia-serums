@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proserum's Academia - Preparación Oficial SERUMS</title>
     
-    <!-- Icono de Pestaña -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        // CONFIGURACIÓN DE TU PLATAFORMA
         const NOMBRE_ACADEMIA = "Proserum's Academia";
-        const TU_NUMERO_WHATSAPP = "51999999999"; // Cambia este número cuando gustes
+        const TU_NUMERO_WHATSAPP = "51999999999"; 
 
         const SUPABASE_URL = 'https://hjhtpfqkpciwxlanhxzw.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqaHRwZnFrcGNpd3hsYW5oeHp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2MjY3OTUsImV4cCI6MjEwODIwMjc5NX0.TpEvdIQCnbLIhtLKkRJ-NLj_BBR81uTKTgVyOynDlZM';
@@ -32,17 +30,44 @@
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
 
+        /* Emblema / Logo Oficial SVG */
+        .emblema-serums {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #0056b3, #00a8cc);
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,86,179,0.25);
+            flex-shrink: 0;
+        }
+        .emblema-serums svg { width: 34px; height: 34px; }
+
+        .logo-box-main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .logo-titulo {
+            font-size: 1.85em;
+            font-weight: 900;
+            color: #0056b3;
+            letter-spacing: -0.5px;
+        }
+        .logo-titulo span { color: #28a745; }
+
         /* Login y Registro */
         .centro-auth { width: 100%; display: flex; justify-content: center; align-items: center; padding: 30px 15px; }
         .card-auth { background: white; width: 100%; max-width: 440px; padding: 35px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border-top: 6px solid #0056b3; }
         .card-auth.amplia { max-width: 580px; }
-        .logo { font-size: 1.85em; font-weight: 800; color: #0056b3; text-align: center; margin-bottom: 5px; }
-        .logo span { color: #28a745; }
         .sub { color: #6c757d; font-size: 0.9em; text-align: center; margin-bottom: 20px; }
         .campo { margin-bottom: 15px; }
         .campo label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.88em; }
-        .campo input { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 8px; outline: none; transition: 0.2s; }
-        .campo input:focus { border-color: #0056b3; box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
+        .campo input, .campo select { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 8px; outline: none; transition: 0.2s; font-size: 0.95em; }
+        .campo input:focus, .campo select:focus { border-color: #0056b3; box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
         .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .btn-p { width: 100%; background: #0056b3; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
         .btn-p:hover { background: #004494; transform: translateY(-1px); }
@@ -56,15 +81,15 @@
 
         /* Layout */
         .layout { width: 100%; display: flex; height: 100vh; overflow: hidden; position: relative; }
-        .sidebar { width: 260px; background: white; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; }
-        .side-logo { padding: 25px 20px; font-weight: 800; color: #0056b3; font-size: 1.3em; border-bottom: 1px solid #eee; text-align: center; }
-        .side-logo span { color: #28a745; }
+        .sidebar { width: 270px; background: white; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+        .side-logo-header { padding: 22px 18px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 10px; }
+        .side-logo-header .logo-titulo { font-size: 1.25em; }
         .menu { list-style: none; padding: 20px 0; flex: 1; }
-        .menu li { padding: 15px 25px; cursor: pointer; font-weight: 600; color: #555; transition: 0.2s; border-left: 4px solid transparent; display: flex; align-items: center; gap: 10px; }
+        .menu li { padding: 15px 22px; cursor: pointer; font-weight: 600; color: #555; transition: 0.2s; border-left: 4px solid transparent; display: flex; align-items: center; gap: 10px; }
         .menu li:hover, .menu li.activo { background: #e9f2fb; color: #0056b3; border-left-color: #0056b3; }
         .menu li.cerrar { color: #dc3545; margin-top: auto; border-top: 1px solid #eee; }
 
-        .contenido { flex: 1; padding: 35px; overflow-y: auto; padding-bottom: 80px; }
+        .contenido { flex: 1; padding: 35px; overflow-y: auto; padding-bottom: 85px; }
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .card-c { background: white; padding: 22px; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-top: 6px solid #0056b3; cursor: pointer; transition: 0.2s; }
@@ -109,14 +134,31 @@
         .fb-ok { background: #d4edda; border-left: 6px solid #28a745; color: #155724; }
         .fb-err { background: #f8d7da; border-left: 6px solid #dc3545; color: #721c24; }
 
-        /* Flashcards */
-        .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card-flip { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        /* Barra de Herramientas IA */
+        .barra-ia-box { 
+            background: white; padding: 20px; border-radius: 14px; margin-bottom: 25px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; 
+            justify-content: space-between; gap: 15px; flex-wrap: wrap; 
+        }
+        .btn-ia-accion { 
+            background: linear-gradient(135deg, #6f42c1, #0056b3); color: white; border: none; 
+            padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; 
+            display: inline-flex; align-items: center; gap: 8px; font-size: 0.95em; transition: 0.2s; 
+        }
+        .btn-ia-accion:hover { opacity: 0.95; transform: translateY(-1px); }
+
+        /* Flashcards con Giro */
+        .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card-flip { background-color: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
         .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
         .card-flip.volteada .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 14px; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 6px 15px rgba(0,0,0,0.06); }
+        .card-front, .card-back { 
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+            border-radius: 14px; padding: 25px; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; box-shadow: 0 6px 15px rgba(0,0,0,0.06); 
+        }
         .card-front { background: white; border-top: 5px solid #0056b3; color: #2c3e50; font-weight: 600; font-size: 1.05em; line-height: 1.4; }
-        .card-back { background: #e9f2fb; border-top: 5px solid #28a745; color: #155724; transform: rotateY(180deg); font-size: 1em; line-height: 1.5; font-weight: 500; }
+        .card-back { background: #e9f2fb; border-top: 5px solid #28a745; color: #155724; transform: rotateY(180deg); font-size: 0.98em; line-height: 1.5; font-weight: 500; }
 
         /* Modales */
         .modal-overlay { 
@@ -154,8 +196,24 @@
     <section id="vista-login" class="pantalla activa">
         <div class="centro-auth">
             <div class="card-auth">
-                <div class="logo">Proserum's <span>Academia</span></div>
-                <p class="sub">Plataforma Médica de Preparación Oficial</p>
+                <div class="logo-box-main">
+                    <div class="emblema-serums">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Montañas andinas -->
+                            <path d="M12 44L28 22L40 38L48 28L60 44H12Z" fill="#ffffff" fill-opacity="0.35"/>
+                            <path d="M4 48L24 24L36 40L44 30L58 48H4Z" fill="#ffffff" fill-opacity="0.6"/>
+                            <!-- Silueta Médico en marcha -->
+                            <circle cx="34" cy="24" r="4" fill="#ffffff"/>
+                            <path d="M32 29H36L38 38H35L33 46H30L32 37L30 38L29 33L32 29Z" fill="#ffffff"/>
+                            <!-- Mochila SERUMS -->
+                            <rect x="27" y="30" width="3.5" height="6" rx="1.5" fill="#ffd700"/>
+                            <!-- Cruz Médica Dorada -->
+                            <path d="M46 16H52M49 13V19" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="logo-titulo">Proserum's <span>Academia</span></div>
+                </div>
+                <p class="sub">Plataforma Médica de Preparación Oficial ENCAPS</p>
                 <div id="err-login" class="alerta alerta-err"></div>
                 <form id="f-login">
                     <div class="campo"><label>Correo Electrónico</label><input type="email" id="l-email" required placeholder="dr.ejemplo@gmail.com"></div>
@@ -171,7 +229,18 @@
     <section id="vista-registro" class="pantalla">
         <div class="centro-auth">
             <div class="card-auth amplia">
-                <div class="logo">Proserum's <span>Academia</span></div>
+                <div class="logo-box-main">
+                    <div class="emblema-serums">
+                        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 48L24 24L36 40L44 30L58 48H4Z" fill="#ffffff" fill-opacity="0.6"/>
+                            <circle cx="34" cy="24" r="4" fill="#ffffff"/>
+                            <path d="M32 29H36L38 38H35L33 46H30L32 37L30 38L29 33L32 29Z" fill="#ffffff"/>
+                            <rect x="27" y="30" width="3.5" height="6" rx="1.5" fill="#ffd700"/>
+                            <path d="M46 16H52M49 13V19" stroke="#ffd700" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="logo-titulo">Proserum's <span>Academia</span></div>
+                </div>
                 <p class="sub">Registro de Médico Postulante</p>
                 <div id="msg-reg" class="alerta"></div>
                 <form id="f-reg">
@@ -196,11 +265,21 @@
     <section id="vista-app" class="pantalla">
         <div class="layout">
             <aside class="sidebar">
-                <div class="side-logo">Proserum's <span>Academia</span></div>
+                <div class="side-logo-header">
+                    <div class="emblema-serums" style="width: 40px; height: 40px;">
+                        <svg viewBox="0 0 64 64" fill="none" style="width: 26px; height: 26px;">
+                            <path d="M4 48L24 24L36 40L44 30L58 48H4Z" fill="#ffffff" fill-opacity="0.6"/>
+                            <circle cx="34" cy="24" r="4" fill="#ffffff"/>
+                            <path d="M32 29H36L38 38H35L33 46H30L32 37L30 38L29 33L32 29Z" fill="#ffffff"/>
+                            <rect x="27" y="30" width="3.5" height="6" rx="1.5" fill="#ffd700"/>
+                        </svg>
+                    </div>
+                    <div class="logo-titulo">Proserum's <span>Academia</span></div>
+                </div>
                 <ul class="menu">
                     <li id="m-dash" class="activo" onclick="subSec('dash')">📊 Mi Tablero</li>
                     <li id="m-banqueo" onclick="subSec('banqueo')">📝 Banco de Preguntas</li>
-                    <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards</li>
+                    <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards Médicas</li>
                     <li id="m-temas" onclick="subSec('temas')">📖 Temario Teórico</li>
                     <li id="m-stats" onclick="subSec('stats')">📈 Mis Estadísticas</li>
                     <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
@@ -239,8 +318,28 @@
                 <div class="grid-5" id="grid-cursos-dashboard"></div>
             </main>
 
-            <!-- SUB: SIMULADOR -->
+            <!-- SUB: SIMULADOR CON BOTÓN IA CLARAMENTE VISIBLE -->
             <main id="sec-banqueo" class="contenido" style="display: none;">
+                <!-- Barra de Acción Superior de IA -->
+                <div class="barra-ia-box">
+                    <div>
+                        <strong style="color: #0056b3; font-size: 1.05em;">Generador Clínico Inteligente</strong>
+                        <p style="font-size: 0.85em; color: #666;">Crea nuevos casos según normas técnicas vigentes del MINSA.</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select id="sel-curso-banqueo-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da;">
+                            <option value="Salud Pública">Salud Pública</option>
+                            <option value="Cuidado Integral de Salud">Cuidado Integral</option>
+                            <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                            <option value="Investigación">Investigación</option>
+                            <option value="Gestión de Servicios de Salud">Gestión de Servicios</option>
+                        </select>
+                        <button class="btn-ia-accion" id="btn-generar-preguntas-ia" onclick="generarPreguntasConIA()">
+                            ⚡ Generar 3 Preguntas con IA
+                        </button>
+                    </div>
+                </div>
+
                 <div class="box-pregunta" id="box-pregunta-activa">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 18px; align-items: center;">
                         <span id="sim-info" style="color: #007bff; font-weight: bold; text-transform: uppercase; font-size: 0.9em;">MODO PRÁCTICA</span>
@@ -256,29 +355,30 @@
                 </div>
             </main>
 
-            <!-- SUB: FLASHCARDS -->
+            <!-- SUB: FLASHCARDS FILTRADAS POR CURSO + GENERADOR IA -->
             <main id="sec-flashcards" class="contenido" style="display: none;">
-                <h1 style="color: #2c3e50; margin-bottom: 8px;">Flashcards Médicas de Alta Rentabilidad</h1>
-                <p style="color: #6c757d; margin-bottom: 20px;">Haz clic sobre cada tarjeta para voltearla y revisar la conducta clínica o norma técnica.</p>
-                <div class="grid-flashcards">
-                    <div class="card-flip" onclick="this.classList.toggle('volteada')">
-                        <div class="card-inner">
-                            <div class="card-front">¿Conducta inmediata ante Dengue con Signos de Alarma según NTS MINSA?</div>
-                            <div class="card-back">Hospitalización inmediata + Hidratación endovenosa con Cristaloides a 10 ml/kg en la 1° hora.</div>
-                        </div>
+                <div class="barra-ia-box">
+                    <div>
+                        <h1 style="color: #2c3e50; font-size: 1.4em;">Flashcards Médicas por Curso</h1>
+                        <p style="color: #6c757d; font-size: 0.9em; margin-top: 4px;">Memoriza conductas, esquemas de tratamiento y criterios del MINSA.</p>
                     </div>
-                    <div class="card-flip" onclick="this.classList.toggle('volteada')">
-                        <div class="card-inner">
-                            <div class="card-front">¿Definición operativa de Caso Probable de Sarampión?</div>
-                            <div class="card-back">Persona de cualquier edad con fiebre y erupción maculopapular, acompañada de tos, coriza o conjuntivitis.</div>
-                        </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <select id="sel-filtro-flashcard-curso" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da;" onchange="filtrarFlashcardsPorCurso()">
+                            <option value="todos">Todos los Cursos</option>
+                            <option value="1">Salud Pública</option>
+                            <option value="2">Cuidado Integral de Salud</option>
+                            <option value="3">Ética e Interculturalidad</option>
+                            <option value="4">Investigación</option>
+                            <option value="5">Gestión de Servicios de Salud</option>
+                        </select>
+                        <button class="btn-ia-accion" id="btn-generar-flashcards-ia" onclick="generarFlashcardsConIA()">
+                            ✨ Generar Flashcards con IA
+                        </button>
                     </div>
-                    <div class="card-flip" onclick="this.classList.toggle('volteada')">
-                        <div class="card-inner">
-                            <div class="card-front">¿Manejo inicial de Hemorragia Posparto por Atonía Uterina?</div>
-                            <div class="card-back">Masaje uterino bimanual + Oxitocina 10-20 UI en infusión + Ácido Tranexámico 1g EV dentro de las primeras 3 horas.</div>
-                        </div>
-                    </div>
+                </div>
+
+                <div id="contenedor-flashcards" class="grid-flashcards">
+                    <!-- Flashcards Dinámicas -->
                 </div>
             </main>
 
@@ -300,7 +400,7 @@
         </div>
     </section>
 
-    <!-- BOTÓN FLOTANTE OFICIAL DE WHATSAPP (CON URL DIRECTA A PRUEBA DE 404) -->
+    <!-- BOTÓN WHATSAPP -->
     <a id="btn-flotante-soporte" 
        href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%20Doctor%2C%20me%20comunico%20desde%20Proserum%27s%20Academia%20para%20consultas%20o%20soporte%20t%C3%A9cnico." 
        target="_blank" 
@@ -318,7 +418,7 @@
         <div class="modal-box">
             <div class="modal-icono">⭐</div>
             <h3>Acceso Ciclo Completo</h3>
-            <p>Obtén banqueo ilimitado a las <strong>10,000 preguntas</strong>, todas las flashcards y resúmenes teóricos.</p>
+            <p>Obtén banqueo ilimitado a las <strong>10,000 preguntas</strong>, generación infinita con IA y todas las flashcards.</p>
             <p style="font-size: 0.88em; color: #888; margin-top: -10px;">Contacta directamente para activar tu membresía:</p>
             <a id="btn-enlace-whatsapp" href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%20Doctor%2C%20deseo%20activar%20mi%20acceso%20al%20Ciclo%20Completo." target="_blank" rel="noopener noreferrer" class="btn-ws">
                 <span>💬 Contactar por WhatsApp</span>
@@ -343,6 +443,9 @@
         let perfilMascota = null;
         let preguntaActual = null;
         let areaFiltroActual = null;
+        let nombreCursoActual = "Salud Pública";
+        let preguntasIaBuffer = [];
+        let todasLasFlashcards = [];
 
         function ver(id) {
             document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
@@ -367,6 +470,7 @@
             
             if (nom === 'stats') cargarEstadisticas();
             if (nom === 'temas') cargarTemasTeoricos();
+            if (nom === 'flashcards') cargarFlashcardsDesdeBD();
         }
 
         function abrirModalPremium() {
@@ -402,7 +506,7 @@
         }
         window.addEventListener('DOMContentLoaded', checkSesion);
 
-        // 1. Login Blindado contra Bloqueos
+        // Login
         document.getElementById('f-login').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -416,8 +520,7 @@
             errDiv.style.display = 'none';
 
             try {
-                if (!sb) throw new Error('Error al conectar con la base de datos.');
-
+                if (!sb) throw new Error('Error de conexión.');
                 const { data, error } = await sb.auth.signInWithPassword({ email, password });
                 if (error) throw error;
 
@@ -428,7 +531,6 @@
                     cargarCursosDashboard();
                 }
             } catch (err) {
-                console.error("Fallo en login:", err);
                 errDiv.innerText = 'Credenciales no válidas. Si aún no te has registrado, crea tu cuenta abajo.';
                 errDiv.style.display = 'block';
             } finally {
@@ -437,7 +539,7 @@
             }
         });
 
-        // 2. Registro Robusto
+        // Registro
         document.getElementById('f-reg').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -495,7 +597,7 @@
                     await sb.from('perfil_mascota').insert([{ user_id: auth.user.id }]);
                 }
 
-                msg.innerText = '¡Registro completado exitosamente! Ya puedes iniciar sesión.';
+                msg.innerText = '¡Registro completado exitosamente! Redirigiendo...';
                 msg.className = 'alerta alerta-ok';
                 msg.style.display = 'block';
                 document.getElementById('f-reg').reset();
@@ -506,7 +608,6 @@
                 }, 1500);
 
             } catch (err) {
-                console.error("Error al registrar:", err);
                 msg.innerText = 'Error al registrar: ' + (err.message || 'Error de conexión');
                 msg.className = 'alerta alerta-err';
                 msg.style.display = 'block';
@@ -516,7 +617,7 @@
             }
         });
 
-        // 3. Perfil
+        // Perfil
         async function cargarPerfil() {
             const sb = obtenerSupabase();
             if (!user || !sb) return;
@@ -570,7 +671,7 @@
             cont.innerHTML = '';
             lista.forEach(a => {
                 cont.innerHTML += `
-                    <div class="card-c" style="border-top-color: ${a.color_hex};" onclick="iniciarBanqueo(${a.id})">
+                    <div class="card-c" style="border-top-color: ${a.color_hex};" onclick="iniciarBanqueo(${a.id}, '${a.nombre}')">
                         <h3>${a.nombre}</h3>
                         <p style="color: #6c757d; font-size: 0.9em;">Banquear módulo completo ➔</p>
                     </div>
@@ -578,8 +679,10 @@
             });
         }
 
-        async function iniciarBanqueo(areaId = null) {
+        async function iniciarBanqueo(areaId = null, nombreCurso = "Salud Pública") {
             areaFiltroActual = areaId;
+            nombreCursoActual = nombreCurso;
+            document.getElementById('sel-curso-banqueo-ia').value = nombreCurso;
             subSec('banqueo');
             cargarSiguientePregunta();
         }
@@ -600,26 +703,36 @@
                 document.getElementById('contador-diario').innerText = 'Acceso Ilimitado';
             }
 
+            if (preguntasIaBuffer.length > 0) {
+                preguntaActual = preguntasIaBuffer.shift();
+                mostrarPreguntaEnPantalla(preguntaActual, "Generada con IA (ENCAPS MINSA)");
+                return;
+            }
+
             let consulta = sb.from('preguntas').select('*');
             if (areaFiltroActual) consulta = consulta.eq('area_id', areaFiltroActual);
 
             const { data } = await consulta;
             if (!data || data.length === 0) {
-                document.getElementById('sim-enunciado').innerText = 'Aún no hay preguntas en este curso. Puedes agregar nuevas desde tu panel admin.html.';
+                document.getElementById('sim-enunciado').innerText = 'Aún no hay preguntas en este curso. ¡Genera 3 casos con el botón de IA superior!';
                 document.getElementById('sim-opciones').innerHTML = '';
                 return;
             }
 
             preguntaActual = data[Math.floor(Math.random() * data.length)];
-            document.getElementById('sim-info').innerText = `Dificultad: ${preguntaActual.dificultad} | Origen: ${preguntaActual.origen}`;
-            document.getElementById('sim-enunciado').innerText = preguntaActual.enunciado;
+            mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad} | Origen: ${preguntaActual.origen}`);
+        }
+
+        function mostrarPreguntaEnPantalla(p, subtitulo) {
+            document.getElementById('sim-info').innerText = subtitulo;
+            document.getElementById('sim-enunciado').innerText = p.enunciado;
 
             const contOp = document.getElementById('sim-opciones');
             contOp.innerHTML = `
-                <button class="btn-op" onclick="responder(this, 'A')">A) ${preguntaActual.opcion_a}</button>
-                <button class="btn-op" onclick="responder(this, 'B')">B) ${preguntaActual.opcion_b}</button>
-                <button class="btn-op" onclick="responder(this, 'C')">C) ${preguntaActual.opcion_c}</button>
-                <button class="btn-op" onclick="responder(this, 'D')">D) ${preguntaActual.opcion_d}</button>
+                <button class="btn-op" onclick="responder(this, 'A')">A) ${p.opcion_a}</button>
+                <button class="btn-op" onclick="responder(this, 'B')">B) ${p.opcion_b}</button>
+                <button class="btn-op" onclick="responder(this, 'C')">C) ${p.opcion_c}</button>
+                <button class="btn-op" onclick="responder(this, 'D')">D) ${p.opcion_d}</button>
             `;
         }
 
@@ -662,6 +775,141 @@
                     tema_id: preguntaActual.tema_id,
                     es_correcta: esOk
                 }]);
+            }
+        }
+
+        // GENERAR PREGUNTAS CON IA
+        async function generarPreguntasConIA() {
+            if (perfilUsuario && perfilUsuario.plan === 'gratuito' && perfilUsuario.preguntas_hoy >= 20) {
+                abrirModalPremium();
+                return;
+            }
+
+            const cursoSeleccionado = document.getElementById('sel-curso-banqueo-ia').value;
+            const btn = document.getElementById('btn-generar-preguntas-ia');
+            const txtOriginal = btn.innerHTML;
+            btn.innerHTML = '⏳ Diseñando con Gemini IA...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/generar-ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        curso: cursoSeleccionado,
+                        tema: "General",
+                        dificultad: "Intermedia",
+                        tipo: "preguntas"
+                    })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Fallo de IA');
+
+                if (data.resultado && data.resultado.length > 0) {
+                    preguntasIaBuffer = data.resultado;
+                    cargarSiguientePregunta();
+                } else {
+                    alert('No se generaron preguntas. Intenta de nuevo.');
+                }
+            } catch (err) {
+                alert('Aviso IA: ' + err.message);
+            } finally {
+                btn.innerHTML = txtOriginal;
+                btn.disabled = false;
+            }
+        }
+
+        // FLASHCARDS: CARGAR DESDE SUPABASE + FILTRAR POR CURSO
+        async function cargarFlashcardsDesdeBD() {
+            const sb = obtenerSupabase();
+            const cont = document.getElementById('contenedor-flashcards');
+            cont.innerHTML = '<p>Cargando flashcards clínicas...</p>';
+
+            if (!sb) return;
+            const { data } = await sb.from('flashcards').select('*');
+            todasLasFlashcards = data || [];
+
+            if (todasLasFlashcards.length === 0) {
+                todasLasFlashcards = [
+                    { area_id: 2, anverso: "¿Conducta inmediata ante Dengue con Signos de Alarma según NTS MINSA?", reverso: "Hospitalización inmediata + Hidratación endovenosa con Cristaloides a 10 ml/kg en la 1° hora." },
+                    { area_id: 1, anverso: "¿Definición de Caso Probable de Sarampión?", reverso: "Fiebre y erupción maculopapular acompañada de tos, coriza o conjuntivitis." },
+                    { area_id: 2, anverso: "¿Manejo inicial de Hemorragia Posparto por Atonía Uterina?", reverso: "Masaje uterino bimanual + Oxitocina 10-20 UI EV + Ácido Tranexámico 1g EV dentro de las 3 horas." }
+                ];
+            }
+            filtrarFlashcardsPorCurso();
+        }
+
+        function filtrarFlashcardsPorCurso() {
+            const filtro = document.getElementById('sel-filtro-flashcard-curso').value;
+            const cont = document.getElementById('contenedor-flashcards');
+            cont.innerHTML = '';
+
+            const filtradas = (filtro === 'todos') 
+                ? todasLasFlashcards 
+                : todasLasFlashcards.filter(f => f.area_id == filtro);
+
+            if (filtradas.length === 0) {
+                cont.innerHTML = '<p style="color: #666;">No hay flashcards para este curso aún. ¡Usa el botón para generarlas con IA!</p>';
+                return;
+            }
+
+            filtradas.forEach(f => {
+                cont.innerHTML += `
+                    <div class="card-flip" onclick="this.classList.toggle('volteada')">
+                        <div class="card-inner">
+                            <div class="card-front">${f.anverso}</div>
+                            <div class="card-back">${f.reverso}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // GENERAR FLASHCARDS CON IA
+        async function generarFlashcardsConIA() {
+            const cursoFiltro = document.getElementById('sel-filtro-flashcard-curso').value;
+            const selTxt = document.getElementById('sel-filtro-flashcard-curso').options[document.getElementById('sel-filtro-flashcard-curso').selectedIndex].text;
+            const cursoNombre = (cursoFiltro === 'todos') ? 'Salud Pública y Cuidado Integral' : selTxt;
+
+            const btn = document.getElementById('btn-generar-flashcards-ia');
+            const txtOriginal = btn.innerHTML;
+            btn.innerHTML = '⏳ Creando con IA...';
+            btn.disabled = true;
+
+            const cont = document.getElementById('contenedor-flashcards');
+            cont.innerHTML = '<p style="color: #0056b3; font-weight: bold;">⏳ Extrayendo criterios de alto rendimiento de normas MINSA...</p>';
+
+            try {
+                const res = await fetch('/api/generar-ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        curso: cursoNombre,
+                        tema: "Puntos Clave ENCAPS",
+                        tipo: "flashcards"
+                    })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Error IA');
+
+                cont.innerHTML = '';
+                data.resultado.forEach(f => {
+                    cont.innerHTML += `
+                        <div class="card-flip" onclick="this.classList.toggle('volteada')">
+                            <div class="card-inner">
+                                <div class="card-front">${f.anverso}</div>
+                                <div class="card-back">${f.reverso}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                cont.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+            } finally {
+                btn.innerHTML = txtOriginal;
+                btn.disabled = false;
             }
         }
 
@@ -713,7 +961,7 @@
         async function alimentarMascota() {
             const sb = obtenerSupabase();
             if (!perfilMascota || perfilMascota.monedas < 10 || !sb) {
-                abrirModalMascota("¡Monedas Insuficientes!", "Necesitas al menos 10 monedas. Resuelve preguntas clínicas para ganar más recompensas.", "🪙");
+                abrirModalMascota("¡Monedas Insuficientes!", "Necesitas al menos 10 monedas. Resuelve preguntas para ganar más recompensas.", "🪙");
                 return;
             }
 
