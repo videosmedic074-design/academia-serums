@@ -10,7 +10,6 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Falta configurar GEMINI_API_KEY en Vercel' });
     }
 
-    // Prompt invisible médico especializado en ENCAPS / MINSA Perú
     let promptSistema = "";
 
     if (tipo === 'flashcards') {
@@ -23,7 +22,7 @@ Devuelve EXCLUSIVAMENTE un arreglo JSON válido con este formato:
 [
   { "anverso": "Pregunta o Criterio Clínico clave", "reverso": "Respuesta médica precisa y conducta MINSA" }
 ]
-Sin rodeos, sin formato markdown adicional, solo el JSON.`;
+Sin texto introductorio, sin formato markdown adicional, únicamente el JSON.`;
     } else {
         promptSistema = `Eres el docente evaluador de Proserum's Academia para el examen ENCAPS / SERUMS del Perú.
 Genera exactamente 3 preguntas tipo caso clínico de opción múltiple.
@@ -49,11 +48,11 @@ Devuelve EXCLUSIVAMENTE un arreglo JSON válido con este formato:
     "justificacion": "Explicación médica según norma técnica..."
   }
 ]
-Sin rodeos, sin markdown adicional, solo el JSON.`;
+Sin texto introductorio, sin markdown adicional, únicamente el JSON.`;
     }
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${apiKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -68,7 +67,6 @@ Sin rodeos, sin markdown adicional, solo el JSON.`;
         }
 
         const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "[]";
-        // Limpiar posibles etiquetas ```json de la respuesta
         const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
         const parsed = JSON.parse(cleanJson);
 
