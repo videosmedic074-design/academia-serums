@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proserum's Academia - Preparación Oficial SERUMS</title>
+    <title>Proserum's Academia - Preparación ENARM / SERUMS</title>
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+    <!-- Favicon Académico Neutral Multidisciplinario -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
@@ -30,6 +31,7 @@
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
 
+        /* Emblema Académico Multidisciplinario */
         .emblema-serums-pro {
             display: inline-flex; align-items: center; justify-content: center;
             width: 65px; height: 65px; background: linear-gradient(135deg, #003366, #0056b3);
@@ -125,11 +127,6 @@
             0%, 94%, 98%, 100% { transform: scaleY(1); }
             96% { transform: scaleY(0.1); }
         }
-        .festejo-mascota { animation: saltarFestejo 0.6s ease; }
-        @keyframes saltarFestejo {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-16px) rotate(6deg) scale(1.1); }
-        }
 
         .mascota-info-pro h4 { font-size: 1.35em; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
         .barra-energia-caja { width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 10px; margin: 6px 0; overflow: hidden; }
@@ -151,6 +148,18 @@
         .card-modalidad:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
         .card-modalidad h3 { color: #2c3e50; font-size: 1.25em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .card-modalidad p { color: #6c757d; font-size: 0.9em; line-height: 1.5; margin-bottom: 15px; }
+
+        /* Navegación por Píldoras Centrales (Las Fijas) */
+        .nav-pildoras-fijas {
+            display: flex; justify-content: center; gap: 10px; margin: 15px 0 30px; flex-wrap: wrap;
+        }
+        .btn-pildora-fija {
+            background: white; border: 2px solid #ced4da; padding: 10px 18px; border-radius: 25px;
+            font-size: 0.92em; font-weight: 700; color: #495057; cursor: pointer; transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+        .btn-pildora-fija:hover { border-color: #0056b3; color: #0056b3; transform: translateY(-1px); }
+        .btn-pildora-fija.activa { background: #0056b3; color: white; border-color: #0056b3; }
 
         /* Simulador y Mascota Coach */
         .layout-simulador { display: flex; gap: 20px; align-items: flex-start; max-width: 950px; margin: auto; }
@@ -279,16 +288,15 @@
                     <div class="emblema-serums-pro">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50" cy="50" r="46" stroke="#ffd700" stroke-width="2.5" fill="none"/>
-                            <line x1="50" y1="18" x2="50" y2="82" stroke="#ffffff" stroke-width="4.5" stroke-linecap="round"/>
-                            <circle cx="50" cy="16" r="3.5" fill="#ffd700"/>
-                            <path d="M41 72 Q59 64 50 54 Q41 44 59 36 Q50 26 44 23" fill="none" stroke="#ffd700" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M30 46 H70 M50 26 V66" stroke="#28a745" stroke-width="3" stroke-linecap="round" stroke-opacity="0.5"/>
-                            <text x="50" y="92" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="900" letter-spacing="1">PROSERUM</text>
+                            <path d="M50 16 L50 84" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M30 46 C30 68 50 82 50 82 C50 82 70 68 70 46 C70 32 50 20 50 20 C50 20 30 32 30 46 Z" fill="#28a745" fill-opacity="0.3" stroke="#ffd700" stroke-width="2"/>
+                            <circle cx="50" cy="38" r="8" fill="#ffd700"/>
+                            <text x="50" y="93" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="900" letter-spacing="1">PROSERUM</text>
                         </svg>
                     </div>
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
                 </div>
-                <p class="sub">Plataforma Médica de Preparación Oficial ENCAPS</p>
+                <p class="sub">Plataforma de Preparación ENARM / SERUMS</p>
                 <div id="err-login" class="alerta alerta-err"></div>
                 
                 <button type="button" class="btn-google" onclick="iniciarConGoogle()">
@@ -306,7 +314,7 @@
                 </div>
 
                 <form id="f-login">
-                    <div class="campo"><label>Correo Electrónico</label><input type="email" id="l-email" required placeholder="dr.ejemplo@gmail.com"></div>
+                    <div class="campo"><label>Correo Electrónico</label><input type="email" id="l-email" required placeholder="correo@ejemplo.com"></div>
                     <div class="campo"><label>Contraseña</label><input type="password" id="l-pass" required placeholder="Ingresa tu contraseña"></div>
                     <button type="submit" id="btn-login" class="btn-p">Ingresar al Aula</button>
                 </form>
@@ -326,19 +334,20 @@
                     <div class="emblema-serums-pro">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50" cy="50" r="46" stroke="#ffd700" stroke-width="2.5" fill="none"/>
-                            <line x1="50" y1="18" x2="50" y2="82" stroke="#ffffff" stroke-width="4.5"/>
-                            <path d="M41 72 Q59 64 50 54 Q41 44 59 36" fill="none" stroke="#ffd700" stroke-width="3"/>
-                            <text x="50" y="92" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="900">PROSERUM</text>
+                            <path d="M50 16 L50 84" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M30 46 C30 68 50 82 50 82 C50 82 70 68 70 46 C70 32 50 20 50 20 C50 20 30 32 30 46 Z" fill="#28a745" fill-opacity="0.3" stroke="#ffd700" stroke-width="2"/>
+                            <circle cx="50" cy="38" r="8" fill="#ffd700"/>
+                            <text x="50" y="93" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="900">PROSERUM</text>
                         </svg>
                     </div>
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
                 </div>
-                <p class="sub">Registro de Médico Postulante</p>
+                <p class="sub">Registro de Postulante</p>
                 <div id="msg-reg" class="alerta"></div>
                 <form id="f-reg">
                     <div class="fila">
-                        <div class="campo"><label>Nombres</label><input type="text" id="r-nom" required placeholder="Ej: Daniel Alejandro"></div>
-                        <div class="campo"><label>Apellidos</label><input type="text" id="r-ape" required placeholder="Ej: Ñiquen Reque"></div>
+                        <div class="campo"><label>Nombres</label><input type="text" id="r-nom" required placeholder="Ej: Daniel"></div>
+                        <div class="campo"><label>Apellidos</label><input type="text" id="r-ape" required placeholder="Ej: Ñiquen"></div>
                     </div>
                     <div class="fila">
                         <div class="campo"><label>DNI (8 dígitos)</label><input type="text" id="r-dni" maxlength="8" pattern="[0-9]{8}" required placeholder="12345678"></div>
@@ -353,7 +362,7 @@
         </div>
     </section>
 
-    <!-- 3. PLATAFORMA PRINCIPAL CON MENÚ PEDAGÓGICO -->
+    <!-- 3. PLATAFORMA PRINCIPAL CON MENÚ REORDENADO -->
     <section id="vista-app" class="pantalla">
         <div class="layout">
             <aside class="sidebar">
@@ -361,8 +370,8 @@
                     <div class="emblema-serums-pro" style="width: 48px; height: 48px;">
                         <svg viewBox="0 0 100 100" fill="none" style="width: 32px; height: 32px;">
                             <circle cx="50" cy="50" r="46" stroke="#ffd700" stroke-width="2.5" fill="none"/>
-                            <line x1="50" y1="18" x2="50" y2="82" stroke="#ffffff" stroke-width="4.5"/>
-                            <path d="M41 72 Q59 64 50 54 Q41 44 59 36" fill="none" stroke="#ffd700" stroke-width="3"/>
+                            <path d="M50 16 L50 84" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
+                            <circle cx="50" cy="38" r="8" fill="#ffd700"/>
                         </svg>
                     </div>
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
@@ -384,7 +393,7 @@
                 <div class="contenido-cuerpo">
                     <div class="header-top">
                         <div>
-                            <h1 id="txt-saludo" style="color: #2c3e50;">Hola, Doctor</h1>
+                            <h1 id="txt-saludo" style="color: #2c3e50;">Hola, Postulante</h1>
                             <p style="color: #6c757d; margin-top: 4px;">Plataforma de alta exigencia para asegurar tu plaza SERUMS.</p>
                         </div>
                     </div>
@@ -400,9 +409,9 @@
                         <div class="stage-mascota">
                             <div class="avatar-canvas-box" id="avatar-canvas"></div>
                             <div class="mascota-info-pro">
-                                <h4 id="m-nombre">Compañero SERUMS <span style="font-size: 0.7em; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;" id="m-nivel-tag">Nv. 1 (Bebé)</span></h4>
+                                <h4 id="m-nombre">Compañero de Estudio <span style="font-size: 0.7em; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;" id="m-nivel-tag">Nv. 1 (Bebé)</span></h4>
                                 <div class="barra-energia-caja"><div class="barra-energia-fill" id="m-energia-bar"></div></div>
-                                <p style="font-size: 0.9em;">🪙 <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz 🩺</span></p>
+                                <p style="font-size: 0.9em;">🪙 <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz ✨</span></p>
                             </div>
                         </div>
                         <div class="botones-mascota-acciones">
@@ -411,7 +420,7 @@
                         </div>
                     </div>
 
-                    <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Ejes Oficiales del Temario MINSA</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Ejes Oficiales del Temario Transversal</h2>
                     <div class="grid-5" id="grid-cursos-dashboard"></div>
                 </div>
 
@@ -425,7 +434,7 @@
             <main id="sec-temas" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
                     <h1 style="margin-bottom: 10px; color: #2c3e50;">Teoría y Resúmenes Clínicos</h1>
-                    <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes estructurados según guías de práctica clínica y normas del MINSA.</p>
+                    <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes estructurados según guías de práctica clínica y normas técnicas.</p>
                     <div id="lista-temas-contenedor">Cargando temas...</div>
                 </div>
 
@@ -439,7 +448,7 @@
                 <div class="contenido-cuerpo">
                     <div id="vista-selector-modalidad">
                         <h1 style="color: #2c3e50; font-size: 1.5em; margin-bottom: 8px;">Centro de Entrenamiento y Banqueo</h1>
-                        <p style="color: #6c757d; margin-bottom: 25px;">Selecciona cómo deseas practicar para el examen ENCAPS / SERUMS:</p>
+                        <p style="color: #6c757d; margin-bottom: 25px;">Selecciona cómo deseas practicar para el examen ENARM / SERUMS:</p>
 
                         <div class="grid-modalidades-banqueo">
                             <div class="card-modalidad" onclick="activarModalidadBanqueo('curso')">
@@ -450,7 +459,7 @@
 
                             <div class="card-modalidad" style="border-top-color: #28a745;" onclick="activarModalidadBanqueo('simulacros_oficiales')">
                                 <h3>📋 Simulacros Oficiales Programados</h3>
-                                <p>Exámenes completos tipo ENCAPS/SERUMS habilitados semana a semana por la academia con temporizador.</p>
+                                <p>Exámenes completos tipo simulacro habilitados semana a semana por la academia con temporizador.</p>
                                 <span style="color: #28a745; font-weight: bold; font-size: 0.9em;">Ver Simulacros Disponibles ➔</span>
                             </div>
 
@@ -479,7 +488,7 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Oficial MINSA:</label>
+                                    <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Oficial:</label>
                                     <select id="sel-tema-banqueo" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
                                         <option value="General">Todo el curso (General)</option>
                                     </select>
@@ -525,9 +534,9 @@
                             </div>
 
                             <div class="mascota-coach-lateral">
-                                <div class="globo-dialogo" id="coach-mensaje">¡Vamos, Doctor! Confía en tu juicio clínico. 🩺</div>
+                                <div class="globo-dialogo" id="coach-mensaje">¡Vamos adelante! Analiza las alternativas con calma. ✨</div>
                                 <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 85px; height: 85px; margin: auto;"></div>
-                                <strong style="display: block; font-size: 0.85em; color: #0056b3; margin-top: 6px;">Tu Compañero SERUMS</strong>
+                                <strong style="display: block; font-size: 0.85em; color: #0056b3; margin-top: 6px;">Tu Compañero de Estudio</strong>
                             </div>
                         </div>
                     </div>
@@ -551,7 +560,7 @@
                                 <select id="cfg-sim-cantidad">
                                     <option value="20">20 Preguntas (Rápido)</option>
                                     <option value="50">50 Preguntas (Medio Simulacro)</option>
-                                    <option value="100" selected>100 Preguntas (Examen Completo ENCAPS)</option>
+                                    <option value="100" selected>100 Preguntas (Examen Completo)</option>
                                 </select>
                             </div>
 
@@ -619,24 +628,22 @@
                 </footer>
             </main>
 
-            <!-- SUB 5: LAS FIJAS SERUMS ORGANIZADAS POR CURSO -->
+            <!-- SUB 5: LAS FIJAS SERUMS (CON PÍLDORAS CENTRALES NAVEGABLES) -->
             <main id="sec-fijas" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
-                        <div>
-                            <h1 style="color: #2c3e50; font-size: 1.6em;">🔥 Las Fijas Oficiales del SERUMS</h1>
-                            <p style="color: #6c757d; font-size: 0.9em; margin-top: 4px;">Puntos clave, normas técnicas y criterios de máxima rentabilidad para el examen.</p>
-                        </div>
-                        <div>
-                            <select id="sel-filtro-fijas-curso" style="padding: 10px 14px; border-radius: 8px; border: 1px solid #ced4da; font-weight: 600;" onchange="filtrarFijasPorCursoVista()">
-                                <option value="todos">Todos los Cursos</option>
-                                <option value="1">Salud Pública</option>
-                                <option value="2">Cuidado Integral de Salud</option>
-                                <option value="3">Ética e Interculturalidad</option>
-                                <option value="4">Investigación</option>
-                                <option value="5">Gestión de Servicios de Salud</option>
-                            </select>
-                        </div>
+                    <div style="text-align: center; margin-bottom: 10px;">
+                        <h1 style="color: #2c3e50; font-size: 1.8em;">🔥 Las Fijas SERUMS</h1>
+                        <p style="color: #6c757d; font-size: 0.95em; margin-top: 4px;">Selecciona el curso para revisar sus perlas y criterios de máxima rentabilidad:</p>
+                    </div>
+
+                    <!-- Botones de Píldora Centrales -->
+                    <div class="nav-pildoras-fijas">
+                        <button class="btn-pildora-fija activa" onclick="cambiarPildoraFija(this, 'todos')">🌟 Todas las Fijas</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '1')">Salud Pública</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '2')">Cuidado Integral</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '3')">Ética e Interculturalidad</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '4')">Investigación</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '5')">Gestión de Servicios</button>
                     </div>
 
                     <div id="contenedor-fijas-cards" class="grid-modalidades-banqueo"></div>
@@ -672,7 +679,7 @@
                 </footer>
             </main>
 
-            <!-- SUB 7: PANEL DOCENTE (CON PUBLICADOR DE FIJAS) -->
+            <!-- SUB 7: PANEL DOCENTE -->
             <main id="sec-admin" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
                     <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 6px solid #6f42c1;">
@@ -749,10 +756,10 @@
                             </form>
                         </div>
 
-                        <!-- 2. PUBLICADOR EXCLUSIVO DE "LA FIJA" -->
+                        <!-- 2. PUBLICADOR DE FIJAS -->
                         <div id="subtab-adm-fijas_adm" class="subtab-adm">
                             <h3 style="color: #2c3e50; margin-bottom: 8px;">Publicar Nueva Fija Oficial SERUMS</h3>
-                            <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Añade perlas clínicas de examen directo que aparecerán organizadas por curso para tus alumnos.</p>
+                            <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Añade perlas de examen directo clasificadas por su curso y tema oficial.</p>
                             <form id="form-adm-fija">
                                 <div class="fila">
                                     <div class="campo">
@@ -774,11 +781,11 @@
                                 </div>
                                 <div class="campo">
                                     <label>Título de la Fija</label>
-                                    <input type="text" id="adm-fija-titulo" placeholder="Ej: Esquema TB Sensible NTS MINSA" required>
+                                    <input type="text" id="adm-fija-titulo" placeholder="Ej: Criterio de Hospitalización en Dengue" required>
                                 </div>
                                 <div class="campo">
                                     <label>Contenido / Pepita Clínica del Examen (El dato exacto):</label>
-                                    <textarea id="adm-fija-contenido" rows="4" placeholder="Ej: Fase 1: 2 meses con HRZE diario (50 dosis). Fase 2: 4 meses con H3R3 tres veces por semana (54 dosis). Duración total: 6 meses." required></textarea>
+                                    <textarea id="adm-fija-contenido" rows="4" placeholder="Ej: Dolor abdominal intenso y continuo, vómitos persistentes o sangrado de mucosas." required></textarea>
                                 </div>
                                 <button type="submit" class="btn-p" style="background: #ffc107; color: #856404; font-weight: bold;">🔥 Publicar La Fija en el Aula</button>
                             </form>
@@ -812,7 +819,7 @@
 
                             <div class="campo">
                                 <label>Pega aquí las preguntas copiadas de tu Word:</label>
-                                <textarea id="vaciador-texto-bruto" rows="8" placeholder="1. Paciente de 32 años gestante que acude a puesto de salud...
+                                <textarea id="vaciador-texto-bruto" rows="8" placeholder="1. Paciente gestante que acude a puesto de salud...
 A) Oxitocina
 B) Sulfato de Magnesio
 C) Nifedipino
@@ -960,7 +967,7 @@ Justificación: Según la norma técnica..."></textarea>
                                 </div>
 
                                 <div class="campo" style="background: #fff8e1; border: 1px solid #ffe082; padding: 15px; border-radius: 10px;">
-                                    <label style="color: #b78103;">💡 Puntos Clave / Alertas Médicas (Las Fijas de este tema):</label>
+                                    <label style="color: #b78103;">💡 Puntos Clave / Alertas (Las Fijas de este tema):</label>
                                     <textarea id="adm-t-alerta" rows="3" placeholder="Ej: ⚠️ Sensibilidad y Especificidad son intrínsecas a la prueba; los VPP y VPN dependen de la prevalencia."></textarea>
                                 </div>
 
@@ -974,7 +981,7 @@ Justificación: Según la norma técnica..."></textarea>
                             <table>
                                 <thead>
                                 <tr>
-                                    <th>Médico</th>
+                                    <th>Postulante</th>
                                     <th>DNI</th>
                                     <th>Correo</th>
                                     <th>Plan</th>
@@ -997,12 +1004,12 @@ Justificación: Según la norma técnica..."></textarea>
         </div>
     </section>
 
-    <!-- MODAL ARMARIO COMPLETO CON NUEVOS ACCESORIOS Y ESPECIES -->
+    <!-- MODAL ARMARIO -->
     <div id="modal-armario" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icono">🦊</div>
             <h3>Centro de Mascotas y Especies</h3>
-            <p>Elige tu compañero de estudio y personaliza su vestimenta médica.</p>
+            <p>Elige tu compañero de estudio y personaliza su vestimenta.</p>
             
             <h4 style="text-align: left; font-size: 0.95em; color: #0056b3; margin-top: 15px;">1. Escoge tu Mascota Compañera:</h4>
             <div class="grid-tienda">
@@ -1045,7 +1052,7 @@ Justificación: Según la norma técnica..."></textarea>
             <h3>Restablecer Contraseña</h3>
             <p>Ingresa tu correo electrónico registrado y te enviaremos el enlace para crear una nueva contraseña.</p>
             <div class="campo" style="margin-bottom: 15px;">
-                <input type="email" id="recuperar-email" placeholder="dr.ejemplo@gmail.com" required>
+                <input type="email" id="recuperar-email" placeholder="correo@ejemplo.com" required>
             </div>
             <button class="btn-p" style="margin-top: 0;" onclick="enviarRestablecimientoPassword()">Enviar Enlace</button>
             <button class="btn-cerrar-modal" onclick="cerrarModales()">Cancelar</button>
@@ -1054,7 +1061,7 @@ Justificación: Según la norma técnica..."></textarea>
 
     <!-- BOTÓN WHATSAPP -->
     <a id="btn-flotante-soporte" 
-       href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%20Doctor%2C%20me%20comunico%20desde%20Proserum%27s%20Academia%20para%20consultas%20o%20soporte%20t%C3%A9cnico." 
+       href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%2C%20me%20comunico%20desde%20Proserum%27s%20Academia%20para%20consultas%20o%20soporte%20t%C3%A9cnico." 
        target="_blank" 
        rel="noopener noreferrer"
        class="btn-flotante-ws" 
@@ -1072,7 +1079,7 @@ Justificación: Según la norma técnica..."></textarea>
             <h3>Acceso Ciclo Completo</h3>
             <p>Obtén banqueo ilimitado a las <strong>10,000 preguntas</strong>, todos los simulacros oficiales e IA.</p>
             <p style="font-size: 0.88em; color: #888; margin-top: -10px;">Contacta directamente para activar tu membresía:</p>
-            <a id="btn-enlace-whatsapp" href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%20Doctor%2C%20deseo%20activar%20mi%20acceso%20al%20Ciclo%20Completo." target="_blank" rel="noopener noreferrer" class="btn-ws">
+            <a id="btn-enlace-whatsapp" href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%2C%20deseo%20activar%20mi%20acceso%20al%20Ciclo%20Completo." target="_blank" rel="noopener noreferrer" class="btn-ws">
                 <span>💬 Contactar por WhatsApp</span>
             </a>
             <button class="btn-cerrar-modal" onclick="cerrarModales()">Volver al Tablero</button>
@@ -1140,7 +1147,7 @@ Justificación: Según la norma técnica..."></textarea>
             ],
             "Ética e Interculturalidad": [
                 "1.1 Ética en la función pública y humanización de la salud",
-                "1.2 Código de ética y deontología médica",
+                "1.2 Código de ética y deontología",
                 "1.3 Derechos y deberes de los usuarios (Ley General de Salud)",
                 "2.1 Comunicación y diálogo intercultural en salud",
                 "2.3 Atención en salud con pertinencia cultural",
@@ -1304,7 +1311,7 @@ Justificación: Según la norma técnica..."></textarea>
         }
 
         function abrirModalPremium() {
-            const enlace = `https://api.whatsapp.com/send?phone=${TU_NUMERO_WHATSAPP}&text=${encodeURIComponent(`Hola Doctor, deseo activar mi acceso al Ciclo Completo en ${NOMBRE_ACADEMIA} para mi cuenta: ${user?.email || ''}`)}`;
+            const enlace = `https://api.whatsapp.com/send?phone=${TU_NUMERO_WHATSAPP}&text=${encodeURIComponent(`Hola, deseo activar mi acceso al Ciclo Completo en ${NOMBRE_ACADEMIA} para mi cuenta: ${user?.email || ''}`)}`;
             document.getElementById('btn-enlace-whatsapp').href = enlace;
             document.getElementById('modal-premium').style.display = 'flex';
         }
@@ -1369,6 +1376,7 @@ Justificación: Según la norma técnica..."></textarea>
                 user = session.user;
                 await cargarPerfil();
                 ver('vista-app');
+                subSec('dash');
                 cargarCursosDashboard();
             } else {
                 ver('vista-login');
@@ -1403,6 +1411,7 @@ Justificación: Según la norma técnica..."></textarea>
                     user = data.user;
                     await cargarPerfil();
                     ver('vista-app');
+                    subSec('dash');
                     cargarCursosDashboard();
                 }
             } catch (err) {
@@ -1495,9 +1504,7 @@ Justificación: Según la norma técnica..."></textarea>
             }
         });
 
-        // ========================================================
-        //  RENDERIZADOR DE ESPECIES REALES Y ACCESORIOS CLÍNICOS
-        // ========================================================
+        // RENDERIZADOR DE MASCOTA CON ADAPTACIÓN PERFECTA PARA EL FÉNIX
         function generarSVGMarkup(ancho = 90, animar = true) {
             const animal = perfilMascota.animal || 'perrito';
             const cabeza = perfilMascota.cabeza || 'ninguno';
@@ -1511,43 +1518,6 @@ Justificación: Según la norma técnica..."></textarea>
             if (nivel < 4) { escalaEvolucion = 0.88; esBebe = true; }
             else if (nivel >= 8) { escalaEvolucion = 1.08; esAdultoFuerte = true; }
 
-            // RENDERIZADO EXCLUSIVO PARA FÉNIX GUARDIA (AVE DE FUEGO)
-            if (animal === 'fenix') {
-                return `
-                    <svg viewBox="0 0 100 100" class="svg-mascota-render" style="width: ${ancho}px; height: ${ancho}px; transform: scale(${escalaEvolucion});">
-                        <!-- Alas de Fuego en abanico -->
-                        <path d="M10 55 Q-5 25 22 28 Q12 40 32 46 Z" fill="#ff4500"/>
-                        <path d="M15 52 Q5 32 25 35 Q18 43 30 48 Z" fill="#ffd700"/>
-                        <path d="M90 55 Q105 25 78 28 Q88 40 68 46 Z" fill="#ff4500"/>
-                        <path d="M85 52 Q95 32 75 35 Q82 43 70 48 Z" fill="#ffd700"/>
-                        <!-- Cola de Fuego -->
-                        <path d="M42 78 Q50 98 58 78 Q55 92 48 94 Z" fill="#ff8c00"/>
-                        <!-- Cuerpo y Pecho llameante -->
-                        <ellipse cx="50" cy="65" rx="22" ry="20" fill="#e63900"/>
-                        <ellipse cx="50" cy="66" rx="13" ry="14" fill="#ffd700"/>
-                        <!-- Cabeza Ave -->
-                        <circle cx="50" cy="38" r="18" fill="#ff4500"/>
-                        <!-- Cresta de Llamas -->
-                        <polygon points="50,10 44,24 56,24" fill="#ffd700"/>
-                        <polygon points="42,16 38,28 48,26" fill="#ff8c00"/>
-                        <polygon points="58,16 52,26 62,28" fill="#ff8c00"/>
-                        <!-- Ojos rapaces brillantes -->
-                        <g class="${animar ? 'anim-ojo-parpadeo' : ''}">
-                            <circle cx="43" cy="36" r="3.5" fill="#1a252f"/>
-                            <circle cx="42" cy="34.5" r="1.2" fill="#ffffff"/>
-                            <circle cx="57" cy="36" r="3.5" fill="#1a252f"/>
-                            <circle cx="56" cy="34.5" r="1.2" fill="#ffffff"/>
-                        </g>
-                        <!-- Pico de Ave Rapaz -->
-                        <polygon points="46,40 54,40 50,50" fill="#ffd700"/>
-                        <!-- Patitas doradas -->
-                        <ellipse cx="42" cy="85" rx="5" ry="3" fill="#ffd700"/>
-                        <ellipse cx="58" cy="85" rx="5" ry="3" fill="#ffd700"/>
-                    </svg>
-                `;
-            }
-
-            // RENDERIZADO MAMÍFEROS (PERRO, GATO, PANDA, ZORRO, POLAR, GRIZZLY)
             let colorBase = "#f2a65a";
             let colorOrejas = "#c87834";
             let colorHocico = "#fbe6cf";
@@ -1555,6 +1525,7 @@ Justificación: Según la norma técnica..."></textarea>
             if (animal === 'gatito') { colorBase = "#a0a8b4"; colorOrejas = "#ffb6c1"; colorHocico = "#ffffff"; }
             else if (animal === 'panda') { colorBase = "#ffffff"; colorOrejas = "#2c3e50"; colorHocico = "#ffffff"; }
             else if (animal === 'zorrito') { colorBase = "#e65c00"; colorOrejas = "#3d1e03"; colorHocico = "#ffffff"; }
+            else if (animal === 'fenix') { colorBase = "#ff4500"; colorOrejas = "#ffd700"; colorHocico = "#ffa500"; }
             else if (animal === 'polar') { colorBase = "#f8f9fa"; colorOrejas = "#dee2e6"; colorHocico = "#ffffff"; }
             else if (animal === 'grizzly') { colorBase = "#6f4e37"; colorOrejas = "#4b3524"; colorHocico = "#a07855"; }
 
@@ -1597,6 +1568,12 @@ Justificación: Según la norma técnica..."></textarea>
                 svgOrejas = `<polygon points="22,32 30,6 44,24" fill="${colorOrejas}"/><polygon points="78,32 70,6 56,24" fill="${colorOrejas}"/>`;
             } else if (animal === 'panda' || animal === 'polar' || animal === 'grizzly') {
                 svgOrejas = `<circle cx="28" cy="18" r="${esBebe ? '13' : '11'}" fill="${colorOrejas}"/><circle cx="72" cy="18" r="${esBebe ? '13' : '11'}" fill="${colorOrejas}"/>`;
+            } else if (animal === 'fenix') {
+                svgOrejas = `
+                    <path d="M12 55 Q-4 28 22 30 Q12 42 30 48 Z" fill="#ff4500"/>
+                    <path d="M88 55 Q104 28 78 30 Q88 42 70 48 Z" fill="#ff4500"/>
+                    <polygon points="50,8 45,22 55,22" fill="#ffd700"/>
+                `;
             } else {
                 svgOrejas = `<ellipse cx="23" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(22 23 38)"/><ellipse cx="77" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(-22 77 38)"/>`;
             }
@@ -1628,9 +1605,13 @@ Justificación: Según la norma técnica..."></textarea>
                     </g>
                     <ellipse cx="32" cy="45" rx="4" ry="2" fill="#ff7675" fill-opacity="0.6"/>
                     <ellipse cx="68" cy="45" rx="4" ry="2" fill="#ff7675" fill-opacity="0.6"/>
-                    <ellipse cx="50" cy="47" rx="${animal === 'zorrito' ? '7' : '10'}" ry="${animal === 'zorrito' ? '9' : '7'}" fill="${colorHocico}"/>
-                    <polygon points="47,44 53,44 50,47" fill="#2c3e50"/>
-                    <path d="M47 48 Q50 51 53 48" fill="none" stroke="#2c3e50" stroke-width="1.5" stroke-linecap="round"/>
+                    
+                    ${animal === 'fenix' 
+                        ? '<polygon points="46,42 54,42 50,51" fill="#ffd700"/>' 
+                        : `<ellipse cx="50" cy="47" rx="${animal === 'zorrito' ? '7' : '10'}" ry="${animal === 'zorrito' ? '9' : '7'}" fill="${colorHocico}"/>
+                           <polygon points="47,44 53,44 50,47" fill="#2c3e50"/>
+                           <path d="M47 48 Q50 51 53 48" fill="none" stroke="#2c3e50" stroke-width="1.5" stroke-linecap="round"/>`
+                    }
                     ${svgAccesoriosCabeza}
                 </svg>
             `;
@@ -1677,7 +1658,7 @@ Justificación: Según la norma técnica..."></textarea>
             let { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
             
             if (!p) {
-                const nombreGoogle = user.user_metadata?.full_name || 'Médico Postulante';
+                const nombreGoogle = user.user_metadata?.full_name || 'Postulante';
                 await sb.from('perfiles').insert([{
                     id: user.id,
                     nombres: nombreGoogle,
@@ -1700,7 +1681,7 @@ Justificación: Según la norma técnica..."></textarea>
 
             perfilUsuario = p;
             const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
-            document.getElementById('txt-saludo').innerText = `Hola, Dr. ${nombreCompleto}`;
+            document.getElementById('txt-saludo').innerText = `Hola, Dr./Lic. ${nombreCompleto}`;
             
             if (p.rol === 'admin') {
                 document.getElementById('m-admin').style.display = 'flex';
@@ -1744,7 +1725,7 @@ Justificación: Según la norma técnica..."></textarea>
         async function alimentarMascota() {
             const sb = obtenerSupabase();
             if (!perfilMascota || perfilMascota.monedas < 10 || !sb) {
-                mostrarAvisoModal("Monedas Insuficientes", "Necesitas al menos 10 monedas. Resuelve preguntas clínicas para ganar recompensas.", "🪙");
+                mostrarAvisoModal("Monedas Insuficientes", "Necesitas al menos 10 monedas. Resuelve preguntas para ganar recompensas.", "🪙");
                 return;
             }
 
@@ -1755,7 +1736,7 @@ Justificación: Según la norma técnica..."></textarea>
             document.getElementById('m-energia-bar').style.width = '100%';
 
             await sb.from('perfil_mascota').update({ monedas: nuevasMonedas, energia: 100 }).eq('user_id', user.id);
-            mostrarAvisoModal("¡Buen Provecho!", "Tu compañero médico comió delicioso, recuperó toda su energía y sonríe feliz.", "🍖");
+            mostrarAvisoModal("¡Buen Provecho!", "Tu compañero de estudio recuperó toda su energía y sonríe feliz.", "🍖");
         }
 
         async function cargarCursosDashboard() {
@@ -1815,7 +1796,7 @@ Justificación: Según la norma técnica..."></textarea>
             document.getElementById('sim-fb').style.display = 'none';
             document.getElementById('btn-sig').style.display = 'none';
 
-            document.getElementById('coach-mensaje').innerText = "¡Vamos, Colega! Lee bien los signos clínicos clave. 🩺";
+            document.getElementById('coach-mensaje').innerText = "¡Vamos adelante! Lee bien los datos del caso. ✨";
 
             const esIlimitado = (perfilUsuario && (perfilUsuario.plan === 'premium' || perfilUsuario.rol === 'admin'));
             if (!esIlimitado && perfilUsuario.preguntas_hoy >= 20) {
@@ -1831,7 +1812,7 @@ Justificación: Según la norma técnica..."></textarea>
 
             if (preguntasIaBuffer.length > 0) {
                 preguntaActual = preguntasIaBuffer.shift();
-                mostrarPreguntaEnPantalla(preguntaActual, "Generada con IA (ENCAPS MINSA)");
+                mostrarPreguntaEnPantalla(preguntaActual, "Generada con IA");
                 return;
             }
 
@@ -1875,10 +1856,10 @@ Justificación: Según la norma técnica..."></textarea>
                 document.getElementById('fb-tit').innerText = '✔ ¡Respuesta Correcta!';
 
                 const frasesOk = [
-                    "¡Excelente diagnóstico, Colega! 🩺",
+                    "¡Excelente razonamiento! 🩺",
                     "¡Esa plaza SERUMS ya tiene tu nombre! ✨",
-                    "¡Perfecto! Dominas muy bien esta norma técnica. 👏",
-                    "¡Sumando puntos valiosos para el ranking! 🚀"
+                    "¡Perfecto! Dominas muy bien este criterio. 👏",
+                    "¡Sumando puntos valiosos para el examen! 🚀"
                 ];
                 msgCoach.innerText = frasesOk[Math.floor(Math.random() * frasesOk.length)];
 
@@ -1889,7 +1870,7 @@ Justificación: Según la norma técnica..."></textarea>
                     if (m % 30 === 0) {
                         perfilMascota.nivel += 1;
                         await sb.from('perfil_mascota').update({ nivel: perfilMascota.nivel }).eq('user_id', user.id);
-                        mostrarAvisoModal("¡Tu Mascota Evolucionó!", `¡Felicidades! Tu compañero alcanzó el Nivel ${perfilMascota.nivel} y se hace más fuerte.`, "🌟");
+                        mostrarAvisoModal("¡Tu Mascota Evolucionó!", `¡Felicidades! Tu compañero alcanzó el Nivel ${perfilMascota.nivel}.`, "🌟");
                     }
 
                     document.getElementById('m-monedas').innerText = m;
@@ -1902,9 +1883,9 @@ Justificación: Según la norma técnica..."></textarea>
 
                 const frasesErr = [
                     "¡No te preocupes! De los errores se aprende para el examen real. 💪",
-                    "Tranquilo, revisa la justificación médica y sigamos adelante. 📖",
+                    "Tranquilo, revisa la justificación y sigamos adelante. 📖",
                     "¡La próxima la clavas! Todo suma en el entrenamiento. 🩺",
-                    "Respira hondo y vamos por la revancha en la siguiente pregunta. 🌟"
+                    "Respira hondo y vamos por la siguiente pregunta. 🌟"
                 ];
                 msgCoach.innerText = frasesErr[Math.floor(Math.random() * frasesErr.length)];
             }
@@ -1975,7 +1956,7 @@ Justificación: Según la norma técnica..."></textarea>
                 if (data.resultado && data.resultado.length > 0) {
                     preguntasIaBuffer = data.resultado;
                     cargarSiguientePregunta();
-                    mostrarAvisoModal("¡Casos Clínicos Listos!", `Se generaron ${data.resultado.length} preguntas de ${temaSeleccionado} según normas técnicas del MINSA.`, "🤖");
+                    mostrarAvisoModal("¡Casos Listos!", `Se generaron ${data.resultado.length} preguntas de ${temaSeleccionado}.`, "🤖");
                 } else {
                     mostrarAvisoModal("Sin resultados", "No se pudieron formular preguntas en este intento.", "⚠️");
                 }
@@ -2005,7 +1986,7 @@ Justificación: Según la norma técnica..."></textarea>
                 cont.innerHTML += `
                     <div class="card-modalidad" style="border-top-color: #28a745;">
                         <h3>📋 ${s.titulo}</h3>
-                        <p>${s.descripcion || 'Simulacro oficial tipo examen ENCAPS / SERUMS.'}</p>
+                        <p>${s.descripcion || 'Simulacro oficial tipo examen.'}</p>
                         <p style="font-size: 0.85em; color: #555; margin-bottom: 12px;">⏳ Tiempo límite: ${s.duracion_minutos} minutos</p>
                         <button class="btn-p" style="background: #28a745; margin: 0; padding: 10px;" onclick="iniciarExamenOficial(${s.id})">Rendir Simulacro Ahora ➔</button>
                     </div>
@@ -2020,7 +2001,7 @@ Justificación: Según la norma técnica..."></textarea>
         }
 
         function iniciarExamenOficial(simId) {
-            mostrarAvisoModal("Simulacro Oficial", "Iniciando examen oficial con temporizador activo. ¡Muchos éxitos, Colega!", "⏱️");
+            mostrarAvisoModal("Simulacro Oficial", "Iniciando examen con temporizador activo. ¡Muchos éxitos!", "⏱️");
             activarModalidadBanqueo('curso');
         }
 
@@ -2080,7 +2061,7 @@ Justificación: Según la norma técnica..."></textarea>
             btn.disabled = true;
 
             const cont = document.getElementById('contenedor-flashcards');
-            cont.innerHTML = '<p style="color: #0056b3; font-weight: bold;">⏳ Extrayendo criterios de alto rendimiento de normas MINSA...</p>';
+            cont.innerHTML = '<p style="color: #0056b3; font-weight: bold;">⏳ Extrayendo criterios de alto rendimiento...</p>';
 
             try {
                 const res = await fetch('/api/generar-ia', {
@@ -2118,11 +2099,11 @@ Justificación: Según la norma técnica..."></textarea>
             }
         }
 
-        // CARGA DE "LAS FIJAS SERUMS" ORGANIZADAS POR CURSO DESDE BASE DE DATOS
+        // CARGA DE "LAS FIJAS SERUMS" CON PÍLDORAS NAVEGABLES
         async function cargarLasFijasSERUMS() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('contenedor-fijas-cards');
-            cont.innerHTML = '<p>Cargando perlas clínicas de alta rentabilidad...</p>';
+            cont.innerHTML = '<p style="text-align: center;">Cargando perlas de alta rentabilidad...</p>';
 
             if (!sb) return;
             const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
@@ -2134,23 +2115,28 @@ Justificación: Según la norma técnica..."></textarea>
                     { area_id: 2, tema: "2.22 Enfermedades Metaxénicas", titulo: "Dengue con Signos de Alarma", contenido: "Conducta inmediata: Hospitalización obligatoria + Hidratación endovenosa con Solución Salina o Lactato Ringer a 10 ml/kg en la 1° hora." },
                     { area_id: 2, tema: "2.10 Tuberculosis", titulo: "Esquema TB Sensible (NTS MINSA)", contenido: "Fase 1: 2 meses diario con HRZE (50 dosis). Fase 2: 4 meses tres veces por semana con H3R3 (54 dosis). Total: 6 meses." },
                     { area_id: 5, tema: "2.2 Categorización", titulo: "Categorización I-3 vs I-4", contenido: "El I-3 cuenta con laboratorio y médico cirujano (atención 12h). El I-4 añade camas de internamiento y atención 24h con partos no complicados." },
-                    { area_id: 3, tema: "2.4 Parto Vertical", titulo: "Parto Vertical y Pertinencia Cultural", contenido: "Promoción obligatoria según NTS MINSA para garantizar el parto humanizado, respeto a la cosmovisión y libre elección de la gestante." }
+                    { area_id: 3, tema: "2.4 Parto Vertical", titulo: "Parto Vertical y Pertinencia Cultural", contenido: "Promoción obligatoria según norma técnica para garantizar el parto humanizado y el respeto a la cosmovisión." }
                 ];
             }
-            filtrarFijasPorCursoVista();
+            renderizarFijasFiltradas('todos');
         }
 
-        function filtrarFijasPorCursoVista() {
-            const filtro = document.getElementById('sel-filtro-fijas-curso').value;
+        function cambiarPildoraFija(btn, filtroId) {
+            document.querySelectorAll('.btn-pildora-fija').forEach(b => b.classList.remove('activa'));
+            btn.classList.add('activa');
+            renderizarFijasFiltradas(filtroId);
+        }
+
+        function renderizarFijasFiltradas(filtroId) {
             const cont = document.getElementById('contenedor-fijas-cards');
             cont.innerHTML = '';
 
-            const filtradas = (filtro === 'todos')
+            const filtradas = (filtroId === 'todos')
                 ? todasLasFijas
-                : todasLasFijas.filter(f => f.area_id == filtro);
+                : todasLasFijas.filter(f => f.area_id == filtroId);
 
             if (filtradas.length === 0) {
-                cont.innerHTML = '<div style="background: white; padding: 25px; border-radius: 12px; grid-column: 1/-1;"><p style="color: #6c757d;">No hay fijas publicadas en este curso aún. ¡El docente agregará nuevas en breve!</p></div>';
+                cont.innerHTML = '<div style="background: white; padding: 25px; border-radius: 12px; grid-column: 1/-1; text-align: center;"><p style="color: #6c757d;">No hay fijas publicadas en este curso aún. ¡El docente agregará nuevas en breve!</p></div>';
                 return;
             }
 
@@ -2167,7 +2153,7 @@ Justificación: Según la norma técnica..."></textarea>
             });
         }
 
-        // Carga de Temas con Tablas, Imágenes y Alertas
+        // Carga de Temas con Tablas e Imágenes
         async function cargarTemasTeoricos() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('lista-temas-contenedor');
@@ -2270,7 +2256,7 @@ Justificación: Según la norma técnica..."></textarea>
         }
 
         // ==========================================
-        //  PANEL DOCENTE CON PUBLICADOR DE FIJAS
+        //  PANEL DOCENTE
         // ==========================================
         function verSubTabAdmin(tipo) {
             document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
@@ -2287,7 +2273,6 @@ Justificación: Según la norma técnica..."></textarea>
             if (tipo === 'a') cargarAlumnosAdmin();
         }
 
-        // Publicar La Fija
         document.getElementById('form-adm-fija').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -2309,7 +2294,6 @@ Justificación: Según la norma técnica..."></textarea>
             }
         });
 
-        // Vaciador Inteligente con IA
         async function procesarTextoVaciadorConIA() {
             const texto = document.getElementById('vaciador-texto-bruto').value.trim();
             if (!texto) {
@@ -2318,7 +2302,7 @@ Justificación: Según la norma técnica..."></textarea>
             }
 
             const btn = document.getElementById('btn-procesar-vaciador');
-            btn.innerHTML = '⏳ Procesando preguntas de Word con IA...';
+            btn.innerHTML = '⏳ Procesando preguntas con IA...';
             btn.disabled = true;
 
             try {
@@ -2389,7 +2373,6 @@ Justificación: Según la norma técnica..."></textarea>
             }
         }
 
-        // Guardar Pregunta Manual
         document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -2411,12 +2394,11 @@ Justificación: Según la norma técnica..."></textarea>
             const { error } = await sb.from('preguntas').insert([payload]);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco oficial con éxito.", "✔");
+                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔");
                 document.getElementById('form-adm-p').reset();
             }
         });
 
-        // Crear Simulacro
         document.getElementById('form-adm-sim').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -2490,7 +2472,6 @@ Justificación: Según la norma técnica..."></textarea>
             }
         });
 
-        // Publicar Tema Ensamblando Texto, Tabla Visual, Imagen y Alerta
         document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -2545,7 +2526,7 @@ Justificación: Según la norma técnica..."></textarea>
             const { error } = await sb.from('temas').insert([payload]);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("¡Tema Publicado!", "El tema teórico con sus tablas e imágenes ha sido publicado.", "✔");
+                mostrarAvisoModal("¡Tema Publicado!", "El tema teórico ha sido publicado con éxito.", "✔");
                 document.getElementById('form-adm-t').reset();
                 document.getElementById('preview-img-box').style.display = 'none';
                 imagenBase64Tema = null;
