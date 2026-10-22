@@ -3,52 +3,59 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Método no permitido' });
     }
 
-    const { curso, tema, dificultad, tipo } = req.body;
+    const { curso, tema, dificultades, cantidad, tipo } = req.body;
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
         return res.status(500).json({ error: 'Falta configurar GEMINI_API_KEY en Vercel' });
     }
 
+    const numItems = Math.min(parseInt(cantidad) || 3, 10);
+    const difsTexto = (dificultades && dificultades.length > 0) ? dificultades.join(", ") : "Intermedia";
+
     let promptSistema = "";
 
     if (tipo === 'flashcards') {
-        promptSistema = `Eres el especialista académico de Proserum's Academia.
-Genera exactamente 4 Flashcards de alta rentabilidad para el examen SERUMS/ENCAPS del Perú.
-Tema: ${curso} - ${tema || 'General'}.
-Enfoque: Normas Técnicas del MINSA vigentes hasta el año actual, dosis pediátricas, criterios de referencia y conductas de emergencia.
+        promptSistema = `Eres el especialista en memorización activa de Proserum's Academia para el examen SERUMS/ENCAPS del Perú.
+Genera exactamente ${numItems} Flashcards ULTRA CONCISAS del tema: ${curso} - ${tema || 'General'}.
+Enfoque: Normas Técnicas y Guías de Práctica Clínica del MINSA Perú vigentes hasta el año actual.
 
-Devuelve EXCLUSIVAMENTE un arreglo JSON válido con este formato:
+REGLAS ESTRICTAS DE FORMATO FLASHCARD:
+1. "anverso": Una pregunta directa, corta y al grano. Máximo 15 palabras (ej. "¿Criterio de referencia en Neumonía Grave según MINSA?").
+2. "reverso": Respuesta telegráfica, precisa y clínica de MÁXIMO 2 LÍNEAS (ej. "Tiraje subcostal o SatO2 < 92% en costa / < 85% en altura + Oxígeno y referencia urgente.").
+3. CERO texto de relleno o introducciones.
+
+Devuelve EXCLUSIVAMENTE un arreglo JSON válido con esta estructura:
 [
-  { "anverso": "Pregunta o Criterio Clínico clave", "reverso": "Respuesta médica precisa y conducta MINSA" }
+  { "anverso": "Pregunta corta y directa", "reverso": "Respuesta médica precisa en 1-2 líneas" }
 ]
-Sin texto introductorio, sin formato markdown adicional, únicamente el JSON.`;
+Sin markdown extra, únicamente el JSON.`;
     } else {
         promptSistema = `Eres el docente evaluador de Proserum's Academia para el examen ENCAPS / SERUMS del Perú.
-Genera exactamente 3 preguntas tipo caso clínico de opción múltiple.
+Genera exactamente ${numItems} preguntas tipo caso clínico de opción múltiple.
 Curso: ${curso}
 Tema: ${tema || 'General'}
-Nivel de Dificultad: ${dificultad || 'Intermedia'}
-Marco Teórico: Normas Técnicas y Guías de Práctica Clínica del MINSA Perú vigentes hasta el año actual.
+Nivel(es) de Dificultad solicitados: ${difsTexto}
+Marco Teórico: Guías y Normas Técnicas oficiales del MINSA Perú vigentes hasta el año actual, enfocadas en el primer nivel de atención (I-1 a I-4).
 
-Reglas:
-1. Casos clínicos contextualizados en el primer nivel de atención (Puesto o Centro de Salud I-1 a I-4).
+REGLAS DE EVALUACIÓN:
+1. Enunciado tipo caso clínico breve y contextualizado.
 2. Cuatro alternativas (A, B, C, D). Solo UNA correcta.
-3. Justificación clínica clara explicando el porqué de la clave y descartando los distractores.
+3. Justificación clínica concisa explicando la norma técnica y descartando distractores.
 
-Devuelve EXCLUSIVAMENTE un arreglo JSON válido con este formato:
+Devuelve EXCLUSIVAMENTE un arreglo JSON válido con esta estructura:
 [
   {
-    "enunciado": "Texto del caso clínico...",
+    "enunciado": "Caso clínico...",
     "opcion_a": "...",
     "opcion_b": "...",
     "opcion_c": "...",
     "opcion_d": "...",
     "respuesta_correcta": "A",
-    "justificacion": "Explicación médica según norma técnica..."
+    "justificacion": "Explicación según norma técnica del MINSA..."
   }
 ]
-Sin texto introductorio, sin markdown adicional, únicamente el JSON.`;
+Sin markdown extra, únicamente el JSON.`;
     }
 
     try {
