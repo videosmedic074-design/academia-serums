@@ -133,31 +133,34 @@
         .fb-ok { background: #d4edda; border-left: 6px solid #28a745; color: #155724; }
         .fb-err { background: #f8d7da; border-left: 6px solid #dc3545; color: #721c24; }
 
-        /* Barra de Herramientas IA */
-        .barra-ia-box { 
-            background: white; padding: 20px; border-radius: 14px; margin-bottom: 25px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: center; 
-            justify-content: space-between; gap: 15px; flex-wrap: wrap; 
+        /* Panel de Filtros Inteligentes de IA */
+        .panel-control-ia { 
+            background: white; padding: 22px; border-radius: 16px; margin-bottom: 25px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 15px; 
         }
+        .fila-filtros-ia { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; align-items: end; }
+        .grupo-check-dif { display: flex; gap: 12px; align-items: center; margin-top: 5px; }
+        .grupo-check-dif label { font-size: 0.9em; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+        
         .btn-ia-accion { 
             background: linear-gradient(135deg, #6f42c1, #0056b3); color: white; border: none; 
-            padding: 12px 22px; border-radius: 8px; font-weight: bold; cursor: pointer; 
-            display: inline-flex; align-items: center; gap: 8px; font-size: 0.95em; transition: 0.2s; 
+            padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95em; transition: 0.2s; 
         }
         .btn-ia-accion:hover { opacity: 0.95; transform: translateY(-1px); }
 
-        /* Flashcards */
-        .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; margin-top: 20px; }
-        .card-flip { background-color: transparent; height: 220px; perspective: 1000px; cursor: pointer; }
-        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        /* Flashcards Cortas y al Grano */
+        .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
+        .card-flip { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }
         .card-flip.volteada .card-inner { transform: rotateY(180deg); }
         .card-front, .card-back { 
             position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
-            border-radius: 14px; padding: 25px; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; box-shadow: 0 6px 15px rgba(0,0,0,0.06); 
+            border-radius: 14px; padding: 20px; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06); 
         }
-        .card-front { background: white; border-top: 5px solid #0056b3; color: #2c3e50; font-weight: 600; font-size: 1.05em; line-height: 1.4; }
-        .card-back { background: #e9f2fb; border-top: 5px solid #28a745; color: #155724; transform: rotateY(180deg); font-size: 0.98em; line-height: 1.5; font-weight: 500; }
+        .card-front { background: white; border-top: 5px solid #0056b3; color: #2c3e50; font-weight: 600; font-size: 1.05em; line-height: 1.35; }
+        .card-back { background: #e9f2fb; border-top: 5px solid #28a745; color: #155724; transform: rotateY(180deg); font-size: 0.98em; line-height: 1.45; font-weight: 600; }
 
         /* Modales */
         .modal-overlay { 
@@ -313,23 +316,47 @@
                 <div class="grid-5" id="grid-cursos-dashboard"></div>
             </main>
 
-            <!-- SUB: SIMULADOR -->
+            <!-- SUB: SIMULADOR CON FILTROS INTELIGENTES DE CURSO, TEMA Y DIFICULTADES COMBINADAS -->
             <main id="sec-banqueo" class="contenido" style="display: none;">
-                <div class="barra-ia-box">
-                    <div>
-                        <strong style="color: #0056b3; font-size: 1.05em;">Generador Clínico Inteligente</strong>
-                        <p style="font-size: 0.85em; color: #666;">Crea nuevos casos según normas técnicas vigentes del MINSA.</p>
+                <div class="panel-control-ia">
+                    <div class="fila-filtros-ia">
+                        <div>
+                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Curso Oficial:</label>
+                            <select id="sel-curso-banqueo" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;" onchange="actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo')">
+                                <option value="Salud Pública">Salud Pública</option>
+                                <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                <option value="Investigación">Investigación</option>
+                                <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Oficial MINSA:</label>
+                            <select id="sel-tema-banqueo" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                <option value="General">Todo el curso (General)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Cantidad:</label>
+                            <select id="sel-cantidad-preguntas-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                <option value="3">3 Preguntas</option>
+                                <option value="5">5 Preguntas</option>
+                                <option value="10" selected>10 Preguntas (Máx)</option>
+                            </select>
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <select id="sel-curso-banqueo-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da;">
-                            <option value="Salud Pública">Salud Pública</option>
-                            <option value="Cuidado Integral de Salud">Cuidado Integral</option>
-                            <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
-                            <option value="Investigación">Investigación</option>
-                            <option value="Gestión de Servicios de Salud">Gestión de Servicios</option>
-                        </select>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid #eee; padding-top: 12px;">
+                        <div>
+                            <span style="font-weight: 600; font-size: 0.88em; color: #495057;">Dificultad (puedes combinar):</span>
+                            <div class="grupo-check-dif">
+                                <label><input type="checkbox" id="chk-dif-basica" value="Básica"> Básica</label>
+                                <label><input type="checkbox" id="chk-dif-intermedia" value="Intermedia" checked> Intermedia</label>
+                                <label><input type="checkbox" id="chk-dif-avanzada" value="Avanzada" checked> Avanzada</label>
+                            </div>
+                        </div>
                         <button class="btn-ia-accion" id="btn-generar-preguntas-ia" onclick="generarPreguntasConIA()">
-                            ⚡ Generar 3 Preguntas con IA
+                            ⚡ Generar Preguntas con IA
                         </button>
                     </div>
                 </div>
@@ -349,22 +376,34 @@
                 </div>
             </main>
 
-            <!-- SUB: FLASHCARDS -->
+            <!-- SUB: FLASHCARDS FILTRADAS POR CURSO Y TEMA + GENERADOR IA -->
             <main id="sec-flashcards" class="contenido" style="display: none;">
-                <div class="barra-ia-box">
-                    <div>
-                        <h1 style="color: #2c3e50; font-size: 1.4em;">Flashcards Médicas por Curso</h1>
-                        <p style="color: #6c757d; font-size: 0.9em; margin-top: 4px;">Memoriza conductas, esquemas de tratamiento y criterios del MINSA.</p>
-                    </div>
-                    <div style="display: flex; gap: 10px; align-items: center;">
-                        <select id="sel-filtro-flashcard-curso" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da;" onchange="filtrarFlashcardsPorCurso()">
-                            <option value="todos">Todos los Cursos</option>
-                            <option value="1">Salud Pública</option>
-                            <option value="2">Cuidado Integral de Salud</option>
-                            <option value="3">Ética e Interculturalidad</option>
-                            <option value="4">Investigación</option>
-                            <option value="5">Gestión de Servicios de Salud</option>
-                        </select>
+                <div class="panel-control-ia">
+                    <div class="fila-filtros-ia">
+                        <div>
+                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Curso Oficial:</label>
+                            <select id="sel-curso-flashcard" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;" onchange="actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard'); filtrarFlashcardsPorCurso();">
+                                <option value="Salud Pública">Salud Pública</option>
+                                <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                <option value="Investigación">Investigación</option>
+                                <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Específico:</label>
+                            <select id="sel-tema-flashcard" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                <option value="General">Todo el curso (General)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Cantidad a Generar:</label>
+                            <select id="sel-cantidad-flashcards-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                <option value="4">4 Flashcards</option>
+                                <option value="8">8 Flashcards</option>
+                                <option value="10" selected>10 Flashcards (Máx)</option>
+                            </select>
+                        </div>
                         <button class="btn-ia-accion" id="btn-generar-flashcards-ia" onclick="generarFlashcardsConIA()">
                             ✨ Generar Flashcards con IA
                         </button>
@@ -378,7 +417,7 @@
 
             <!-- SUB: TEMARIO -->
             <main id="sec-temas" class="contenido" style="display: none;">
-                <h1 style="margin-bottom: 10px; color: #2c3e50;">Temario Teórico Oficial</h1>
+                <h1 style="margin-bottom: 10px; color: #2c3e50;">Temario Teórico Oficial SERUMS</h1>
                 <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes clínicos estructurados según guías técnicas del MINSA.</p>
                 <div id="lista-temas-contenedor">Cargando temas...</div>
             </main>
@@ -432,6 +471,102 @@
     </div>
 
     <script>
+        // TEMARIO OFICIAL COMPLETO DEL SERUMS (DOCUMENTO MINSA)
+        const TEMARIO_OFICIAL_MINSA = {
+            "Salud Pública": [
+                "1.1 Conceptos básicos de salud pública (FESP)",
+                "1.2 Epidemiología (mediciones e indicadores)",
+                "1.3 Causalidad y Riesgo (Criterios Bradford Hill)",
+                "1.4 Demografía en salud y transición epidemiológica",
+                "1.5 Historia natural de la enfermedad",
+                "1.6 Etapas y niveles de prevención (Primaria a Cuaternaria)",
+                "1.7 Pruebas diagnósticas (Sensibilidad, Especificidad, VPP, VPN)",
+                "1.8 Brotes, epidemias, endemias y pandemias",
+                "1.9 Vigilancia en salud pública y epidemiológica",
+                "1.10 Prevención y Control de infecciones",
+                "1.11 Uso racional de medicamentos",
+                "1.12 ASIS - Sala situacional de salud",
+                "1.13 Sistema de Vigilancia Epidemiológica (Notificación)",
+                "2.1 Determinantes sociales de la salud",
+                "2.2 Determinantes ambientales y saneamiento básico",
+                "2.4 Sectorización y ficha familiar",
+                "2.8 Sistemas de información y TICs (HIS, SIS, Historia clínica)",
+                "2.12 Salud ocupacional en el trabajador de salud",
+                "2.13 Modelo de salud mental comunitaria",
+                "3.1 Promoción de la salud (Estrategias y escenarios)",
+                "3.3 Bioseguridad y protección del personal",
+                "3.4 Gestión del riesgo en emergencias y desastres"
+            ],
+            "Cuidado Integral de Salud": [
+                "1.1 Atención integral por curso de vida, familia y comunidad",
+                "1.2 Atención centrada en la persona (diagnóstico y tratamiento)",
+                "1.3 Urgencias, emergencias y sistema de referencia",
+                "1.4 Clave Roja, Azul y Amarilla (Emergencias obstétricas y neonatales)",
+                "1.5 Riesgo obstétrico",
+                "2.2 Paquete de cuidado integral del niño",
+                "2.3 Paquete de cuidado integral del adolescente",
+                "2.4 Paquete de cuidado integral del joven",
+                "2.5 Paquete de cuidado integral del adulto",
+                "2.6 Paquete de cuidado integral del adulto mayor",
+                "2.8 Prevención y control del Cáncer (Cérvix, Mama, Próstata)",
+                "2.9 Detección temprana de cáncer infantil",
+                "2.10 Prevención y control de Tuberculosis (NTS MINSA, Esquemas)",
+                "2.11 Esquema Nacional de Vacunación y Cadena de Frío",
+                "2.13 Prevención y control de Anemia y malnutrición",
+                "2.14 Manejo de ITS, VIH y Hepatitis B/C",
+                "2.16 Transmisión materno infantil de VIH, Sífilis y Hepatitis B",
+                "2.17 Enfermedades no transmisibles (HTA, Diabetes Mellitus)",
+                "2.19 Intoxicación por metales pesados y sustancias químicas",
+                "2.22 Enfermedades metaxénicas (Dengue, Malaria, Bartonelosis)",
+                "2.24 Embarazo, parto y puerperio normal"
+            ],
+            "Ética e Interculturalidad": [
+                "1.1 Ética en la función pública y humanización de la salud",
+                "1.2 Código de ética y deontología médica",
+                "1.3 Derechos y deberes de los usuarios (Ley General de Salud)",
+                "2.1 Comunicación y diálogo intercultural en salud",
+                "2.3 Atención en salud con pertinencia cultural",
+                "2.4 Promoción del Parto Vertical",
+                "2.5 Medicina tradicional y complementaria",
+                "2.6 No discriminación y poblaciones vulnerables"
+            ],
+            "Investigación": [
+                "1.1 Conceptos básicos de investigación científica",
+                "1.2 Enfoques cuantitativo, cualitativo y mixto",
+                "1.3 Tipos de estudio (Descriptivo, Analítico, Experimental)",
+                "2.1 Instrumentos de recolección de datos y validación",
+                "2.2 Procesamiento y análisis bioestadístico",
+                "3.1 Publicación científica y redacción médica",
+                "3.2 Aspectos éticos en investigación humana"
+            ],
+            "Gestión de Servicios de Salud": [
+                "1.1 Planeamiento Estratégico en Salud",
+                "1.2 Análisis estratégico institucional y FODA",
+                "1.3 Planeamiento Institucional: PEI y POI",
+                "2.1 Documentos de gestión: ROF y MOP",
+                "2.2 Categorización de establecimientos de salud (I-1 a III-2)",
+                "2.3 UPSS y Cartera de servicios de salud",
+                "2.4 Sistema de Referencia y Contrarreferencia (REFCON)",
+                "2.5 Gestión de la Historia Clínica (NTS MINSA)",
+                "2.6 Redes Integradas de Salud (RIS)",
+                "2.7 Telesalud en el primer nivel",
+                "3.2 Control de stock e inventario de medicamentos (SISMED)",
+                "4.1 Garantía y mejora continua de la calidad y seguridad del paciente"
+            ]
+        };
+
+        function actualizarTemasEnSelector(idCurso, idTema) {
+            const curso = document.getElementById(idCurso).value;
+            const selTema = document.getElementById(idTema);
+            selTema.innerHTML = '<option value="General">Todo el curso (General)</option>';
+            
+            if (TEMARIO_OFICIAL_MINSA[curso]) {
+                TEMARIO_OFICIAL_MINSA[curso].forEach(t => {
+                    selTema.innerHTML += `<option value="${t}">${t}</option>`;
+                });
+            }
+        }
+
         let user = null;
         let perfilUsuario = null;
         let perfilMascota = null;
@@ -464,11 +599,17 @@
             
             if (nom === 'stats') cargarEstadisticas();
             if (nom === 'temas') cargarTemasTeoricos();
-            if (nom === 'flashcards') cargarFlashcardsDesdeBD();
+            if (nom === 'flashcards') {
+                actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard');
+                cargarFlashcardsDesdeBD();
+            }
+            if (nom === 'banqueo') {
+                actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo');
+            }
         }
 
         function abrirModalPremium() {
-            const enlace = `https://api.whatsapp.com/send?phone=${TU_NUMERO_WHATSAPP}&text=${encodeURIComponent(`Hola Doctor, deseo activar mi acceso al Ciclo Completo en ${NOMBRE_ACADEMIA} para mi cuenta:${user?.email || ''}`)}`;
+            const enlace = `https://api.whatsapp.com/send?phone=${TU_NUMERO_WHATSAPP}&text=${encodeURIComponent(`Hola Doctor, deseo activar mi acceso al Ciclo Completo en ${NOMBRE_ACADEMIA} para mi cuenta: ${user?.email || ''}`)}`;
             document.getElementById('btn-enlace-whatsapp').href = enlace;
             document.getElementById('modal-premium').style.display = 'flex';
         }
@@ -568,11 +709,7 @@
             btn.innerText = 'Creando cuenta...';
 
             try {
-                const { data: auth, error: aErr } = await sb.auth.signUp({
-                    email: email,
-                    password: pass
-                });
-
+                const { data: auth, error: aErr } = await sb.auth.signUp({ email, password: pass });
                 if (aErr) throw aErr;
 
                 if (auth && auth.user) {
@@ -676,7 +813,8 @@
         async function iniciarBanqueo(areaId = null, nombreCurso = "Salud Pública") {
             areaFiltroActual = areaId;
             nombreCursoActual = nombreCurso;
-            document.getElementById('sel-curso-banqueo-ia').value = nombreCurso;
+            document.getElementById('sel-curso-banqueo').value = nombreCurso;
+            actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo');
             subSec('banqueo');
             cargarSiguientePregunta();
         }
@@ -708,7 +846,7 @@
 
             const { data } = await consulta;
             if (!data || data.length === 0) {
-                document.getElementById('sim-enunciado').innerText = 'Aún no hay preguntas en este curso. ¡Genera 3 casos con el botón de IA superior!';
+                document.getElementById('sim-enunciado').innerText = 'Aún no hay preguntas en este curso. ¡Genera casos con el botón de IA superior!';
                 document.getElementById('sim-opciones').innerHTML = '';
                 return;
             }
@@ -772,14 +910,28 @@
             }
         }
 
-        // GENERAR PREGUNTAS CON IA (Sin alert)
+        // GENERAR PREGUNTAS CON IA (Con selector de temas MINSA y niveles combinados)
         async function generarPreguntasConIA() {
             if (perfilUsuario && perfilUsuario.plan === 'gratuito' && perfilUsuario.preguntas_hoy >= 20) {
                 abrirModalPremium();
                 return;
             }
 
-            const cursoSeleccionado = document.getElementById('sel-curso-banqueo-ia').value;
+            const cursoSeleccionado = document.getElementById('sel-curso-banqueo').value;
+            const temaSeleccionado = document.getElementById('sel-tema-banqueo').value;
+            const cantidad = document.getElementById('sel-cantidad-preguntas-ia').value;
+
+            // Recoger dificultades seleccionadas (múltiples)
+            const dificultades = [];
+            if (document.getElementById('chk-dif-basica').checked) dificultades.push("Básica");
+            if (document.getElementById('chk-dif-intermedia').checked) dificultades.push("Intermedia");
+            if (document.getElementById('chk-dif-avanzada').checked) dificultades.push("Avanzada");
+
+            if (dificultades.length === 0) {
+                mostrarAvisoModal("Selecciona Dificultad", "Debes marcar al menos un nivel de dificultad.", "⚠️");
+                return;
+            }
+
             const btn = document.getElementById('btn-generar-preguntas-ia');
             const txtOriginal = btn.innerHTML;
             btn.innerHTML = '⏳ Diseñando con Gemini IA...';
@@ -791,8 +943,9 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         curso: cursoSeleccionado,
-                        tema: "General",
-                        dificultad: "Intermedia",
+                        tema: temaSeleccionado,
+                        dificultades: dificultades,
+                        cantidad: cantidad,
                         tipo: "preguntas"
                     })
                 });
@@ -803,7 +956,7 @@
                 if (data.resultado && data.resultado.length > 0) {
                     preguntasIaBuffer = data.resultado;
                     cargarSiguientePregunta();
-                    mostrarAvisoModal("¡Casos Clínicos Listos!", "Se generaron 3 nuevas preguntas según normas técnicas del MINSA. ¡A responder!", "🤖");
+                    mostrarAvisoModal("¡Casos Clínicos Listos!", `Se generaron ${data.resultado.length} preguntas de ${temaSeleccionado} según normas técnicas del MINSA.`, "🤖");
                 } else {
                     mostrarAvisoModal("Sin resultados", "No se pudieron formular preguntas en este intento. Inténtalo nuevamente.", "⚠️");
                 }
@@ -827,22 +980,29 @@
 
             if (todasLasFlashcards.length === 0) {
                 todasLasFlashcards = [
-                    { area_id: 2, anverso: "¿Conducta inmediata ante Dengue con Signos de Alarma según NTS MINSA?", reverso: "Hospitalización inmediata + Hidratación endovenosa con Cristaloides a 10 ml/kg en la 1° hora." },
+                    { area_id: 2, anverso: "¿Conducta inmediata ante Dengue con Signos de Alarma?", reverso: "Hospitalización inmediata + Cristaloides EV 10 ml/kg en la 1° hora." },
                     { area_id: 1, anverso: "¿Definición de Caso Probable de Sarampión?", reverso: "Fiebre y erupción maculopapular acompañada de tos, coriza o conjuntivitis." },
-                    { area_id: 2, anverso: "¿Manejo inicial de Hemorragia Posparto por Atonía Uterina?", reverso: "Masaje uterino bimanual + Oxitocina 10-20 UI EV + Ácido Tranexámico 1g EV dentro de las 3 horas." }
+                    { area_id: 2, anverso: "¿Manejo inicial de Hemorragia Posparto por Atonía?", reverso: "Masaje uterino bimanual + Oxitocina 10-20 UI EV + Ácido Tranexámico 1g EV dentro de las 3h." }
                 ];
             }
             filtrarFlashcardsPorCurso();
         }
 
         function filtrarFlashcardsPorCurso() {
-            const filtro = document.getElementById('sel-filtro-flashcard-curso').value;
+            const cursoFiltro = document.getElementById('sel-curso-flashcard').value;
             const cont = document.getElementById('contenedor-flashcards');
             cont.innerHTML = '';
 
-            const filtradas = (filtro === 'todos') 
-                ? todasLasFlashcards 
-                : todasLasFlashcards.filter(f => f.area_id == filtro);
+            const mapeoAreas = {
+                "Salud Pública": 1,
+                "Cuidado Integral de Salud": 2,
+                "Ética e Interculturalidad": 3,
+                "Investigación": 4,
+                "Gestión de Servicios de Salud": 5
+            };
+
+            const areaId = mapeoAreas[cursoFiltro] || 1;
+            const filtradas = todasLasFlashcards.filter(f => f.area_id == areaId);
 
             if (filtradas.length === 0) {
                 cont.innerHTML = '<p style="color: #666;">No hay flashcards para este curso aún. ¡Usa el botón superior para generarlas con IA!</p>';
@@ -861,15 +1021,15 @@
             });
         }
 
-        // GENERAR FLASHCARDS CON IA (Sin alert)
+        // GENERAR FLASHCARDS CORTAS Y AL GRANO CON IA
         async function generarFlashcardsConIA() {
-            const cursoFiltro = document.getElementById('sel-filtro-flashcard-curso').value;
-            const selTxt = document.getElementById('sel-filtro-flashcard-curso').options[document.getElementById('sel-filtro-flashcard-curso').selectedIndex].text;
-            const cursoNombre = (cursoFiltro === 'todos') ? 'Salud Pública y Cuidado Integral' : selTxt;
+            const cursoNombre = document.getElementById('sel-curso-flashcard').value;
+            const temaNombre = document.getElementById('sel-tema-flashcard').value;
+            const cantidad = document.getElementById('sel-cantidad-flashcards-ia').value;
 
             const btn = document.getElementById('btn-generar-flashcards-ia');
             const txtOriginal = btn.innerHTML;
-            btn.innerHTML = '⏳ Creando con IA...';
+            btn.innerHTML = '⏳ Diseñando con IA...';
             btn.disabled = true;
 
             const cont = document.getElementById('contenedor-flashcards');
@@ -881,7 +1041,8 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         curso: cursoNombre,
-                        tema: "Puntos Clave ENCAPS",
+                        tema: temaNombre,
+                        cantidad: cantidad,
                         tipo: "flashcards"
                     })
                 });
@@ -900,7 +1061,7 @@
                         </div>
                     `;
                 });
-                mostrarAvisoModal("¡Flashcards Creadas!", `Se generaron 4 tarjetas clínicas de ${cursoNombre} listas para memorizar.`, "🗂️");
+                mostrarAvisoModal("¡Flashcards Creadas!", `Se generaron ${data.resultado.length} flashcards concisas de ${temaNombre}.`, "🗂️");
             } catch (err) {
                 cont.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
                 mostrarAvisoModal("Error al generar", err.message, "⚠️");
