@@ -30,35 +30,18 @@
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
 
+        /* Emblema */
         .emblema-serums {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 52px;
-            height: 52px;
-            background: linear-gradient(135deg, #0056b3, #00a8cc);
-            border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,86,179,0.25);
-            flex-shrink: 0;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 52px; height: 52px; background: linear-gradient(135deg, #0056b3, #00a8cc);
+            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,86,179,0.25); flex-shrink: 0;
         }
         .emblema-serums svg { width: 34px; height: 34px; }
-
-        .logo-box-main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-        .logo-titulo {
-            font-size: 1.85em;
-            font-weight: 900;
-            color: #0056b3;
-            letter-spacing: -0.5px;
-        }
+        .logo-box-main { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px; }
+        .logo-titulo { font-size: 1.85em; font-weight: 900; color: #0056b3; letter-spacing: -0.5px; }
         .logo-titulo span { color: #28a745; }
 
-        /* Login y Registro */
+        /* Auth */
         .centro-auth { width: 100%; display: flex; justify-content: center; align-items: center; padding: 30px 15px; }
         .card-auth { background: white; width: 100%; max-width: 440px; padding: 35px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border-top: 6px solid #0056b3; }
         .card-auth.amplia { max-width: 580px; }
@@ -71,7 +54,19 @@
         .btn-p { width: 100%; background: #0056b3; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
         .btn-p:hover { background: #004494; transform: translateY(-1px); }
         .btn-p:disabled { background: #6c757d; cursor: not-allowed; }
-        .links { margin-top: 15px; text-align: center; font-size: 0.9em; }
+        
+        .btn-google {
+            width: 100%; background: white; border: 1px solid #ced4da; padding: 12px; 
+            border-radius: 8px; font-weight: 600; font-size: 0.95em; cursor: pointer; 
+            display: flex; align-items: center; justify-content: center; gap: 10px; 
+            transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.03); color: #3c4043;
+        }
+        .btn-google:hover { background: #f8f9fa; border-color: #c1c7cd; }
+        .separador-o { display: flex; align-items: center; margin: 18px 0; color: #adb5bd; }
+        .separador-o hr { flex: 1; border: none; border-top: 1px solid #dee2e6; }
+        .separador-o span { padding: 0 10px; font-size: 0.78em; font-weight: bold; }
+
+        .links { margin-top: 15px; text-align: center; font-size: 0.9em; display: flex; flex-direction: column; gap: 8px; }
         .links a { color: #007bff; text-decoration: none; font-weight: bold; cursor: pointer; }
         
         .alerta { display: none; padding: 12px; border-radius: 8px; font-size: 0.88em; margin-bottom: 15px; line-height: 1.4; }
@@ -97,29 +92,47 @@
         .card-c:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
         .card-c h3 { margin-bottom: 8px; font-size: 1.15em; color: #2c3e50; }
 
-        /* Mascota */
-        .widget-mascota { 
+        /* ========================================================
+           MOTOR VISUAL DE LA MASCOTA CARICATURA 2.5D INTERACTIVA
+           ======================================================== */
+        .widget-mascota-pro { 
             background: linear-gradient(135deg, #0056b3, #0098b8); 
-            color: white; padding: 25px; border-radius: 16px; margin-bottom: 25px; 
+            color: white; padding: 22px 28px; border-radius: 20px; margin-bottom: 25px; 
             display: flex; align-items: center; justify-content: space-between; 
-            box-shadow: 0 8px 20px rgba(0,86,179,0.15);
+            box-shadow: 0 8px 25px rgba(0,86,179,0.18);
         }
-        .mascota-contenedor { display: flex; align-items: center; gap: 20px; }
-        .mascota-cuerpo { 
-            font-size: 4em; display: inline-block; 
-            animation: respirar 2.5s infinite ease-in-out;
-            transform-origin: bottom center;
+        .stage-mascota { display: flex; align-items: center; gap: 22px; }
+        
+        .avatar-canvas-box {
+            position: relative; width: 110px; height: 110px;
+            background: rgba(255, 255, 255, 0.15); border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            border: 3px solid rgba(255, 255, 255, 0.35); overflow: hidden;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
         }
-        @keyframes respirar {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08) translateY(-4px); }
+        .svg-mascota-render {
+            width: 90px; height: 90px; transform-origin: bottom center;
+            animation: respirarMascota 3s infinite ease-in-out;
         }
-        .mascota-feliz { animation: saltar 0.5s ease; }
-        @keyframes saltar {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px) rotate(5deg); }
+        @keyframes respirarMascota {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.05, 0.96) translateY(-2px); }
         }
-        .mascota-info h4 { font-size: 1.3em; margin-bottom: 6px; }
+        .anim-ojo-parpadeo { animation: parpadear 3.5s infinite ease; transform-origin: center; }
+        @keyframes parpadear {
+            0%, 94%, 98%, 100% { transform: scaleY(1); }
+            96% { transform: scaleY(0.1); }
+        }
+        .festejo-mascota { animation: saltarFestejo 0.6s ease; }
+        @keyframes saltarFestejo {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-16px) rotate(6deg) scale(1.1); }
+        }
+
+        .mascota-info-pro h4 { font-size: 1.35em; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .barra-energia-caja { width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 10px; margin: 6px 0; overflow: hidden; }
+        .barra-energia-fill { height: 100%; width: 100%; background: #28a745; border-radius: 10px; transition: width 0.3s; }
+        .botones-mascota-acciones { display: flex; gap: 10px; align-items: center; }
 
         .banner-plan { padding: 12px 18px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
         .plan-free { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
@@ -164,21 +177,34 @@
         .card-front { background: white; border-top: 5px solid #0056b3; color: #2c3e50; font-weight: 600; font-size: 1.05em; line-height: 1.35; }
         .card-back { background: #e9f2fb; border-top: 5px solid #28a745; color: #155724; transform: rotateY(180deg); font-size: 0.98em; line-height: 1.45; font-weight: 600; }
 
-        /* Estilos del Panel Docente Integrado */
+        /* Tienda Mascota / Selector */
+        .grid-tienda { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 15px; }
+        .item-tienda-card { 
+            background: #f8f9fa; border: 2px solid #e9ecef; border-radius: 12px; 
+            padding: 14px; text-align: center; cursor: pointer; transition: 0.2s; 
+        }
+        .item-tienda-card:hover { border-color: #0056b3; background: #e9f2fb; }
+        .item-tienda-card.equipado { border-color: #28a745; background: #eaf7ed; font-weight: bold; }
+        .item-icono { font-size: 2.2em; margin-bottom: 5px; }
+
+        /* Panel Docente */
         .pestanas-admin { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 2px solid #e9ecef; flex-wrap: wrap; }
         .tab-btn-adm { padding: 10px 16px; cursor: pointer; font-weight: bold; color: #6c757d; border: none; background: none; font-size: 0.95em; border-bottom: 3px solid transparent; }
         .tab-btn-adm.activa { color: #6f42c1; border-bottom-color: #6f42c1; }
         .subtab-adm { display: none; }
         .subtab-adm.activa { display: block; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
-        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.88em; }
+        th, td { padding: 10px 8px; border-bottom: 1px solid #eee; text-align: left; }
         th { background: #f8f9fa; color: #495057; }
-        .badge { padding: 5px 10px; border-radius: 12px; font-weight: bold; font-size: 0.8em; }
+        .badge { padding: 4px 8px; border-radius: 10px; font-weight: bold; font-size: 0.78em; }
         .badge-free { background: #e2e3e5; color: #383d41; }
         .badge-prem { background: #d4edda; color: #155724; }
-        .btn-act { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        .btn-des { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .badge-bloq { background: #f8d7da; color: #721c24; }
+        .btn-act { background: #28a745; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+        .btn-des { background: #6c757d; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+        .btn-bloq { background: #dc3545; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+        .btn-clave { background: #0056b3; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
 
         /* Modales */
         .modal-overlay { 
@@ -187,13 +213,14 @@
             display: none; justify-content: center; align-items: center; z-index: 9999;
         }
         .modal-box { 
-            background: white; border-radius: 16px; padding: 30px; max-width: 460px; width: 90%; 
+            background: white; border-radius: 16px; padding: 28px; max-width: 500px; width: 92%; 
             text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.15); animation: entrarModal 0.25s ease-out;
+            max-height: 90vh; overflow-y: auto;
         }
         @keyframes entrarModal { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
         .modal-icono { font-size: 3em; margin-bottom: 12px; }
         .modal-box h3 { color: #2c3e50; font-size: 1.35em; margin-bottom: 10px; }
-        .modal-box p { color: #666; font-size: 0.95em; line-height: 1.5; margin-bottom: 22px; }
+        .modal-box p { color: #666; font-size: 0.95em; line-height: 1.5; margin-bottom: 20px; }
         .btn-ws { background: #25d366; color: white; border: none; padding: 13px 20px; border-radius: 8px; font-weight: bold; font-size: 1em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; transition: 0.2s; }
         .btn-ws:hover { background: #1eb956; }
         .btn-cerrar-modal { background: #e9ecef; color: #495057; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 10px; cursor: pointer; }
@@ -231,12 +258,30 @@
                 </div>
                 <p class="sub">Plataforma Médica de Preparación Oficial ENCAPS</p>
                 <div id="err-login" class="alerta alerta-err"></div>
+                
+                <button type="button" class="btn-google" onclick="iniciarConGoogle()">
+                    <svg width="18" height="18" viewBox="0 0 48 48">
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                    </svg>
+                    Continuar con Google
+                </button>
+
+                <div class="separador-o">
+                    <hr><span>O CON TU CORREO</span><hr>
+                </div>
+
                 <form id="f-login">
                     <div class="campo"><label>Correo Electrónico</label><input type="email" id="l-email" required placeholder="dr.ejemplo@gmail.com"></div>
                     <div class="campo"><label>Contraseña</label><input type="password" id="l-pass" required placeholder="Ingresa tu contraseña"></div>
                     <button type="submit" id="btn-login" class="btn-p">Ingresar al Aula</button>
                 </form>
-                <div class="links"><a onclick="ver('vista-registro')">¿No tienes cuenta? Regístrate aquí</a></div>
+                <div class="links">
+                    <a onclick="abrirModalRecuperar()">¿Olvidaste tu contraseña?</a>
+                    <a onclick="ver('vista-registro')">¿No tienes cuenta? Regístrate aquí</a>
+                </div>
             </div>
         </div>
     </section>
@@ -298,10 +343,7 @@
                     <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards Médicas</li>
                     <li id="m-temas" onclick="subSec('temas')">📖 Temario Teórico</li>
                     <li id="m-stats" onclick="subSec('stats')">📈 Mis Estadísticas</li>
-                    
-                    <!-- BOTÓN EXCLUSIVO DE ADMINISTRADOR (OCULTO PARA ALUMNOS) -->
                     <li id="m-admin" class="admin-btn" style="display: none;" onclick="subSec('admin')">🛠️ Panel Docente</li>
-                    
                     <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
                 </ul>
             </aside>
@@ -322,16 +364,22 @@
                     <button class="btn-p" style="width: auto; padding: 7px 15px; margin: 0; background: #0056b3;" onclick="abrirModalPremium()">Adquirir Ciclo Completo</button>
                 </div>
 
-                <!-- Widget Mascota -->
-                <div class="widget-mascota">
-                    <div class="mascota-contenedor">
-                        <div class="mascota-cuerpo" id="avatar-mascota">🐕</div>
-                        <div class="mascota-info">
-                            <h4 id="m-nombre">Compañero SERUMS</h4>
-                            <p>🪙 Monedas Médicas: <strong id="m-monedas">50</strong> | Estado: <span>Saludable 🩺</span></p>
+                <!-- WIDGET MASCOTA CARICATURA 2.5D INTERACTIVA -->
+                <div class="widget-mascota-pro">
+                    <div class="stage-mascota">
+                        <div class="avatar-canvas-box" id="avatar-canvas">
+                            <!-- SVG Renderizado Dinámico de la Mascota -->
+                        </div>
+                        <div class="mascota-info-pro">
+                            <h4 id="m-nombre">Compañero SERUMS <span style="font-size: 0.7em; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;" id="m-nivel-tag">Nv. 1</span></h4>
+                            <div class="barra-energia-caja"><div class="barra-energia-fill" id="m-energia-bar"></div></div>
+                            <p style="font-size: 0.9em;">🪙 <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz 🩺</span></p>
                         </div>
                     </div>
-                    <button class="btn-p" style="width: auto; padding: 10px 18px; margin: 0; background: #28a745;" onclick="alimentarMascota()">Alimentar (10 🪙)</button>
+                    <div class="botones-mascota-acciones">
+                        <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #28a745;" onclick="alimentarMascota()">🍖 Alimentar (10 🪙)</button>
+                        <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #6f42c1;" onclick="abrirArmarioMascota()">👗 Armario</button>
+                    </div>
                 </div>
 
                 <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Selecciona un Curso para Entrenar</h2>
@@ -451,7 +499,7 @@
                 </div>
             </main>
 
-            <!-- SUB: PANEL DE CONTROL DOCENTE (INTEGRADO DIRECTAMENTE EN EL AULA) -->
+            <!-- SUB: PANEL DOCENTE -->
             <main id="sec-admin" class="contenido" style="display: none;">
                 <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 6px solid #6f42c1;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -466,7 +514,7 @@
                         <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos y Membresías</button>
                     </div>
 
-                    <!-- SUBTAB: PREGUNTA -->
+                    <!-- PREGUNTA -->
                     <div id="subtab-adm-p" class="subtab-adm activa">
                         <form id="form-adm-p">
                             <div class="fila">
@@ -518,7 +566,7 @@
                         </form>
                     </div>
 
-                    <!-- SUBTAB: FLASHCARD -->
+                    <!-- FLASHCARD -->
                     <div id="subtab-adm-f" class="subtab-adm">
                         <form id="form-adm-f">
                             <div class="campo">
@@ -532,18 +580,18 @@
                                 </select>
                             </div>
                             <div class="campo">
-                                <label>Anverso (Pregunta o Criterio Clínico Corto)</label>
+                                <label>Anverso (Pregunta corta o criterio clínico puntual)</label>
                                 <textarea id="adm-f-anverso" rows="2" required placeholder="Ej: ¿Criterio de referencia en Neumonía Grave?"></textarea>
                             </div>
                             <div class="campo">
-                                <label>Reverso (Respuesta Precisa en 1-2 Líneas)</label>
+                                <label>Reverso (Respuesta precisa en 1-2 líneas)</label>
                                 <textarea id="adm-f-reverso" rows="2" required placeholder="Ej: Tiraje subcostal o SatO2 < 92% (costa) + Oxígeno y referencia urgente."></textarea>
                             </div>
                             <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Flashcard Manual</button>
                         </form>
                     </div>
 
-                    <!-- SUBTAB: TEMA -->
+                    <!-- TEMA -->
                     <div id="subtab-adm-t" class="subtab-adm">
                         <form id="form-adm-t">
                             <div class="campo">
@@ -568,9 +616,9 @@
                         </form>
                     </div>
 
-                    <!-- SUBTAB: ALUMNOS -->
+                    <!-- GESTIÓN ALUMNOS -->
                     <div id="subtab-adm-a" class="subtab-adm">
-                        <h3 style="margin-bottom: 12px; color: #2c3e50;">Alumnos Registrados</h3>
+                        <h3 style="margin-bottom: 12px; color: #2c3e50;">Alumnos Registrados y Control de Accesos</h3>
                         <table>
                             <thead>
                                 <tr>
@@ -578,11 +626,12 @@
                                     <th>DNI</th>
                                     <th>Correo</th>
                                     <th>Plan</th>
-                                    <th>Acción</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tabla-alumnos-adm-body">
-                                <tr><td colspan="5">Cargando alumnos...</td></tr>
+                                <tr><td colspan="6">Cargando alumnos...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -590,6 +639,54 @@
             </main>
         </div>
     </section>
+
+    <!-- MODAL ARMARIO Y SELECCIÓN DE MASCOTA -->
+    <div id="modal-armario" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icono">🦊</div>
+            <h3>Centro de Mascotas y Ropita</h3>
+            <p>Elige a tu compañero médico y vístelo con sus prendas clínicas.</p>
+            
+            <h4 style="text-align: left; font-size: 0.95em; color: #0056b3; margin-top: 15px;">1. Escoge tu Animalito:</h4>
+            <div class="grid-tienda">
+                <div class="item-tienda-card" onclick="cambiarAnimal('perrito')"><div class="item-icono">🐶</div>Perrito</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('gatito')"><div class="item-icono">🐱</div>Gatito</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('panda')"><div class="item-icono">🐼</div>Pandita</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('zorrito')"><div class="item-icono">🦊</div>Zorrito</div>
+            </div>
+
+            <h4 style="text-align: left; font-size: 0.95em; color: #0056b3; margin-top: 18px;">2. Accesorios de Cabeza:</h4>
+            <div class="grid-tienda">
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'ninguno')"><div class="item-icono">❌</div>Ninguno</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'esteto')"><div class="item-icono">🩺</div>Estetoscopio</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'gorro')"><div class="item-icono">🧢</div>Gorro Cirugía</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'birrete')"><div class="item-icono">🎓</div>Birrete</div>
+            </div>
+
+            <h4 style="text-align: left; font-size: 0.95em; color: #0056b3; margin-top: 18px;">3. Prendas de Cuerpo:</h4>
+            <div class="grid-tienda">
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'ninguno')"><div class="item-icono">❌</div>Sin ropa</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'mandil')"><div class="item-icono">🥼</div>Mandil Blanco</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'scrub')"><div class="item-icono">👕</div>Scrub Azul</div>
+            </div>
+
+            <button class="btn-cerrar-modal" style="margin-top: 25px;" onclick="cerrarModales()">Listo, Guardar Estilo</button>
+        </div>
+    </div>
+
+    <!-- MODAL RECUPERAR CONTRASEÑA -->
+    <div id="modal-recuperar" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icono">🔑</div>
+            <h3>Restablecer Contraseña</h3>
+            <p>Ingresa tu correo electrónico registrado y te enviaremos el enlace para crear una nueva contraseña.</p>
+            <div class="campo" style="margin-bottom: 15px;">
+                <input type="email" id="recuperar-email" placeholder="dr.ejemplo@gmail.com" required>
+            </div>
+            <button class="btn-p" style="margin-top: 0;" onclick="enviarRestablecimientoPassword()">Enviar Enlace</button>
+            <button class="btn-cerrar-modal" onclick="cerrarModales()">Cancelar</button>
+        </div>
+    </div>
 
     <!-- BOTÓN WHATSAPP -->
     <a id="btn-flotante-soporte" 
@@ -604,7 +701,7 @@
         <span>Soporte Académico</span>
     </a>
 
-    <!-- MODAL 1: PREMIUM -->
+    <!-- MODAL PREMIUM -->
     <div id="modal-premium" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icono">⭐</div>
@@ -618,7 +715,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: AVISOS Y MASCOTA -->
+    <!-- MODAL AVISOS -->
     <div id="modal-aviso-general" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icono" id="aviso-icono">💡</div>
@@ -726,7 +823,14 @@
 
         let user = null;
         let perfilUsuario = null;
-        let perfilMascota = null;
+        let perfilMascota = {
+            animal: 'perrito',
+            energia: 100,
+            monedas: 50,
+            nivel: 1,
+            cabeza: 'ninguno',
+            cuerpo: 'ninguno'
+        };
         let preguntaActual = null;
         let areaFiltroActual = null;
         let nombreCursoActual = "Salud Pública";
@@ -773,6 +877,14 @@
             document.getElementById('modal-premium').style.display = 'flex';
         }
 
+        function abrirModalRecuperar() {
+            document.getElementById('modal-recuperar').style.display = 'flex';
+        }
+
+        function abrirArmarioMascota() {
+            document.getElementById('modal-armario').style.display = 'flex';
+        }
+
         function mostrarAvisoModal(titulo, mensaje, icono = "💡") {
             document.getElementById('aviso-titulo').innerText = titulo;
             document.getElementById('aviso-cuerpo').innerText = mensaje;
@@ -783,6 +895,38 @@
         function cerrarModales() {
             document.getElementById('modal-premium').style.display = 'none';
             document.getElementById('modal-aviso-general').style.display = 'none';
+            document.getElementById('modal-recuperar').style.display = 'none';
+            document.getElementById('modal-armario').style.display = 'none';
+        }
+
+        async function enviarRestablecimientoPassword() {
+            const sb = obtenerSupabase();
+            const email = document.getElementById('recuperar-email').value.trim();
+            if (!email) {
+                mostrarAvisoModal("Campo Requerido", "Por favor ingresa tu correo electrónico.", "⚠️");
+                return;
+            }
+
+            try {
+                const { error } = await sb.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin
+                });
+                if (error) throw error;
+                cerrarModales();
+                mostrarAvisoModal("Correo Enviado", `Hemos enviado un enlace a ${email} para que crees tu nueva contraseña.`, "📬");
+            } catch (err) {
+                mostrarAvisoModal("Error", err.message || "No se pudo enviar el correo.", "⚠️");
+            }
+        }
+
+        async function iniciarConGoogle() {
+            const sb = obtenerSupabase();
+            if (!sb) return;
+            const { error } = await sb.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin }
+            });
+            if (error) mostrarAvisoModal("Error de Acceso", error.message, "⚠️");
         }
 
         async function checkSesion() {
@@ -800,7 +944,6 @@
         }
         window.addEventListener('DOMContentLoaded', checkSesion);
 
-        // Login
         document.getElementById('f-login').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -819,13 +962,19 @@
                 if (error) throw error;
 
                 if (data && data.user) {
+                    const { data: p } = await sb.from('perfiles').select('estado').eq('id', data.user.id).single();
+                    if (p && p.estado === 'bloqueado') {
+                        await sb.auth.signOut();
+                        throw new Error('Esta cuenta ha sido suspendida.');
+                    }
+
                     user = data.user;
                     await cargarPerfil();
                     ver('vista-app');
                     cargarCursosDashboard();
                 }
             } catch (err) {
-                errDiv.innerText = 'Credenciales no válidas. Si aún no te has registrado, crea tu cuenta abajo.';
+                errDiv.innerText = err.message || 'Credenciales no válidas.';
                 errDiv.style.display = 'block';
             } finally {
                 btn.disabled = false;
@@ -833,7 +982,6 @@
             }
         });
 
-        // Registro
         document.getElementById('f-reg').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -880,15 +1028,21 @@
                         fecha_nacimiento: fechaNac,
                         edad: edadCalculada,
                         correo: email,
-                        rol: 'estudiante', // Por defecto todos son alumnos
+                        rol: 'estudiante',
                         plan: 'gratuito',
+                        estado: 'activo',
                         preguntas_hoy: 0
                     }]);
 
-                    await sb.from('perfil_mascota').insert([{ user_id: auth.user.id }]);
+                    await sb.from('perfil_mascota').insert([{ 
+                        user_id: auth.user.id,
+                        animal: 'perrito',
+                        accesorio_cabeza: 'ninguno',
+                        accesorio_cuerpo: 'ninguno'
+                    }]);
                 }
 
-                msg.innerText = '¡Registro completado exitosamente! Ya puedes iniciar sesión.';
+                msg.innerText = '¡Registro completado! Ya puedes iniciar sesión.';
                 msg.className = 'alerta alerta-ok';
                 msg.style.display = 'block';
                 document.getElementById('f-reg').reset();
@@ -908,41 +1062,237 @@
             }
         });
 
-        // Perfil y Detección de Rol Administrador
+        // ========================================================
+        //  RENDERIZADOR DE MASCOTA CARICATURA 2.5D CON ACCESORIOS
+        // ========================================================
+        function renderizarMascotaSVG() {
+            const canvas = document.getElementById('avatar-canvas');
+            if (!canvas) return;
+
+            const animal = perfilMascota.animal || 'perrito';
+            const cabeza = perfilMascota.cabeza || 'ninguno';
+            const cuerpo = perfilMascota.cuerpo || 'ninguno';
+
+            // Colores por animalito
+            let colorBase = "#f2a65a"; // Perrito dorado
+            let colorOrejas = "#c87834";
+            let colorHocico = "#fbe6cf";
+
+            if (animal === 'gatito') {
+                colorBase = "#a0a8b4"; colorOrejas = "#ffb6c1"; colorHocico = "#ffffff";
+            } else if (animal === 'panda') {
+                colorBase = "#ffffff"; colorOrejas = "#2c3e50"; colorHocico = "#ffffff";
+            } else if (animal === 'zorrito') {
+                colorBase = "#e65c00"; colorOrejas = "#4a2400"; colorHocico = "#ffffff";
+            }
+
+            // Capa de cuerpo/ropa
+            let svgCuerpoRopa = `
+                <!-- Cuerpo Sentado Base -->
+                <ellipse cx="50" cy="68" rx="28" ry="24" fill="${colorBase}"/>
+                <!-- Pancita -->
+                <ellipse cx="50" cy="70" rx="16" ry="15" fill="${colorHocico}"/>
+            `;
+            if (cuerpo === 'mandil') {
+                svgCuerpoRopa += `
+                    <!-- Mandil Médico Blanco -->
+                    <path d="M26 62 Q50 56 74 62 L70 88 Q50 92 30 88 Z" fill="#ffffff" stroke="#ced4da" stroke-width="1.5"/>
+                    <path d="M46 62 L46 88 M54 62 L54 88" stroke="#ced4da" stroke-width="1"/>
+                    <circle cx="50" cy="72" r="1.5" fill="#0056b3"/>
+                `;
+            } else if (cuerpo === 'scrub') {
+                svgCuerpoRopa += `
+                    <!-- Scrub Quirúrgico Azul -->
+                    <path d="M26 62 Q50 56 74 62 L70 88 Q50 92 30 88 Z" fill="#007bff"/>
+                    <path d="M42 60 L50 70 L58 60" fill="none" stroke="#004494" stroke-width="2"/>
+                `;
+            }
+
+            // Patitas delanteras
+            svgCuerpoRopa += `
+                <ellipse cx="36" cy="88" rx="8" ry="6" fill="${colorBase}"/>
+                <ellipse cx="64" cy="88" rx="8" ry="6" fill="${colorBase}"/>
+            `;
+
+            // Orejas según especie
+            let svgOrejas = "";
+            if (animal === 'gatito' || animal === 'zorrito') {
+                svgOrejas = `
+                    <polygon points="26,30 34,10 44,26" fill="${colorOrejas}"/>
+                    <polygon points="74,30 66,10 56,26" fill="${colorOrejas}"/>
+                `;
+            } else if (animal === 'panda') {
+                svgOrejas = `
+                    <circle cx="30" cy="20" r="11" fill="${colorOrejas}"/>
+                    <circle cx="70" cy="20" r="11" fill="${colorOrejas}"/>
+                `;
+            } else {
+                // Perrito orejas caídas
+                svgOrejas = `
+                    <ellipse cx="24" cy="36" rx="9" ry="18" fill="${colorOrejas}" transform="rotate(20 24 36)"/>
+                    <ellipse cx="76" cy="36" rx="9" ry="18" fill="${colorOrejas}" transform="rotate(-20 76 36)"/>
+                `;
+            }
+
+            // Capa de Cabeza y Accesorios
+            let svgAccesoriosCabeza = "";
+            if (cabeza === 'gorro') {
+                svgAccesoriosCabeza = `
+                    <!-- Gorro de Cirugía Verde -->
+                    <path d="M25 24 Q50 10 75 24 Q72 16 50 14 Q28 16 25 24 Z" fill="#28a745"/>
+                    <rect x="24" y="22" width="52" height="6" rx="3" fill="#218838"/>
+                `;
+            } else if (cabeza === 'birrete') {
+                svgAccesoriosCabeza = `
+                    <!-- Birrete de Graduación -->
+                    <polygon points="50,6 80,18 50,26 20,18" fill="#2c3e50"/>
+                    <rect x="36" y="22" width="28" height="6" fill="#1a252f"/>
+                    <line x1="50" y1="18" x2="72" y2="28" stroke="#ffd700" stroke-width="2"/>
+                `;
+            } else if (cabeza === 'esteto') {
+                svgAccesoriosCabeza = `
+                    <!-- Estetoscopio al Cuello -->
+                    <path d="M35 52 Q50 68 65 52" fill="none" stroke="#495057" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="50" cy="64" r="4.5" fill="#ffd700"/>
+                `;
+            }
+
+            canvas.innerHTML = `
+                <svg viewBox="0 0 100 100" class="svg-mascota-render" id="svg-mascota-core">
+                    ${svgOrejas}
+                    ${svgCuerpoRopa}
+                    <!-- Cabeza Caricatura -->
+                    <ellipse cx="50" cy="40" rx="26" ry="22" fill="${colorBase}"/>
+                    <!-- Mancha de Panda en Ojos -->
+                    ${animal === 'panda' ? '<ellipse cx="39" cy="38" rx="8" ry="10" fill="#2c3e50"/><ellipse cx="61" cy="38" rx="8" ry="10" fill="#2c3e50"/>' : ''}
+                    <!-- Ojos Animados con Parpadeo -->
+                    <g class="anim-ojo-parpadeo">
+                        <ellipse cx="40" cy="38" rx="4" ry="5.5" fill="#1a252f"/>
+                        <circle cx="38.5" cy="36" r="1.5" fill="#ffffff"/>
+                        <ellipse cx="60" cy="38" rx="4" ry="5.5" fill="#1a252f"/>
+                        <circle cx="58.5" cy="36" r="1.5" fill="#ffffff"/>
+                    </g>
+                    <!-- Mejillas sonrojadas -->
+                    <ellipse cx="32" cy="45" rx="4" ry="2" fill="#ff7675" fill-opacity="0.6"/>
+                    <ellipse cx="68" cy="45" rx="4" ry="2" fill="#ff7675" fill-opacity="0.6"/>
+                    <!-- Hocico -->
+                    <ellipse cx="50" cy="47" rx="10" ry="7" fill="${colorHocico}"/>
+                    <polygon points="47,44 53,44 50,47" fill="#2c3e50"/>
+                    <path d="M47 48 Q50 51 53 48" fill="none" stroke="#2c3e50" stroke-width="1.5" stroke-linecap="round"/>
+                    ${svgAccesoriosCabeza}
+                </svg>
+            `;
+        }
+
+        async function cambiarAnimal(nuevoAnimal) {
+            perfilMascota.animal = nuevoAnimal;
+            renderizarMascotaSVG();
+            const sb = obtenerSupabase();
+            if (sb && user) {
+                await sb.from('perfil_mascota').update({ animal: nuevoAnimal }).eq('user_id', user.id);
+            }
+        }
+
+        async function equiparPrenda(tipo, prenda) {
+            if (tipo === 'cabeza') perfilMascota.cabeza = prenda;
+            if (tipo === 'cuerpo') perfilMascota.cuerpo = prenda;
+            renderizarMascotaSVG();
+
+            const sb = obtenerSupabase();
+            if (sb && user) {
+                const payload = {};
+                if (tipo === 'cabeza') payload.accesorio_cabeza = prenda;
+                if (tipo === 'cuerpo') payload.accesorio_cuerpo = prenda;
+                await sb.from('perfil_mascota').update(payload).eq('user_id', user.id);
+            }
+        }
+
         async function cargarPerfil() {
             const sb = obtenerSupabase();
             if (!user || !sb) return;
-            const { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
-            if (p) {
-                perfilUsuario = p;
-                const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
-                document.getElementById('txt-saludo').innerText = `Hola, Dr. ${nombreCompleto}`;
-                
-                // Si el rol es admin, activar el botón de Gestión Docente en el menú lateral
-                if (p.rol === 'admin') {
-                    document.getElementById('m-admin').style.display = 'flex';
-                } else {
-                    document.getElementById('m-admin').style.display = 'none';
-                }
+            let { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
+            
+            if (!p) {
+                const nombreGoogle = user.user_metadata?.full_name || 'Médico Postulante';
+                await sb.from('perfiles').insert([{
+                    id: user.id,
+                    nombres: nombreGoogle,
+                    apellidos: '',
+                    correo: user.email,
+                    rol: 'estudiante',
+                    plan: 'gratuito',
+                    estado: 'activo',
+                    preguntas_hoy: 0
+                }]);
+                await sb.from('perfil_mascota').insert([{ 
+                    user_id: user.id,
+                    animal: 'perrito',
+                    accesorio_cabeza: 'ninguno',
+                    accesorio_cuerpo: 'ninguno'
+                }]);
+                p = { nombres: nombreGoogle, apellidos: '', rol: 'estudiante', plan: 'gratuito', preguntas_hoy: 0 };
+            }
 
-                const banner = document.getElementById('banner-membresia');
-                const planTit = document.getElementById('plan-titulo');
-                if (p.plan === 'premium' || p.rol === 'admin') {
-                    banner.className = 'banner-plan plan-prem';
-                    banner.innerHTML = '<strong>Membresía Premium (Ciclo Completo)</strong>: Cuentas con acceso total e ilimitado.';
-                } else {
-                    banner.className = 'banner-plan plan-free';
-                    planTit.innerText = 'Cuenta Gratuita';
-                }
+            perfilUsuario = p;
+            const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
+            document.getElementById('txt-saludo').innerText = `Hola, Dr. ${nombreCompleto}`;
+            
+            if (p.rol === 'admin') {
+                document.getElementById('m-admin').style.display = 'flex';
             } else {
-                perfilUsuario = { plan: 'gratuito', preguntas_hoy: 0 };
+                document.getElementById('m-admin').style.display = 'none';
+            }
+
+            const banner = document.getElementById('banner-membresia');
+            const planTit = document.getElementById('plan-titulo');
+            if (p.plan === 'premium' || p.rol === 'admin') {
+                banner.className = 'banner-plan plan-prem';
+                banner.innerHTML = '<strong>Membresía Premium (Ciclo Completo)</strong>: Cuentas con acceso total e ilimitado.';
+            } else {
+                banner.className = 'banner-plan plan-free';
+                planTit.innerText = 'Cuenta Gratuita';
             }
 
             const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
             if (m) {
-                perfilMascota = m;
-                document.getElementById('m-monedas').innerText = m.monedas;
+                perfilMascota = {
+                    animal: m.animal || 'perrito',
+                    cabeza: m.accesorio_cabeza || 'ninguno',
+                    cuerpo: m.accesorio_cuerpo || 'ninguno',
+                    monedas: m.monedas || 50,
+                    energia: m.energia || 100,
+                    nivel: m.nivel || 1
+                };
+                document.getElementById('m-monedas').innerText = perfilMascota.monedas;
+                document.getElementById('m-nivel-tag').innerText = `Nv. ${perfilMascota.nivel}`;
+                document.getElementById('m-energia-bar').style.width = `${perfilMascota.energia}%`;
             }
+            renderizarMascotaSVG();
+        }
+
+        async function alimentarMascota() {
+            const sb = obtenerSupabase();
+            if (!perfilMascota || perfilMascota.monedas < 10 || !sb) {
+                mostrarAvisoModal("Monedas Insuficientes", "Necesitas al menos 10 monedas. Resuelve preguntas clínicas para ganar recompensas.", "🪙");
+                return;
+            }
+
+            const nuevasMonedas = perfilMascota.monedas - 10;
+            perfilMascota.monedas = nuevasMonedas;
+            perfilMascota.energia = 100;
+            document.getElementById('m-monedas').innerText = nuevasMonedas;
+            document.getElementById('m-energia-bar').style.width = '100%';
+
+            await sb.from('perfil_mascota').update({ monedas: nuevasMonedas, energia: 100 }).eq('user_id', user.id);
+
+            // Festejo dinámico
+            const core = document.getElementById('svg-mascota-core');
+            if (core) {
+                core.classList.add('festejo-mascota');
+                setTimeout(() => core.classList.remove('festejo-mascota'), 700);
+            }
+
+            mostrarAvisoModal("¡Buen Provecho!", "Tu compañero médico comió delicioso, recuperó toda su energía y sonríe feliz.", "🍖");
         }
 
         async function cargarCursosDashboard() {
@@ -1048,9 +1398,9 @@
                 document.getElementById('fb-tit').innerText = '✔ ¡Respuesta Correcta!';
                 if (perfilMascota && sb) {
                     const m = perfilMascota.monedas + 2;
-                    await sb.from('perfil_mascota').update({ monedas: m }).eq('user_id', user.id);
                     perfilMascota.monedas = m;
                     document.getElementById('m-monedas').innerText = m;
+                    await sb.from('perfil_mascota').update({ monedas: m }).eq('user_id', user.id);
                 }
             } else {
                 btn.classList.add('incorrecta');
@@ -1079,7 +1429,6 @@
             }
         }
 
-        // GENERAR PREGUNTAS CON IA
         async function generarPreguntasConIA() {
             const esIlimitado = (perfilUsuario && (perfilUsuario.plan === 'premium' || perfilUsuario.rol === 'admin'));
             if (!esIlimitado && perfilUsuario.preguntas_hoy >= 20) {
@@ -1127,7 +1476,7 @@
                     cargarSiguientePregunta();
                     mostrarAvisoModal("¡Casos Clínicos Listos!", `Se generaron ${data.resultado.length} preguntas de ${temaSeleccionado} según normas técnicas del MINSA.`, "🤖");
                 } else {
-                    mostrarAvisoModal("Sin resultados", "No se pudieron formular preguntas en este intento. Inténtalo nuevamente.", "⚠️");
+                    mostrarAvisoModal("Sin resultados", "No se pudieron formular preguntas en este intento.", "⚠️");
                 }
             } catch (err) {
                 mostrarAvisoModal("Aviso de IA", err.message, "⚠️");
@@ -1137,7 +1486,6 @@
             }
         }
 
-        // FLASHCARDS
         async function cargarFlashcardsDesdeBD() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('contenedor-flashcards');
@@ -1286,27 +1634,8 @@
             }
         }
 
-        async function alimentarMascota() {
-            const sb = obtenerSupabase();
-            if (!perfilMascota || perfilMascota.monedas < 10 || !sb) {
-                mostrarAvisoModal("Monedas Insuficientes", "Necesitas al menos 10 monedas. Resuelve preguntas clínicas para ganar más recompensas.", "🪙");
-                return;
-            }
-
-            const nuevasMonedas = perfilMascota.monedas - 10;
-            await sb.from('perfil_mascota').update({ monedas: nuevasMonedas }).eq('user_id', user.id);
-            perfilMascota.monedas = nuevasMonedas;
-            document.getElementById('m-monedas').innerText = nuevasMonedas;
-
-            const avatar = document.getElementById('avatar-mascota');
-            avatar.classList.add('mascota-feliz');
-            setTimeout(() => avatar.classList.remove('mascota-feliz'), 800);
-
-            mostrarAvisoModal("¡Mascota Alimentada!", "Tu compañero médico está lleno de energía y listo para seguir banqueando.", "🍖");
-        }
-
         // ==========================================
-        //  LÓGICA DEL PANEL DOCENTE INTEGRADO
+        //  PANEL DOCENTE INTEGRADO
         // ==========================================
         function verSubTabAdmin(tipo) {
             document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
@@ -1318,7 +1647,6 @@
             if (tipo === 'a') cargarAlumnosAdmin();
         }
 
-        // Guardar Pregunta Manual
         document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -1337,12 +1665,11 @@
             const { error } = await sb.from('preguntas').insert([payload]);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco oficial con éxito.", "✔");
+                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔");
                 document.getElementById('form-adm-p').reset();
             }
         });
 
-        // Guardar Flashcard Manual
         document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -1360,7 +1687,6 @@
             }
         });
 
-        // Guardar Tema Manual
         document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -1374,38 +1700,45 @@
             const { error } = await sb.from('temas').insert([payload]);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("¡Guardado!", "Tema teórico publicado en el temario.", "✔");
+                mostrarAvisoModal("¡Guardado!", "Tema teórico publicado con éxito.", "✔");
                 document.getElementById('form-adm-t').reset();
             }
         });
 
-        // Cargar Lista de Alumnos en Panel Admin
         async function cargarAlumnosAdmin() {
             const sb = obtenerSupabase();
             const tbody = document.getElementById('tabla-alumnos-adm-body');
-            tbody.innerHTML = '<tr><td colspan="5">Consultando base de datos...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6">Consultando base de datos...</td></tr>';
             
             const { data: alumnos, error } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
             
             if (error || !alumnos || alumnos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5">No hay alumnos registrados aún.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6">No hay alumnos registrados aún.</td></tr>';
                 return;
             }
 
             tbody.innerHTML = '';
             alumnos.forEach(a => {
                 const esPrem = (a.plan === 'premium');
+                const estaBloq = (a.estado === 'bloqueado');
+
                 tbody.innerHTML += `
                     <tr>
-                        <td><strong>${a.nombres} ${a.apellidos}</strong></td>
+                        <td><strong>${a.nombres || ''} ${a.apellidos || ''}</strong></td>
                         <td>${a.dni || 'Sin DNI'}</td>
                         <td>${a.correo}</td>
-                        <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'GRATUITO'}</span></td>
-                        <td>
+                        <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'GRATIS'}</span></td>
+                        <td><span class="badge ${estaBloq ? 'badge-bloq' : 'badge-prem'}">${estaBloq ? 'BLOQUEADO' : 'ACTIVO'}</span></td>
+                        <td style="display: flex; gap: 4px; flex-wrap: wrap;">
                             ${esPrem 
-                                ? `<button class="btn-des" onclick="cambiarPlanAdmin('${a.id}', 'gratuito')">Pasar a Gratuito</button>`
-                                : `<button class="btn-act" onclick="cambiarPlanAdmin('${a.id}', 'premium')">Activar Ciclo Completo</button>`
+                                ? `<button class="btn-des" onclick="cambiarPlanAdmin('${a.id}', 'gratuito')">Bajar a Gratis</button>`
+                                : `<button class="btn-act" onclick="cambiarPlanAdmin('${a.id}', 'premium')">Activar Premium</button>`
                             }
+                            ${estaBloq
+                                ? `<button class="btn-act" onclick="cambiarEstadoCuenta('${a.id}', 'activo')">Desbloquear</button>`
+                                : `<button class="btn-bloq" onclick="cambiarEstadoCuenta('${a.id}', 'bloqueado')">Bloquear</button>`
+                            }
+                            <button class="btn-clave" onclick="enviarClaveDesdeAdmin('${a.correo}')">Clave</button>
                         </td>
                     </tr>
                 `;
@@ -1417,8 +1750,31 @@
             const { error } = await sb.from('perfiles').update({ plan: nuevoPlan }).eq('id', userId);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("Plan Actualizado", "El estado del estudiante ha sido actualizado con éxito.", "✔");
+                mostrarAvisoModal("Plan Actualizado", "Membresía modificada con éxito.", "✔");
                 cargarAlumnosAdmin();
+            }
+        }
+
+        async function cambiarEstadoCuenta(userId, nuevoEstado) {
+            const sb = obtenerSupabase();
+            const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒");
+                cargarAlumnosAdmin();
+            }
+        }
+
+        async function enviarClaveDesdeAdmin(correoAlumno) {
+            const sb = obtenerSupabase();
+            try {
+                const { error } = await sb.auth.resetPasswordForEmail(correoAlumno, {
+                    redirectTo: window.location.origin
+                });
+                if (error) throw error;
+                mostrarAvisoModal("Enlace Generado", `Se envió el correo para restablecer la contraseña a: ${correoAlumno}`, "📬");
+            } catch (err) {
+                mostrarAvisoModal("Error", err.message, "⚠️");
             }
         }
 
