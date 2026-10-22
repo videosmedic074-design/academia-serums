@@ -30,7 +30,6 @@
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
 
-        /* Emblema Andino Peruano Rediseñado y Ampliado */
         .emblema-serums-pro {
             display: inline-flex; align-items: center; justify-content: center;
             width: 65px; height: 65px; background: linear-gradient(135deg, #004b99, #0088cc);
@@ -87,14 +86,22 @@
         .menu li.admin-btn:hover, .menu li.admin-btn.activo { background: #f3ebfc; color: #6f42c1; border-left-color: #6f42c1; }
         .menu li.cerrar { color: #dc3545; border-top: 1px solid #eee; margin-top: auto; }
 
-        .contenido { flex: 1; padding: 35px; overflow-y: auto; padding-bottom: 85px; }
+        .contenido { flex: 1; padding: 35px; overflow-y: auto; display: flex; flex-direction: column; }
+        .contenido-cuerpo { flex: 1; }
+        
+        /* Footer Oficial */
+        .footer-oficial {
+            margin-top: 40px; padding-top: 20px; border-top: 1px solid #dee2e6;
+            text-align: center; color: #6c757d; font-size: 0.85em; line-height: 1.6;
+        }
+
         .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
         .card-c { background: white; padding: 22px; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-top: 6px solid #0056b3; cursor: pointer; transition: 0.2s; }
         .card-c:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
         .card-c h3 { margin-bottom: 8px; font-size: 1.15em; color: #2c3e50; }
 
-        /* Mascota Widget Evolutiva */
+        /* Mascota Widget */
         .widget-mascota-pro { 
             background: linear-gradient(135deg, #0056b3, #0098b8); 
             color: white; padding: 22px 28px; border-radius: 20px; margin-bottom: 25px; 
@@ -146,7 +153,7 @@
         .card-modalidad h3 { color: #2c3e50; font-size: 1.25em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .card-modalidad p { color: #6c757d; font-size: 0.9em; line-height: 1.5; margin-bottom: 15px; }
 
-        /* Simulador y Mascota Coach */
+        /* Simulador */
         .layout-simulador { display: flex; gap: 20px; align-items: flex-start; max-width: 950px; margin: auto; }
         .box-pregunta { flex: 1; background: white; padding: 35px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         
@@ -207,7 +214,7 @@
         .item-tienda-card:hover { border-color: #0056b3; background: #e9f2fb; }
         .item-icono { font-size: 2.2em; margin-bottom: 5px; }
 
-        /* Estadísticas por Curso */
+        /* Estadísticas */
         .stat-curso-box { background: white; padding: 18px 22px; border-radius: 12px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
         .stat-curso-header { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; }
         .stat-progreso-bg { width: 100%; background: #e9ecef; height: 10px; border-radius: 8px; overflow: hidden; }
@@ -271,20 +278,15 @@
             <div class="card-auth">
                 <div class="logo-box-main">
                     <div class="emblema-serums-pro">
-                        <!-- Emblema Andino Peruano Majestuoso -->
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Cordillera Andina con nieves perpetuas -->
                             <polygon points="10,75 35,28 55,58 75,22 95,75" fill="#ffffff" fill-opacity="0.35"/>
                             <polygon points="5,80 32,32 50,62 70,26 95,80" fill="#ffffff" fill-opacity="0.75"/>
                             <polygon points="26,42 32,32 38,42" fill="#003366"/>
                             <polygon points="64,36 70,26 76,36" fill="#003366"/>
-                            <!-- Sol Andino Naciente -->
                             <circle cx="50" cy="22" r="8" fill="#ffd700"/>
-                            <!-- Silueta Médico con Mochila SERUMS subiendo la cuesta -->
                             <circle cx="48" cy="48" r="4.5" fill="#002244"/>
                             <path d="M44 54 H52 L54 68 H50 L48 80 H44 L46 66 L43 68 L42 60 L44 54 Z" fill="#002244"/>
                             <rect x="39" y="55" width="4" height="8" rx="2" fill="#ffd700"/>
-                            <!-- Bastón de Apoyo -->
                             <line x1="53" y1="62" x2="57" y2="80" stroke="#ffd700" stroke-width="2"/>
                         </svg>
                     </div>
@@ -356,7 +358,7 @@
         </div>
     </section>
 
-    <!-- 3. PLATAFORMA PRINCIPAL -->
+    <!-- 3. PLATAFORMA PRINCIPAL CON MENÚ REORDENADO -->
     <section id="vista-app" class="pantalla">
         <div class="layout">
             <aside class="sidebar">
@@ -370,11 +372,11 @@
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
                 </div>
                 <ul class="menu">
-                    <!-- Flujo Pedagógico Oficial -->
                     <li id="m-dash" class="activo" onclick="subSec('dash')">🏠 Inicio</li>
                     <li id="m-temas" onclick="subSec('temas')">📖 Teoría y Resúmenes</li>
                     <li id="m-banqueo" onclick="subSec('banqueo')">📝 Banco de Preguntas</li>
                     <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards Médicas</li>
+                    <li id="m-fijas" onclick="subSec('fijas')">🔥 Las Fijas SERUMS</li>
                     <li id="m-stats" onclick="subSec('stats')">📈 Mis Estadísticas</li>
                     <li id="m-admin" class="admin-btn" style="display: none;" onclick="subSec('admin')">🛠️ Panel Docente</li>
                     <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
@@ -383,84 +385,210 @@
 
             <!-- SUB 1: INICIO -->
             <main id="sec-dash" class="contenido">
-                <div class="header-top">
-                    <div>
-                        <h1 id="txt-saludo" style="color: #2c3e50;">Hola, Doctor</h1>
-                        <p style="color: #6c757d; margin-top: 4px;">Plataforma de alta exigencia para asegurar tu plaza SERUMS.</p>
-                    </div>
-                </div>
-
-                <div id="banner-membresia" class="banner-plan plan-free">
-                    <div>
-                        <strong id="plan-titulo">Cuenta Gratuita</strong>: Límite de 20 preguntas/día y 3 temas por curso.
-                    </div>
-                    <button class="btn-p" style="width: auto; padding: 7px 15px; margin: 0; background: #0056b3;" onclick="abrirModalPremium()">Adquirir Ciclo Completo</button>
-                </div>
-
-                <!-- Widget Mascota Evolutiva -->
-                <div class="widget-mascota-pro">
-                    <div class="stage-mascota">
-                        <div class="avatar-canvas-box" id="avatar-canvas"></div>
-                        <div class="mascota-info-pro">
-                            <h4 id="m-nombre">Compañero SERUMS <span style="font-size: 0.7em; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;" id="m-nivel-tag">Nv. 1 (Bebé)</span></h4>
-                            <div class="barra-energia-caja"><div class="barra-energia-fill" id="m-energia-bar"></div></div>
-                            <p style="font-size: 0.9em;">🪙 <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz 🩺</span></p>
+                <div class="contenido-cuerpo">
+                    <div class="header-top">
+                        <div>
+                            <h1 id="txt-saludo" style="color: #2c3e50;">Hola, Doctor</h1>
+                            <p style="color: #6c757d; margin-top: 4px;">Plataforma de alta exigencia para asegurar tu plaza SERUMS.</p>
                         </div>
                     </div>
-                    <div class="botones-mascota-acciones">
-                        <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #28a745;" onclick="alimentarMascota()">🍖 Alimentar (10 🪙)</button>
-                        <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #6f42c1;" onclick="abrirArmarioMascota()">👗 Armario y Especies</button>
+
+                    <div id="banner-membresia" class="banner-plan plan-free">
+                        <div>
+                            <strong id="plan-titulo">Cuenta Gratuita</strong>: Límite de 20 preguntas/día y 3 temas por curso.
+                        </div>
+                        <button class="btn-p" style="width: auto; padding: 7px 15px; margin: 0; background: #0056b3;" onclick="abrirModalPremium()">Adquirir Ciclo Completo</button>
                     </div>
+
+                    <div class="widget-mascota-pro">
+                        <div class="stage-mascota">
+                            <div class="avatar-canvas-box" id="avatar-canvas"></div>
+                            <div class="mascota-info-pro">
+                                <h4 id="m-nombre">Compañero SERUMS <span style="font-size: 0.7em; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;" id="m-nivel-tag">Nv. 1 (Bebé)</span></h4>
+                                <div class="barra-energia-caja"><div class="barra-energia-fill" id="m-energia-bar"></div></div>
+                                <p style="font-size: 0.9em;">🪙 <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz 🩺</span></p>
+                            </div>
+                        </div>
+                        <div class="botones-mascota-acciones">
+                            <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #28a745;" onclick="alimentarMascota()">🍖 Alimentar (10 🪙)</button>
+                            <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #6f42c1;" onclick="abrirArmarioMascota()">👗 Armario y Especies</button>
+                        </div>
+                    </div>
+
+                    <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Ejes Oficiales del Temario MINSA</h2>
+                    <div class="grid-5" id="grid-cursos-dashboard"></div>
                 </div>
 
-                <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Ejes Oficiales del Temario MINSA</h2>
-                <div class="grid-5" id="grid-cursos-dashboard"></div>
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                    <p>Propiedad Intelectual y Contenidos Académicos Registrados. Versión 2.5 Pro (Lima, Perú).</p>
+                </footer>
             </main>
 
-            <!-- SUB 2: TEORÍA Y RESÚMENES -->
+            <!-- SUB 2: TEORÍA Y RESÚMENES (CON ELEMENTOS VISUALES Y BOTÓN A PRACTICAR) -->
             <main id="sec-temas" class="contenido" style="display: none;">
-                <h1 style="margin-bottom: 10px; color: #2c3e50;">Teoría y Resúmenes Clínicos</h1>
-                <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes estructurados según guías de práctica clínica y normas del MINSA.</p>
-                <div id="lista-temas-contenedor">Cargando temas...</div>
+                <div class="contenido-cuerpo">
+                    <h1 style="margin-bottom: 10px; color: #2c3e50;">Teoría y Resúmenes Clínicos</h1>
+                    <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes estructurados según guías de práctica clínica y normas del MINSA.</p>
+                    <div id="lista-temas-contenedor">Cargando temas...</div>
+                </div>
+
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                </footer>
             </main>
 
             <!-- SUB 3: BANCO DE PREGUNTAS (3 MODALIDADES) -->
             <main id="sec-banqueo" class="contenido" style="display: none;">
-                <!-- 1. Menú de Modalidades -->
-                <div id="vista-selector-modalidad">
-                    <h1 style="color: #2c3e50; font-size: 1.5em; margin-bottom: 8px;">Centro de Entrenamiento y Banqueo</h1>
-                    <p style="color: #6c757d; margin-bottom: 25px;">Selecciona cómo deseas practicar para el examen ENCAPS / SERUMS:</p>
+                <div class="contenido-cuerpo">
+                    <!-- Menú de Modalidades -->
+                    <div id="vista-selector-modalidad">
+                        <h1 style="color: #2c3e50; font-size: 1.5em; margin-bottom: 8px;">Centro de Entrenamiento y Banqueo</h1>
+                        <p style="color: #6c757d; margin-bottom: 25px;">Selecciona cómo deseas practicar para el examen ENCAPS / SERUMS:</p>
 
-                    <div class="grid-modalidades-banqueo">
-                        <div class="card-modalidad" onclick="activarModalidadBanqueo('curso')">
-                            <h3>🎯 Banqueo por Curso y Tema</h3>
-                            <p>Entrena con retroalimentación inmediata pregunta a pregunta. Incluye el generador inteligente con IA.</p>
-                            <span style="color: #0056b3; font-weight: bold; font-size: 0.9em;">Ingresar a Banquear ➔</span>
+                        <div class="grid-modalidades-banqueo">
+                            <div class="card-modalidad" onclick="activarModalidadBanqueo('curso')">
+                                <h3>🎯 Banqueo por Curso y Tema</h3>
+                                <p>Entrena con retroalimentación inmediata pregunta a pregunta. Incluye el generador inteligente con IA.</p>
+                                <span style="color: #0056b3; font-weight: bold; font-size: 0.9em;">Ingresar a Banquear ➔</span>
+                            </div>
+
+                            <div class="card-modalidad" style="border-top-color: #28a745;" onclick="activarModalidadBanqueo('simulacros_oficiales')">
+                                <h3>📋 Simulacros Oficiales Programados</h3>
+                                <p>Exámenes completos tipo ENCAPS/SERUMS habilitados semana a semana por la academia con temporizador.</p>
+                                <span style="color: #28a745; font-weight: bold; font-size: 0.9em;">Ver Simulacros Disponibles ➔</span>
+                            </div>
+
+                            <div class="card-modalidad" style="border-top-color: #6f42c1;" onclick="activarModalidadBanqueo('arma_tu_simulacro')">
+                                <h3>⚙️ Arma tu Examen Personalizado</h3>
+                                <p>Configura tu propio simulacro combinando cursos, volumen de preguntas y niveles de dificultad.</p>
+                                <span style="color: #6f42c1; font-weight: bold; font-size: 0.9em;">Configurar Examen ➔</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pantalla: Banqueo por Curso -->
+                    <div id="pantalla-banqueo-curso" style="display: none;">
+                        <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                        
+                        <div class="panel-control-ia">
+                            <div class="fila-filtros-ia">
+                                <div>
+                                    <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Curso Oficial:</label>
+                                    <select id="sel-curso-banqueo" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;" onchange="actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo')">
+                                        <option value="Salud Pública">Salud Pública</option>
+                                        <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                        <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                        <option value="Investigación">Investigación</option>
+                                        <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Oficial MINSA:</label>
+                                    <select id="sel-tema-banqueo" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                        <option value="General">Todo el curso (General)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Cantidad:</label>
+                                    <select id="sel-cantidad-preguntas-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                        <option value="3">3 Preguntas</option>
+                                        <option value="5">5 Preguntas</option>
+                                        <option value="10" selected>10 Preguntas (Máx)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid #eee; padding-top: 12px;">
+                                <div>
+                                    <span style="font-weight: 600; font-size: 0.88em; color: #495057;">Dificultad combinable:</span>
+                                    <div class="grupo-check-dif">
+                                        <label><input type="checkbox" id="chk-dif-basica" value="Básica"> Básica</label>
+                                        <label><input type="checkbox" id="chk-dif-intermedia" value="Intermedia" checked> Intermedia</label>
+                                        <label><input type="checkbox" id="chk-dif-avanzada" value="Avanzada" checked> Avanzada</label>
+                                    </div>
+                                </div>
+                                <button class="btn-ia-accion" id="btn-generar-preguntas-ia" onclick="generarPreguntasConIA()">
+                                    ⚡ Generar Preguntas con IA
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="card-modalidad" style="border-top-color: #28a745;" onclick="activarModalidadBanqueo('simulacros_oficiales')">
-                            <h3>📋 Simulacros Oficiales Programados</h3>
-                            <p>Exámenes completos tipo ENCAPS/SERUMS habilitados semana a semana por la academia con temporizador.</p>
-                            <span style="color: #28a745; font-weight: bold; font-size: 0.9em;">Ver Simulacros Disponibles ➔</span>
-                        </div>
+                        <div class="layout-simulador">
+                            <div class="box-pregunta" id="box-pregunta-activa">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 18px; align-items: center;">
+                                    <span id="sim-info" style="color: #007bff; font-weight: bold; text-transform: uppercase; font-size: 0.9em;">MODO PRÁCTICA</span>
+                                    <span id="contador-diario" style="font-size: 0.9em; font-weight: bold; color: #6c757d; background: #f8f9fa; padding: 5px 10px; border-radius: 6px;"></span>
+                                </div>
+                                <div id="sim-enunciado" style="font-size: 1.2em; font-weight: 600; margin-bottom: 22px; line-height: 1.5; color: #2c3e50;">Cargando pregunta...</div>
+                                <div id="sim-opciones"></div>
+                                <div id="sim-fb" class="fb-box">
+                                    <strong id="fb-tit" style="font-size: 1.1em;"></strong>
+                                    <p id="fb-txt" style="margin-top: 6px;"></p>
+                                </div>
+                                <button id="btn-sig" class="btn-p" style="display: none; margin-top: 25px;" onclick="cargarSiguientePregunta()">Siguiente Pregunta ➔</button>
+                            </div>
 
-                        <div class="card-modalidad" style="border-top-color: #6f42c1;" onclick="activarModalidadBanqueo('arma_tu_simulacro')">
-                            <h3>⚙️ Arma tu Examen Personalizado</h3>
-                            <p>Configura tu propio simulacro combinando cursos, volumen de preguntas y niveles de dificultad.</p>
-                            <span style="color: #6f42c1; font-weight: bold; font-size: 0.9em;">Configurar Examen ➔</span>
+                            <div class="mascota-coach-lateral">
+                                <div class="globo-dialogo" id="coach-mensaje">¡Vamos, Doctor! Confía en tu juicio clínico. 🩺</div>
+                                <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 85px; height: 85px; margin: auto;"></div>
+                                <strong style="display: block; font-size: 0.85em; color: #0056b3; margin-top: 6px;">Tu Compañero SERUMS</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pantalla: Simulacros Oficiales -->
+                    <div id="pantalla-simulacros-oficiales" style="display: none;">
+                        <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                        <h2 style="color: #2c3e50; margin-bottom: 15px;">Simulacros Oficiales del Programa</h2>
+                        <div id="lista-simulacros-habilitados" class="grid-modalidades-banqueo"></div>
+                    </div>
+
+                    <!-- Pantalla: Arma tu Simulacro -->
+                    <div id="pantalla-arma-simulacro" style="display: none;">
+                        <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                        <div class="card-auth amplia" style="max-width: 650px; margin: auto;">
+                            <h2 style="color: #6f42c1; margin-bottom: 8px;">Configura tu Simulacro a Medida</h2>
+                            <p style="color: #666; font-size: 0.9em; margin-bottom: 20px;">Elige los bloques y el número de preguntas que deseas rendir.</p>
+
+                            <div class="campo">
+                                <label>Número de Preguntas del Examen:</label>
+                                <select id="cfg-sim-cantidad">
+                                    <option value="20">20 Preguntas (Rápido)</option>
+                                    <option value="50">50 Preguntas (Medio Simulacro)</option>
+                                    <option value="100" selected>100 Preguntas (Examen Completo ENCAPS)</option>
+                                </select>
+                            </div>
+
+                            <div class="campo">
+                                <label>Cursos a Incluir:</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+                                    <label><input type="checkbox" id="cfg-c-1" value="1" checked> Salud Pública</label>
+                                    <label><input type="checkbox" id="cfg-c-2" value="2" checked> Cuidado Integral</label>
+                                    <label><input type="checkbox" id="cfg-c-3" value="3" checked> Ética e Interculturalidad</label>
+                                    <label><input type="checkbox" id="cfg-c-4" value="4" checked> Investigación</label>
+                                    <label><input type="checkbox" id="cfg-c-5" value="5" checked> Gestión de Servicios</label>
+                                </div>
+                            </div>
+
+                            <button class="btn-p" style="background: #6f42c1; margin-top: 20px;" onclick="iniciarSimulacroArmado()">Comenzar Examen Personalizado ➔</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. Pantalla: Banqueo por Curso -->
-                <div id="pantalla-banqueo-curso" style="display: none;">
-                    <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
-                    
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                </footer>
+            </main>
+
+            <!-- SUB 4: FLASHCARDS -->
+            <main id="sec-flashcards" class="contenido" style="display: none;">
+                <div class="contenido-cuerpo">
                     <div class="panel-control-ia">
                         <div class="fila-filtros-ia">
                             <div>
                                 <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Curso Oficial:</label>
-                                <select id="sel-curso-banqueo" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;" onchange="actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo')">
+                                <select id="sel-curso-flashcard" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;" onchange="actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard'); filtrarFlashcardsPorCurso();">
                                     <option value="Salud Pública">Salud Pública</option>
                                     <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                     <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
@@ -469,179 +597,156 @@
                                 </select>
                             </div>
                             <div>
-                                <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Oficial MINSA:</label>
-                                <select id="sel-tema-banqueo" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Específico:</label>
+                                <select id="sel-tema-flashcard" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
                                     <option value="General">Todo el curso (General)</option>
                                 </select>
                             </div>
                             <div>
                                 <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Cantidad:</label>
-                                <select id="sel-cantidad-preguntas-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
-                                    <option value="3">3 Preguntas</option>
-                                    <option value="5">5 Preguntas</option>
-                                    <option value="10" selected>10 Preguntas (Máx)</option>
+                                <select id="sel-cantidad-flashcards-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
+                                    <option value="4">4 Flashcards</option>
+                                    <option value="8">8 Flashcards</option>
+                                    <option value="10" selected>10 Flashcards (Máx)</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid #eee; padding-top: 12px;">
-                            <div>
-                                <span style="font-weight: 600; font-size: 0.88em; color: #495057;">Dificultad combinable:</span>
-                                <div class="grupo-check-dif">
-                                    <label><input type="checkbox" id="chk-dif-basica" value="Básica"> Básica</label>
-                                    <label><input type="checkbox" id="chk-dif-intermedia" value="Intermedia" checked> Intermedia</label>
-                                    <label><input type="checkbox" id="chk-dif-avanzada" value="Avanzada" checked> Avanzada</label>
-                                </div>
-                            </div>
-                            <button class="btn-ia-accion" id="btn-generar-preguntas-ia" onclick="generarPreguntasConIA()">
-                                ⚡ Generar Preguntas con IA
+                            <button class="btn-ia-accion" id="btn-generar-flashcards-ia" onclick="generarFlashcardsConIA()">
+                                ✨ Generar Flashcards con IA
                             </button>
                         </div>
                     </div>
 
-                    <div class="layout-simulador">
-                        <div class="box-pregunta" id="box-pregunta-activa">
-                            <div style="display: flex; justify-content: space-between; margin-bottom: 18px; align-items: center;">
-                                <span id="sim-info" style="color: #007bff; font-weight: bold; text-transform: uppercase; font-size: 0.9em;">MODO PRÁCTICA</span>
-                                <span id="contador-diario" style="font-size: 0.9em; font-weight: bold; color: #6c757d; background: #f8f9fa; padding: 5px 10px; border-radius: 6px;"></span>
-                            </div>
-                            <div id="sim-enunciado" style="font-size: 1.2em; font-weight: 600; margin-bottom: 22px; line-height: 1.5; color: #2c3e50;">Cargando pregunta...</div>
-                            <div id="sim-opciones"></div>
-                            <div id="sim-fb" class="fb-box">
-                                <strong id="fb-tit" style="font-size: 1.1em;"></strong>
-                                <p id="fb-txt" style="margin-top: 6px;"></p>
-                            </div>
-                            <button id="btn-sig" class="btn-p" style="display: none; margin-top: 25px;" onclick="cargarSiguientePregunta()">Siguiente Pregunta ➔</button>
-                        </div>
-
-                        <div class="mascota-coach-lateral">
-                            <div class="globo-dialogo" id="coach-mensaje">¡Vamos, Doctor! Confía en tu juicio clínico. 🩺</div>
-                            <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 85px; height: 85px; margin: auto;"></div>
-                            <strong style="display: block; font-size: 0.85em; color: #0056b3; margin-top: 6px;">Tu Compañero SERUMS</strong>
-                        </div>
-                    </div>
+                    <div id="contenedor-flashcards" class="grid-flashcards"></div>
                 </div>
 
-                <!-- 3. Pantalla: Simulacros Oficiales -->
-                <div id="pantalla-simulacros-oficiales" style="display: none;">
-                    <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
-                    <h2 style="color: #2c3e50; margin-bottom: 15px;">Simulacros Oficiales del Programa</h2>
-                    <div id="lista-simulacros-habilitados" class="grid-modalidades-banqueo"></div>
-                </div>
-
-                <!-- 4. Pantalla: Arma tu Simulacro -->
-                <div id="pantalla-arma-simulacro" style="display: none;">
-                    <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
-                    <div class="card-auth amplia" style="max-width: 650px; margin: auto;">
-                        <h2 style="color: #6f42c1; margin-bottom: 8px;">Configura tu Simulacro a Medida</h2>
-                        <p style="color: #666; font-size: 0.9em; margin-bottom: 20px;">Elige los bloques y el número de preguntas que deseas rendir.</p>
-
-                        <div class="campo">
-                            <label>Número de Preguntas del Examen:</label>
-                            <select id="cfg-sim-cantidad">
-                                <option value="20">20 Preguntas (Rápido)</option>
-                                <option value="50">50 Preguntas (Medio Simulacro)</option>
-                                <option value="100" selected>100 Preguntas (Examen Completo ENCAPS)</option>
-                            </select>
-                        </div>
-
-                        <div class="campo">
-                            <label>Cursos a Incluir:</label>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
-                                <label><input type="checkbox" id="cfg-c-1" value="1" checked> Salud Pública</label>
-                                <label><input type="checkbox" id="cfg-c-2" value="2" checked> Cuidado Integral</label>
-                                <label><input type="checkbox" id="cfg-c-3" value="3" checked> Ética e Interculturalidad</label>
-                                <label><input type="checkbox" id="cfg-c-4" value="4" checked> Investigación</label>
-                                <label><input type="checkbox" id="cfg-c-5" value="5" checked> Gestión de Servicios</label>
-                            </div>
-                        </div>
-
-                        <button class="btn-p" style="background: #6f42c1; margin-top: 20px;" onclick="iniciarSimulacroArmado()">Comenzar Examen Personalizado ➔</button>
-                    </div>
-                </div>
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                </footer>
             </main>
 
-            <!-- SUB 4: FLASHCARDS -->
-            <main id="sec-flashcards" class="contenido" style="display: none;">
-                <div class="panel-control-ia">
-                    <div class="fila-filtros-ia">
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Curso Oficial:</label>
-                            <select id="sel-curso-flashcard" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;" onchange="actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard'); filtrarFlashcardsPorCurso();">
-                                <option value="Salud Pública">Salud Pública</option>
-                                <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
-                                <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
-                                <option value="Investigación">Investigación</option>
-                                <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Tema Específico:</label>
-                            <select id="sel-tema-flashcard" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
-                                <option value="General">Todo el curso (General)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.88em; color: #495057;">Cantidad:</label>
-                            <select id="sel-cantidad-flashcards-ia" style="padding: 10px; border-radius: 8px; border: 1px solid #ced4da; width: 100%;">
-                                <option value="4">4 Flashcards</option>
-                                <option value="8">8 Flashcards</option>
-                                <option value="10" selected>10 Flashcards (Máx)</option>
-                            </select>
-                        </div>
-                        <button class="btn-ia-accion" id="btn-generar-flashcards-ia" onclick="generarFlashcardsConIA()">
-                            ✨ Generar Flashcards con IA
-                        </button>
-                    </div>
+            <!-- SUB 5: LAS FIJAS SERUMS (REPASO DE ALTO RENDIMIENTO) -->
+            <main id="sec-fijas" class="contenido" style="display: none;">
+                <div class="contenido-cuerpo">
+                    <h1 style="color: #2c3e50; margin-bottom: 8px;">🔥 Las Fijas Oficiales del SERUMS</h1>
+                    <p style="color: #6c757d; margin-bottom: 25px;">Puntos clave, normas técnicas y criterios recurrentes de máxima rentabilidad para el examen.</p>
+                    <div id="contenedor-fijas-cards" class="grid-modalidades-banqueo"></div>
                 </div>
 
-                <div id="contenedor-flashcards" class="grid-flashcards"></div>
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                </footer>
             </main>
 
-            <!-- SUB 5: ESTADÍSTICAS POR CURSO Y RENDIMIENTO GLOBAL -->
+            <!-- SUB 6: ESTADÍSTICAS -->
             <main id="sec-stats" class="contenido" style="display: none;">
-                <h1 style="margin-bottom: 20px; color: #2c3e50;">Diagnóstico de Rendimiento Clínico</h1>
-                
-                <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
-                    <div class="card-c" style="flex: 1; min-width: 200px; text-align: center;">
-                        <h3 style="font-size: 2em; color: #0056b3;" id="st-total">0</h3>
-                        <p style="color: #6c757d; font-weight: bold;">Preguntas Respondidas</p>
+                <div class="contenido-cuerpo">
+                    <h1 style="margin-bottom: 20px; color: #2c3e50;">Diagnóstico de Rendimiento Clínico</h1>
+                    
+                    <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                        <div class="card-c" style="flex: 1; min-width: 200px; text-align: center;">
+                            <h3 style="font-size: 2em; color: #0056b3;" id="st-total">0</h3>
+                            <p style="color: #6c757d; font-weight: bold;">Preguntas Respondidas</p>
+                        </div>
+                        <div class="card-c" style="flex: 1; min-width: 200px; text-align: center; border-top-color: #28a745;">
+                            <h3 style="font-size: 2em; color: #28a745;" id="st-ok">0%</h3>
+                            <p style="color: #6c757d; font-weight: bold;">Precisión Global</p>
+                        </div>
                     </div>
-                    <div class="card-c" style="flex: 1; min-width: 200px; text-align: center; border-top-color: #28a745;">
-                        <h3 style="font-size: 2em; color: #28a745;" id="st-ok">0%</h3>
-                        <p style="color: #6c757d; font-weight: bold;">Precisión Global</p>
-                    </div>
+
+                    <h2 style="color: #2c3e50; font-size: 1.25em; margin-bottom: 15px;">Rendimiento Desglosado por Curso Oficial</h2>
+                    <div id="contenedor-stats-por-curso"></div>
                 </div>
 
-                <h2 style="color: #2c3e50; font-size: 1.25em; margin-bottom: 15px;">Rendimiento Desglosado por Curso Oficial</h2>
-                <div id="contenedor-stats-por-curso">
-                    <!-- Se renderizan las barras por cada curso -->
-                </div>
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                </footer>
             </main>
 
-            <!-- SUB 6: PANEL DOCENTE -->
+            <!-- SUB 7: PANEL DOCENTE CON VACIADOR INTELIGENTE DE WORD/TEXTO -->
             <main id="sec-admin" class="contenido" style="display: none;">
-                <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 6px solid #6f42c1;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <h1 style="color: #6f42c1; font-size: 1.6em;">Gestión Docente y Contenidos</h1>
-                        <span style="background: #f3ebfc; color: #6f42c1; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em;">Modo Administrador</span>
-                    </div>
+                <div class="contenido-cuerpo">
+                    <div style="background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 6px solid #6f42c1;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h1 style="color: #6f42c1; font-size: 1.6em;">Gestión Docente y Contenidos</h1>
+                            <span style="background: #f3ebfc; color: #6f42c1; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em;">Modo Administrador</span>
+                        </div>
 
-                    <div class="pestanas-admin">
-                        <button type="button" class="tab-btn-adm activa" onclick="verSubTabAdmin('p')">➕ Agregar Pregunta</button>
-                        <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Gestionar Simulacros</button>
-                        <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Crear Flashcard</button>
-                        <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('t')">📖 Publicar Tema</button>
-                        <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos y Membresías</button>
-                    </div>
+                        <div class="pestanas-admin">
+                            <button type="button" class="tab-btn-adm activa" onclick="verSubTabAdmin('p')">➕ Agregar Pregunta</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('vaciador')">📋 Vaciador en Bloque (Word)</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Gestionar Simulacros</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Crear Flashcard</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('t')">📖 Publicar Tema</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos y Membresías</button>
+                        </div>
 
-                    <!-- PREGUNTA -->
-                    <div id="subtab-adm-p" class="subtab-adm activa">
-                        <form id="form-adm-p">
+                        <!-- 1. PREGUNTA MANUAL -->
+                        <div id="subtab-adm-p" class="subtab-adm activa">
+                            <form id="form-adm-p">
+                                <div class="fila">
+                                    <div class="campo">
+                                        <label>Curso MINSA</label>
+                                        <select id="adm-p-curso" required onchange="actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema')">
+                                            <option value="Salud Pública">Salud Pública</option>
+                                            <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                            <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                            <option value="Investigación">Investigación</option>
+                                            <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                        </select>
+                                    </div>
+                                    <div class="campo">
+                                        <label>Tema Específico</label>
+                                        <select id="adm-p-tema" required>
+                                            <option value="General">Seleccione el tema...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="campo">
+                                    <label>Dificultad</label>
+                                    <select id="adm-p-dif">
+                                        <option value="Basica">Básica</option>
+                                        <option value="Intermedia" selected>Intermedia</option>
+                                        <option value="Avanzada">Avanzada</option>
+                                    </select>
+                                </div>
+                                <div class="campo">
+                                    <label>Enunciado del Caso Clínico</label>
+                                    <textarea id="adm-p-enunciado" rows="3" required placeholder="Escribe el caso clínico..."></textarea>
+                                </div>
+                                <div class="fila">
+                                    <div class="campo"><label>Alternativa A</label><input type="text" id="adm-p-oa" required></div>
+                                    <div class="campo"><label>Alternativa B</label><input type="text" id="adm-p-ob" required></div>
+                                </div>
+                                <div class="fila">
+                                    <div class="campo"><label>Alternativa C</label><input type="text" id="adm-p-oc" required></div>
+                                    <div class="campo"><label>Alternativa D</label><input type="text" id="adm-p-od" required></div>
+                                </div>
+                                <div class="campo">
+                                    <label>Respuesta Correcta</label>
+                                    <select id="adm-p-correcta" required style="font-weight: bold; color: #0056b3;">
+                                        <option value="A">Opción A</option>
+                                        <option value="B">Opción B</option>
+                                        <option value="C">Opción C</option>
+                                        <option value="D">Opción D</option>
+                                    </select>
+                                </div>
+                                <div class="campo">
+                                    <label>Justificación Clínica (El Porqué)</label>
+                                    <textarea id="adm-p-justificacion" rows="3" required placeholder="Norma técnica y criterio médico..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Pregunta en Base de Datos</button>
+                            </form>
+                        </div>
+
+                        <!-- 2. VACIADOR INTELIGENTE DE TEXTO / WORD EN BLOQUE -->
+                        <div id="subtab-adm-vaciador" class="subtab-adm">
+                            <h3 style="color: #2c3e50; margin-bottom: 8px;">Vaciador Inteligente de Preguntas (Word / PDF)</h3>
+                            <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">Pega tu banco de preguntas en texto continuo tal como está en tu documento. La IA separará automáticamente casos, opciones y claves para que solo tengas que revisarlas.</p>
+                            
                             <div class="fila">
                                 <div class="campo">
-                                    <label>Curso MINSA</label>
-                                    <select id="adm-p-curso" required onchange="actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema')">
+                                    <label>Curso Asignado:</label>
+                                    <select id="vaciador-curso">
                                         <option value="Salud Pública">Salud Pública</option>
                                         <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                         <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
@@ -650,183 +755,206 @@
                                     </select>
                                 </div>
                                 <div class="campo">
-                                    <label>Tema Específico</label>
-                                    <select id="adm-p-tema" required>
-                                        <option value="General">Seleccione el tema...</option>
+                                    <label>Dificultad Promedio:</label>
+                                    <select id="vaciador-dif">
+                                        <option value="Intermedia">Intermedia</option>
+                                        <option value="Basica">Básica</option>
+                                        <option value="Avanzada">Avanzada</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="campo">
-                                <label>Dificultad</label>
-                                <select id="adm-p-dif">
-                                    <option value="Basica">Básica</option>
-                                    <option value="Intermedia" selected>Intermedia</option>
-                                    <option value="Avanzada">Avanzada</option>
-                                </select>
-                            </div>
-                            <div class="campo">
-                                <label>Enunciado del Caso Clínico</label>
-                                <textarea id="adm-p-enunciado" rows="3" required placeholder="Escribe el caso clínico..."></textarea>
-                            </div>
-                            <div class="fila">
-                                <div class="campo"><label>Alternativa A</label><input type="text" id="adm-p-oa" required></div>
-                                <div class="campo"><label>Alternativa B</label><input type="text" id="adm-p-ob" required></div>
-                            </div>
-                            <div class="fila">
-                                <div class="campo"><label>Alternativa C</label><input type="text" id="adm-p-oc" required></div>
-                                <div class="campo"><label>Alternativa D</label><input type="text" id="adm-p-od" required></div>
-                            </div>
-                            <div class="campo">
-                                <label>Respuesta Correcta</label>
-                                <select id="adm-p-correcta" required style="font-weight: bold; color: #0056b3;">
-                                    <option value="A">Opción A</option>
-                                    <option value="B">Opción B</option>
-                                    <option value="C">Opción C</option>
-                                    <option value="D">Opción D</option>
-                                </select>
-                            </div>
-                            <div class="campo">
-                                <label>Justificación Clínica (El Porqué)</label>
-                                <textarea id="adm-p-justificacion" rows="3" required placeholder="Norma técnica y criterio médico..."></textarea>
-                            </div>
-                            <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Pregunta en Base de Datos</button>
-                        </form>
-                    </div>
-
-                    <!-- GESTIÓN Y HABILITACIÓN DE SIMULACROS -->
-                    <div id="subtab-adm-sims" class="subtab-adm">
-                        <h3 style="color: #2c3e50; margin-bottom: 12px;">Crear Nuevo Simulacro Oficial</h3>
-                        <form id="form-adm-sim">
-                            <div class="fila">
-                                <div class="campo">
-                                    <label>Título del Simulacro</label>
-                                    <input type="text" id="adm-sim-tit" placeholder="Ej: Gran Simulacro Nacional N° 01" required>
-                                </div>
-                                <div class="campo">
-                                    <label>Duración (Minutos)</label>
-                                    <input type="number" id="adm-sim-dur" value="120" required>
-                                </div>
-                            </div>
-                            <div class="campo">
-                                <label>Descripción / Instrucciones</label>
-                                <input type="text" id="adm-sim-desc" placeholder="100 preguntas oficiales de todos los ejes del temario.">
-                            </div>
-                            <button type="submit" class="btn-p" style="background: #28a745;">Crear Simulacro</button>
-                        </form>
-
-                        <h3 style="color: #2c3e50; margin-top: 30px; margin-bottom: 12px;">Simulacros Creados (Habilitar / Ocultar)</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Simulacro</th>
-                                    <th>Duración</th>
-                                    <th>Estado Actual</th>
-                                    <th>Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-simulacros-adm-body">
-                                <tr><td colspan="4">Cargando simulacros...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- FLASHCARD -->
-                    <div id="subtab-adm-f" class="subtab-adm">
-                        <form id="form-adm-f">
-                            <div class="fila">
-                                <div class="campo">
-                                    <label>Curso MINSA</label>
-                                    <select id="adm-f-curso" required onchange="actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema')">
-                                        <option value="Salud Pública">Salud Pública</option>
-                                        <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
-                                        <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
-                                        <option value="Investigación">Investigación</option>
-                                        <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
-                                    </select>
-                                </div>
-                                <div class="campo">
-                                    <label>Tema Específico</label>
-                                    <select id="adm-f-tema" required>
-                                        <option value="General">Seleccione el tema...</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="campo">
-                                <label>Anverso (Pregunta corta o criterio puntual)</label>
-                                <textarea id="adm-f-anverso" rows="2" required placeholder="Ej: ¿Criterio de referencia en Neumonía Grave?"></textarea>
-                            </div>
-                            <div class="campo">
-                                <label>Reverso (Respuesta precisa en 1-2 líneas)</label>
-                                <textarea id="adm-f-reverso" rows="2" required placeholder="Ej: Tiraje subcostal o SatO2 < 92% (costa) + Oxígeno y referencia urgente."></textarea>
-                            </div>
-                            <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Flashcard Manual</button>
-                        </form>
-                    </div>
-
-                    <!-- TEMA CON EDITOR VISUAL -->
-                    <div id="subtab-adm-t" class="subtab-adm">
-                        <form id="form-adm-t">
-                            <div class="fila">
-                                <div class="campo">
-                                    <label>Curso MINSA</label>
-                                    <select id="adm-t-curso" required onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')">
-                                        <option value="Salud Pública">Salud Pública</option>
-                                        <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
-                                        <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
-                                        <option value="Investigación">Investigación</option>
-                                        <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
-                                    </select>
-                                </div>
-                                <div class="campo">
-                                    <label>Tema del Temario Oficial</label>
-                                    <select id="adm-t-tema-select" required onchange="autoCompletarCodigoTitulo()">
-                                        <option value="">Seleccione el tema oficial...</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="fila">
-                                <div class="campo"><label>Código Oficial</label><input type="text" id="adm-t-codigo" required placeholder="Ej. 1.7"></div>
-                                <div class="campo"><label>Título del Tema</label><input type="text" id="adm-t-titulo" required placeholder="Ej. Pruebas Diagnósticas"></div>
-                            </div>
 
                             <div class="campo">
-                                <label>Contenido Teórico Estructurado:</label>
-                                <div style="display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap;">
-                                    <button type="button" class="btn-p" style="width: auto; padding: 6px 12px; margin: 0; background: #6c757d; font-size: 0.85em;" onclick="insertarEnEditor('imagen')">🖼️ Imagen</button>
-                                    <button type="button" class="btn-p" style="width: auto; padding: 6px 12px; margin: 0; background: #6c757d; font-size: 0.85em;" onclick="insertarEnEditor('tabla')">📊 Tabla</button>
-                                    <button type="button" class="btn-p" style="width: auto; padding: 6px 12px; margin: 0; background: #6c757d; font-size: 0.85em;" onclick="insertarEnEditor('alerta')">💡 Alerta Clave</button>
-                                </div>
-                                <textarea id="adm-t-resumen" rows="10" placeholder="Escribe el marco teórico o inserta elementos visuales..." required></textarea>
+                                <label>Pega aquí las preguntas copiadas de tu Word:</label>
+                                <textarea id="vaciador-texto-bruto" rows="8" placeholder="1. Paciente de 32 años gestante que acude a puesto de salud...
+A) Oxitocina
+B) Sulfato de Magnesio
+C) Nifedipino
+D) Labetalol
+Respuesta: B
+Justificación: Según la norma técnica..."></textarea>
                             </div>
-                            <button type="submit" class="btn-p" style="background: #6f42c1;">Publicar Tema en el Temario</button>
-                        </form>
-                    </div>
+                            
+                            <button type="button" class="btn-p" style="background: #0056b3;" id="btn-procesar-vaciador" onclick="procesarTextoVaciadorConIA()">
+                                ⚡ Procesar y Estructurar con IA
+                            </button>
 
-                    <!-- GESTIÓN ALUMNOS -->
-                    <div id="subtab-adm-a" class="subtab-adm">
-                        <h3 style="margin-bottom: 12px; color: #2c3e50;">Alumnos Registrados y Control de Accesos</h3>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Médico</th>
-                                    <th>DNI</th>
-                                    <th>Correo</th>
-                                    <th>Plan</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-alumnos-adm-body">
-                                <tr><td colspan="6">Cargando alumnos...</td></tr>
-                            </tbody>
-                        </table>
+                            <div id="contenedor-revision-vaciador" style="margin-top: 25px; display: none;">
+                                <h4 style="color: #28a745; margin-bottom: 10px;">Preguntas Identificadas y Listas para Guardar:</h4>
+                                <div id="lista-preguntas-vaciadas"></div>
+                                <button type="button" class="btn-p" style="background: #28a745; margin-top: 15px;" onclick="guardarPreguntasVaciadasEnBD()">
+                                    ✔ Guardar Todo este Bloque en la Base de Datos
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 3. SIMULACROS -->
+                        <div id="subtab-adm-sims" class="subtab-adm">
+                            <h3 style="color: #2c3e50; margin-bottom: 12px;">Crear Nuevo Simulacro Oficial</h3>
+                            <form id="form-adm-sim">
+                                <div class="fila">
+                                    <div class="campo">
+                                        <label>Título del Simulacro</label>
+                                        <input type="text" id="adm-sim-tit" placeholder="Ej: Gran Simulacro Nacional N° 01" required>
+                                    </div>
+                                    <div class="campo">
+                                        <label>Duración (Minutos)</label>
+                                        <input type="number" id="adm-sim-dur" value="120" required>
+                                    </div>
+                                </div>
+                                <div class="campo">
+                                    <label>Descripción / Instrucciones</label>
+                                    <input type="text" id="adm-sim-desc" placeholder="100 preguntas oficiales de todos los ejes del temario.">
+                                </div>
+                                <button type="submit" class="btn-p" style="background: #28a745;">Crear Simulacro</button>
+                            </form>
+
+                            <h3 style="color: #2c3e50; margin-top: 30px; margin-bottom: 12px;">Simulacros Creados (Habilitar / Ocultar)</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Simulacro</th>
+                                        <th>Duración</th>
+                                        <th>Estado Actual</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-simulacros-adm-body">
+                                    <tr><td colspan="4">Cargando simulacros...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- 4. FLASHCARD MANUAL -->
+                        <div id="subtab-adm-f" class="subtab-adm">
+                            <form id="form-adm-f">
+                                <div class="fila">
+                                    <div class="campo">
+                                        <label>Curso MINSA</label>
+                                        <select id="adm-f-curso" required onchange="actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema')">
+                                            <option value="Salud Pública">Salud Pública</option>
+                                            <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                            <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                            <option value="Investigación">Investigación</option>
+                                            <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                        </select>
+                                    </div>
+                                    <div class="campo">
+                                        <label>Tema Específico</label>
+                                        <select id="adm-f-tema" required>
+                                            <option value="General">Seleccione el tema...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="campo">
+                                    <label>Anverso (Pregunta o Criterio Clínico Corto)</label>
+                                    <textarea id="adm-f-anverso" rows="2" required placeholder="Ej: ¿Criterio de referencia en Neumonía Grave?"></textarea>
+                                </div>
+                                <div class="campo">
+                                    <label>Reverso (Respuesta Precisa en 1-2 Líneas)</label>
+                                    <textarea id="adm-f-reverso" rows="2" required placeholder="Ej: Tiraje subcostal o SatO2 < 92% (costa) + Oxígeno y referencia urgente."></textarea>
+                                </div>
+                                <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Flashcard Manual</button>
+                            </form>
+                        </div>
+
+                        <!-- 5. TEMA CON GENERADOR VISUAL DE TABLAS Y SUBIDA DE IMÁGENES -->
+                        <div id="subtab-adm-t" class="subtab-adm">
+                            <form id="form-adm-t">
+                                <div class="fila">
+                                    <div class="campo">
+                                        <label>Curso MINSA</label>
+                                        <select id="adm-t-curso" required onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')">
+                                            <option value="Salud Pública">Salud Pública</option>
+                                            <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                            <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                            <option value="Investigación">Investigación</option>
+                                            <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                        </select>
+                                    </div>
+                                    <div class="campo">
+                                        <label>Tema del Temario Oficial</label>
+                                        <select id="adm-t-tema-select" required onchange="autoCompletarCodigoTitulo()">
+                                            <option value="">Seleccione el tema oficial...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="fila">
+                                    <div class="campo"><label>Código Oficial</label><input type="text" id="adm-t-codigo" required placeholder="Ej. 1.7"></div>
+                                    <div class="campo"><label>Título del Tema</label><input type="text" id="adm-t-titulo" required placeholder="Ej. Pruebas Diagnósticas"></div>
+                                </div>
+
+                                <div class="campo">
+                                    <label>1. Resumen Teórico (Texto Principal):</label>
+                                    <textarea id="adm-t-resumen" rows="6" placeholder="Escribe el marco teórico principal del tema..." required></textarea>
+                                </div>
+
+                                <!-- Creador Visual de Tablas Tipo Word -->
+                                <div style="background: #f8f9fa; border: 1px solid #ced4da; padding: 18px; border-radius: 10px; margin-bottom: 15px;">
+                                    <strong style="color: #0056b3; font-size: 0.95em;">📊 Creador Visual de Tabla Comparativa:</strong>
+                                    <div class="fila" style="margin-top: 10px;">
+                                        <div class="campo"><label>Título Columna 1</label><input type="text" id="tbl-c1" placeholder="Ej: Condición Clínica"></div>
+                                        <div class="campo"><label>Título Columna 2</label><input type="text" id="tbl-c2" placeholder="Ej: Conducta MINSA"></div>
+                                    </div>
+                                    <div class="fila">
+                                        <div class="campo"><input type="text" id="tbl-f1-c1" placeholder="Fila 1: Leve / Ambulatorio"></div>
+                                        <div class="campo"><input type="text" id="tbl-f1-c2" placeholder="Fila 1: Manejo inicial en casa"></div>
+                                    </div>
+                                    <div class="fila">
+                                        <div class="campo"><input type="text" id="tbl-f2-c1" placeholder="Fila 2: Grave / Alarma"></div>
+                                        <div class="campo"><input type="text" id="tbl-f2-c2" placeholder="Fila 2: Referencia inmediata a nivel II"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Subida de Imagen desde tu Computadora -->
+                                <div class="campo" style="background: #f8f9fa; border: 1px solid #ced4da; padding: 15px; border-radius: 10px;">
+                                    <label>🖼️ Subir Imagen o Esquema desde tu PC (Opcional):</label>
+                                    <input type="file" id="adm-t-file" accept="image/*" style="background: white;">
+                                    <div id="preview-img-box" style="margin-top: 10px; display: none;">
+                                        <img id="img-preview" src="" style="max-height: 140px; border-radius: 6px; border: 1px solid #ccc;">
+                                    </div>
+                                </div>
+
+                                <!-- Apartado Independiente: Alertas y Claves (Las Fijas del Tema) -->
+                                <div class="campo" style="background: #fff8e1; border: 1px solid #ffe082; padding: 15px; border-radius: 10px;">
+                                    <label style="color: #b78103;">💡 Puntos Clave / Alertas Médicas (Las Fijas de este tema):</label>
+                                    <textarea id="adm-t-alerta" rows="3" placeholder="Ej: ⚠️ Sensibilidad y Especificidad son intrínsecas a la prueba; los VPP y VPN dependen de la prevalencia."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-p" style="background: #6f42c1;">Publicar Tema Estructurado</button>
+                            </form>
+                        </div>
+
+                        <!-- 6. ALUMNOS -->
+                        <div id="subtab-adm-a" class="subtab-adm">
+                            <h3 style="margin-bottom: 12px; color: #2c3e50;">Alumnos Registrados y Control de Accesos</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Médico</th>
+                                        <th>DNI</th>
+                                        <th>Correo</th>
+                                        <th>Plan</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-alumnos-adm-body">
+                                    <tr><td colspan="6">Cargando alumnos...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
+
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                </footer>
             </main>
         </div>
     </section>
 
-    <!-- MODAL ARMARIO Y SELECCIÓN DE ESPECIES (CON FÉNIX, POLAR, GRIZZLY) -->
+    <!-- MODAL ARMARIO -->
     <div id="modal-armario" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icono">🦊</div>
@@ -1028,40 +1156,24 @@
             document.getElementById('adm-t-titulo').value = titulo;
         }
 
-        function insertarEnEditor(tipo) {
-            const textarea = document.getElementById('adm-t-resumen');
-            let contenido = "";
-
-            if (tipo === 'imagen') {
-                const url = prompt("URL de la imagen médica (ej: https://...):");
-                if (url) contenido = `\n<div style="text-align: center; margin: 15px 0;"><img src="${url}" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);" alt="Imagen clínica"></div>\n`;
-            } else if (tipo === 'tabla') {
-                contenido = `\n<table style="width: 100%; border-collapse: collapse; margin: 15px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); font-size: 0.9em;">
-  <thead>
-    <tr style="background: #0056b3; color: white;">
-      <th style="padding: 10px; border: 1px solid #dee2e6;">Criterio Clínico</th>
-      <th style="padding: 10px; border: 1px solid #dee2e6;">Norma Técnica MINSA</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold;">Fase Inicial</td>
-      <td style="padding: 10px; border: 1px solid #dee2e6;">Conducta médica inmediata...</td>
-    </tr>
-  </tbody>
-</table>\n`;
-            } else if (tipo === 'alerta') {
-                contenido = `\n<div style="background: #fff3cd; border-left: 5px solid #ffc107; padding: 15px; border-radius: 6px; margin: 15px 0; color: #856404; font-size: 0.95em;">
-  <strong>💡 Punto Clave para el Examen:</strong> Escribe aquí la perla médica fundamental.
-</div>\n`;
+        let imagenBase64Tema = null;
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputFile = document.getElementById('adm-t-file');
+            if (inputFile) {
+                inputFile.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(evt) {
+                            imagenBase64Tema = evt.target.result;
+                            document.getElementById('img-preview').src = imagenBase64Tema;
+                            document.getElementById('preview-img-box').style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
             }
-
-            if (contenido) {
-                const pos = textarea.selectionStart;
-                textarea.value = textarea.value.substring(0, pos) + contenido + textarea.value.substring(pos);
-                textarea.focus();
-            }
-        }
+        });
 
         let user = null;
         let perfilUsuario = null;
@@ -1078,7 +1190,7 @@
         let nombreCursoActual = "Salud Pública";
         let preguntasIaBuffer = [];
         let todasLasFlashcards = [];
-        let listaSimulacrosActivos = [];
+        let preguntasVaciadasBuffer = [];
 
         function ver(id) {
             document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
@@ -1090,6 +1202,7 @@
             document.getElementById('sec-banqueo').style.display = 'none';
             document.getElementById('sec-flashcards').style.display = 'none';
             document.getElementById('sec-temas').style.display = 'none';
+            document.getElementById('sec-fijas').style.display = 'none';
             document.getElementById('sec-stats').style.display = 'none';
             document.getElementById('sec-admin').style.display = 'none';
             
@@ -1102,6 +1215,7 @@
             
             if (nom === 'stats') cargarEstadisticas();
             if (nom === 'temas') cargarTemasTeoricos();
+            if (nom === 'fijas') cargarLasFijasSERUMS();
             if (nom === 'flashcards') {
                 actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard');
                 cargarFlashcardsDesdeBD();
@@ -1332,25 +1446,22 @@
             }
         });
 
-        // ========================================================
-        //  RENDERIZADOR DE MASCOTA CON EVOLUCIÓN (BEBÉ / ADULTO)
-        // ========================================================
+        // Mascota
         function generarSVGMarkup(ancho = 90, animar = true) {
             const animal = perfilMascota.animal || 'perrito';
             const cabeza = perfilMascota.cabeza || 'ninguno';
             const cuerpo = perfilMascota.cuerpo || 'ninguno';
             const nivel = perfilMascota.nivel || 1;
 
-            // Escala según evolución
             let escalaEvolucion = 1;
             let esBebe = false;
             let esAdultoFuerte = false;
 
             if (nivel < 4) {
-                escalaEvolucion = 0.88; // Bebé
+                escalaEvolucion = 0.88;
                 esBebe = true;
             } else if (nivel >= 8) {
-                escalaEvolucion = 1.08; // Adulto Fuerte
+                escalaEvolucion = 1.08;
                 esAdultoFuerte = true;
             }
 
@@ -1372,7 +1483,6 @@
                 colorBase = "#6f4e37"; colorOrejas = "#4b3524"; colorHocico = "#a07855";
             }
 
-            // Cuerpo y ropitas
             let svgCuerpoRopa = `
                 <ellipse cx="50" cy="${esBebe ? '70' : '68'}" rx="${esAdultoFuerte ? '32' : '28'}" ry="${esAdultoFuerte ? '26' : '24'}" fill="${colorBase}"/>
                 <ellipse cx="50" cy="70" rx="${esAdultoFuerte ? '18' : '16'}" ry="15" fill="${colorHocico}"/>
@@ -1395,7 +1505,6 @@
                 <ellipse cx="64" cy="88" rx="${esAdultoFuerte ? '9' : '8'}" ry="6" fill="${colorBase}"/>
             `;
 
-            // Orejas / Alas
             let svgOrejas = "";
             if (animal === 'gatito' || animal === 'zorrito') {
                 svgOrejas = `
@@ -1583,7 +1692,6 @@
             mostrarAvisoModal("¡Buen Provecho!", "Tu compañero médico comió delicioso, recuperó toda su energía y sonríe feliz.", "🍖");
         }
 
-        // Carga de Cursos en el Inicio (Redirigen a Teoría y Resúmenes)
         async function cargarCursosDashboard() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('grid-cursos-dashboard');
@@ -1620,14 +1728,12 @@
             subSec('temas');
         }
 
-        // Ir a Practicar un tema específico desde la teoría
         function irAPracticarTemaEspecifico(nombreCurso, codigoTema) {
             subSec('banqueo');
             activarModalidadBanqueo('curso');
             document.getElementById('sel-curso-banqueo').value = nombreCurso;
             actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo');
             
-            // Seleccionar el tema que coincida
             const selTema = document.getElementById('sel-tema-banqueo');
             for (let i = 0; i < selTema.options.length; i++) {
                 if (selTema.options[i].value.startsWith(codigoTema)) {
@@ -1714,7 +1820,6 @@
                     const m = perfilMascota.monedas + 2;
                     perfilMascota.monedas = m;
                     
-                    // Subir de nivel cada 30 monedas ganadas
                     if (m % 30 === 0) {
                         perfilMascota.nivel += 1;
                         await sb.from('perfil_mascota').update({ nivel: perfilMascota.nivel }).eq('user_id', user.id);
@@ -1947,7 +2052,34 @@
             }
         }
 
-        // Carga de Temas Teóricos con Botón "Ir a Practicar"
+        // CARGA DE "LAS FIJAS SERUMS"
+        async function cargarLasFijasSERUMS() {
+            const cont = document.getElementById('contenedor-fijas-cards');
+            cont.innerHTML = '<p>Cargando perlas clínicas de alta rentabilidad...</p>';
+
+            const fijasEjemplo = [
+                { curso: "Salud Pública", titulo: "Validez de Pruebas Diagnósticas", clave: "Sensibilidad y Especificidad son INTRÍNSECAS a la prueba (no varían con prevalencia). El VPP aumenta con mayor prevalencia y el VPN disminuye." },
+                { curso: "Cuidado Integral", titulo: "Dengue con Signos de Alarma", clave: "Conducta inmediata: Hospitalización obligatoria + Hidratación endovenosa con Solución Salina o Lactato Ringer a 10 ml/kg en la 1° hora." },
+                { curso: "Cuidado Integral", titulo: "Esquema TB Sensible (NTS MINSA)", clave: "Fase 1: 2 meses diario con HRZE (50 dosis). Fase 2: 4 meses tres veces por semana con H3R3 (54 dosis). Total: 6 meses." },
+                { curso: "Gestión en Salud", titulo: "Categorización I-3 vs I-4", clave: "El I-3 cuenta con laboratorio y médico cirujano (atención 12h). El I-4 añade camas de internamiento y atención 24h con partos no complicados." },
+                { curso: "Ética e Interculturalidad", titulo: "Parto Vertical", clave: "Promoción oficial según NTS MINSA para garantizar la pertinencia cultural, respeto a la cosmovisión andina/amazónica y libre elección." }
+            ];
+
+            cont.innerHTML = '';
+            fijasEjemplo.forEach(f => {
+                cont.innerHTML += `
+                    <div class="card-modalidad" style="border-top-color: #ffc107;">
+                        <span style="font-size: 0.78em; color: #b78103; font-weight: bold; text-transform: uppercase;">🔥 LA FIJA - ${f.curso}</span>
+                        <h3 style="margin-top: 5px;">${f.titulo}</h3>
+                        <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 12px; border-radius: 6px; font-size: 0.9em; line-height: 1.5; color: #6d4c41;">
+                            ${f.clave}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Carga de Temas con Tablas, Imágenes y Alertas
         async function cargarTemasTeoricos() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('lista-temas-contenedor');
@@ -1962,8 +2094,6 @@
             }
 
             const esIlimitado = (perfilUsuario && (perfilUsuario.plan === 'premium' || perfilUsuario.rol === 'admin'));
-
-            // Obtener lista de áreas para saber el nombre del curso
             const { data: areas } = await sb.from('areas').select('*');
             const mapaNombresAreas = {};
             if (areas) areas.forEach(a => mapaNombresAreas[a.id] = a.nombre);
@@ -2001,7 +2131,7 @@
             });
         }
 
-        // Estadísticas Desglosadas por Curso
+        // Estadísticas Desglosadas
         async function cargarEstadisticas() {
             const sb = obtenerSupabase();
             if (!user || !sb) return;
@@ -2019,7 +2149,6 @@
             document.getElementById('st-total').innerText = total;
             document.getElementById('st-ok').innerText = Math.round((aciertos / total) * 100) + '%';
 
-            // Agrupación por cursos
             const cursosInfo = [
                 { id: 1, nombre: 'Salud Pública', color: '#007bff' },
                 { id: 2, nombre: 'Cuidado Integral de Salud', color: '#28a745' },
@@ -2053,7 +2182,7 @@
         }
 
         // ==========================================
-        //  PANEL DOCENTE
+        //  PANEL DOCENTE CON VACIADOR INTELIGENTE
         // ==========================================
         function verSubTabAdmin(tipo) {
             document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
@@ -2069,6 +2198,87 @@
             if (tipo === 'a') cargarAlumnosAdmin();
         }
 
+        // Vaciador Inteligente con IA
+        async function procesarTextoVaciadorConIA() {
+            const texto = document.getElementById('vaciador-texto-bruto').value.trim();
+            if (!texto) {
+                mostrarAvisoModal("Texto Vacío", "Pega al menos una pregunta de tu documento Word.", "⚠️");
+                return;
+            }
+
+            const btn = document.getElementById('btn-procesar-vaciador');
+            btn.innerHTML = '⏳ Procesando preguntas de Word con IA...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/generar-ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        curso: document.getElementById('vaciador-curso').value,
+                        tema: "Vaciado de Documento",
+                        dificultades: [document.getElementById('vaciador-dif').value],
+                        cantidad: 5,
+                        tipo: "preguntas"
+                    })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Error al estructurar.');
+
+                preguntasVaciadasBuffer = data.resultado || [];
+                const cont = document.getElementById('lista-preguntas-vaciadas');
+                cont.innerHTML = '';
+
+                preguntasVaciadasBuffer.forEach((p, idx) => {
+                    cont.innerHTML += `
+                        <div style="background: #f8f9fa; border: 1px solid #ced4da; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                            <strong>Pregunta ${idx + 1}:</strong> ${p.enunciado}<br>
+                            <span style="color: #28a745; font-weight: bold;">Clave: ${p.respuesta_correcta}</span> | Justificación: ${p.justificacion}
+                        </div>
+                    `;
+                });
+
+                document.getElementById('contenedor-revision-vaciador').style.display = 'block';
+                mostrarAvisoModal("¡Vaciado Listo!", "Se han estructurado las preguntas con éxito. Revisa el resumen y presiona Guardar.", "✔");
+            } catch (err) {
+                mostrarAvisoModal("Error", err.message, "⚠️");
+            } finally {
+                btn.innerHTML = '⚡ Procesar y Estructurar con IA';
+                btn.disabled = false;
+            }
+        }
+
+        async function guardarPreguntasVaciadasEnBD() {
+            if (preguntasVaciadasBuffer.length === 0) return;
+            const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('vaciador-curso').value;
+            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const dif = document.getElementById('vaciador-dif').value;
+
+            const payloads = preguntasVaciadasBuffer.map(p => ({
+                area_id: areaId,
+                dificultad: dif,
+                enunciado: p.enunciado,
+                opcion_a: p.opcion_a,
+                opcion_b: p.opcion_b,
+                opcion_c: p.opcion_c,
+                opcion_d: p.opcion_d,
+                respuesta_correcta: p.respuesta_correcta,
+                justificacion: p.justificacion
+            }));
+
+            const { error } = await sb.from('preguntas').insert(payloads);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("¡Guardado Masivo Exitoso!", `Se insertaron ${payloads.length} preguntas en el banco de ${cursoNombre}.`, "✔");
+                document.getElementById('vaciador-texto-bruto').value = '';
+                document.getElementById('contenedor-revision-vaciador').style.display = 'none';
+                preguntasVaciadasBuffer = [];
+            }
+        }
+
+        // Guardar Pregunta Manual
         document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -2090,11 +2300,12 @@
             const { error } = await sb.from('preguntas').insert([payload]);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco oficial con éxito.", "✔");
+                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔");
                 document.getElementById('form-adm-p').reset();
             }
         });
 
+        // Crear Simulacro
         document.getElementById('form-adm-sim').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -2168,24 +2379,68 @@
             }
         });
 
+        // Publicar Tema Ensamblando Texto, Tabla Visual, Imagen y Alerta
         document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
             const cursoNombre = document.getElementById('adm-t-curso').value;
             const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
 
+            let resumenFinal = document.getElementById('adm-t-resumen').value.trim();
+
+            // 1. Ensamblar Tabla si se llenaron los campos
+            const tc1 = document.getElementById('tbl-c1').value.trim();
+            const tc2 = document.getElementById('tbl-c2').value.trim();
+            const tf1c1 = document.getElementById('tbl-f1-c1').value.trim();
+            const tf1c2 = document.getElementById('tbl-f1-c2').value.trim();
+            if (tc1 && tc2 && tf1c1 && tf1c2) {
+                const tf2c1 = document.getElementById('tbl-f2-c1').value.trim();
+                const tf2c2 = document.getElementById('tbl-f2-c2').value.trim();
+                resumenFinal += `
+<table style="width: 100%; border-collapse: collapse; margin: 18px 0; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); font-size: 0.9em;">
+  <thead>
+    <tr style="background: #0056b3; color: white;">
+      <th style="padding: 10px; border: 1px solid #dee2e6;">${tc1}</th>
+      <th style="padding: 10px; border: 1px solid #dee2e6;">${tc2}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold;">${tf1c1}</td>
+      <td style="padding: 10px; border: 1px solid #dee2e6;">${tf1c2}</td>
+    </tr>
+    ${tf2c1 && tf2c2 ? `<tr style="background: #f8f9fa;"><td style="padding: 10px; border: 1px solid #dee2e6; font-weight: bold;">${tf2c1}</td><td style="padding: 10px; border: 1px solid #dee2e6;">${tf2c2}</td></tr>` : ''}
+  </tbody>
+</table>`;
+            }
+
+            // 2. Ensamblar Imagen Subida desde PC
+            if (imagenBase64Tema) {
+                resumenFinal += `\n<div style="text-align: center; margin: 20px 0;"><img src="${imagenBase64Tema}" style="max-width: 100%; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);" alt="Esquema clínico"></div>\n`;
+            }
+
+            // 3. Ensamblar Alerta Clave (Las Fijas)
+            const alertaTxt = document.getElementById('adm-t-alerta').value.trim();
+            if (alertaTxt) {
+                resumenFinal += `\n<div style="background: #fff8e1; border-left: 5px solid #ffc107; padding: 14px 16px; border-radius: 6px; margin: 18px 0; color: #856404; font-size: 0.95em;">
+  <strong>💡 Punto Clave para el Examen:</strong> ${alertaTxt}
+</div>\n`;
+            }
+
             const payload = {
                 area_id: areaId,
                 codigo: document.getElementById('adm-t-codigo').value.trim(),
                 titulo: document.getElementById('adm-t-titulo').value.trim(),
-                resumen_teorico: document.getElementById('adm-t-resumen').value.trim()
+                resumen_teorico: resumenFinal
             };
 
             const { error } = await sb.from('temas').insert([payload]);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("¡Guardado!", "Tema teórico publicado con éxito.", "✔");
+                mostrarAvisoModal("¡Tema Publicado!", "El tema teórico con sus tablas e imágenes ha sido publicado.", "✔");
                 document.getElementById('form-adm-t').reset();
+                document.getElementById('preview-img-box').style.display = 'none';
+                imagenBase64Tema = null;
             }
         });
 
