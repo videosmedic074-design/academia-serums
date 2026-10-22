@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - Academia ENCAPS / SERUMS</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background: #f0f4f8; padding: 30px 15px; color: #333; }
+        .box { max-width: 900px; margin: auto; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        h1 { color: #0056b3; margin-bottom: 20px; font-size: 1.6em; }
+        
+        /* Pestañas */
+        .nav-pestanas { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #e9ecef; }
+        .tab-btn { padding: 12px 20px; cursor: pointer; font-weight: bold; color: #6c757d; border: none; background: none; font-size: 0.95em; border-bottom: 3px solid transparent; }
+        .tab-btn.activa { color: #0056b3; border-bottom-color: #0056b3; }
+        
+        .seccion-tab { display: none; }
+        .seccion-tab.activa { display: block; }
+        
+        .campo { margin-bottom: 15px; }
+        .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9em; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ced4da; border-radius: 6px; font-size: 0.95em; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #0056b3; }
+        
+        .btn { background: #0056b3; color: white; padding: 13px; border: none; border-radius: 6px; font-weight: bold; width: 100%; cursor: pointer; font-size: 1em; }
+        .btn:hover { background: #004494; }
+        
+        .aviso { display: none; padding: 12px; border-radius: 6px; margin-bottom: 15px; font-weight: bold; }
+        .aviso-ok { background: #d4edda; color: #155724; }
+        .aviso-err { background: #f8d7da; color: #721c24; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
+        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #f8f9fa; color: #495057; }
+        .badge { padding: 5px 10px; border-radius: 12px; font-weight: bold; font-size: 0.8em; }
+        .badge-free { background: #e2e3e5; color: #383d41; }
+        .badge-prem { background: #d4edda; color: #155724; }
+        .btn-act { background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-des { background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>Panel de Administración del Docente</h1>
+        
+        <div class="nav-pestanas">
+            <button type="button" class="tab-btn activa" id="btn-preguntas">➕ Agregar Pregunta</button>
+            <button type="button" class="tab-btn" id="btn-temas">📖 Agregar Tema Teórico</button>
+            <button type="button" class="tab-btn" id="btn-alumnos">👥 Alumnos y Membresías</button>
+        </div>
+
+        <div id="aviso" class="aviso"></div>
+
+        <!-- PESTAÑA 1: PREGUNTAS -->
+        <div id="tab-preguntas" class="seccion-tab activa">
+            <form id="form-p">
+                <div class="fila">
+                    <div class="campo">
+                        <label>Curso MINSA</label>
+                        <select id="p-area" required>
+                            <option value="">Seleccione el curso...</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label>Tema Específico</label>
+                        <select id="p-tema">
+                            <option value="">General del curso</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="fila">
+                    <div class="campo">
+                        <label>Origen de la Pregunta</label>
+                        <select id="p-origen">
+                            <option value="ENCAPS">Oficial ENCAPS</option>
+                            <option value="SERUMS">Examen SERUMS Anterior</option>
+                            <option value="ENAM">Banco ENAM</option>
+                            <option value="Academia">Pregunta Propia</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label>Dificultad</label>
+                        <select id="p-dif">
+                            <option value="Basica">Básica</option>
+                            <option value="Intermedia" selected>Intermedia</option>
+                            <option value="Avanzada">Avanzada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="campo">
+                    <label>Enunciado de la Pregunta / Caso Clínico</label>
+                    <textarea id="p-enunciado" rows="3" required placeholder="Escribe el caso clínico..."></textarea>
+                </div>
+
+                <div class="fila">
+                    <div class="campo"><label>Alternativa A</label><input type="text" id="p-oa" required></div>
+                    <div class="campo"><label>Alternativa B</label><input type="text" id="p-ob" required></div>
+                </div>
+                <div class="fila">
+                    <div class="campo"><label>Alternativa C</label><input type="text" id="p-oc" required></div>
+                    <div class="campo"><label>Alternativa D</label><input type="text" id="p-od" required></div>
+                </div>
+
+                <div class="campo">
+                    <label>Respuesta Correcta</label>
+                    <select id="p-correcta" required style="font-weight: bold; color: #0056b3;">
+                        <option value="A">Opción A</option>
+                        <option value="B">Opción B</option>
+                        <option value="C">Opción C</option>
+                        <option value="D">Opción D</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label>El Porqué (Justificación Clínica)</label>
+                    <textarea id="p-justificacion" rows="3" required placeholder="Explica la justificación médica..."></textarea>
+                </div>
+
+                <button type="submit" class="btn" id="btn-guardar-p">Guardar Pregunta en la Plataforma</button>
+            </form>
+        </div>
+
+        <!-- PESTAÑA 2: TEMAS -->
+        <div id="tab-temas" class="seccion-tab">
+            <form id="form-t">
+                <div class="campo">
+                    <label>Curso MINSA</label>
+                    <select id="t-area" required>
+                        <option value="">Seleccione el curso...</option>
+                    </select>
+                </div>
+                <div class="fila">
+                    <div class="campo">
+                        <label>Código del Tema</label>
+                        <input type="text" id="t-codigo" required placeholder="Ej. 1.7">
+                    </div>
+                    <div class="campo">
+                        <label>Título del Tema</label>
+                        <input type="text" id="t-titulo" required placeholder="Ej. Pruebas Diagnósticas">
+                    </div>
+                </div>
+                <div class="campo">
+                    <label>URL de Imagen / Infografía (Opcional)</label>
+                    <input type="url" id="t-infografia" placeholder="https://ejemplo.com/imagen.jpg">
+                </div>
+                <div class="campo">
+                    <label>Resumen Teórico del Tema</label>
+                    <textarea id="t-resumen" rows="8" placeholder="Escribe el marco teórico..."></textarea>
+                </div>
+                <button type="submit" class="btn" id="btn-guardar-t">Publicar Tema</button>
+            </form>
+        </div>
+
+        <!-- PESTAÑA 3: ALUMNOS -->
+        <div id="tab-alumnos" class="seccion-tab">
+            <h2>Alumnos Registrados</h2>
+            <p style="color: #6c757d; font-size: 0.9em; margin-bottom: 15px;">Gestión de accesos y activación del Plan Premium.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Médico</th>
+                        <th>DNI</th>
+                        <th>Correo</th>
+                        <th>Plan Actual</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-alumnos-body">
+                    <tr><td colspan="5">Cargando alumnos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://hjhtpfqkpcixwlanhxzw.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqaHRwZnFrcGNpd3hsYW5oeHp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2MjY3OTUsImV4cCI6MjEwODIwMjc5NX0.TpEvdIQCnbLIhtLKkRJ-NLj_BBR81uTKTgVyOynDlZM';
+        
+        let supabaseClient = null;
+        try {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch(e) {
+            console.error("Error al inicializar cliente Supabase:", e);
+        }
+
+        // Navegación aislada e inmediata mediante event listeners
+        const btnPreguntas = document.getElementById('btn-preguntas');
+        const btnTemas = document.getElementById('btn-temas');
+        const btnAlumnos = document.getElementById('btn-alumnos');
+
+        const tabPreguntas = document.getElementById('tab-preguntas');
+        const tabTemas = document.getElementById('tab-temas');
+        const tabAlumnos = document.getElementById('tab-alumnos');
+
+        function activarTab(botonActivo, tabActiva) {
+            [btnPreguntas, btnTemas, btnAlumnos].forEach(b => b.classList.remove('activa'));
+            [tabPreguntas, tabTemas, tabAlumnos].forEach(t => t.classList.remove('activa'));
+
+            botonActivo.classList.add('activa');
+            tabActiva.classList.add('activa');
+        }
+
+        btnPreguntas.addEventListener('click', () => activarTab(btnPreguntas, tabPreguntas));
+        btnTemas.addEventListener('click', () => activarTab(btnTemas, tabTemas));
+        btnAlumnos.addEventListener('click', () => {
+            activarTab(btnAlumnos, tabAlumnos);
+            cargarAlumnos();
+        });
+
+        function notificar(txt, tipo = 'ok') {
+            const av = document.getElementById('aviso');
+            av.innerText = txt;
+            av.className = 'aviso ' + (tipo === 'ok' ? 'aviso-ok' : 'aviso-err');
+            av.style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => { av.style.display = 'none'; }, 4000);
+        }
+
+        // Población garantizada de los 5 cursos oficiales
+        const cursosBase = [
+            { id: 1, nombre: 'Salud Pública' },
+            { id: 2, nombre: 'Cuidado Integral de Salud' },
+            { id: 3, nombre: 'Ética e Interculturalidad' },
+            { id: 4, nombre: 'Investigación' },
+            { id: 5, nombre: 'Gestión de Servicios de Salud' }
+        ];
+
+        function poblarSelectsCursos(cursos) {
+            const sPA = document.getElementById('p-area');
+            const sTA = document.getElementById('t-area');
+            sPA.innerHTML = '<option value="">Seleccione el curso...</option>';
+            sTA.innerHTML = '<option value="">Seleccione el curso...</option>';
+            cursos.forEach(a => {
+                sPA.innerHTML += `<option value="${a.id}">${a.nombre}</option>`;
+                sTA.innerHTML += `<option value="${a.id}">${a.nombre}</option>`;
+            });
+        }
+        poblarSelectsCursos(cursosBase);
+
+        async function sincronizarCursos() {
+            if (!supabaseClient) return;
+            const { data: areas } = await supabaseClient.from('areas').select('*');
+            if (areas && areas.length > 0) {
+                poblarSelectsCursos(areas);
+            }
+        }
+        sincronizarCursos();
+
+        // 1. Guardar Pregunta
+        document.getElementById('form-p').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-guardar-p');
+            btn.disabled = true;
+            btn.innerText = 'Guardando...';
+
+            const payload = {
+                area_id: parseInt(document.getElementById('p-area').value),
+                origen: document.getElementById('p-origen').value,
+                dificultad: document.getElementById('p-dif').value,
+                enunciado: document.getElementById('p-enunciado').value.trim(),
+                opcion_a: document.getElementById('p-oa').value.trim(),
+                opcion_b: document.getElementById('p-ob').value.trim(),
+                opcion_c: document.getElementById('p-oc').value.trim(),
+                opcion_d: document.getElementById('p-od').value.trim(),
+                respuesta_correcta: document.getElementById('p-correcta').value,
+                justificacion: document.getElementById('p-justificacion').value.trim()
+            };
+
+            const { error } = await supabaseClient.from('preguntas').insert([payload]);
+            btn.disabled = false;
+            btn.innerText = 'Guardar Pregunta en la Plataforma';
+
+            if (error) {
+                notificar('Error al guardar: ' + error.message, 'err');
+            } else {
+                notificar('✔ ¡Pregunta guardada con éxito!');
+                document.getElementById('p-enunciado').value = '';
+                document.getElementById('p-oa').value = '';
+                document.getElementById('p-ob').value = '';
+                document.getElementById('p-oc').value = '';
+                document.getElementById('p-od').value = '';
+                document.getElementById('p-justificacion').value = '';
+            }
+        });
+
+        // 2. Guardar Tema
+        document.getElementById('form-t').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-guardar-t');
+            btn.disabled = true;
+            btn.innerText = 'Publicando...';
+
+            const payload = {
+                area_id: parseInt(document.getElementById('t-area').value),
+                codigo: document.getElementById('t-codigo').value.trim(),
+                titulo: document.getElementById('t-titulo').value.trim(),
+                infografia_url: document.getElementById('t-infografia').value.trim() || null,
+                resumen_teorico: document.getElementById('t-resumen').value.trim()
+            };
+
+            const { error } = await supabaseClient.from('temas').insert([payload]);
+            btn.disabled = false;
+            btn.innerText = 'Publicar Tema';
+
+            if (error) {
+                notificar('Error al publicar tema: ' + error.message, 'err');
+            } else {
+                notificar('✔ ¡Tema publicado con éxito!');
+                document.getElementById('form-t').reset();
+            }
+        });
+
+        // 3. Cargar Alumnos
+        async function cargarAlumnos() {
+            const tbody = document.getElementById('tabla-alumnos-body');
+            tbody.innerHTML = '<tr><td colspan="5">Consultando base de datos...</td></tr>';
+            
+            const { data: alumnos, error } = await supabaseClient.from('perfiles').select('*').order('creado_en', { ascending: false });
+            
+            if (error) {
+                tbody.innerHTML = `<tr><td colspan="5" style="color:red;">Error: ${error.message}</td></tr>`;
+                return;
+            }
+
+            if (!alumnos || alumnos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">No hay alumnos registrados aún.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = '';
+            alumnos.forEach(a => {
+                const esPrem = (a.plan === 'premium');
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${a.nombres} ${a.apellidos}</strong></td>
+                        <td>${a.dni || 'Sin DNI'}</td>
+                        <td>${a.correo}</td>
+                        <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'GRATUITO'}</span></td>
+                        <td>
+                            ${esPrem 
+                                ? `<button class="btn-des" onclick="cambiarPlan('${a.id}', 'gratuito')">Pasar a Gratuito</button>`
+                                : `<button class="btn-act" onclick="cambiarPlan('${a.id}', 'premium')">Activar Ciclo Completo</button>`
+                            }
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function cambiarPlan(userId, nuevoPlan) {
+            const { error } = await supabaseClient.from('perfiles').update({ plan: nuevoPlan }).eq('id', userId);
+            if (error) {
+                notificar('Error: ' + error.message, 'err');
+            } else {
+                notificar('✔ Membresía actualizada');
+                cargarAlumnos();
+            }
+        }
+    </script>
+</body>
+</html>

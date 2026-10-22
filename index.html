@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Virtual ENCAPS - Academia SERUMS</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = 'https://hjhtpfqkpcixwlanhxzw.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqaHRwZnFrcGNpd3hsYW5oeHp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2MjY3OTUsImV4cCI6MjEwODIwMjc5NX0.TpEvdIQCnbLIhtLKkRJ-NLj_BBR81uTKTgVyOynDlZM';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: #f0f4f8; color: #333; }
+        .pantalla { display: none; min-height: 100vh; }
+        .pantalla.activa { display: flex; }
+
+        .centro-auth { width: 100%; display: flex; justify-content: center; align-items: center; padding: 30px 15px; }
+        .card-auth { background: white; width: 100%; max-width: 420px; padding: 35px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.08); border-top: 6px solid #0056b3; }
+        .card-auth.amplia { max-width: 580px; }
+        .logo { font-size: 1.8em; font-weight: 800; color: #0056b3; text-align: center; margin-bottom: 5px; }
+        .logo span { color: #28a745; }
+        .sub { color: #6c757d; font-size: 0.9em; text-align: center; margin-bottom: 20px; }
+        .campo { margin-bottom: 15px; }
+        .campo label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.88em; }
+        .campo input { width: 100%; padding: 11px; border: 1px solid #ced4da; border-radius: 6px; outline: none; }
+        .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-p { width: 100%; background: #0056b3; color: white; border: none; padding: 13px; border-radius: 6px; font-size: 1em; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-p:hover { background: #004494; }
+        .links { margin-top: 15px; text-align: center; font-size: 0.9em; }
+        .links a { color: #007bff; text-decoration: none; font-weight: bold; cursor: pointer; }
+        .alerta { display: none; padding: 10px; border-radius: 6px; font-size: 0.85em; margin-bottom: 15px; }
+        .alerta-err { background: #f8d7da; color: #721c24; }
+        .alerta-ok { background: #d4edda; color: #155724; }
+
+        .layout { width: 100%; display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { width: 250px; background: white; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+        .side-logo { padding: 25px 20px; font-weight: 800; color: #0056b3; font-size: 1.25em; border-bottom: 1px solid #eee; text-align: center; }
+        .menu { list-style: none; padding: 20px 0; flex: 1; }
+        .menu li { padding: 15px 25px; cursor: pointer; font-weight: 600; color: #555; transition: 0.2s; border-left: 4px solid transparent; }
+        .menu li:hover, .menu li.activo { background: #e9f2fb; color: #0056b3; border-left-color: #0056b3; }
+        .menu li.cerrar { color: #dc3545; margin-top: auto; border-top: 1px solid #eee; }
+
+        .contenido { flex: 1; padding: 35px; overflow-y: auto; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card-c { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.03); border-top: 6px solid #0056b3; cursor: pointer; }
+        .card-c h3 { margin-bottom: 8px; font-size: 1.1em; color: #2c3e50; }
+
+        .widget-mascota { background: linear-gradient(135deg, #0056b3, #00a8cc); color: white; padding: 20px; border-radius: 12px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; }
+        .mascota-img { font-size: 3em; }
+        .mascota-info h4 { font-size: 1.2em; margin-bottom: 5px; }
+
+        .banner-plan { padding: 10px 15px; border-radius: 8px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .plan-free { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .plan-prem { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+        .box-pregunta { background: white; padding: 30px; border-radius: 12px; max-width: 750px; margin: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .btn-op { display: block; width: 100%; padding: 14px; margin: 10px 0; border: 2px solid #e9ecef; border-radius: 8px; background: #f8f9fa; text-align: left; font-size: 1em; cursor: pointer; }
+        .btn-op.correcta { background: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+        .btn-op.incorrecta { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        .fb-box { margin-top: 20px; padding: 15px; border-radius: 8px; display: none; line-height: 1.5; }
+        .fb-ok { background: #d4edda; border-left: 5px solid #28a745; color: #155724; }
+        .fb-err { background: #f8d7da; border-left: 5px solid #dc3545; color: #721c24; }
+
+        .bloqueo-box { background: white; padding: 40px; border-radius: 12px; text-align: center; max-width: 500px; margin: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+        .bloqueo-box h2 { color: #dc3545; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN -->
+    <section id="vista-login" class="pantalla activa">
+        <div class="centro-auth">
+            <div class="card-auth">
+                <div class="logo">Academia <span>SERUMS</span></div>
+                <p class="sub">Preparación Médica Oficial ENCAPS</p>
+                <div id="err-login" class="alerta alerta-err"></div>
+                <form id="f-login">
+                    <div class="campo"><label>Correo Electrónico</label><input type="email" id="l-email" required></div>
+                    <div class="campo"><label>Contraseña</label><input type="password" id="l-pass" required></div>
+                    <button type="submit" class="btn-p">Ingresar al Aula</button>
+                </form>
+                <div class="links"><a onclick="ver('vista-registro')">¿No tienes cuenta? Regístrate aquí</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. REGISTRO -->
+    <section id="vista-registro" class="pantalla">
+        <div class="centro-auth">
+            <div class="card-auth amplia">
+                <div class="logo">Academia <span>SERUMS</span></div>
+                <p class="sub">Registro de Médico Postulante</p>
+                <div id="msg-reg" class="alerta"></div>
+                <form id="f-reg">
+                    <div class="fila">
+                        <div class="campo"><label>Nombres</label><input type="text" id="r-nom" required></div>
+                        <div class="campo"><label>Apellidos</label><input type="text" id="r-ape" required></div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo"><label>DNI (8 dígitos)</label><input type="text" id="r-dni" maxlength="8" required></div>
+                        <div class="campo"><label>Fecha de Nacimiento</label><input type="date" id="r-nac" required></div>
+                    </div>
+                    <div class="campo"><label>Correo</label><input type="email" id="r-email" required></div>
+                    <div class="campo"><label>Contraseña (Mínimo 8 caracteres)</label><input type="password" id="r-pass" required></div>
+                    <button type="submit" class="btn-p">Completar Registro</button>
+                </form>
+                <div class="links"><a onclick="ver('vista-login')">¿Ya tienes cuenta? Iniciar Sesión</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PLATAFORMA PRINCIPAL -->
+    <section id="vista-app" class="pantalla">
+        <div class="layout">
+            <aside class="sidebar">
+                <div class="side-logo">ENCAPS <span>MINSA</span></div>
+                <ul class="menu">
+                    <li id="m-dash" class="activo" onclick="subSec('dash')">Mi Tablero</li>
+                    <li id="m-banqueo" onclick="subSec('banqueo')">Banco de Preguntas</li>
+                    <li id="m-temas" onclick="subSec('temas')">Temario Teórico</li>
+                    <li id="m-stats" onclick="subSec('stats')">Mis Errores y Diagnóstico</li>
+                    <li class="cerrar" onclick="salir()">Cerrar Sesión</li>
+                </ul>
+            </aside>
+
+            <!-- SUB: TABLERO -->
+            <main id="sec-dash" class="contenido">
+                <div class="header-top">
+                    <div>
+                        <h1 id="txt-saludo">Hola, Colega</h1>
+                        <p>Plataforma oficial de entrenamiento para la plaza SERUMS.</p>
+                    </div>
+                </div>
+
+                <div id="banner-membresia" class="banner-plan plan-free">
+                    <div>
+                        <strong id="plan-titulo">Cuenta Gratuita</strong>: Límite de 20 preguntas/día y 3 temas por curso.
+                    </div>
+                    <button class="btn-p" style="width: auto; padding: 6px 12px; margin: 0; background: #0056b3;" onclick="solicitarPremium()">Adquirir Ciclo Completo</button>
+                </div>
+
+                <div class="widget-mascota">
+                    <div class="mascota-img">🐶</div>
+                    <div class="mascota-info">
+                        <h4 id="m-nombre">Mi Compañero SERUMS</h4>
+                        <p>🪙 Monedas: <strong id="m-monedas">50</strong> | Energía: 100%</p>
+                    </div>
+                    <button class="btn-p" style="width: auto; padding: 8px 15px; margin: 0; background: #28a745;" onclick="alimentarMascota()">Dar Comidita (10 🪙)</button>
+                </div>
+
+                <h2 style="margin-bottom: 15px;">Selecciona un Curso para Banquear</h2>
+                <div class="grid-5" id="grid-cursos-dashboard"></div>
+            </main>
+
+            <!-- SUB: SIMULADOR -->
+            <main id="sec-banqueo" class="contenido" style="display: none;">
+                <div id="box-limite-alcanzado" class="bloqueo-box" style="display: none;">
+                    <h2>¡Límite Diario Alcanzado!</h2>
+                    <p style="margin-bottom: 15px; color: #555;">Has completado tus 20 preguntas gratuitas del día.</p>
+                    <p style="margin-bottom: 25px; font-weight: 600;">Para tener banqueo ilimitado a las 10,000 preguntas y explicaciones completas, adquiere el Ciclo Completo.</p>
+                    <button class="btn-p" style="background: #28a745;" onclick="solicitarPremium()">Contactar para Activar Plan Completo</button>
+                </div>
+
+                <div class="box-pregunta" id="box-pregunta-activa">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                        <span id="sim-info" style="color: #007bff; font-weight: bold; text-transform: uppercase;">MODO PRÁCTICA</span>
+                        <span id="contador-diario" style="font-size: 0.85em; font-weight: bold; color: #6c757d;"></span>
+                    </div>
+                    <div id="sim-enunciado" style="font-size: 1.15em; font-weight: 600; margin-bottom: 20px; line-height: 1.5;">Cargando pregunta...</div>
+                    <div id="sim-opciones"></div>
+                    <div id="sim-fb" class="fb-box">
+                        <strong id="fb-tit"></strong>
+                        <p id="fb-txt" style="margin-top: 5px;"></p>
+                    </div>
+                    <button id="btn-sig" class="btn-p" style="display: none; margin-top: 20px;" onclick="cargarSiguientePregunta()">Siguiente Pregunta ➔</button>
+                </div>
+            </main>
+
+            <!-- SUB: TEMARIO -->
+            <main id="sec-temas" class="contenido" style="display: none;">
+                <h1 style="margin-bottom: 10px;">Temario Teórico Oficial</h1>
+                <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes clínicos y puntos clave según normas del MINSA.</p>
+                <div id="lista-temas-contenedor">Cargando temas...</div>
+            </main>
+
+            <!-- SUB: ESTADÍSTICAS -->
+            <main id="sec-stats" class="contenido" style="display: none;">
+                <h1 style="margin-bottom: 20px;">Diagnóstico de Rendimiento</h1>
+                <div class="card-c" style="max-width: 400px; margin-bottom: 20px;">
+                    <h3>Preguntas Respondidas: <span id="st-total">0</span></h3>
+                    <h3 style="color: #28a745; margin-top: 10px;">Aciertos: <span id="st-ok">0%</span></h3>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <script>
+        let user = null;
+        let perfilUsuario = null;
+        let perfilMascota = null;
+        let preguntaActual = null;
+        let areaFiltroActual = null;
+
+        function ver(id) {
+            document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+        }
+
+        function subSec(nom) {
+            document.getElementById('sec-dash').style.display = 'none';
+            document.getElementById('sec-banqueo').style.display = 'none';
+            document.getElementById('sec-temas').style.display = 'none';
+            document.getElementById('sec-stats').style.display = 'none';
+            
+            document.getElementById('m-dash').classList.remove('activo');
+            document.getElementById('m-banqueo').classList.remove('activo');
+            document.getElementById('m-temas').classList.remove('activo');
+            document.getElementById('m-stats').classList.remove('activo');
+
+            document.getElementById('sec-' + nom).style.display = 'block';
+            document.getElementById('m-' + nom).classList.add('activo');
+            
+            if (nom === 'stats') cargarEstadisticas();
+            if (nom === 'temas') cargarTemasTeoricos();
+        }
+
+        async function checkSesion() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                user = session.user;
+                await cargarPerfil();
+                ver('vista-app');
+                cargarCursosDashboard();
+            } else {
+                ver('vista-login');
+            }
+        }
+        checkSesion();
+
+        document.getElementById('f-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('l-email').value.trim();
+            const password = document.getElementById('l-pass').value;
+            const errDiv = document.getElementById('err-login');
+            errDiv.style.display = 'none';
+
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+            if (error) {
+                errDiv.innerText = 'Credenciales no válidas: verifica tu correo y contraseña.';
+                errDiv.style.display = 'block';
+            } else {
+                user = data.user;
+                await cargarPerfil();
+                ver('vista-app');
+                cargarCursosDashboard();
+            }
+        });
+
+        document.getElementById('f-reg').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const msg = document.getElementById('msg-reg');
+            const pass = document.getElementById('r-pass').value;
+            const email = document.getElementById('r-email').value.trim();
+
+            if (pass.length < 8) {
+                msg.innerText = 'La contraseña debe tener mínimo 8 caracteres.';
+                msg.className = 'alerta alerta-err';
+                msg.style.display = 'block';
+                return;
+            }
+
+            const { data: auth, error: aErr } = await supabase.auth.signUp({ email, password: pass });
+            if (aErr) {
+                msg.innerText = 'Error al registrar: ' + aErr.message;
+                msg.className = 'alerta alerta-err';
+                msg.style.display = 'block';
+                return;
+            }
+
+            if (auth.user) {
+                await supabase.from('perfiles').insert([{
+                    id: auth.user.id,
+                    nombres: document.getElementById('r-nom').value.trim(),
+                    apellidos: document.getElementById('r-ape').value.trim(),
+                    dni: document.getElementById('r-dni').value.trim(),
+                    fecha_nacimiento: document.getElementById('r-nac').value,
+                    edad: 25,
+                    correo: email,
+                    plan: 'gratuito',
+                    preguntas_hoy: 0
+                }]);
+                await supabase.from('perfil_mascota').insert([{ user_id: auth.user.id }]);
+            }
+
+            msg.innerText = '¡Registro completado! Ya puedes iniciar sesión.';
+            msg.className = 'alerta alerta-ok';
+            msg.style.display = 'block';
+        });
+
+        async function cargarPerfil() {
+            if (!user) return;
+            const { data: p } = await supabase.from('perfiles').select('*').eq('id', user.id).single();
+            if (p) {
+                perfilUsuario = p;
+                document.getElementById('txt-saludo').innerText = 'Hola, Dr. ' + p.apellidos;
+                
+                const banner = document.getElementById('banner-membresia');
+                const planTit = document.getElementById('plan-titulo');
+                if (p.plan === 'premium') {
+                    banner.className = 'banner-plan plan-prem';
+                    banner.innerHTML = '<strong>Membresía Premium (Ciclo Completo)</strong>: Tienes acceso ilimitado a todas las preguntas y resúmenes.';
+                } else {
+                    banner.className = 'banner-plan plan-free';
+                    planTit.innerText = 'Cuenta Gratuita';
+                }
+            }
+
+            const { data: m } = await supabase.from('perfil_mascota').select('*').eq('user_id', user.id).single();
+            if (m) {
+                perfilMascota = m;
+                document.getElementById('m-monedas').innerText = m.monedas;
+            }
+        }
+
+        async function cargarCursosDashboard() {
+            const cont = document.getElementById('grid-cursos-dashboard');
+            cont.innerHTML = 'Cargando cursos...';
+            const { data: areas } = await supabase.from('areas').select('*');
+            if (areas) {
+                cont.innerHTML = '';
+                areas.forEach(a => {
+                    cont.innerHTML += `
+                        <div class="card-c" style="border-top-color: ${a.color_hex};" onclick="iniciarBanqueo(${a.id})">
+                            <h3>${a.nombre}</h3>
+                            <p style="color: #6c757d; font-size: 0.9em;">Banquear preguntas de este módulo ➔</p>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        async function iniciarBanqueo(areaId = null) {
+            areaFiltroActual = areaId;
+            subSec('banqueo');
+            cargarSiguientePregunta();
+        }
+
+        async function cargarSiguientePregunta() {
+            document.getElementById('sim-fb').style.display = 'none';
+            document.getElementById('btn-sig').style.display = 'none';
+
+            if (perfilUsuario.plan === 'gratuito' && perfilUsuario.preguntas_hoy >= 20) {
+                document.getElementById('box-pregunta-activa').style.display = 'none';
+                document.getElementById('box-limite-alcanzado').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('box-pregunta-activa').style.display = 'block';
+                document.getElementById('box-limite-alcanzado').style.display = 'none';
+            }
+
+            if (perfilUsuario.plan === 'gratuito') {
+                document.getElementById('contador-diario').innerText = `Preguntas hoy: ${perfilUsuario.preguntas_hoy}/20`;
+            } else {
+                document.getElementById('contador-diario').innerText = 'Acceso Ilimitado';
+            }
+
+            let consulta = supabase.from('preguntas').select('*');
+            if (areaFiltroActual) consulta = consulta.eq('area_id', areaFiltroActual);
+
+            const { data } = await consulta;
+            if (!data || data.length === 0) {
+                document.getElementById('sim-enunciado').innerText = 'No hay preguntas disponibles en este curso todavía. Carga nuevas desde admin.html.';
+                document.getElementById('sim-opciones').innerHTML = '';
+                return;
+            }
+
+            preguntaActual = data[Math.floor(Math.random() * data.length)];
+            document.getElementById('sim-info').innerText = `Dificultad: ${preguntaActual.dificultad} | Origen: ${preguntaActual.origen}`;
+            document.getElementById('sim-enunciado').innerText = preguntaActual.enunciado;
+
+            const contOp = document.getElementById('sim-opciones');
+            contOp.innerHTML = `
+                <button class="btn-op" onclick="responder(this, 'A')">A) ${preguntaActual.opcion_a}</button>
+                <button class="btn-op" onclick="responder(this, 'B')">B) ${preguntaActual.opcion_b}</button>
+                <button class="btn-op" onclick="responder(this, 'C')">C) ${preguntaActual.opcion_c}</button>
+                <button class="btn-op" onclick="responder(this, 'D')">D) ${preguntaActual.opcion_d}</button>
+            `;
+        }
+
+        async function responder(btn, opt) {
+            document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
+            const esOk = (opt === preguntaActual.respuesta_correcta);
+            const fb = document.getElementById('sim-fb');
+
+            if (esOk) {
+                btn.classList.add('correcta');
+                fb.className = 'fb-box fb-ok';
+                document.getElementById('fb-tit').innerText = '¡Correcto!';
+                if (perfilMascota) {
+                    const m = perfilMascota.monedas + 2;
+                    await supabase.from('perfil_mascota').update({ monedas: m }).eq('user_id', user.id);
+                    perfilMascota.monedas = m;
+                    document.getElementById('m-monedas').innerText = m;
+                }
+            } else {
+                btn.classList.add('incorrecta');
+                fb.className = 'fb-box fb-err';
+                document.getElementById('fb-tit').innerText = 'Respuesta Incorrecta';
+            }
+
+            document.getElementById('fb-txt').innerText = preguntaActual.justificacion;
+            fb.style.display = 'block';
+            document.getElementById('btn-sig').style.display = 'block';
+
+            if (perfilUsuario.plan === 'gratuito') {
+                perfilUsuario.preguntas_hoy += 1;
+                await supabase.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
+            }
+
+            await supabase.from('intentos_usuario').insert([{
+                user_id: user.id,
+                pregunta_id: preguntaActual.id,
+                area_id: preguntaActual.area_id,
+                tema_id: preguntaActual.tema_id,
+                es_correcta: esOk
+            }]);
+        }
+
+        async function cargarTemasTeoricos() {
+            const cont = document.getElementById('lista-temas-contenedor');
+            cont.innerHTML = 'Consultando temario...';
+            const { data: temas } = await supabase.from('temas').select('*').order('id', { ascending: true });
+            
+            if (!temas || temas.length === 0) {
+                cont.innerHTML = '<p>No hay temas teóricos cargados aún.</p>';
+                return;
+            }
+
+            cont.innerHTML = '';
+            temas.forEach((t, index) => {
+                const bloqueado = (perfilUsuario.plan === 'gratuito' && index >= 3);
+                cont.innerHTML += `
+                    <div class="card-c" style="margin-bottom: 15px; opacity: ${bloqueado ? '0.6' : '1'};">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3>${t.codigo} - ${t.titulo}</h3>
+                            ${bloqueado ? '<span style="color: #dc3545; font-weight: bold;">🔒 Solo Ciclo Completo</span>' : '<span style="color: #28a745; font-weight: bold;">✔ Disponible</span>'}
+                        </div>
+                        ${bloqueado 
+                            ? '<p style="color: #777; font-size: 0.9em;">Actualiza a Premium para desbloquear este tema e infografías.</p>'
+                            : `<p style="margin-top: 10px; line-height: 1.5;">${t.resumen_teorico || 'Sin contenido teórico aún.'}</p>`
+                        }
+                    </div>
+                `;
+            });
+        }
+
+        async function cargarEstadisticas() {
+            if (!user) return;
+            const { data } = await supabase.from('intentos_usuario').select('es_correcta').eq('user_id', user.id);
+            if (data && data.length > 0) {
+                document.getElementById('st-total').innerText = data.length;
+                const ok = data.filter(i => i.es_correcta).length;
+                document.getElementById('st-ok').innerText = Math.round((ok / data.length) * 100) + '%';
+            }
+        }
+
+        async function alimentarMascota() {
+            if (!perfilMascota || perfilMascota.monedas < 10) {
+                alert('No tienes suficientes monedas. ¡Resuelve preguntas para ganar más!');
+                return;
+            }
+            const nuevasMonedas = perfilMascota.monedas - 10;
+            await supabase.from('perfil_mascota').update({ monedas: nuevasMonedas }).eq('user_id', user.id);
+            perfilMascota.monedas = nuevasMonedas;
+            document.getElementById('m-monedas').innerText = nuevasMonedas;
+            alert('¡Alimentaste a tu mascota médica!');
+        }
+
+        function solicitarPremium() {
+            alert('Para activar tu acceso ilimitado al Ciclo Completo, realiza el pago y envía tu constancia por WhatsApp para habilitar tu cuenta.');
+        }
+
+        async function salir() {
+            await supabase.auth.signOut();
+            user = null;
+            ver('vista-login');
+        }
+    </script>
+</body>
+</html>
