@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proserum's Academia - Preparación ENARM / SERUMS</title>
+    <title>Proserum's Academia - Preparación SERUMS</title>
     
-    <!-- Favicon Académico Neutral Multidisciplinario -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -31,11 +30,11 @@
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
 
-        /* Emblema Académico Multidisciplinario */
+        /* Emblema Circular Tipográfico Oficial */
         .emblema-serums-pro {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 65px; height: 65px; background: linear-gradient(135deg, #003366, #0056b3);
-            border-radius: 50%; box-shadow: 0 6px 15px rgba(0,51,102,0.3); flex-shrink: 0;
+            width: 65px; height: 65px; background: linear-gradient(135deg, #002b5c, #0056b3);
+            border-radius: 50%; box-shadow: 0 6px 15px rgba(0,43,92,0.3); flex-shrink: 0;
             border: 2px solid #ffd700;
         }
         .emblema-serums-pro svg { width: 44px; height: 44px; }
@@ -47,7 +46,7 @@
         /* Auth */
         .centro-auth { width: 100%; display: flex; justify-content: center; align-items: center; padding: 30px 15px; }
         .card-auth { background: white; width: 100%; max-width: 440px; padding: 35px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border-top: 6px solid #0056b3; }
-        .card-auth.amplia { max-width: 580px; }
+        .card-auth.amplia { max-width: 620px; }
         .sub { color: #6c757d; font-size: 0.9em; text-align: center; margin-bottom: 20px; }
         .campo { margin-bottom: 15px; }
         .campo label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.88em; }
@@ -286,12 +285,16 @@
             <div class="card-auth">
                 <div class="logo-box-main">
                     <div class="emblema-serums-pro">
+                        <!-- Emblema Neutral Multidisciplinario -->
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50" cy="50" r="46" stroke="#ffd700" stroke-width="2.5" fill="none"/>
-                            <path d="M50 16 L50 84" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M30 46 C30 68 50 82 50 82 C50 82 70 68 70 46 C70 32 50 20 50 20 C50 20 30 32 30 46 Z" fill="#28a745" fill-opacity="0.3" stroke="#ffd700" stroke-width="2"/>
-                            <circle cx="50" cy="38" r="8" fill="#ffd700"/>
-                            <text x="50" y="93" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="900" letter-spacing="1">PROSERUM</text>
+                            <!-- Corona de Laureles -->
+                            <path d="M22 65 C18 45 30 25 50 20 C70 25 82 45 78 65" stroke="#ffd700" stroke-width="2.5" stroke-dasharray="3,3" fill="none"/>
+                            <!-- Antorcha del Saber / Libro Abierto -->
+                            <path d="M26 68 Q50 62 50 78 Q50 62 74 68 L70 82 Q50 76 50 86 Q50 76 30 82 Z" fill="#ffffff" stroke="#ffd700" stroke-width="2"/>
+                            <!-- Iniciales Oficiales -->
+                            <text x="50" y="52" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="900" font-family="serif">PA</text>
+                            <text x="50" y="93" text-anchor="middle" fill="#ffd700" font-size="8" font-weight="900" letter-spacing="1">ACADEMIA</text>
                         </svg>
                     </div>
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
@@ -326,7 +329,7 @@
         </div>
     </section>
 
-    <!-- 2. REGISTRO -->
+    <!-- 2. REGISTRO CON SELECTOR DE PROFESIÓN Y TRATO -->
     <section id="vista-registro" class="pantalla">
         <div class="centro-auth">
             <div class="card-auth amplia">
@@ -334,21 +337,49 @@
                     <div class="emblema-serums-pro">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="50" cy="50" r="46" stroke="#ffd700" stroke-width="2.5" fill="none"/>
-                            <path d="M50 16 L50 84" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-                            <path d="M30 46 C30 68 50 82 50 82 C50 82 70 68 70 46 C70 32 50 20 50 20 C50 20 30 32 30 46 Z" fill="#28a745" fill-opacity="0.3" stroke="#ffd700" stroke-width="2"/>
-                            <circle cx="50" cy="38" r="8" fill="#ffd700"/>
-                            <text x="50" y="93" text-anchor="middle" fill="#ffffff" font-size="9" font-weight="900">PROSERUM</text>
+                            <path d="M26 68 Q50 62 50 78 Q50 62 74 68 L70 82 Q50 76 50 86 Q50 76 30 82 Z" fill="#ffffff" stroke="#ffd700" stroke-width="2"/>
+                            <text x="50" y="52" text-anchor="middle" fill="#ffffff" font-size="20" font-weight="900" font-family="serif">PA</text>
                         </svg>
                     </div>
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
                 </div>
-                <p class="sub">Registro de Postulante</p>
+                <p class="sub">Registro de Postulante a Ciencias de la Salud</p>
                 <div id="msg-reg" class="alerta"></div>
                 <form id="f-reg">
                     <div class="fila">
-                        <div class="campo"><label>Nombres</label><input type="text" id="r-nom" required placeholder="Ej: Daniel"></div>
-                        <div class="campo"><label>Apellidos</label><input type="text" id="r-ape" required placeholder="Ej: Ñiquen"></div>
+                        <div class="campo"><label>Nombres</label><input type="text" id="r-nom" required placeholder="Ej: Daniel Alejandro"></div>
+                        <div class="campo"><label>Apellidos</label><input type="text" id="r-ape" required placeholder="Ej: Ñiquen Reque"></div>
                     </div>
+                    
+                    <div class="fila">
+                        <div class="campo">
+                            <label>Carrera Profesional:</label>
+                            <select id="r-carrera" required onchange="ajustarPrefijoTratoAutomatico()">
+                                <option value="Medicina Humana">Medicina Humana</option>
+                                <option value="Enfermería">Enfermería</option>
+                                <option value="Obstetricia">Obstetricia</option>
+                                <option value="Odontología">Odontología</option>
+                                <option value="Biología">Biología</option>
+                                <option value="Tecnología Médica">Tecnología Médica</option>
+                                <option value="Farmacia y Bioquímica">Farmacia y Bioquímica</option>
+                                <option value="Nutrición">Nutrición</option>
+                                <option value="Psicología">Psicología</option>
+                                <option value="Medicina Veterinaria">Medicina Veterinaria</option>
+                                <option value="Trabajo Social">Trabajo Social</option>
+                            </select>
+                        </div>
+                        <div class="campo">
+                            <label>Trato Preferente:</label>
+                            <select id="r-prefijo" required>
+                                <option value="Dr.">Dr. / Dra.</option>
+                                <option value="Lic.">Licenciado/a (Lic.)</option>
+                                <option value="Biól.">Biólogo/a (Biól.)</option>
+                                <option value="Q.F.">Químico Farmacéutico (Q.F.)</option>
+                                <option value="Colega">Colega</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="fila">
                         <div class="campo"><label>DNI (8 dígitos)</label><input type="text" id="r-dni" maxlength="8" pattern="[0-9]{8}" required placeholder="12345678"></div>
                         <div class="campo"><label>Fecha de Nacimiento</label><input type="date" id="r-nac" required></div>
@@ -362,16 +393,15 @@
         </div>
     </section>
 
-    <!-- 3. PLATAFORMA PRINCIPAL CON MENÚ REORDENADO -->
+    <!-- 3. PLATAFORMA PRINCIPAL -->
     <section id="vista-app" class="pantalla">
         <div class="layout">
             <aside class="sidebar">
                 <div class="side-logo-header">
                     <div class="emblema-serums-pro" style="width: 48px; height: 48px;">
                         <svg viewBox="0 0 100 100" fill="none" style="width: 32px; height: 32px;">
-                            <circle cx="50" cy="50" r="46" stroke="#ffd700" stroke-width="2.5" fill="none"/>
-                            <path d="M50 16 L50 84" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/>
-                            <circle cx="50" cy="38" r="8" fill="#ffd700"/>
+                            <circle cx="50" cy="50" r="46" stroke="#ffd700" stroke-width="2.5"/>
+                            <text x="50" y="55" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="900" font-family="serif">PA</text>
                         </svg>
                     </div>
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
@@ -380,7 +410,7 @@
                     <li id="m-dash" class="activo" onclick="subSec('dash')">🏠 Inicio</li>
                     <li id="m-temas" onclick="subSec('temas')">📖 Teoría y Resúmenes</li>
                     <li id="m-banqueo" onclick="subSec('banqueo')">📝 Banco de Preguntas</li>
-                    <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards Médicas</li>
+                    <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards</li>
                     <li id="m-fijas" onclick="subSec('fijas')">🔥 Las Fijas SERUMS</li>
                     <li id="m-stats" onclick="subSec('stats')">📈 Mis Estadísticas</li>
                     <li id="m-admin" class="admin-btn" style="display: none;" onclick="subSec('admin')">🛠️ Panel Docente</li>
@@ -393,14 +423,14 @@
                 <div class="contenido-cuerpo">
                     <div class="header-top">
                         <div>
-                            <h1 id="txt-saludo" style="color: #2c3e50;">Hola, Postulante</h1>
+                            <h1 id="txt-saludo" style="color: #2c3e50;">Hola, Colega</h1>
                             <p style="color: #6c757d; margin-top: 4px;">Plataforma de alta exigencia para asegurar tu plaza SERUMS.</p>
                         </div>
                     </div>
 
                     <div id="banner-membresia" class="banner-plan plan-free">
                         <div>
-                            <strong id="plan-titulo">Cuenta Gratuita</strong>: Límite de 20 preguntas/día y 3 temas por curso.
+                            <strong id="plan-titulo">Cuenta Gratuita</strong>: Límite de 15 preguntas/día y 3 temas por curso.
                         </div>
                         <button class="btn-p" style="width: auto; padding: 7px 15px; margin: 0; background: #0056b3;" onclick="abrirModalPremium()">Adquirir Ciclo Completo</button>
                     </div>
@@ -409,32 +439,36 @@
                         <div class="stage-mascota">
                             <div class="avatar-canvas-box" id="avatar-canvas"></div>
                             <div class="mascota-info-pro">
-                                <h4 id="m-nombre">Compañero de Estudio <span style="font-size: 0.7em; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;" id="m-nivel-tag">Nv. 1 (Bebé)</span></h4>
+                                <h4 id="m-nombre">Compañero SERUMS <span style="font-size: 0.7em; background: rgba(255,255,255,0.25); padding: 2px 8px; border-radius: 10px;" id="m-nivel-tag">Nv. 1 (Bebé)</span></h4>
                                 <div class="barra-energia-caja"><div class="barra-energia-fill" id="m-energia-bar"></div></div>
-                                <p style="font-size: 0.9em;">🪙 <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz ✨</span></p>
+                                <p style="font-size: 0.9em; display: flex; align-items: center; gap: 4px;">
+                                    <!-- Icono SVG Moneda que nunca falla -->
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffd700"><circle cx="12" cy="12" r="10" stroke="#b78103" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" fill="#7a5200" font-size="12" font-weight="900">$</text></svg>
+                                    <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz ✨</span>
+                                </p>
                             </div>
                         </div>
                         <div class="botones-mascota-acciones">
-                            <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #28a745;" onclick="alimentarMascota()">🍖 Alimentar (10 🪙)</button>
+                            <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #28a745;" onclick="alimentarMascota()">🍖 Alimentar (10)</button>
                             <button class="btn-p" style="width: auto; padding: 10px 16px; margin: 0; background: #6f42c1;" onclick="abrirArmarioMascota()">👗 Armario y Especies</button>
                         </div>
                     </div>
 
-                    <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Ejes Oficiales del Temario Transversal</h2>
+                    <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Temario</h2>
                     <div class="grid-5" id="grid-cursos-dashboard"></div>
                 </div>
 
                 <footer class="footer-oficial">
                     <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
-                    <p>Propiedad Intelectual y Contenidos Académicos Registrados. Versión 2.5 Pro.</p>
+                    <p>Propiedad Intelectual y Contenidos Registrados. Versión 2.5 Pro.</p>
                 </footer>
             </main>
 
             <!-- SUB 2: TEORÍA Y RESÚMENES -->
             <main id="sec-temas" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
-                    <h1 style="margin-bottom: 10px; color: #2c3e50;">Teoría y Resúmenes Clínicos</h1>
-                    <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes estructurados según guías de práctica clínica y normas técnicas.</p>
+                    <h1 style="margin-bottom: 10px; color: #2c3e50;">Teoría y Resúmenes</h1>
+                    <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes estructurados según guías de práctica clínica y normas del MINSA[cite: 27, 28, 29, 30].</p>
                     <div id="lista-temas-contenedor">Cargando temas...</div>
                 </div>
 
@@ -453,7 +487,7 @@
                         <div class="grid-modalidades-banqueo">
                             <div class="card-modalidad" onclick="activarModalidadBanqueo('curso')">
                                 <h3>🎯 Banqueo por Curso y Tema</h3>
-                                <p>Entrena con retroalimentación inmediata pregunta a pregunta. Incluye el generador inteligente con IA.</p>
+                                <p>Entrena con retroalimentación inmediata pregunta a pregunta. Incluye el generador con IA.</p>
                                 <span style="color: #0056b3; font-weight: bold; font-size: 0.9em;">Ingresar a Banquear ➔</span>
                             </div>
 
@@ -465,7 +499,7 @@
 
                             <div class="card-modalidad" style="border-top-color: #6f42c1;" onclick="activarModalidadBanqueo('arma_tu_simulacro')">
                                 <h3>⚙️ Arma tu Examen Personalizado</h3>
-                                <p>Configura tu propio simulacro combinando cursos, volumen de preguntas y niveles de dificultad.</p>
+                                <p>Configura tu propio examen combinando cursos, volumen de preguntas y niveles de dificultad.</p>
                                 <span style="color: #6f42c1; font-weight: bold; font-size: 0.9em;">Configurar Examen ➔</span>
                             </div>
                         </div>
@@ -534,9 +568,9 @@
                             </div>
 
                             <div class="mascota-coach-lateral">
-                                <div class="globo-dialogo" id="coach-mensaje">¡Vamos adelante! Analiza las alternativas con calma. ✨</div>
+                                <div class="globo-dialogo" id="coach-mensaje">¡Vamos adelante! Lee bien los datos del caso. ✨</div>
                                 <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 85px; height: 85px; margin: auto;"></div>
-                                <strong style="display: block; font-size: 0.85em; color: #0056b3; margin-top: 6px;">Tu Compañero de Estudio</strong>
+                                <strong style="display: block; font-size: 0.85em; color: #0056b3; margin-top: 6px;">Tu Compañero</strong>
                             </div>
                         </div>
                     </div>
@@ -552,7 +586,7 @@
                     <div id="pantalla-arma-simulacro" style="display: none;">
                         <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                         <div class="card-auth amplia" style="max-width: 650px; margin: auto;">
-                            <h2 style="color: #6f42c1; margin-bottom: 8px;">Configura tu Simulacro a Medida</h2>
+                            <h2 style="color: #6f42c1; margin-bottom: 8px;">Configura tu Examen a Medida</h2>
                             <p style="color: #666; font-size: 0.9em; margin-bottom: 20px;">Elige los bloques y el número de preguntas que deseas rendir.</p>
 
                             <div class="campo">
@@ -657,7 +691,7 @@
             <!-- SUB 6: ESTADÍSTICAS -->
             <main id="sec-stats" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
-                    <h1 style="margin-bottom: 20px; color: #2c3e50;">Diagnóstico de Rendimiento Clínico</h1>
+                    <h1 style="margin-bottom: 20px; color: #2c3e50;">Diagnóstico de Rendimiento</h1>
                     
                     <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
                         <div class="card-c" style="flex: 1; min-width: 200px; text-align: center;">
@@ -1210,6 +1244,20 @@ Justificación: Según la norma técnica..."></textarea>
             document.getElementById('adm-t-titulo').value = titulo;
         }
 
+        function ajustarPrefijoTratoAutomatico() {
+            const carrera = document.getElementById('r-carrera').value;
+            const prefijoSelect = document.getElementById('r-prefijo');
+            if (carrera === 'Medicina Humana' || carrera === 'Odontología' || carrera === 'Medicina Veterinaria') {
+                prefijoSelect.value = 'Dr.';
+            } else if (carrera === 'Biología') {
+                prefijoSelect.value = 'Biól.';
+            } else if (carrera === 'Farmacia y Bioquímica') {
+                prefijoSelect.value = 'Q.F.';
+            } else {
+                prefijoSelect.value = 'Lic.';
+            }
+        }
+
         let imagenBase64Tema = null;
         document.addEventListener('DOMContentLoaded', () => {
             const inputFile = document.getElementById('adm-t-file');
@@ -1231,6 +1279,7 @@ Justificación: Según la norma técnica..."></textarea>
 
         let user = null;
         let perfilUsuario = null;
+        let tokenSesionActual = null;
         let perfilMascota = {
             animal: 'perrito',
             energia: 100,
@@ -1368,6 +1417,7 @@ Justificación: Según la norma técnica..."></textarea>
             if (error) mostrarAvisoModal("Error de Acceso", error.message, "⚠️");
         }
 
+        // CONTROL DE SESIÓN ÚNICA Y VERIFICACIÓN
         async function checkSesion() {
             const sb = obtenerSupabase();
             if (!sb) return;
@@ -1378,11 +1428,33 @@ Justificación: Según la norma técnica..."></textarea>
                 ver('vista-app');
                 subSec('dash');
                 cargarCursosDashboard();
+                iniciarVigilanteSesionUnica();
             } else {
                 ver('vista-login');
             }
         }
         window.addEventListener('DOMContentLoaded', checkSesion);
+
+        // Generar y vigilar token de sesión única
+        async function iniciarVigilanteSesionUnica() {
+            const sb = obtenerSupabase();
+            if (!user || !sb) return;
+            
+            tokenSesionActual = 'sess_' + Math.random().toString(36).substring(2) + Date.now();
+            await sb.from('perfiles').update({ token_sesion: tokenSesionActual }).eq('id', user.id);
+
+            // Revisar cada 20 segundos si se abrió en otro dispositivo
+            setInterval(async () => {
+                if (!user) return;
+                const { data } = await sb.from('perfiles').select('token_sesion').eq('id', user.id).single();
+                if (data && data.token_sesion && data.token_sesion !== tokenSesionActual) {
+                    await sb.auth.signOut();
+                    user = null;
+                    mostrarAvisoModal("Sesión Cerrada", "Tu cuenta se ha abierto en otro dispositivo. Por seguridad solo se permite una sesión activa.", "⚠️");
+                    ver('vista-login');
+                }
+            }, 20000);
+        }
 
         document.getElementById('f-login').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -1413,6 +1485,7 @@ Justificación: Según la norma técnica..."></textarea>
                     ver('vista-app');
                     subSec('dash');
                     cargarCursosDashboard();
+                    iniciarVigilanteSesionUnica();
                 }
             } catch (err) {
                 errDiv.innerText = err.message || 'Credenciales no válidas.';
@@ -1432,6 +1505,8 @@ Justificación: Según la norma técnica..."></textarea>
 
             const nombres = document.getElementById('r-nom').value.trim();
             const apellidos = document.getElementById('r-ape').value.trim();
+            const carrera = document.getElementById('r-carrera').value;
+            const prefijo = document.getElementById('r-prefijo').value;
             const dni = document.getElementById('r-dni').value.trim();
             const fechaNac = document.getElementById('r-nac').value;
             const email = document.getElementById('r-email').value.trim();
@@ -1465,6 +1540,8 @@ Justificación: Según la norma técnica..."></textarea>
                         id: auth.user.id,
                         nombres: nombres,
                         apellidos: apellidos,
+                        carrera: carrera,
+                        prefijo_trato: prefijo,
                         dni: dni,
                         fecha_nacimiento: fechaNac,
                         edad: edadCalculada,
@@ -1504,7 +1581,7 @@ Justificación: Según la norma técnica..."></textarea>
             }
         });
 
-        // RENDERIZADOR DE MASCOTA CON ADAPTACIÓN PERFECTA PARA EL FÉNIX
+        // RENDERIZADOR DE MASCOTA CON CAPAS VECTORIALES
         function generarSVGMarkup(ancho = 90, animar = true) {
             const animal = perfilMascota.animal || 'perrito';
             const cabeza = perfilMascota.cabeza || 'ninguno';
@@ -1652,6 +1729,7 @@ Justificación: Según la norma técnica..."></textarea>
             }
         }
 
+        // CARGA DE PERFIL ESTRICTA (PLAN REAL DE BASE DE DATOS)
         async function cargarPerfil() {
             const sb = obtenerSupabase();
             if (!user || !sb) return;
@@ -1663,6 +1741,8 @@ Justificación: Según la norma técnica..."></textarea>
                     id: user.id,
                     nombres: nombreGoogle,
                     apellidos: '',
+                    carrera: 'Ciencias de la Salud',
+                    prefijo_trato: 'Colega',
                     correo: user.email,
                     rol: 'estudiante',
                     plan: 'gratuito',
@@ -1676,27 +1756,32 @@ Justificación: Según la norma técnica..."></textarea>
                     accesorio_cabeza: 'ninguno',
                     accesorio_cuerpo: 'ninguno'
                 }]);
-                p = { nombres: nombreGoogle, apellidos: '', rol: 'estudiante', plan: 'gratuito', preguntas_hoy: 0 };
+                p = { nombres: nombreGoogle, apellidos: '', prefijo_trato: 'Colega', rol: 'estudiante', plan: 'gratuito', preguntas_hoy: 0 };
             }
 
             perfilUsuario = p;
+            const prefijo = p.prefijo_trato || 'Dr.';
             const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
-            document.getElementById('txt-saludo').innerText = `Hola, Dr./Lic. ${nombreCompleto}`;
+            document.getElementById('txt-saludo').innerText = `Hola, ${prefijo} ${nombreCompleto}`;
             
+            // Botón admin sólo según el rol
             if (p.rol === 'admin') {
                 document.getElementById('m-admin').style.display = 'flex';
             } else {
                 document.getElementById('m-admin').style.display = 'none';
             }
 
+            // CORRECCIÓN CRUCIAL: El plan se evalúa estrictamente por p.plan, no por rol
             const banner = document.getElementById('banner-membresia');
             const planTit = document.getElementById('plan-titulo');
-            if (p.plan === 'premium' || p.rol === 'admin') {
+            if (p.plan === 'premium') {
                 banner.className = 'banner-plan plan-prem';
                 banner.innerHTML = '<strong>Membresía Premium (Ciclo Completo)</strong>: Cuentas con acceso total e ilimitado.';
             } else {
                 banner.className = 'banner-plan plan-free';
                 planTit.innerText = 'Cuenta Gratuita';
+                banner.innerHTML = `<div><strong id="plan-titulo">Cuenta Gratuita</strong>: Límite de 15 preguntas/día y 3 temas por curso.</div>
+                <button class="btn-p" style="width: auto; padding: 7px 15px; margin: 0; background: #0056b3;" onclick="abrirModalPremium()">Adquirir Ciclo Completo</button>`;
             }
 
             const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
@@ -1791,6 +1876,7 @@ Justificación: Según la norma técnica..."></textarea>
             cargarSiguientePregunta();
         }
 
+        // CONTROL DE LÍMITES ESTRICTO PARA USUARIOS GRATUITOS (15 PREGUNTAS)
         async function cargarSiguientePregunta() {
             const sb = obtenerSupabase();
             document.getElementById('sim-fb').style.display = 'none';
@@ -1798,14 +1884,15 @@ Justificación: Según la norma técnica..."></textarea>
 
             document.getElementById('coach-mensaje').innerText = "¡Vamos adelante! Lee bien los datos del caso. ✨";
 
-            const esIlimitado = (perfilUsuario && (perfilUsuario.plan === 'premium' || perfilUsuario.rol === 'admin'));
-            if (!esIlimitado && perfilUsuario.preguntas_hoy >= 20) {
+            const esIlimitado = (perfilUsuario && perfilUsuario.plan === 'premium');
+            
+            if (!esIlimitado && perfilUsuario.preguntas_hoy >= 15) {
                 abrirModalPremium();
                 return;
             }
 
             if (!esIlimitado) {
-                document.getElementById('contador-diario').innerText = `Hoy: ${perfilUsuario.preguntas_hoy}/20 preguntas`;
+                document.getElementById('contador-diario').innerText = `Hoy: ${perfilUsuario.preguntas_hoy}/15 preguntas`;
             } else {
                 document.getElementById('contador-diario').innerText = 'Acceso Ilimitado';
             }
@@ -1894,7 +1981,7 @@ Justificación: Según la norma técnica..."></textarea>
             fb.style.display = 'block';
             document.getElementById('btn-sig').style.display = 'block';
 
-            const esIlimitado = (perfilUsuario && (perfilUsuario.plan === 'premium' || perfilUsuario.rol === 'admin'));
+            const esIlimitado = (perfilUsuario && perfilUsuario.plan === 'premium');
             if (!esIlimitado && sb) {
                 perfilUsuario.preguntas_hoy += 1;
                 await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
@@ -1912,8 +1999,8 @@ Justificación: Según la norma técnica..."></textarea>
         }
 
         async function generarPreguntasConIA() {
-            const esIlimitado = (perfilUsuario && (perfilUsuario.plan === 'premium' || perfilUsuario.rol === 'admin'));
-            if (!esIlimitado && perfilUsuario.preguntas_hoy >= 20) {
+            const esIlimitado = (perfilUsuario && perfilUsuario.plan === 'premium');
+            if (!esIlimitado && perfilUsuario.preguntas_hoy >= 15) {
                 abrirModalPremium();
                 return;
             }
@@ -2099,7 +2186,7 @@ Justificación: Según la norma técnica..."></textarea>
             }
         }
 
-        // CARGA DE "LAS FIJAS SERUMS" CON PÍLDORAS NAVEGABLES
+        // CARGA DE "LAS FIJAS SERUMS" CON PÍLDORAS
         async function cargarLasFijasSERUMS() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('contenedor-fijas-cards');
@@ -2153,7 +2240,7 @@ Justificación: Según la norma técnica..."></textarea>
             });
         }
 
-        // Carga de Temas con Tablas e Imágenes
+        // CONTROL DE TEMAS GRATIS (MÁXIMO 3 TEMAS PARA NO PREMIUM)
         async function cargarTemasTeoricos() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('lista-temas-contenedor');
@@ -2167,7 +2254,7 @@ Justificación: Según la norma técnica..."></textarea>
                 return;
             }
 
-            const esIlimitado = (perfilUsuario && (perfilUsuario.plan === 'premium' || perfilUsuario.rol === 'admin'));
+            const esIlimitado = (perfilUsuario && perfilUsuario.plan === 'premium');
             const { data: areas } = await sb.from('areas').select('*');
             const mapaNombresAreas = {};
             if (areas) areas.forEach(a => mapaNombresAreas[a.id] = a.nombre);
@@ -2205,7 +2292,7 @@ Justificación: Según la norma técnica..."></textarea>
             });
         }
 
-        // Estadísticas Desglosadas
+        // Estadísticas
         async function cargarEstadisticas() {
             const sb = obtenerSupabase();
             if (!user || !sb) return;
@@ -2394,7 +2481,7 @@ Justificación: Según la norma técnica..."></textarea>
             const { error } = await sb.from('preguntas').insert([payload]);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔");
+                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco oficial con éxito.", "✔");
                 document.getElementById('form-adm-p').reset();
             }
         });
@@ -2533,6 +2620,7 @@ Justificación: Según la norma técnica..."></textarea>
             }
         });
 
+        // GESTIÓN DE MEMBRESÍAS CON REFRESH INMEDIATO
         async function cargarAlumnosAdmin() {
             const sb = obtenerSupabase();
             const tbody = document.getElementById('tabla-alumnos-adm-body');
@@ -2552,7 +2640,7 @@ Justificación: Según la norma técnica..."></textarea>
 
                 tbody.innerHTML += `
                     <tr>
-                        <td><strong>${a.nombres || ''} ${a.apellidos || ''}</strong></td>
+                        <td><strong>${a.prefijo_trato || ''} ${a.nombres || ''} ${a.apellidos || ''}</strong><br><small style="color: #666;">${a.carrera || 'Salud'}</small></td>
                         <td>${a.dni || 'Sin DNI'}</td>
                         <td>${a.correo}</td>
                         <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'GRATIS'}</span></td>
@@ -2578,7 +2666,11 @@ Justificación: Según la norma técnica..."></textarea>
             const { error } = await sb.from('perfiles').update({ plan: nuevoPlan }).eq('id', userId);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️");
             else {
-                mostrarAvisoModal("Plan Actualizado", "Membresía modificada con éxito.", "✔");
+                mostrarAvisoModal("Plan Actualizado", `Membresía cambiada a ${nuevoPlan.toUpperCase()} con éxito.`, "✔");
+                // Si te cambiaste el plan a ti mismo, recargar perfil local en pantalla
+                if (user && user.id === userId) {
+                    await cargarPerfil();
+                }
                 cargarAlumnosAdmin();
             }
         }
