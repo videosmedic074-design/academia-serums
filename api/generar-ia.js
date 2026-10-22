@@ -1,0 +1,916 @@
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ error: 'Método no permitido' });
+    }
+
+    const { curso, tema, dificultad, tipo } = req.body;
+    const apiKey = process.env.GEMINI_API_KEY;
+
+    if (!apiKey) {
+        return res.status(500).json({ error: 'Falta configurar GEMINI_API_KEY en Vercel' });
+    }
+
+    // Prompt invisible médico especializado en ENCAPS / MINSA Perú
+    let promptSistema = "";
+
+    if (tipo === 'flashcards') {
+        promptSistema = `Eres el especialista académico de Proserum's Academia.
+Genera exactamente 4 Flashcards de alta rentabilidad para el examen SERUMS/ENCAPS del Perú.
+Tema: ${curso} - ${tema || 'General'}.
+Enfoque: Normas Técnicas del MINSA vigentes hasta el año actual, dosis pediátricas, criterios de referencia y conductas de emergencia.
+
+Devuelve EXCLUSIVAMENTE un arreglo JSON válido con este formato:
+[
+  { "anverso": "Pregunta o Criterio Clínico clave", "reverso": "Respuesta médica precisa y conducta MINSA" }
+]
+Sin rodeos, sin formato markdown adicional, solo el JSON.`;
+    } else {
+        promptSistema = `Eres el docente evaluador de Proserum's Academia para el examen ENCAPS / SERUMS del Perú.
+Genera exactamente 3 preguntas tipo caso clínico de opción múltiple.
+Curso: ${curso}
+Tema: ${tema || 'General'}
+Nivel de Dificultad: ${dificultad || 'Intermedia'}
+Marco Teórico: Normas Técnicas y Guías de Práctica Clínica del MINSA Perú vigentes hasta el año actual.
+
+Reglas:
+1. Casos clínicos contextualizados en el primer nivel de atención (Puesto o Centro de Salud I-1 a I-4).
+2. Cuatro alternativas (A, B, C, D). Solo UNA correcta.
+3. Justificación clínica clara explicando el porqué de la clave y descartando los distractores.
+
+Devuelve EXCLUSIVAMENTE un arreglo JSON válido con este formato:
+[
+  {
+    "enunciado": "Texto del caso clínico...",
+    "opcion_a": "...",
+    "opcion_b": "...",
+    "opcion_c": "...",
+    "opcion_d": "...",
+    "respuesta_correcta": "A",
+    "justificacion": "Explicación médica según norma técnica..."
+  }
+]
+Sin rodeos, sin markdown adicional, solo el JSON.`;
+    }
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: promptSistema }] }]
+            })
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error?.message || 'Error en la llamada a Gemini');
+        }
+
+        const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || "[]";
+        // Limpiar posibles etiquetas ```json de la respuesta
+        const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+        const parsed = JSON.parse(cleanJson);
+
+        return res.status(200).json({ resultado: parsed });
+    } catch (err) {
+        console.error("Error en API IA:", err);
+        return res.status(500).json({ error: err.message || 'Error al procesar con IA' });
+    }
+}
+Haz clic en el botón verde Commit changes... para guardar el archivo.
+
+Paso 3: Actualizar index.html con los botones de IA
+Abre tu archivo index.html en GitHub, presiona Ctrl + A, bórralo y reemplázalo con este código que ya incorpora:
+
+Botón "⚡ Generar con IA": Dentro del banco de preguntas para crear casos clínicos nuevos en segundos.
+
+Módulo interactivo de Flashcards: Tarjetas que giran con animación 3D al hacerles clic.
+
+Control Freemium: Los usuarios gratuitos pueden probar la IA con límites diarios y los Premium sin límites.
+
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proserum's Academia - Preparación Oficial SERUMS</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🩺</text></svg>">
+
+    <script src="[https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2](https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2)"></script>
+    <script>
+        const NOMBRE_ACADEMIA = "Proserum's Academia";
+        const TU_NUMERO_WHATSAPP = "51999999999"; 
+
+        const SUPABASE_URL = '[https://hjhtpfqkpciwxlanhxzw.supabase.co](https://hjhtpfqkpciwxlanhxzw.supabase.co)';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhqaHRwZnFrcGNpd3hsYW5oeHp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI2MjY3OTUsImV4cCI6MjEwODIwMjc5NX0.TpEvdIQCnbLIhtLKkRJ-NLj_BBR81uTKTgVyOynDlZM';
+        
+        window.sbClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+        function obtenerSupabase() {
+            if (!window.sbClient && window.supabase) {
+                window.sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            }
+            return window.sbClient;
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: #f0f4f8; color: #333; }
+        .pantalla { display: none; min-height: 100vh; }
+        .pantalla.activa { display: flex; }
+
+        /* Auth */
+        .centro-auth { width: 100%; display: flex; justify-content: center; align-items: center; padding: 30px 15px; }
+        .card-auth { background: white; width: 100%; max-width: 440px; padding: 35px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border-top: 6px solid #0056b3; }
+        .card-auth.amplia { max-width: 580px; }
+        .logo { font-size: 1.85em; font-weight: 800; color: #0056b3; text-align: center; margin-bottom: 5px; }
+        .logo span { color: #28a745; }
+        .sub { color: #6c757d; font-size: 0.9em; text-align: center; margin-bottom: 20px; }
+        .campo { margin-bottom: 15px; }
+        .campo label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.88em; }
+        .campo input { width: 100%; padding: 12px; border: 1px solid #ced4da; border-radius: 8px; outline: none; transition: 0.2s; }
+        .campo input:focus { border-color: #0056b3; box-shadow: 0 0 0 3px rgba(0,86,179,0.1); }
+        .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .btn-p { width: 100%; background: #0056b3; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .btn-p:hover { background: #004494; transform: translateY(-1px); }
+        .btn-p:disabled { background: #6c757d; cursor: not-allowed; }
+        .links { margin-top: 15px; text-align: center; font-size: 0.9em; }
+        .links a { color: #007bff; text-decoration: none; font-weight: bold; cursor: pointer; }
+        
+        .alerta { display: none; padding: 12px; border-radius: 8px; font-size: 0.88em; margin-bottom: 15px; line-height: 1.4; }
+        .alerta-err { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .alerta-ok { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+        /* Layout */
+        .layout { width: 100%; display: flex; height: 100vh; overflow: hidden; position: relative; }
+        .sidebar { width: 260px; background: white; border-right: 1px solid #e0e0e0; display: flex; flex-direction: column; }
+        .side-logo { padding: 25px 20px; font-weight: 800; color: #0056b3; font-size: 1.3em; border-bottom: 1px solid #eee; text-align: center; }
+        .side-logo span { color: #28a745; }
+        .menu { list-style: none; padding: 20px 0; flex: 1; }
+        .menu li { padding: 15px 25px; cursor: pointer; font-weight: 600; color: #555; transition: 0.2s; border-left: 4px solid transparent; display: flex; align-items: center; gap: 10px; }
+        .menu li:hover, .menu li.activo { background: #e9f2fb; color: #0056b3; border-left-color: #0056b3; }
+        .menu li.cerrar { color: #dc3545; margin-top: auto; border-top: 1px solid #eee; }
+
+        .contenido { flex: 1; padding: 35px; overflow-y: auto; padding-bottom: 80px; }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .card-c { background: white; padding: 22px; border-radius: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); border-top: 6px solid #0056b3; cursor: pointer; transition: 0.2s; }
+        .card-c:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+        .card-c h3 { margin-bottom: 8px; font-size: 1.15em; color: #2c3e50; }
+
+        /* Mascota */
+        .widget-mascota { 
+            background: linear-gradient(135deg, #0056b3, #0098b8); 
+            color: white; padding: 25px; border-radius: 16px; margin-bottom: 25px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            box-shadow: 0 8px 20px rgba(0,86,179,0.15);
+        }
+        .mascota-contenedor { display: flex; align-items: center; gap: 20px; }
+        .mascota-cuerpo { 
+            font-size: 4em; display: inline-block; 
+            animation: respirar 2.5s infinite ease-in-out;
+            transform-origin: bottom center;
+        }
+        @keyframes respirar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08) translateY(-4px); }
+        }
+        .mascota-feliz { animation: saltar 0.5s ease; }
+        @keyframes saltar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        .mascota-info h4 { font-size: 1.3em; margin-bottom: 6px; }
+
+        .banner-plan { padding: 12px 18px; border-radius: 10px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .plan-free { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .plan-prem { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+        /* Simulador */
+        .box-pregunta { background: white; padding: 35px; border-radius: 16px; max-width: 780px; margin: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .btn-op { display: block; width: 100%; padding: 15px 18px; margin: 12px 0; border: 2px solid #e9ecef; border-radius: 10px; background: #f8f9fa; text-align: left; font-size: 1.02em; cursor: pointer; transition: 0.2s; }
+        .btn-op:hover:not(:disabled) { background: #e2e6ea; border-color: #cbd3da; }
+        .btn-op.correcta { background: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+        .btn-op.incorrecta { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        .fb-box { margin-top: 25px; padding: 20px; border-radius: 10px; display: none; line-height: 1.6; }
+        .fb-ok { background: #d4edda; border-left: 6px solid #28a745; color: #155724; }
+        .fb-err { background: #f8d7da; border-left: 6px solid #dc3545; color: #721c24; }
+
+        /* Barra de Herramientas IA */
+        .barra-ia { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .btn-ia { background: linear-gradient(135deg, #6f42c1, #0056b3); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 0.92em; }
+        .btn-ia:hover { opacity: 0.95; transform: translateY(-1px); }
+
+        /* Flashcards con Giro 3D */
+        .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card-flip { background-color: transparent; height: 200px; perspective: 1000px; cursor: pointer; }
+        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.6s; transform-style: preserve-3d; }
+        .card-flip.volteada .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 14px; padding: 25px; display: flex; flex-direction: column; justify-content: center; align-items: center; box-shadow: 0 6px 15px rgba(0,0,0,0.06); }
+        .card-front { background: white; border-top: 5px solid #0056b3; color: #2c3e50; font-weight: 600; font-size: 1.05em; line-height: 1.4; }
+        .card-back { background: #e9f2fb; border-top: 5px solid #28a745; color: #155724; transform: rotateY(180deg); font-size: 1em; line-height: 1.5; font-weight: 500; }
+
+        /* Modales */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0, 0, 0, 0.45); backdrop-filter: blur(3px); 
+            display: none; justify-content: center; align-items: center; z-index: 9999;
+        }
+        .modal-box { 
+            background: white; border-radius: 16px; padding: 30px; max-width: 460px; width: 90%; 
+            text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.15); animation: entrarModal 0.25s ease-out;
+        }
+        @keyframes entrarModal { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+        .modal-icono { font-size: 3em; margin-bottom: 12px; }
+        .modal-box h3 { color: #2c3e50; font-size: 1.35em; margin-bottom: 10px; }
+        .modal-box p { color: #666; font-size: 0.95em; line-height: 1.5; margin-bottom: 22px; }
+        .btn-ws { background: #25d366; color: white; border: none; padding: 13px 20px; border-radius: 8px; font-weight: bold; font-size: 1em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; transition: 0.2s; }
+        .btn-ws:hover { background: #1eb956; }
+        .btn-cerrar-modal { background: #e9ecef; color: #495057; border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 10px; cursor: pointer; }
+        .btn-cerrar-modal:hover { background: #dde2e6; }
+
+        /* WhatsApp flotante */
+        .btn-flotante-ws {
+            position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; 
+            border-radius: 50px; padding: 10px 18px 10px 14px; display: flex; align-items: center; 
+            gap: 10px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); text-decoration: none; 
+            z-index: 9998; font-weight: bold; font-size: 0.9em; transition: all 0.3s ease;
+        }
+        .btn-flotante-ws:hover { transform: scale(1.05); background-color: #20ba59; color: white; }
+        .icono-ws-svg { width: 28px; height: 28px; fill: white; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN -->
+    <section id="vista-login" class="pantalla activa">
+        <div class="centro-auth">
+            <div class="card-auth">
+                <div class="logo">Proserum's <span>Academia</span></div>
+                <p class="sub">Plataforma Médica de Preparación Oficial</p>
+                <div id="err-login" class="alerta alerta-err"></div>
+                <form id="f-login">
+                    <div class="campo"><label>Correo Electrónico</label><input type="email" id="l-email" required placeholder="dr.ejemplo@gmail.com"></div>
+                    <div class="campo"><label>Contraseña</label><input type="password" id="l-pass" required placeholder="Ingresa tu contraseña"></div>
+                    <button type="submit" id="btn-login" class="btn-p">Ingresar al Aula</button>
+                </form>
+                <div class="links"><a onclick="ver('vista-registro')">¿No tienes cuenta? Regístrate aquí</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. REGISTRO -->
+    <section id="vista-registro" class="pantalla">
+        <div class="centro-auth">
+            <div class="card-auth amplia">
+                <div class="logo">Proserum's <span>Academia</span></div>
+                <p class="sub">Registro de Médico Postulante</p>
+                <div id="msg-reg" class="alerta"></div>
+                <form id="f-reg">
+                    <div class="fila">
+                        <div class="campo"><label>Nombres</label><input type="text" id="r-nom" required placeholder="Ej: Daniel Alejandro"></div>
+                        <div class="campo"><label>Apellidos</label><input type="text" id="r-ape" required placeholder="Ej: Ñiquen Reque"></div>
+                    </div>
+                    <div class="fila">
+                        <div class="campo"><label>DNI (8 dígitos)</label><input type="text" id="r-dni" maxlength="8" pattern="[0-9]{8}" required placeholder="12345678"></div>
+                        <div class="campo"><label>Fecha de Nacimiento</label><input type="date" id="r-nac" required></div>
+                    </div>
+                    <div class="campo"><label>Correo Electrónico</label><input type="email" id="r-email" required placeholder="tu-correo@gmail.com"></div>
+                    <div class="campo"><label>Contraseña (Mínimo 8 caracteres)</label><input type="password" id="r-pass" required placeholder="Crea una contraseña segura"></div>
+                    <button type="submit" id="btn-reg" class="btn-p">Completar Registro</button>
+                </form>
+                <div class="links"><a onclick="ver('vista-login')">¿Ya tienes cuenta? Iniciar Sesión</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. PLATAFORMA PRINCIPAL -->
+    <section id="vista-app" class="pantalla">
+        <div class="layout">
+            <aside class="sidebar">
+                <div class="side-logo">Proserum's <span>Academia</span></div>
+                <ul class="menu">
+                    <li id="m-dash" class="activo" onclick="subSec('dash')">📊 Mi Tablero</li>
+                    <li id="m-banqueo" onclick="subSec('banqueo')">📝 Banco de Preguntas</li>
+                    <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards IA</li>
+                    <li id="m-temas" onclick="subSec('temas')">📖 Temario Teórico</li>
+                    <li id="m-stats" onclick="subSec('stats')">📈 Mis Estadísticas</li>
+                    <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
+                </ul>
+            </aside>
+
+            <!-- SUB: TABLERO -->
+            <main id="sec-dash" class="contenido">
+                <div class="header-top">
+                    <div>
+                        <h1 id="txt-saludo" style="color: #2c3e50;">Hola, Doctor</h1>
+                        <p style="color: #6c757d; margin-top: 4px;">Plataforma de alta exigencia para asegurar tu plaza SERUMS.</p>
+                    </div>
+                </div>
+
+                <div id="banner-membresia" class="banner-plan plan-free">
+                    <div>
+                        <strong id="plan-titulo">Cuenta Gratuita</strong>: Límite de 20 preguntas/día y 3 temas por curso.
+                    </div>
+                    <button class="btn-p" style="width: auto; padding: 7px 15px; margin: 0; background: #0056b3;" onclick="abrirModalPremium()">Adquirir Ciclo Completo</button>
+                </div>
+
+                <div class="widget-mascota">
+                    <div class="mascota-contenedor">
+                        <div class="mascota-cuerpo" id="avatar-mascota">🐕</div>
+                        <div class="mascota-info">
+                            <h4 id="m-nombre">Compañero SERUMS</h4>
+                            <p>🪙 Monedas Médicas: <strong id="m-monedas">50</strong> | Estado: <span>Saludable 🩺</span></p>
+                        </div>
+                    </div>
+                    <button class="btn-p" style="width: auto; padding: 10px 18px; margin: 0; background: #28a745;" onclick="alimentarMascota()">Alimentar (10 🪙)</button>
+                </div>
+
+                <h2 style="margin-bottom: 15px; font-size: 1.3em; color: #2c3e50;">Selecciona un Curso para Entrenar</h2>
+                <div class="grid-5" id="grid-cursos-dashboard"></div>
+            </main>
+
+            <!-- SUB: SIMULADOR -->
+            <main id="sec-banqueo" class="contenido" style="display: none;">
+                <div class="barra-ia">
+                    <button class="btn-ia" onclick="generarPreguntasConIA()">🤖 Generar 3 Preguntas Nuevas con IA</button>
+                </div>
+
+                <div class="box-pregunta" id="box-pregunta-activa">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 18px; align-items: center;">
+                        <span id="sim-info" style="color: #007bff; font-weight: bold; text-transform: uppercase; font-size: 0.9em;">MODO PRÁCTICA</span>
+                        <span id="contador-diario" style="font-size: 0.9em; font-weight: bold; color: #6c757d; background: #f8f9fa; padding: 5px 10px; border-radius: 6px;"></span>
+                    </div>
+                    <div id="sim-enunciado" style="font-size: 1.2em; font-weight: 600; margin-bottom: 22px; line-height: 1.5; color: #2c3e50;">Cargando pregunta...</div>
+                    <div id="sim-opciones"></div>
+                    <div id="sim-fb" class="fb-box">
+                        <strong id="fb-tit" style="font-size: 1.1em;"></strong>
+                        <p id="fb-txt" style="margin-top: 6px;"></p>
+                    </div>
+                    <button id="btn-sig" class="btn-p" style="display: none; margin-top: 25px;" onclick="cargarSiguientePregunta()">Siguiente Pregunta ➔</button>
+                </div>
+            </main>
+
+            <!-- SUB: FLASHCARDS IA -->
+            <main id="sec-flashcards" class="contenido" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div>
+                        <h1 style="color: #2c3e50;">Flashcards Médicas con IA</h1>
+                        <p style="color: #6c757d; margin-top: 4px;">Haz clic en cualquier tarjeta para ver la respuesta o conducta según el MINSA.</p>
+                    </div>
+                    <button class="btn-ia" onclick="generarFlashcardsConIA()">⚡ Generar Nuevas Flashcards</button>
+                </div>
+                <div id="contenedor-flashcards" class="grid-flashcards">
+                    <div class="card-flip" onclick="this.classList.toggle('volteada')">
+                        <div class="card-inner">
+                            <div class="card-front">¿Conducta inicial ante Dengue con signos de alarma según NTS MINSA?</div>
+                            <div class="card-back">Hospitalización inmediata + Hidratación endovenosa con Cristaloides a 10 ml/kg en la 1° hora.</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- SUB: TEMARIO -->
+            <main id="sec-temas" class="contenido" style="display: none;">
+                <h1 style="margin-bottom: 10px; color: #2c3e50;">Temario Teórico Oficial</h1>
+                <p style="margin-bottom: 25px; color: #6c757d;">Resúmenes clínicos estructurados según guías técnicas del MINSA.</p>
+                <div id="lista-temas-contenedor">Cargando temas...</div>
+            </main>
+
+            <!-- SUB: ESTADÍSTICAS -->
+            <main id="sec-stats" class="contenido" style="display: none;">
+                <h1 style="margin-bottom: 20px; color: #2c3e50;">Diagnóstico de Rendimiento</h1>
+                <div class="card-c" style="max-width: 400px; margin-bottom: 20px;">
+                    <h3>Preguntas Respondidas: <span id="st-total">0</span></h3>
+                    <h3 style="color: #28a745; margin-top: 10px;">Aciertos: <span id="st-ok">0%</span></h3>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a id="btn-flotante-soporte" href="#" target="_blank" class="btn-flotante-ws" title="Consultas y Soporte">
+        <svg class="icono-ws-svg" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+        <span>Soporte Académico</span>
+    </a>
+
+    <!-- MODALES -->
+    <div id="modal-premium" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icono">⭐</div>
+            <h3>Acceso Ciclo Completo</h3>
+            <p>Obtén banqueo ilimitado a las <strong>10,000 preguntas</strong>, generación infinita con IA y resúmenes completos.</p>
+            <p style="font-size: 0.88em; color: #888; margin-top: -10px;">Contacta directamente para activar tu membresía:</p>
+            <a id="btn-enlace-whatsapp" href="#" target="_blank" class="btn-ws">
+                <span>💬 Contactar por WhatsApp</span>
+            </a>
+            <button class="btn-cerrar-modal" onclick="cerrarModales()">Volver al Tablero</button>
+        </div>
+    </div>
+
+    <div id="modal-mascota" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icono">🍖</div>
+            <h3 id="modal-mascota-tit">¡Buen provecho!</h3>
+            <p id="modal-mascota-txt">Le diste un snack nutritivo a tu compañero médico. ¡Su energía está al 100%!</p>
+            <button class="btn-p" style="margin: 0;" onclick="cerrarModales()">Aceptar</button>
+        </div>
+    </div>
+
+    <script>
+        let user = null;
+        let perfilUsuario = null;
+        let perfilMascota = null;
+        let preguntaActual = null;
+        let areaFiltroActual = null;
+        let preguntasIaBuffer = [];
+
+        function ver(id) {
+            document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+            document.getElementById(id).classList.add('activa');
+        }
+
+        function subSec(nom) {
+            document.getElementById('sec-dash').style.display = 'none';
+            document.getElementById('sec-banqueo').style.display = 'none';
+            document.getElementById('sec-flashcards').style.display = 'none';
+            document.getElementById('sec-temas').style.display = 'none';
+            document.getElementById('sec-stats').style.display = 'none';
+            
+            document.getElementById('m-dash').classList.remove('activo');
+            document.getElementById('m-banqueo').classList.remove('activo');
+            document.getElementById('m-flashcards').classList.remove('activo');
+            document.getElementById('m-temas').classList.remove('activo');
+            document.getElementById('m-stats').classList.remove('activo');
+
+            document.getElementById('sec-' + nom).style.display = 'block';
+            document.getElementById('m-' + nom).classList.add('activo');
+            
+            if (nom === 'stats') cargarEstadisticas();
+            if (nom === 'temas') cargarTemasTeoricos();
+        }
+
+        function configurarWhatsApp() {
+            const mensajeSoporte = encodeURIComponent(`Hola Doctor, me comunico desde la plataforma ${NOMBRE_ACADEMIA} porque tengo una consulta académica / soporte técnico.`);
+            document.getElementById('btn-flotante-soporte').href = `[https://wa.me/$](https://wa.me/$){TU_NUMERO_WHATSAPP}?text=${mensajeSoporte}`;
+        }
+        configurarWhatsApp();
+
+        function abrirModalPremium() {
+            const mensaje = encodeURIComponent(`Hola Doctor, deseo activar mi acceso al Ciclo Completo en ${NOMBRE_ACADEMIA} para mi cuenta: ${user?.email || ''}`);
+            document.getElementById('btn-enlace-whatsapp').href = `[https://wa.me/$](https://wa.me/$){TU_NUMERO_WHATSAPP}?text=${mensaje}`;
+            document.getElementById('modal-premium').style.display = 'flex';
+        }
+
+        function abrirModalMascota(titulo, mensaje, icono = "🍖") {
+            document.getElementById('modal-mascota-tit').innerText = titulo;
+            document.getElementById('modal-mascota-txt').innerText = mensaje;
+            document.getElementById('modal-mascota').querySelector('.modal-icono').innerText = icono;
+            document.getElementById('modal-mascota').style.display = 'flex';
+        }
+
+        function cerrarModales() {
+            document.getElementById('modal-premium').style.display = 'none';
+            document.getElementById('modal-mascota').style.display = 'none';
+        }
+
+        async function checkSesion() {
+            const sb = obtenerSupabase();
+            if (!sb) return;
+            const { data: { session } } = await sb.auth.getSession();
+            if (session) {
+                user = session.user;
+                await cargarPerfil();
+                ver('vista-app');
+                cargarCursosDashboard();
+            } else {
+                ver('vista-login');
+            }
+        }
+        window.addEventListener('DOMContentLoaded', checkSesion);
+
+        // Login
+        document.getElementById('f-login').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const btn = document.getElementById('btn-login');
+            const email = document.getElementById('l-email').value.trim();
+            const password = document.getElementById('l-pass').value;
+            const errDiv = document.getElementById('err-login');
+            
+            btn.disabled = true;
+            btn.innerText = 'Verificando...';
+            errDiv.style.display = 'none';
+
+            const { data, error } = await sb.auth.signInWithPassword({ email, password });
+            btn.disabled = false;
+            btn.innerText = 'Ingresar al Aula';
+
+            if (error) {
+                errDiv.innerText = 'Credenciales no válidas: verifica tu correo y contraseña.';
+                errDiv.style.display = 'block';
+            } else {
+                user = data.user;
+                await cargarPerfil();
+                ver('vista-app');
+                cargarCursosDashboard();
+            }
+        });
+
+        // Registro
+        document.getElementById('f-reg').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const btn = document.getElementById('btn-reg');
+            const msg = document.getElementById('msg-reg');
+            msg.style.display = 'none';
+
+            const nombres = document.getElementById('r-nom').value.trim();
+            const apellidos = document.getElementById('r-ape').value.trim();
+            const dni = document.getElementById('r-dni').value.trim();
+            const fechaNac = document.getElementById('r-nac').value;
+            const email = document.getElementById('r-email').value.trim();
+            const pass = document.getElementById('r-pass').value;
+
+            if (pass.length < 8) {
+                msg.innerText = 'La contraseña debe tener al menos 8 caracteres.';
+                msg.className = 'alerta alerta-err';
+                msg.style.display = 'block';
+                return;
+            }
+
+            let edadCalculada = 25;
+            if (fechaNac) {
+                const nac = new Date(fechaNac);
+                const hoy = new Date();
+                edadCalculada = hoy.getFullYear() - nac.getFullYear();
+                const m = hoy.getMonth() - nac.getMonth();
+                if (m < 0 || (m === 0 && hoy.getDate() < nac.getDate())) edadCalculada--;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'Creando cuenta...';
+
+            try {
+                const { data: auth, error: aErr } = await sb.auth.signUp({
+                    email: email,
+                    password: pass
+                });
+
+                if (aErr) throw aErr;
+
+                if (auth && auth.user) {
+                    await sb.from('perfiles').insert([{
+                        id: auth.user.id,
+                        nombres: nombres,
+                        apellidos: apellidos,
+                        dni: dni,
+                        fecha_nacimiento: fechaNac,
+                        edad: edadCalculada,
+                        correo: email,
+                        plan: 'gratuito',
+                        preguntas_hoy: 0
+                    }]);
+
+                    await sb.from('perfil_mascota').insert([{ user_id: auth.user.id }]);
+                }
+
+                msg.innerText = '¡Registro completado exitosamente! Redirigiendo...';
+                msg.className = 'alerta alerta-ok';
+                msg.style.display = 'block';
+                document.getElementById('f-reg').reset();
+
+                setTimeout(() => {
+                    ver('vista-login');
+                    document.getElementById('l-email').value = email;
+                }, 1800);
+
+            } catch (err) {
+                console.error("Error al registrar:", err);
+                msg.innerText = 'Error al registrar: ' + (err.message || 'Error de conexión');
+                msg.className = 'alerta alerta-err';
+                msg.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.innerText = 'Completar Registro';
+            }
+        });
+
+        // Perfil
+        async function cargarPerfil() {
+            const sb = obtenerSupabase();
+            if (!user || !sb) return;
+            const { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
+            if (p) {
+                perfilUsuario = p;
+                const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
+                document.getElementById('txt-saludo').innerText = `Hola, Dr. ${nombreCompleto}`;
+                
+                const banner = document.getElementById('banner-membresia');
+                const planTit = document.getElementById('plan-titulo');
+                if (p.plan === 'premium') {
+                    banner.className = 'banner-plan plan-prem';
+                    banner.innerHTML = '<strong>Membresía Premium (Ciclo Completo)</strong>: Cuentas con acceso total e ilimitado.';
+                } else {
+                    banner.className = 'banner-plan plan-free';
+                    planTit.innerText = 'Cuenta Gratuita';
+                }
+            } else {
+                perfilUsuario = { plan: 'gratuito', preguntas_hoy: 0 };
+            }
+
+            const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
+            if (m) {
+                perfilMascota = m;
+                document.getElementById('m-monedas').innerText = m.monedas;
+            }
+        }
+
+        async function cargarCursosDashboard() {
+            const sb = obtenerSupabase();
+            const cont = document.getElementById('grid-cursos-dashboard');
+            cont.innerHTML = 'Cargando cursos...';
+            
+            let lista = null;
+            if (sb) {
+                const { data: areas } = await sb.from('areas').select('*');
+                if (areas && areas.length > 0) lista = areas;
+            }
+            
+            if (!lista) {
+                lista = [
+                    { id: 1, nombre: 'Salud Pública', color_hex: '#007bff' },
+                    { id: 2, nombre: 'Cuidado Integral de Salud', color_hex: '#28a745' },
+                    { id: 3, nombre: 'Ética e Interculturalidad', color_hex: '#ffc107' },
+                    { id: 4, nombre: 'Investigación', color_hex: '#6f42c1' },
+                    { id: 5, nombre: 'Gestión de Servicios de Salud', color_hex: '#e83e8c' }
+                ];
+            }
+
+            cont.innerHTML = '';
+            lista.forEach(a => {
+                cont.innerHTML += `
+                    <div class="card-c" style="border-top-color: ${a.color_hex};" onclick="iniciarBanqueo(${a.id}, '${a.nombre}')">
+                        <h3>${a.nombre}</h3>
+                        <p style="color: #6c757d; font-size: 0.9em;">Banquear módulo completo ➔</p>
+                    </div>
+                `;
+            });
+        }
+
+        let nombreCursoActual = "Salud Pública";
+        async function iniciarBanqueo(areaId = null, nombreCurso = "Salud Pública") {
+            areaFiltroActual = areaId;
+            nombreCursoActual = nombreCurso;
+            subSec('banqueo');
+            cargarSiguientePregunta();
+        }
+
+        async function cargarSiguientePregunta() {
+            const sb = obtenerSupabase();
+            document.getElementById('sim-fb').style.display = 'none';
+            document.getElementById('btn-sig').style.display = 'none';
+
+            if (perfilUsuario && perfilUsuario.plan === 'gratuito' && perfilUsuario.preguntas_hoy >= 20) {
+                abrirModalPremium();
+                return;
+            }
+
+            if (perfilUsuario && perfilUsuario.plan === 'gratuito') {
+                document.getElementById('contador-diario').innerText = `Hoy: ${perfilUsuario.preguntas_hoy}/20 preguntas`;
+            } else {
+                document.getElementById('contador-diario').innerText = 'Acceso Ilimitado';
+            }
+
+            // Si hay preguntas generadas con IA en espera, consumirlas primero
+            if (preguntasIaBuffer.length > 0) {
+                preguntaActual = preguntasIaBuffer.shift();
+                mostrarPreguntaEnPantalla(preguntaActual, "Generada con IA (MINSA Perú)");
+                return;
+            }
+
+            let consulta = sb.from('preguntas').select('*');
+            if (areaFiltroActual) consulta = consulta.eq('area_id', areaFiltroActual);
+
+            const { data } = await consulta;
+            if (!data || data.length === 0) {
+                document.getElementById('sim-enunciado').innerText = 'Aún no hay preguntas en este curso. Puedes generar preguntas instantáneas usando el botón de IA superior.';
+                document.getElementById('sim-opciones').innerHTML = '';
+                return;
+            }
+
+            preguntaActual = data[Math.floor(Math.random() * data.length)];
+            mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad} | Origen: ${preguntaActual.origen}`);
+        }
+
+        function mostrarPreguntaEnPantalla(p, subtitulo) {
+            document.getElementById('sim-info').innerText = subtitulo;
+            document.getElementById('sim-enunciado').innerText = p.enunciado;
+
+            const contOp = document.getElementById('sim-opciones');
+            contOp.innerHTML = `
+                <button class="btn-op" onclick="responder(this, 'A')">A) ${p.opcion_a}</button>
+                <button class="btn-op" onclick="responder(this, 'B')">B) ${p.opcion_b}</button>
+                <button class="btn-op" onclick="responder(this, 'C')">C) ${p.opcion_c}</button>
+                <button class="btn-op" onclick="responder(this, 'D')">D) ${p.opcion_d}</button>
+            `;
+        }
+
+        async function responder(btn, opt) {
+            const sb = obtenerSupabase();
+            document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
+            const esOk = (opt === preguntaActual.respuesta_correcta);
+            const fb = document.getElementById('sim-fb');
+
+            if (esOk) {
+                btn.classList.add('correcta');
+                fb.className = 'fb-box fb-ok';
+                document.getElementById('fb-tit').innerText = '✔ ¡Respuesta Correcta!';
+                if (perfilMascota && sb) {
+                    const m = perfilMascota.monedas + 2;
+                    await sb.from('perfil_mascota').update({ monedas: m }).eq('user_id', user.id);
+                    perfilMascota.monedas = m;
+                    document.getElementById('m-monedas').innerText = m;
+                }
+            } else {
+                btn.classList.add('incorrecta');
+                fb.className = 'fb-box fb-err';
+                document.getElementById('fb-tit').innerText = '✖ Respuesta Incorrecta';
+            }
+
+            document.getElementById('fb-txt').innerText = preguntaActual.justificacion;
+            fb.style.display = 'block';
+            document.getElementById('btn-sig').style.display = 'block';
+
+            if (perfilUsuario && perfilUsuario.plan === 'gratuito' && sb) {
+                perfilUsuario.preguntas_hoy += 1;
+                await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
+            }
+
+            if (sb && preguntaActual.id) {
+                await sb.from('intentos_usuario').insert([{
+                    user_id: user.id,
+                    pregunta_id: preguntaActual.id,
+                    area_id: preguntaActual.area_id,
+                    tema_id: preguntaActual.tema_id,
+                    es_correcta: esOk
+                }]);
+            }
+        }
+
+        // GENERACIÓN DE PREGUNTAS CON IA
+        async function generarPreguntasConIA() {
+            if (perfilUsuario && perfilUsuario.plan === 'gratuito' && perfilUsuario.preguntas_hoy >= 20) {
+                abrirModalPremium();
+                return;
+            }
+
+            const btn = document.querySelector('.btn-ia');
+            const textoOriginal = btn.innerHTML;
+            btn.innerHTML = '⏳ Diseñando casos clínicos con IA...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/generar-ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        curso: nombreCursoActual,
+                        tema: "General",
+                        dificultad: "Intermedia",
+                        tipo: "preguntas"
+                    })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Error al conectar con la IA');
+
+                if (data.resultado && data.resultado.length > 0) {
+                    preguntasIaBuffer = data.resultado;
+                    cargarSiguientePregunta();
+                } else {
+                    alert('No se pudieron generar preguntas en este intento. Prueba de nuevo.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Aviso IA: ' + err.message);
+            } finally {
+                btn.innerHTML = textoOriginal;
+                btn.disabled = false;
+            }
+        }
+
+        // GENERACIÓN DE FLASHCARDS CON IA
+        async function generarFlashcardsConIA() {
+            const cont = document.getElementById('contenedor-flashcards');
+            cont.innerHTML = '<p style="color: #0056b3; font-weight: bold;">⏳ Diseñando Flashcards clínicas según normas técnicas del MINSA...</p>';
+
+            try {
+                const res = await fetch('/api/generar-ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        curso: nombreCursoActual || "Salud Pública",
+                        tema: "Puntos clave ENCAPS",
+                        tipo: "flashcards"
+                    })
+                });
+
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || 'Error con la IA');
+
+                cont.innerHTML = '';
+                data.resultado.forEach(f => {
+                    cont.innerHTML += `
+                        <div class="card-flip" onclick="this.classList.toggle('volteada')">
+                            <div class="card-inner">
+                                <div class="card-front">${f.anverso}</div>
+                                <div class="card-back">${f.reverso}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (err) {
+                console.error(err);
+                cont.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+            }
+        }
+
+        async function cargarTemasTeoricos() {
+            const sb = obtenerSupabase();
+            const cont = document.getElementById('lista-temas-contenedor');
+            cont.innerHTML = 'Consultando temario...';
+            
+            if (!sb) return;
+            const { data: temas } = await sb.from('temas').select('*').order('id', { ascending: true });
+            
+            if (!temas || temas.length === 0) {
+                cont.innerHTML = '<p>No hay temas teóricos cargados aún.</p>';
+                return;
+            }
+
+            cont.innerHTML = '';
+            temas.forEach((t, index) => {
+                const bloqueado = (perfilUsuario && perfilUsuario.plan === 'gratuito' && index >= 3);
+                cont.innerHTML += `
+                    <div class="card-c" style="margin-bottom: 15px; opacity: ${bloqueado ? '0.65' : '1'};">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>${t.codigo} - ${t.titulo}</h3>
+                            ${bloqueado 
+                                ? '<button class="btn-p" style="width: auto; padding: 4px 10px; margin: 0; background: #dc3545; font-size: 0.8em;" onclick="abrirModalPremium()">🔒 Desbloquear</button>' 
+                                : '<span style="color: #28a745; font-weight: bold; font-size: 0.9em;">✔ Disponible</span>'
+                            }
+                        </div>
+                        ${bloqueado 
+                            ? '<p style="color: #777; font-size: 0.9em; margin-top: 8px;">Tema reservado para postulantes del Ciclo Completo.</p>'
+                            : `<p style="margin-top: 10px; line-height: 1.6;">${t.resumen_teorico || 'Sin contenido teórico aún.'}</p>`
+                        }
+                    </div>
+                `;
+            });
+        }
+
+        async function cargarEstadisticas() {
+            const sb = obtenerSupabase();
+            if (!user || !sb) return;
+            const { data } = await sb.from('intentos_usuario').select('es_correcta').eq('user_id', user.id);
+            if (data && data.length > 0) {
+                document.getElementById('st-total').innerText = data.length;
+                const ok = data.filter(i => i.es_correcta).length;
+                document.getElementById('st-ok').innerText = Math.round((ok / data.length) * 100) + '%';
+            }
+        }
+
+        async function alimentarMascota() {
+            const sb = obtenerSupabase();
+            if (!perfilMascota || perfilMascota.monedas < 10 || !sb) {
+                abrirModalMascota("¡Monedas Insuficientes!", "Necesitas al menos 10 monedas. Resuelve preguntas clínicas para ganar más recompensas.", "🪙");
+                return;
+            }
+
+            const nuevasMonedas = perfilMascota.monedas - 10;
+            await sb.from('perfil_mascota').update({ monedas: nuevasMonedas }).eq('user_id', user.id);
+            perfilMascota.monedas = nuevasMonedas;
+            document.getElementById('m-monedas').innerText = nuevasMonedas;
+
+            const avatar = document.getElementById('avatar-mascota');
+            avatar.classList.add('mascota-feliz');
+            setTimeout(() => avatar.classList.remove('mascota-feliz'), 800);
+
+            abrirModalMascota("¡Mascota Alimentada!", "Tu compañero médico está lleno de energía y listo para seguir banqueando.", "🍖");
+        }
+
+        async function salir() {
+            const sb = obtenerSupabase();
+            if (sb) await sb.auth.signOut();
+            user = null;
+            ver('vista-login');
+        }
+    </script>
+</body>
+</html>
