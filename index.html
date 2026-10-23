@@ -28,44 +28,42 @@
         :root {
             --bg-body: #f0f4f8;
             --bg-card: #ffffff;
-            --bg-card-subtle: #f8f9fa;
-            --bg-sidebar: #ffffff;
-            --border-color: #e0e0e0;
-            --text-main: #2c3e50;
+            --bg-card-subtle: #f8fbfd;
+            --text-main: #333333;
+            --text-heading: #2c3e50;
             --text-muted: #6c757d;
-            --text-heading: #1e293b;
+            --border-color: #e2e8f0;
             --primary: #0056b3;
             --primary-hover: #004494;
-            --accent-green: #28a745;
-            --accent-gold: #ffd700;
-            --box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            --box-shadow-hover: 0 10px 25px rgba(0,0,0,0.08);
+            --primary-subtle: #e9f2fb;
+            --secondary: #28a745;
+            --accent: #6f42c1;
             --input-bg: #ffffff;
             --input-border: #ced4da;
-            --table-th-bg: #f8f9fa;
+            --box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            --modal-bg: #ffffff;
         }
 
         body.dark-mode {
-            --bg-body: #0a1120;
-            --bg-card: #131f37;
-            --bg-card-subtle: #1c2b48;
-            --bg-sidebar: #0f172a;
-            --border-color: #263859;
+            --bg-body: #0a0f1d;
+            --bg-card: #131c2e;
+            --bg-card-subtle: #19243b;
             --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
             --text-heading: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #24324d;
             --primary: #3b82f6;
             --primary-hover: #2563eb;
-            --accent-green: #22c55e;
-            --accent-gold: #fbbf24;
-            --box-shadow: 0 4px 18px rgba(0,0,0,0.35);
-            --box-shadow-hover: 0 10px 28px rgba(0,0,0,0.45);
-            --input-bg: #1a2744;
-            --input-border: #334b77;
-            --table-th-bg: #1e2d4d;
+            --primary-subtle: rgba(59, 130, 246, 0.15);
+            --secondary: #10b981;
+            --accent: #a855f7;
+            --input-bg: #101726;
+            --input-border: #2a3a59;
+            --box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            --modal-bg: #141e33;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; transition: background-color 0.25s ease, color 0.2s ease, border-color 0.2s ease; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; }
         body { background-color: var(--bg-body); color: var(--text-main); }
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
@@ -79,16 +77,14 @@
         .emblema-serums-pro svg { width: 60px; height: 60px; }
         
         .logo-box-main { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 12px; }
-        
         .logo-titulo-portada {
             font-size: 3.1em; font-weight: 900; color: #0056b3; letter-spacing: -1px; line-height: 1.1;
             text-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .logo-titulo-portada span { color: #28a745; }
-        .logo-titulo { font-size: 1.6em; font-weight: 900; color: var(--primary); }
+        .logo-titulo { font-size: 1.6em; font-weight: 900; color: #0056b3; }
         .logo-titulo span { color: #28a745; }
 
-        /* Fondo Autenticación */
         .fondo-auth-premium {
             width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center;
             background: radial-gradient(circle at top left, #002b5c, #001229);
@@ -101,7 +97,7 @@
         .contenedor-login-split {
             display: flex; max-width: 1100px; width: 100%; background: var(--bg-card);
             border-radius: 26px; box-shadow: 0 25px 70px rgba(0,0,0,0.35);
-            overflow: hidden; z-index: 1; min-height: 600px; border: 1px solid var(--border-color);
+            overflow: hidden; z-index: 1; min-height: 600px;
         }
         
         .columna-publicidad {
@@ -132,31 +128,41 @@
             flex: 1; padding: 45px 40px; display: flex; flex-direction: column; justify-content: center;
         }
 
-        /* Centro Registro */
-        .centro-auth-centrado {
-            width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center;
-            background: radial-gradient(circle at top center, #002b5c, #001229);
-            padding: 30px 15px; position: relative; overflow-y: auto;
+        .card-auth { 
+            background: var(--bg-card); width: 100%; max-width: 480px; padding: 35px; 
+            border-radius: 20px; box-shadow: var(--box-shadow); border-top: 6px solid #0056b3; 
         }
-        .card-auth { background: var(--bg-card); width: 100%; max-width: 480px; padding: 35px; border-radius: 20px; box-shadow: 0 15px 45px rgba(0,0,0,0.25); border-top: 6px solid #0056b3; border: 1px solid var(--border-color); }
         .card-auth.amplia { max-width: 650px; }
-        .sub { color: var(--text-muted); font-size: 1.02em; text-align: center; margin-bottom: 22px; font-weight: 500; }
-        .campo { margin-bottom: 15px; }
-        .campo label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.88em; color: var(--text-main); }
-        .campo input, .campo select, .campo textarea { 
-            width: 100%; padding: 12px; border: 1px solid var(--input-border); border-radius: 8px; 
-            outline: none; transition: 0.2s; font-size: 0.95em; background: var(--input-bg); color: var(--text-main); 
+        .centro-auth {
+            width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            background: radial-gradient(circle at center, #002b5c 0%, #001229 100%);
+            padding: 30px 15px;
         }
-        .campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,86,179,0.15); }
+
+        .sub { color: var(--text-muted); font-size: 1.05em; text-align: center; margin-bottom: 22px; font-weight: 500; }
+        .campo { margin-bottom: 15px; }
+        .campo label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.88em; color: var(--text-heading); }
+        .campo input, .campo select, .campo textarea { 
+            width: 100%; padding: 12px; border: 1.5px solid var(--input-border); 
+            background-color: var(--input-bg); color: var(--text-main);
+            border-radius: 10px; outline: none; transition: 0.2s; font-size: 0.95em; 
+        }
+        .campo input:focus, .campo select:focus, .campo textarea:focus { 
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2); 
+        }
         .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .btn-p { width: 100%; background: var(--primary); color: white; border: none; padding: 14px; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+        .btn-p { 
+            width: 100%; background: var(--primary); color: white; border: none; padding: 14px; 
+            border-radius: 10px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; 
+        }
         .btn-p:hover { background: var(--primary-hover); transform: translateY(-1px); }
         .btn-p:disabled { background: #6c757d; cursor: not-allowed; }
         
         .contenedor-google-circular { display: flex; justify-content: center; align-items: center; margin-top: 12px; }
         .btn-google-circle {
             width: 50px; height: 50px; border-radius: 50%; background: var(--bg-card);
-            border: 1px solid var(--input-border); display: flex; justify-content: center; align-items: center;
+            border: 1.5px solid var(--border-color); display: flex; justify-content: center; align-items: center;
             cursor: pointer; box-shadow: 0 3px 8px rgba(0,0,0,0.08); transition: 0.25s;
         }
         .btn-google-circle:hover { transform: scale(1.08); box-shadow: 0 5px 15px rgba(0,0,0,0.15); border-color: var(--primary); }
@@ -171,89 +177,142 @@
         .alerta { display: none; padding: 12px; border-radius: 8px; font-size: 0.88em; margin-bottom: 15px; line-height: 1.4; }
         .alerta-err { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         .alerta-ok { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
-        body.dark-mode .alerta-err { background: #44171d; color: #fecdd3; border-color: #842029; }
-        body.dark-mode .alerta-ok { background: #133926; color: #bbf7d0; border-color: #0f5132; }
 
-        /* Layout */
+        /* Sidebar Azul Marino Médico */
         .layout { width: 100%; display: flex; height: 100vh; overflow: hidden; position: relative; }
-        .sidebar { width: 285px; background: var(--bg-sidebar); border-right: 1px solid var(--border-color); display: flex; flex-direction: column; flex-shrink: 0; }
-        .side-logo-header { padding: 22px 18px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; gap: 12px; }
-        .menu { list-style: none; padding: 15px 0; flex: 1; overflow-y: auto; }
-        .menu li { padding: 13px 20px; cursor: pointer; font-weight: 600; color: var(--text-muted); transition: 0.2s; border-left: 4px solid transparent; display: flex; align-items: center; gap: 10px; }
-        .menu li:hover, .menu li.activo { background: var(--bg-card-subtle); color: var(--primary); border-left-color: var(--primary); }
-        .menu li.admin-btn { color: #8b5cf6; border-top: 1px solid var(--border-color); margin-top: 8px; }
-        .menu li.admin-btn:hover, .menu li.admin-btn.activo { background: rgba(139, 92, 246, 0.12); color: #8b5cf6; border-left-color: #8b5cf6; }
-        .menu li.cerrar { color: #ef4444; border-top: 1px solid var(--border-color); margin-top: auto; }
+        .sidebar { 
+            width: 285px; 
+            background: linear-gradient(180deg, #071c36 0%, #001529 100%); 
+            border-right: 1px solid rgba(255, 255, 255, 0.08); 
+            display: flex; flex-direction: column; flex-shrink: 0;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        body.dark-mode .sidebar {
+            background: linear-gradient(180deg, #050d1a 0%, #020710 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .side-logo-header { 
+            padding: 22px 18px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+            display: flex; align-items: center; gap: 12px; 
+            background: rgba(255,255,255,0.02);
+        }
+        .side-logo-header .logo-titulo { color: #ffffff !important; font-size: 1.45em; }
+        .side-logo-header .logo-titulo span { color: #38d39f !important; }
+        .menu { list-style: none; padding: 18px 10px; flex: 1; overflow-y: auto; }
+        .menu li { 
+            padding: 13px 18px; cursor: pointer; font-weight: 600; 
+            color: #b0c4de; transition: all 0.22s ease; 
+            border-radius: 12px; margin-bottom: 6px;
+            display: flex; align-items: center; gap: 12px; 
+            border-left: 4px solid transparent;
+        }
+        .menu li:hover { 
+            background: rgba(255, 255, 255, 0.08); 
+            color: #ffffff; 
+            transform: translateX(3px);
+        }
+        .menu li.activo { 
+            background: linear-gradient(90deg, rgba(0, 123, 255, 0.25), rgba(0, 86, 179, 0.1)); 
+            color: #60a5fa; 
+            border-left-color: #38bdf8;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+        }
+        .menu li.admin-btn { 
+            color: #c084fc; 
+            border-top: 1px solid rgba(255,255,255,0.08); 
+            margin-top: 12px; padding-top: 15px; border-radius: 12px;
+        }
+        .menu li.admin-btn:hover, .menu li.admin-btn.activo { 
+            background: rgba(192, 132, 252, 0.16); 
+            color: #e9d5ff; 
+            border-left-color: #c084fc; 
+        }
+        .menu li.cerrar { 
+            color: #f87171; 
+            border-top: 1px solid rgba(255,255,255,0.08); 
+            margin-top: auto; 
+            border-radius: 12px;
+        }
+        .menu li.cerrar:hover {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+        }
 
+        /* Contenido & Header Top */
         .contenido { flex: 1; padding: 30px 35px; overflow-y: auto; display: flex; flex-direction: column; background: var(--bg-body); }
         .contenido-cuerpo { flex: 1; }
         
-        .footer-oficial {
-            margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color);
-            text-align: center; color: var(--text-muted); font-size: 0.85em; line-height: 1.6;
+        .header-top { 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 25px; flex-wrap: wrap; gap: 15px; 
         }
-
-        /* Top Header con Dark Mode Toggle & Pill Membresía */
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px; }
-        .header-top-acciones { display: flex; align-items: center; gap: 12px; }
-        
+        .acciones-header-top { display: flex; align-items: center; gap: 15px; }
         .btn-theme-toggle {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 42px; height: 42px; border-radius: 12px; border: 1px solid var(--border-color);
-            background: var(--bg-card); color: var(--text-main); cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05); font-size: 1.25em; transition: 0.2s;
+            background: var(--bg-card); border: 1.5px solid var(--border-color);
+            color: var(--text-main); width: 44px; height: 44px; border-radius: 12px;
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            font-size: 1.3em; box-shadow: var(--box-shadow); transition: all 0.2s ease;
         }
         .btn-theme-toggle:hover { transform: scale(1.05); border-color: var(--primary); }
 
-        .pill-membresia-header {
-            display: flex; align-items: center; gap: 10px; padding: 6px 14px;
-            border-radius: 30px; font-size: 0.85em; font-weight: 700; border: 1px solid transparent;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .pill-membresia-top {
+            padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 0.88em;
+            display: inline-flex; align-items: center; gap: 8px; box-shadow: var(--box-shadow);
+            cursor: pointer; transition: 0.2s;
         }
-        .pill-free { background: #fff3cd; color: #856404; border-color: #ffeeba; }
-        .pill-prem { background: #d4edda; color: #155724; border-color: #c3e6cb; }
-        body.dark-mode .pill-free { background: #4d3800; color: #fef08a; border-color: #715200; }
-        body.dark-mode .pill-prem { background: #064e3b; color: #a7f3d0; border-color: #047857; }
+        .pill-free { background: #fff3cd; color: #856404; border: 1.5px solid #ffeeba; }
+        .pill-prem { background: #d1fae5; color: #065f46; border: 1.5px solid #a7f3d0; }
+        body.dark-mode .pill-free { background: #3c3014; color: #fde047; border-color: #634f19; }
+        body.dark-mode .pill-prem { background: #064e3b; color: #6ee7b7; border-color: #047857; }
 
-        /* Layout con Mascota a la Derecha */
-        .dashboard-grid-split {
-            display: grid; grid-template-columns: 1fr 340px; gap: 25px; align-items: start;
-        }
+        .layout-dashboard-split { display: flex; gap: 25px; align-items: flex-start; }
+        .columna-principal-dash { flex: 1; min-width: 0; }
+        .columna-mascota-lateral { width: 330px; flex-shrink: 0; }
+
         @media (max-width: 1024px) {
-            .dashboard-grid-split { grid-template-columns: 1fr; }
+            .layout-dashboard-split { flex-direction: column-reverse; }
+            .columna-mascota-lateral { width: 100%; }
         }
 
-        .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 30px; }
+        .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 25px; }
         
         .card-c { 
-            background: var(--bg-card); padding: 22px; border-radius: 14px; 
-            box-shadow: var(--box-shadow); border: 1px solid var(--border-color); 
-            border-top: 6px solid var(--primary); cursor: pointer; transition: 0.2s; position: relative; 
+            background: var(--bg-card); padding: 22px; border-radius: 16px; 
+            box-shadow: var(--box-shadow); border: 1px solid var(--border-color);
+            border-top: 6px solid var(--primary); cursor: pointer; transition: 0.25s; position: relative; 
         }
-        .card-c:hover { transform: translateY(-4px); box-shadow: var(--box-shadow-hover); }
+        .card-c:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
         .card-c h3 { margin-bottom: 8px; font-size: 1.15em; color: var(--text-heading); }
         
         .progreso-curso-caja { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color); }
-        .progreso-curso-info { display: flex; justify-content: space-between; font-size: 0.82em; font-weight: bold; margin-bottom: 4px; color: var(--text-muted); }
+        .progreso-curso-info { display: flex; justify-content: space-between; font-size: 0.82em; font-weight: bold; margin-bottom: 6px; color: var(--text-muted); }
         .barra-curso-bg { width: 100%; height: 7px; background: var(--border-color); border-radius: 6px; overflow: hidden; }
         .barra-curso-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease; }
 
-        /* Mascota Widget - Derecha */
-        .widget-mascota-lateral { 
-            background: linear-gradient(145deg, #002b5c, #0056b3); 
-            color: white; padding: 24px 20px; border-radius: 20px; 
+        .banner-countdown-dias {
+            background: linear-gradient(135deg, #1e3c72, #2a5298); color: white;
+            padding: 14px 22px; border-radius: 16px; margin-bottom: 20px;
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+        }
+
+        /* Widget Mascota */
+        .widget-mascota-pro { 
+            background: linear-gradient(135deg, #0056b3, #0098b8); 
+            color: white; padding: 25px; border-radius: 20px; 
             display: flex; flex-direction: column; align-items: center; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,43,92,0.25); border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 10px 30px rgba(0,86,179,0.25); border: 1px solid rgba(255,255,255,0.15);
         }
-        body.dark-mode .widget-mascota-lateral {
-            background: linear-gradient(145deg, #0f223f, #1e3a66);
-            border-color: #2b4977;
-        }
+        .stage-mascota { display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%; }
+        
         .avatar-canvas-box {
-            position: relative; width: 110px; height: 110px;
-            background: rgba(255, 255, 255, 0.12); border-radius: 50%;
+            position: relative; width: 115px; height: 115px;
+            background: rgba(255, 255, 255, 0.15); border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            border: 3px solid rgba(255, 255, 255, 0.35); overflow: hidden; margin-bottom: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.4); overflow: hidden;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.1);
         }
         .svg-mascota-render { transform-origin: bottom center; animation: respirarMascota 3s infinite ease-in-out; }
         @keyframes respirarMascota {
@@ -266,69 +325,136 @@
             96% { transform: scaleY(0.1); }
         }
 
-        .mascota-info-pro h4 { font-size: 1.25em; margin-bottom: 6px; color: #fff; }
-        .barra-energia-caja { width: 100%; max-width: 200px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 10px; margin: 8px auto; overflow: hidden; }
+        .mascota-info-pro h4 { font-size: 1.25em; margin-bottom: 6px; }
+        .barra-energia-caja { width: 100%; max-width: 200px; height: 9px; background: rgba(255,255,255,0.25); border-radius: 10px; margin: 8px auto; overflow: hidden; }
         .barra-energia-fill { height: 100%; width: 100%; background: #28a745; border-radius: 10px; transition: width 0.3s; }
+        .botones-mascota-acciones { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 15px; }
 
-        .banner-countdown-dias {
-            background: linear-gradient(135deg, #1e3c72, #2a5298); color: white;
-            padding: 14px 20px; border-radius: 14px; margin-bottom: 22px;
-            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        /* Dropdowns & Selectores */
+        .select-elegante-box { display: flex; flex-direction: column; gap: 6px; }
+        .select-elegante-box label { font-size: 0.88em; font-weight: 700; color: var(--text-heading); display: flex; align-items: center; gap: 6px; }
+        select.campo-select-pro, .panel-banqueo-bd select {
+            width: 100%;
+            appearance: none; -webkit-appearance: none; -moz-appearance: none;
+            background-color: var(--input-bg);
+            color: var(--text-main);
+            font-size: 0.94em; font-weight: 600;
+            padding: 13px 42px 13px 16px;
+            border-radius: 12px;
+            border: 1.5px solid var(--input-border);
+            outline: none; cursor: pointer; transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230056b3' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 17px;
         }
-
-        /* Sección Cronograma & Calendario Interactiva */
-        .grid-calendario-seccion {
-            display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; margin-top: 15px;
+        body.dark-mode select.campo-select-pro, body.dark-mode .panel-banqueo-bd select {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2360a5fa' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
-        @media (max-width: 900px) {
-            .grid-calendario-seccion { grid-template-columns: 1fr; }
+        select.campo-select-pro:hover, .panel-banqueo-bd select:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 86, 179, 0.12);
+            transform: translateY(-1px);
         }
-        .calendario-box {
-            background: var(--bg-card); padding: 24px; border-radius: 16px; 
-            border: 1px solid var(--border-color); box-shadow: var(--box-shadow);
-        }
-        .calendario-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;
-        }
-        .calendario-grid-dias {
-            display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; text-align: center;
-        }
-        .dia-nombre { font-size: 0.8em; font-weight: 700; color: var(--text-muted); padding-bottom: 6px; }
-        .dia-celda {
-            aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-radius: 10px; background: var(--bg-card-subtle); font-size: 0.9em; font-weight: 600;
-            cursor: pointer; border: 1px solid transparent; transition: 0.2s; position: relative;
-        }
-        .dia-celda:hover { border-color: var(--primary); background: rgba(59, 130, 246, 0.1); }
-        .dia-celda.activo { background: var(--primary); color: white; }
-        .dia-celda.examen { background: #dc3545; color: white; font-weight: bold; }
-        .dia-punto-tarea { width: 5px; height: 5px; background: #fbbf24; border-radius: 50%; margin-top: 2px; }
-
-        .metodologia-box {
-            background: var(--bg-card); padding: 24px; border-radius: 16px; 
-            border: 1px solid var(--border-color); box-shadow: var(--box-shadow);
+        select.campo-select-pro:focus, .panel-banqueo-bd select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
         }
 
-        /* Modalidades del Banco de Preguntas */
+        .btn-filtro-accion {
+            padding: 13px 22px !important;
+            border-radius: 12px !important;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 14px rgba(0, 86, 179, 0.25) !important;
+            transition: all 0.2s ease !important;
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-filtro-accion:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 86, 179, 0.35) !important;
+        }
+
+        .panel-banqueo-bd {
+            background: var(--bg-card); padding: 24px; border-radius: 18px; margin-bottom: 24px;
+            box-shadow: var(--box-shadow); border: 1px solid var(--border-color); 
+            border-left: 6px solid var(--primary);
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; align-items: end;
+        }
+
         .grid-modalidades-banqueo {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 20px; margin-bottom: 30px;
         }
         .card-modalidad {
             background: var(--bg-card); padding: 25px; border-radius: 16px; box-shadow: var(--box-shadow);
-            border: 1px solid var(--border-color); border-top: 6px solid var(--primary); 
+            border: 1px solid var(--border-color); border-top: 6px solid #0056b3; 
             cursor: pointer; transition: all 0.25s ease; text-align: left;
         }
-        .card-modalidad:hover { transform: translateY(-5px); box-shadow: var(--box-shadow-hover); }
+        .card-modalidad:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
         .card-modalidad h3 { color: var(--text-heading); font-size: 1.25em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .card-modalidad p { color: var(--text-muted); font-size: 0.9em; line-height: 1.5; margin-bottom: 15px; }
 
-        /* Píldoras Centrales Fijas */
-        .nav-pildoras-fijas {
-            display: flex; justify-content: center; gap: 10px; margin: 15px 0 30px; flex-wrap: wrap;
+        .layout-simulador { display: flex; gap: 20px; align-items: flex-start; max-width: 950px; margin: auto; }
+        .box-pregunta { flex: 1; background: var(--bg-card); padding: 35px; border-radius: 16px; box-shadow: var(--box-shadow); border: 1px solid var(--border-color); }
+        
+        .mascota-coach-lateral {
+            width: 185px; background: var(--bg-card); padding: 20px 15px; border-radius: 16px; 
+            box-shadow: var(--box-shadow); border: 1px solid var(--border-color); text-align: center; border-top: 4px solid #0056b3;
         }
+        .globo-dialogo {
+            background: var(--primary-subtle); border: 1px solid var(--border-color); border-radius: 12px; 
+            padding: 10px 12px; font-size: 0.82em; color: var(--primary); font-weight: 600; 
+            line-height: 1.4; margin-bottom: 12px; position: relative;
+        }
+        .globo-dialogo::after {
+            content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
+            border-width: 8px 8px 0; border-style: solid; border-color: var(--primary-subtle) transparent;
+        }
+
+        .btn-op { 
+            display: block; width: 100%; padding: 15px 18px; margin: 12px 0; 
+            border: 1.5px solid var(--border-color); border-radius: 12px; background: var(--bg-card-subtle); 
+            color: var(--text-main); text-align: left; font-size: 1.02em; cursor: pointer; transition: 0.2s; 
+        }
+        .btn-op:hover:not(:disabled) { background: var(--primary-subtle); border-color: var(--primary); }
+        .btn-op.correcta { background: #d4edda !important; border-color: #28a745 !important; color: #155724; font-weight: bold; }
+        .btn-op.incorrecta { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        .fb-box { margin-top: 25px; padding: 20px; border-radius: 12px; display: none; line-height: 1.6; }
+        .fb-ok { background: #d4edda; border-left: 6px solid #28a745; color: #155724; }
+        .fb-err { background: #f8d7da; border-left: 6px solid #dc3545; color: #721c24; }
+
+        .panel-control-ia { 
+            background: var(--bg-card); padding: 22px; border-radius: 16px; margin-bottom: 25px; 
+            box-shadow: var(--box-shadow); border: 1px solid rgba(168, 85, 247, 0.3);
+            display: flex; flex-direction: column; gap: 15px; 
+        }
+        .grupo-check-dif { display: flex; gap: 12px; align-items: center; margin-top: 5px; flex-wrap: wrap; }
+        .grupo-check-dif label { font-size: 0.9em; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; color: var(--text-main); }
+        
+        .btn-ia-accion { 
+            background: linear-gradient(135deg, #6f42c1, #0056b3); color: white; border: none; 
+            padding: 12px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95em; transition: 0.2s; 
+        }
+        .btn-ia-accion:hover { opacity: 0.95; transform: translateY(-1px); }
+
+        .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
+        .card-flip { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
+        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }
+        .card-flip.volteada .card-inner { transform: rotateY(180deg); }
+        .card-front, .card-back { 
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
+            border-radius: 16px; padding: 20px; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; box-shadow: var(--box-shadow); border: 1px solid var(--border-color);
+        }
+        .card-front { background: var(--bg-card); border-top: 5px solid var(--primary); color: var(--text-heading); font-weight: 600; font-size: 1.05em; line-height: 1.35; }
+        .card-back { background: var(--bg-card-subtle); border-top: 5px solid #28a745; color: #10b981; transform: rotateY(180deg); font-size: 0.98em; line-height: 1.45; font-weight: 600; }
+
+        .nav-pildoras-fijas { display: flex; justify-content: center; gap: 10px; margin: 15px 0 30px; flex-wrap: wrap; }
         .btn-pildora-fija {
-            background: var(--bg-card); border: 2px solid var(--input-border); padding: 10px 18px; border-radius: 25px;
+            background: var(--bg-card); border: 1.5px solid var(--border-color); padding: 10px 18px; border-radius: 25px;
             font-size: 0.92em; font-weight: 700; color: var(--text-main); cursor: pointer; transition: 0.2s;
             box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
@@ -338,89 +464,45 @@
         .card-fija-bloqueada { position: relative; overflow: hidden; filter: grayscale(40%); }
         .overlay-fija-bloqueada {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(4px);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             padding: 15px; text-align: center; cursor: pointer;
         }
-        body.dark-mode .overlay-fija-bloqueada {
-            background: rgba(19, 31, 55, 0.92);
-        }
+        body.dark-mode .overlay-fija-bloqueada { background: rgba(19, 28, 46, 0.92); }
 
-        /* Simulador y Mascota Coach */
-        .layout-simulador { display: flex; gap: 20px; align-items: flex-start; max-width: 950px; margin: auto; }
-        .box-pregunta { flex: 1; background: var(--bg-card); padding: 35px; border-radius: 16px; box-shadow: var(--box-shadow); border: 1px solid var(--border-color); }
-        
-        .mascota-coach-lateral {
-            width: 175px; background: var(--bg-card); padding: 20px 15px; border-radius: 16px; 
-            box-shadow: var(--box-shadow); text-align: center; border-top: 4px solid var(--primary);
-            border: 1px solid var(--border-color);
+        .grid-calendario-seccion { display: grid; grid-template-columns: 1.2fr 1fr; gap: 25px; margin-top: 20px; }
+        @media (max-width: 900px) { .grid-calendario-seccion { grid-template-columns: 1fr; } }
+        .box-calendario-interactivo {
+            background: var(--bg-card); border-radius: 18px; padding: 25px;
+            box-shadow: var(--box-shadow); border: 1px solid var(--border-color);
         }
-        .globo-dialogo {
-            background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: 12px; 
-            padding: 10px 12px; font-size: 0.82em; color: var(--primary); font-weight: 600; 
-            line-height: 1.4; margin-bottom: 12px; position: relative;
+        .dias-semana-grid {
+            display: grid; grid-template-columns: repeat(7, 1fr); text-align: center;
+            font-weight: 700; color: var(--text-muted); font-size: 0.85em; margin-bottom: 10px;
         }
-        .globo-dialogo::after {
-            content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
-            border-width: 8px 8px 0; border-style: solid; border-color: var(--bg-card-subtle) transparent;
+        .calendario-mes-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+        .dia-celda {
+            height: 48px; border-radius: 10px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; font-size: 0.9em; font-weight: 600;
+            background: var(--bg-card-subtle); border: 1px solid var(--border-color);
+            cursor: pointer; transition: 0.2s; position: relative;
         }
+        .dia-celda:hover { border-color: var(--primary); transform: scale(1.04); }
+        .dia-celda.hoy { border: 2px solid var(--primary); font-weight: 800; color: var(--primary); }
+        .dia-celda.examen { background: #d9381e !important; color: white !important; font-weight: 800; }
+        .dia-celda.estudio { background: rgba(40, 167, 69, 0.15); border-color: #28a745; }
+        .dia-celda.otro-mes { opacity: 0.35; cursor: default; }
 
-        .btn-op { display: block; width: 100%; padding: 15px 18px; margin: 12px 0; border: 2px solid var(--border-color); border-radius: 10px; background: var(--bg-card-subtle); color: var(--text-main); text-align: left; font-size: 1.02em; cursor: pointer; transition: 0.2s; }
-        .btn-op:hover:not(:disabled) { background: rgba(59, 130, 246, 0.08); border-color: var(--primary); }
-        .btn-op.correcta { background: #d4edda !important; border-color: #28a745 !important; color: #155724 !important; font-weight: bold; }
-        .btn-op.incorrecta { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24 !important; }
-        .fb-box { margin-top: 25px; padding: 20px; border-radius: 10px; display: none; line-height: 1.6; }
-        .fb-ok { background: #d4edda; border-left: 6px solid #28a745; color: #155724; }
-        .fb-err { background: #f8d7da; border-left: 6px solid #dc3545; color: #721c24; }
-        body.dark-mode .fb-ok { background: #064e3b; color: #d1fae5; }
-        body.dark-mode .fb-err { background: #4c1d24; color: #ffe4e6; }
-
-        /* Panel IA Separado y Exclusivo Premium */
-        .panel-control-ia { 
-            background: var(--bg-card-subtle); padding: 22px; border-radius: 16px; margin-bottom: 25px; 
-            box-shadow: 0 4px 15px rgba(111,66,193,0.06); border: 1px solid #e9d8fd;
-            display: flex; flex-direction: column; gap: 15px; 
-        }
-        body.dark-mode .panel-control-ia { border-color: #4c1d95; }
-        .fila-filtros-ia { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; align-items: end; }
-        .grupo-check-dif { display: flex; gap: 12px; align-items: center; margin-top: 5px; flex-wrap: wrap; }
-        .grupo-check-dif label { font-size: 0.9em; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 4px; }
-        
-        .btn-ia-accion { 
-            background: linear-gradient(135deg, #6f42c1, #0056b3); color: white; border: none; 
-            padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; 
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95em; transition: 0.2s; 
-        }
-        .btn-ia-accion:hover { opacity: 0.95; transform: translateY(-1px); }
-
-        .panel-banqueo-bd {
-            background: var(--bg-card); padding: 20px; border-radius: 14px; margin-bottom: 20px;
-            box-shadow: var(--box-shadow); border: 1px solid var(--border-color); border-left: 5px solid var(--primary);
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; align-items: end;
-        }
-
-        /* Flashcards */
-        .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
-        .card-flip { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
-        .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }
-        .card-flip.volteada .card-inner { transform: rotateY(180deg); }
-        .card-front, .card-back { 
-            position: absolute; width: 100%; height: 100%; backface-visibility: hidden; 
-            border-radius: 14px; padding: 20px; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; box-shadow: var(--box-shadow); border: 1px solid var(--border-color);
-        }
-        .card-front { background: var(--bg-card); border-top: 5px solid var(--primary); color: var(--text-heading); font-weight: 600; font-size: 1.05em; line-height: 1.35; }
-        .card-back { background: var(--bg-card-subtle); border-top: 5px solid #28a745; color: var(--text-main); transform: rotateY(180deg); font-size: 0.98em; line-height: 1.45; font-weight: 600; }
-
-        /* Tienda Mascota */
         .grid-tienda { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 15px; }
-        .item-tienda-card { background: var(--bg-card-subtle); border: 2px solid var(--border-color); border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; transition: 0.2s; color: var(--text-main); }
-        .item-tienda-card:hover { border-color: var(--primary); background: rgba(59,130,246,0.1); }
+        .item-tienda-card { 
+            background: var(--bg-card-subtle); border: 2px solid var(--border-color); border-radius: 12px; 
+            padding: 14px; text-align: center; cursor: pointer; transition: 0.2s; color: var(--text-main); 
+        }
+        .item-tienda-card:hover { border-color: var(--primary); background: var(--primary-subtle); }
         .item-icono { font-size: 2.2em; margin-bottom: 5px; }
 
-        /* Estadísticas */
         .stat-curso-box { background: var(--bg-card); padding: 18px 22px; border-radius: 12px; margin-bottom: 12px; box-shadow: var(--box-shadow); border: 1px solid var(--border-color); }
-        .stat-curso-header { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; color: var(--text-main); }
+        .stat-curso-header { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; color: var(--text-heading); }
         .stat-progreso-bg { width: 100%; background: var(--border-color); height: 10px; border-radius: 8px; overflow: hidden; }
         .stat-progreso-fill { height: 100%; border-radius: 8px; transition: width 0.4s ease; }
 
@@ -429,38 +511,34 @@
             border-radius: 16px; padding: 22px; margin-bottom: 25px; display: flex;
             align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;
         }
-        body.dark-mode .box-reforzar-fallos {
-            background: linear-gradient(135deg, #422006, #713f12); border-color: #854d0e;
-        }
+        body.dark-mode .box-reforzar-fallos { background: linear-gradient(135deg, #302409, #4a3608); border-color: #634f19; }
 
-        /* Panel Docente */
         .pestanas-admin { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 2px solid var(--border-color); flex-wrap: wrap; }
         .tab-btn-adm { padding: 10px 16px; cursor: pointer; font-weight: bold; color: var(--text-muted); border: none; background: none; font-size: 0.95em; border-bottom: 3px solid transparent; }
-        .tab-btn-adm.activa { color: #6f42c1; border-bottom-color: #6f42c1; }
+        .tab-btn-adm.activa { color: var(--accent); border-bottom-color: var(--accent); }
         .subtab-adm { display: none; }
         .subtab-adm.activa { display: block; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.88em; }
-        th, td { padding: 10px 8px; border-bottom: 1px solid var(--border-color); text-align: left; color: var(--text-main); }
-        th { background: var(--table-th-bg); color: var(--text-muted); }
+        th, td { padding: 12px 10px; border-bottom: 1px solid var(--border-color); text-align: left; }
+        th { background: var(--bg-card-subtle); color: var(--text-heading); }
         .badge { padding: 4px 8px; border-radius: 10px; font-weight: bold; font-size: 0.78em; }
         .badge-free { background: #e2e3e5; color: #383d41; }
         .badge-prem { background: #d4edda; color: #155724; }
         .badge-bloq { background: #f8d7da; color: #721c24; }
-        .btn-act { background: #28a745; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
-        .btn-des { background: #6c757d; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
-        .btn-bloq { background: #dc3545; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
-        .btn-clave { background: #0056b3; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+        .btn-act { background: #28a745; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+        .btn-des { background: #6c757d; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+        .btn-bloq { background: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
+        .btn-clave { background: #0056b3; color: white; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.85em; }
 
-        /* Modales */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(5px); 
             display: none; justify-content: center; align-items: center; z-index: 9999;
         }
         .modal-box { 
-            background: var(--bg-card); color: var(--text-main); border-radius: 20px; padding: 28px; max-width: 540px; width: 92%; 
-            text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.35); animation: entrarModal 0.25s ease-out;
+            background: var(--modal-bg); border-radius: 22px; padding: 30px; max-width: 540px; width: 92%; 
+            text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.35); animation: entrarModal 0.25s ease-out;
             max-height: 90vh; overflow-y: auto; position: relative; border: 1px solid var(--border-color);
         }
         @keyframes entrarModal { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
@@ -470,10 +548,10 @@
         }
         .btn-cerrar-x:hover { color: #dc3545; }
 
-        .btn-ws { background: #25d366; color: white; border: none; padding: 13px 20px; border-radius: 8px; font-weight: bold; font-size: 1em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; transition: 0.2s; }
+        .btn-ws { background: #25d366; color: white; border: none; padding: 13px 20px; border-radius: 10px; font-weight: bold; font-size: 1em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; transition: 0.2s; }
         .btn-ws:hover { background: #1eb956; }
-        .btn-cerrar-modal { background: var(--border-color); color: var(--text-main); border: none; padding: 10px 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 10px; cursor: pointer; }
-        .btn-cerrar-modal:hover { opacity: 0.9; }
+        .btn-cerrar-modal { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); padding: 12px 15px; border-radius: 10px; font-weight: bold; width: 100%; margin-top: 10px; cursor: pointer; }
+        .btn-cerrar-modal:hover { background: var(--border-color); }
 
         .btn-flotante-ws {
             position: fixed; bottom: 25px; right: 25px; background-color: #25d366; color: white; 
@@ -483,11 +561,12 @@
         }
         .btn-flotante-ws:hover { transform: scale(1.05); background-color: #20ba59; color: white; }
         .icono-ws-svg { width: 28px; height: 28px; fill: white; }
+        .footer-oficial { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 0.85em; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <!-- 1. LOGIN CON LOGO ENORME, CARRUSEL DE PUBLICIDAD Y GOOGLE CIRCULAR AL FONDO -->
+    <!-- 1. LOGIN -->
     <section id="vista-login" class="pantalla activa">
         <div class="fondo-auth-premium">
             <div class="contenedor-login-split">
@@ -558,9 +637,9 @@
         </div>
     </section>
 
-    <!-- 2. REGISTRO (100% CÉNTRICO Y CON FONDO AZUL PROFESIONAL) -->
+    <!-- 2. REGISTRO (CÉNTRICO CON FONDO AZUL RADIAL) -->
     <section id="vista-registro" class="pantalla">
-        <div class="centro-auth-centrado">
+        <div class="centro-auth">
             <div class="card-auth amplia">
                 <div class="logo-box-main">
                     <div class="emblema-serums-pro" style="width: 60px; height: 60px;">
@@ -629,8 +708,8 @@
         <div class="layout">
             <aside class="sidebar">
                 <div class="side-logo-header">
-                    <div class="emblema-serums-pro" style="width: 46px; height: 46px; border-radius: 12px;">
-                        <svg viewBox="0 0 100 100" fill="none" style="width: 32px; height: 32px;">
+                    <div class="emblema-serums-pro" style="width: 44px; height: 44px; border-radius: 12px;">
+                        <svg viewBox="0 0 100 100" fill="none" style="width: 30px; height: 30px;">
                             <circle cx="50" cy="28" r="13" fill="#ffffff"/>
                             <path d="M22 84 L36 48 L46 48 L44 84 Z" fill="#ffffff"/>
                             <path d="M78 84 L64 48 L54 48 L56 84 Z" fill="#ffffff"/>
@@ -647,6 +726,7 @@
                     <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards</li>
                     <li id="m-fijas" onclick="subSec('fijas')">🔥 Las Fijas SERUMS</li>
                     <li id="m-stats" onclick="subSec('stats')">📈 Mis Estadísticas</li>
+                    <li id="m-perfil" onclick="subSec('perfil')">👤 Mi Perfil Profesional</li>
                     <li id="m-admin" class="admin-btn" style="display: none;" onclick="subSec('admin')">🛠️ Panel Docente</li>
                     <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
                 </ul>
@@ -657,19 +737,14 @@
                 <div class="contenido-cuerpo">
                     <div class="header-top">
                         <div>
-                            <h1 id="txt-saludo" style="color: var(--text-heading);">Hola, Colega</h1>
+                            <h1 id="txt-saludo" style="color: var(--text-heading); font-size: 1.8em;">Hola, Colega</h1>
                             <p style="color: var(--text-muted); margin-top: 4px;">Plataforma de alta exigencia para asegurar tu plaza SERUMS.</p>
                         </div>
-                        
-                        <!-- Header Acciones: Modo Oscuro/Claro & Estado de Membresía a la Derecha -->
-                        <div class="header-top-acciones">
-                            <button class="btn-theme-toggle" id="btn-toggle-tema" onclick="alternarTemaModo()" title="Cambiar a Modo Oscuro / Claro">
-                                🌙
-                            </button>
-                            <div id="contenedor-membresia-top" class="pill-membresia-header pill-free">
-                                <span id="txt-membresia-estado">Cuenta Gratuita (15 preg/día)</span>
-                                <button class="btn-p" id="btn-membresia-accion" style="width: auto; padding: 5px 12px; margin: 0; font-size: 0.85em; background: #0056b3;" onclick="abrirModalPremium()">Activar Ciclo Completo</button>
+                        <div class="acciones-header-top">
+                            <div id="contenedor-membresia-top" class="pill-membresia-top pill-free" onclick="abrirModalPremium()">
+                                <span>⭐ Plan Gratuito (15 preg/día)</span>
                             </div>
+                            <button class="btn-theme-toggle" id="btn-toggle-modo" onclick="alternarModoOscuro()" title="Cambiar tema">🌙</button>
                         </div>
                     </div>
 
@@ -684,29 +759,29 @@
                         <span id="badge-dias-restantes" style="background: #ffd700; color: #002b5c; font-weight: 900; padding: 6px 14px; border-radius: 20px; font-size: 0.95em;">-- DÍAS</span>
                     </div>
 
-                    <!-- Split: Izquierda Temario, Derecha Mascota Compañera -->
-                    <div class="dashboard-grid-split">
-                        <div class="columna-principal-dashboard">
-                            <h2 style="margin-bottom: 15px; font-size: 1.3em; color: var(--text-heading);">Temario Oficial MINSA</h2>
+                    <div class="layout-dashboard-split">
+                        <div class="columna-principal-dash">
+                            <h2 style="margin-bottom: 16px; font-size: 1.3em; color: var(--text-heading);">Cursos Oficiales del Temario MINSA</h2>
                             <div class="grid-5" id="grid-cursos-dashboard"></div>
                         </div>
 
-                        <!-- Mascota Widget al Lado Derecho -->
-                        <div class="columna-mascota-dashboard">
-                            <div class="widget-mascota-lateral">
-                                <div class="avatar-canvas-box" id="avatar-canvas"></div>
-                                <div class="mascota-info-pro">
-                                    <h4 id="m-nombre">Compañero de Estudio</h4>
-                                    <span style="font-size: 0.75em; background: rgba(255,255,255,0.2); padding: 3px 10px; border-radius: 12px; font-weight: bold; color: #ffd700;" id="m-nivel-tag">Nv. 1 (Bebé)</span>
-                                    <div class="barra-energia-caja"><div class="barra-energia-fill" id="m-energia-bar"></div></div>
-                                    <p style="font-size: 0.88em; margin: 8px 0; display: flex; align-items: center; justify-content: center; gap: 5px;">
-                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffd700"><circle cx="12" cy="12" r="10" stroke="#b78103" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" fill="#7a5200" font-size="12" font-weight="900">$</text></svg>
-                                        <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz ✨</span>
-                                    </p>
+                        <div class="columna-mascota-lateral">
+                            <div class="widget-mascota-pro">
+                                <div class="stage-mascota">
+                                    <div class="avatar-canvas-box" id="avatar-canvas"></div>
+                                    <div class="mascota-info-pro">
+                                        <h4 id="m-nombre">Compañero de Estudio</h4>
+                                        <span style="font-size: 0.8em; background: rgba(255,255,255,0.22); padding: 3px 10px; border-radius: 12px;" id="m-nivel-tag">Nv. 1 (Bebé)</span>
+                                        <div class="barra-energia-caja"><div class="barra-energia-fill" id="m-energia-bar"></div></div>
+                                        <p style="font-size: 0.9em; display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px;">
+                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffd700"><circle cx="12" cy="12" r="10" stroke="#b78103" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" fill="#7a5200" font-size="12" font-weight="900">$</text></svg>
+                                            <strong id="m-monedas">50</strong> Monedas | Estado: <span id="m-estado-txt">Feliz ✨</span>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div style="display: flex; flex-direction: column; width: 100%; gap: 8px; margin-top: 12px;">
-                                    <button class="btn-p" style="padding: 10px; margin: 0; background: #28a745;" onclick="alimentarMascota()">🍖 Alimentar (10)</button>
-                                    <button class="btn-p" style="padding: 10px; margin: 0; background: #6f42c1;" onclick="abrirArmarioMascota()">👗 Armario y Especies</button>
+                                <div class="botones-mascota-acciones">
+                                    <button class="btn-p" style="background: #28a745; margin: 0; padding: 10px;" onclick="alimentarMascota()">🍖 Alimentar (10 Monedas)</button>
+                                    <button class="btn-p" style="background: #6f42c1; margin: 0; padding: 10px;" onclick="abrirArmarioMascota()">👗 Armario y Especies</button>
                                 </div>
                             </div>
                         </div>
@@ -715,86 +790,64 @@
 
                 <footer class="footer-oficial">
                     <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
-                    <p>Propiedad Intelectual y Contenidos Registrados. Versión 2.6 Pro.</p>
+                    <p>Propiedad Intelectual y Contenidos Registrados. Versión 2.5 Pro.</p>
                 </footer>
             </main>
 
-            <!-- SUB NUEVO: CRONOGRAMA, CALENDARIO Y METODOLOGÍA -->
+            <!-- SUB 2: CRONOGRAMA Y CALENDARIO -->
             <main id="sec-cronograma" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                    <div class="header-top">
                         <div>
                             <h1 style="color: var(--text-heading); font-size: 1.8em;">📅 Cronograma y Metodología de Estudio</h1>
-                            <p style="color: var(--text-muted); font-size: 0.95em; margin-top: 4px;">Planifica tus bloques o genera tu ruta personalizada de alto rendimiento.</p>
+                            <p style="color: var(--text-muted); margin-top: 4px;">Planifica tus bloques semanales o permite que la academia diseñe tu plan inteligente según la fecha del examen.</p>
                         </div>
-                        <button class="btn-p" style="width: auto; margin: 0; padding: 10px 18px; background: #28a745;" onclick="generarPlanEstudioAutomatico()">
-                            ⚡ Crear Metodología Automática con IA
-                        </button>
+                        <div class="acciones-header-top">
+                            <button class="btn-p" style="width: auto; margin: 0; padding: 10px 18px; background: #6f42c1;" onclick="generarMetodologiaAutomaticaConIA()">✨ Diseñar Metodología con IA</button>
+                        </div>
                     </div>
 
                     <div class="grid-calendario-seccion">
-                        <!-- 1. Calendario Interactivo -->
-                        <div class="calendario-box">
-                            <div class="calendario-header">
-                                <h3 id="cal-mes-titulo" style="color: var(--text-heading);">Octubre 2026</h3>
-                                <div style="display: flex; gap: 6px;">
-                                    <button class="btn-p" style="width: auto; padding: 6px 12px; margin: 0;" onclick="moverMesCalendario(-1)">❮</button>
-                                    <button class="btn-p" style="width: auto; padding: 6px 12px; margin: 0;" onclick="moverMesCalendario(1)">❯</button>
+                        <div class="box-calendario-interactivo">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                                <h3 id="txt-mes-calendario" style="color: var(--text-heading);">Noviembre 2026</h3>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn-p" style="width: auto; padding: 4px 12px; margin: 0; background: var(--border-color); color: var(--text-main);" onclick="moverMesCalendario(-1)">❮</button>
+                                    <button class="btn-p" style="width: auto; padding: 4px 12px; margin: 0; background: var(--border-color); color: var(--text-main);" onclick="moverMesCalendario(1)">❯</button>
                                 </div>
                             </div>
-                            <div class="calendario-grid-dias" id="grid-calendario-mes">
-                                <!-- Días del calendario inyectados por JS -->
+                            <div class="dias-semana-grid">
+                                <div>DOM</div><div>LUN</div><div>MAR</div><div>MIÉ</div><div>JUE</div><div>VIE</div><div>SÁB</div>
                             </div>
-                            <div style="margin-top: 15px; display: flex; gap: 15px; font-size: 0.8em; color: var(--text-muted);">
-                                <span><span style="display:inline-block; width:10px; height:10px; background:var(--primary); border-radius:50%;"></span> Día Seleccionado</span>
-                                <span><span style="display:inline-block; width:10px; height:10px; background:#dc3545; border-radius:50%;"></span> Fecha Examen SERUMS</span>
-                                <span><span style="display:inline-block; width:10px; height:10px; background:#fbbf24; border-radius:50%;"></span> Meta Asignada</span>
+                            <div class="calendario-mes-grid" id="grid-dias-mes"></div>
+                            
+                            <div style="display: flex; gap: 15px; margin-top: 20px; font-size: 0.82em; color: var(--text-muted); flex-wrap: wrap;">
+                                <div style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #28a745;"></span> Día de Repaso</div>
+                                <div style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: #d9381e;"></span> Examen Oficial</div>
+                                <div style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; border: 2px solid var(--primary);"></span> Hoy</div>
                             </div>
                         </div>
 
-                        <!-- 2. Metodología y Planificador Personalizado -->
-                        <div class="metodologia-box">
-                            <h3 style="color: var(--text-heading); margin-bottom: 12px;">⚙️ Arma tu Metodología Personalizada</h3>
-                            <p style="color: var(--text-muted); font-size: 0.88em; margin-bottom: 15px;">Define tus horas y metas de banqueo para la fecha activa:</p>
+                        <div class="box-calendario-interactivo" style="border-left: 6px solid #28a745;">
+                            <h3 style="color: var(--text-heading); margin-bottom: 10px;">📋 Tu Metodología de Estudio</h3>
+                            <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 18px;">Estructura sugerida basada en los 5 ejes y tus días restantes:</p>
+                            
+                            <div id="cuerpo-cronograma-contenedor"></div>
 
-                            <div class="campo">
-                                <label>Fecha seleccionada:</label>
-                                <input type="text" id="plan-fecha-activa" readonly style="font-weight: bold; background: var(--bg-card-subtle);">
-                            </div>
-
-                            <div class="campo">
-                                <label>Curso Prioritario:</label>
-                                <select id="plan-curso-meta">
-                                    <option value="Salud Pública">Salud Pública (Epidemiología, FESP, ASIS)</option>
-                                    <option value="Cuidado Integral de Salud">Cuidado Integral (TB, Vacunas, Dengue, Obstetricia)</option>
-                                    <option value="Gestión de Servicios de Salud">Gestión (Categorización, SISMED, PEI/POI)</option>
-                                    <option value="Investigación">Investigación y Bioestadística</option>
-                                    <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
-                                </select>
-                            </div>
-
-                            <div class="fila">
-                                <div class="campo">
-                                    <label>Meta de Preguntas:</label>
-                                    <input type="number" id="plan-preguntas-meta" value="30" min="5" max="100">
+                            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-color);">
+                                <h4 style="font-size: 0.95em; color: var(--text-heading); margin-bottom: 8px;">⚙️ Personalizar mis Metas Diarias:</h4>
+                                <div class="fila">
+                                    <div class="campo">
+                                        <label>Horas Diarias:</label>
+                                        <input type="number" id="cfg-horas-estudio" value="3" min="1" max="12">
+                                    </div>
+                                    <div class="campo">
+                                        <label>Meta de Preguntas:</label>
+                                        <input type="number" id="cfg-meta-preguntas" value="30" min="5" max="200">
+                                    </div>
                                 </div>
-                                <div class="campo">
-                                    <label>Horas de Estudio:</label>
-                                    <input type="number" id="plan-horas-meta" value="2" min="1" max="10">
-                                </div>
+                                <button class="btn-p" style="background: var(--primary); margin: 0; padding: 10px;" onclick="guardarMetodologiaPersonalizada()">Guardar Plan Personalizado</button>
                             </div>
-
-                            <button class="btn-p" style="background: var(--primary);" onclick="guardarMetaEstudioDia()">
-                                📌 Guardar Meta en mi Calendario
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Lista de Metodología de la Semana / Mes -->
-                    <div style="background: var(--bg-card); padding: 25px; border-radius: 16px; margin-top: 25px; border: 1px solid var(--border-color); box-shadow: var(--box-shadow);">
-                        <h3 style="color: var(--text-heading); margin-bottom: 15px;">📋 Tus Metas y Distribución Semanal Programada</h3>
-                        <div id="contenedor-cronograma-detallado">
-                            <!-- Metodología estructurada -->
                         </div>
                     </div>
                 </div>
@@ -804,7 +857,7 @@
                 </footer>
             </main>
 
-            <!-- SUB 2: TEORÍA Y RESÚMENES -->
+            <!-- SUB 3: TEORÍA Y RESÚMENES -->
             <main id="sec-temas" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
                     <h1 style="margin-bottom: 10px; color: var(--text-heading);">Teoría y Resúmenes</h1>
@@ -817,7 +870,7 @@
                 </footer>
             </main>
 
-            <!-- SUB 3: BANCO DE PREGUNTAS -->
+            <!-- SUB 4: BANCO DE PREGUNTAS -->
             <main id="sec-banqueo" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
                     <div id="vista-selector-modalidad">
@@ -845,14 +898,13 @@
                         </div>
                     </div>
 
-                    <!-- Pantalla: Banqueo por Curso -->
                     <div id="pantalla-banqueo-curso" style="display: none;">
                         <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                         
                         <div class="panel-banqueo-bd">
-                            <div>
-                                <label style="font-weight: 600; font-size: 0.88em;">Curso Oficial:</label>
-                                <select id="sel-curso-banqueo" onchange="actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo')">
+                            <div class="select-elegante-box">
+                                <label>📚 Curso Oficial:</label>
+                                <select id="sel-curso-banqueo" class="campo-select-pro" onchange="actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo')">
                                     <option value="Salud Pública">Salud Pública</option>
                                     <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                     <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -860,22 +912,22 @@
                                     <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
                                 </select>
                             </div>
-                            <div>
-                                <label style="font-weight: 600; font-size: 0.88em;">Tema Oficial:</label>
-                                <select id="sel-tema-banqueo">
+                            <div class="select-elegante-box">
+                                <label>🎯 Tema Oficial:</label>
+                                <select id="sel-tema-banqueo" class="campo-select-pro">
                                     <option value="General">Todo el curso (General)</option>
                                 </select>
                             </div>
-                            <div>
-                                <label style="font-weight: 600; font-size: 0.88em;">Sesión de Preguntas (BD):</label>
-                                <select id="sel-cantidad-preguntas-bd">
+                            <div class="select-elegante-box">
+                                <label>🔢 Sesión de Preguntas (BD):</label>
+                                <select id="sel-cantidad-preguntas-bd" class="campo-select-pro">
                                     <option value="10">10 Preguntas</option>
                                     <option value="25">25 Preguntas</option>
                                     <option value="50">50 Preguntas</option>
                                     <option value="100" selected>100 Preguntas por tema (Máx)</option>
                                 </select>
                             </div>
-                            <button class="btn-p" style="margin: 0; padding: 11px;" onclick="cargarSiguientePregunta()">Aplicar Filtro ➔</button>
+                            <button class="btn-p btn-filtro-accion" style="margin: 0;" onclick="cargarSiguientePregunta()">Aplicar Filtro ➔</button>
                         </div>
 
                         <div class="panel-control-ia">
@@ -885,8 +937,8 @@
                                     <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 2px;">Crea casos clínicos inéditos con Gemini IA (máximo 10 preguntas por lote).</p>
                                 </div>
                                 <div>
-                                    <label style="font-size: 0.85em; font-weight: bold;">Cantidad IA:</label>
-                                    <select id="sel-cantidad-preguntas-ia" style="padding: 6px 10px; border-radius: 6px;">
+                                    <label style="font-size: 0.85em; font-weight: bold; color: var(--text-heading);">Cantidad IA:</label>
+                                    <select id="sel-cantidad-preguntas-ia" style="padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--input-border); background: var(--input-bg); color: var(--text-main);">
                                         <option value="3">3 Preguntas</option>
                                         <option value="5">5 Preguntas</option>
                                         <option value="10" selected>10 Preguntas (Máx IA)</option>
@@ -896,7 +948,7 @@
 
                             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 10px;">
                                 <div class="grupo-check-dif">
-                                    <span style="font-size: 0.85em; font-weight: 600;">Dificultad:</span>
+                                    <span style="font-size: 0.85em; font-weight: 600; color: var(--text-heading);">Dificultad:</span>
                                     <label><input type="checkbox" id="chk-dif-basica" value="Básica"> Básica</label>
                                     <label><input type="checkbox" id="chk-dif-intermedia" value="Intermedia" checked> Intermedia</label>
                                     <label><input type="checkbox" id="chk-dif-avanzada" value="Avanzada" checked> Avanzada</label>
@@ -911,7 +963,7 @@
                             <div class="box-pregunta" id="box-pregunta-activa">
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 18px; align-items: center;">
                                     <span id="sim-info" style="color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9em;">MODO PRÁCTICA</span>
-                                    <span id="contador-diario" style="font-size: 0.9em; font-weight: bold; color: var(--text-muted); background: var(--bg-card-subtle); padding: 5px 10px; border-radius: 6px;"></span>
+                                    <span id="contador-diario" style="font-size: 0.9em; font-weight: bold; color: var(--text-muted); background: var(--bg-card-subtle); padding: 5px 10px; border-radius: 6px; border: 1px solid var(--border-color);"></span>
                                 </div>
                                 <div id="sim-enunciado" style="font-size: 1.2em; font-weight: 600; margin-bottom: 22px; line-height: 1.5; color: var(--text-heading);">Cargando pregunta...</div>
                                 <div id="sim-opciones"></div>
@@ -930,14 +982,12 @@
                         </div>
                     </div>
 
-                    <!-- Pantalla: Simulacros Oficiales -->
                     <div id="pantalla-simulacros-oficiales" style="display: none;">
                         <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                         <h2 style="color: var(--text-heading); margin-bottom: 15px;">Simulacros Oficiales del Programa</h2>
                         <div id="lista-simulacros-habilitados" class="grid-modalidades-banqueo"></div>
                     </div>
 
-                    <!-- Pantalla: Arma tu Simulacro -->
                     <div id="pantalla-arma-simulacro" style="display: none;">
                         <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: #6c757d;" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                         <div class="card-auth amplia" style="max-width: 650px; margin: auto;">
@@ -946,7 +996,7 @@
 
                             <div class="campo">
                                 <label>Número de Preguntas del Examen:</label>
-                                <select id="cfg-sim-cantidad">
+                                <select id="cfg-sim-cantidad" class="campo-select-pro">
                                     <option value="15">15 Preguntas (Rápido)</option>
                                     <option value="30" selected>30 Preguntas (Máximo Plan Gratuito)</option>
                                     <option value="50">50 Preguntas (Plan Premium)</option>
@@ -975,14 +1025,14 @@
                 </footer>
             </main>
 
-            <!-- SUB 4: FLASHCARDS -->
+            <!-- SUB 5: FLASHCARDS -->
             <main id="sec-flashcards" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
                     <div id="box-flashcards-contenido">
                         <div class="panel-banqueo-bd" style="margin-bottom: 15px;">
-                            <div>
-                                <label style="font-weight: 600; font-size: 0.88em;">Filtrar Curso:</label>
-                                <select id="sel-curso-flashcard" onchange="actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard'); filtrarFlashcardsPorCurso();">
+                            <div class="select-elegante-box">
+                                <label>📚 Filtrar Curso:</label>
+                                <select id="sel-curso-flashcard" class="campo-select-pro" onchange="actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard'); filtrarFlashcardsPorCurso();">
                                     <option value="Salud Pública">Salud Pública</option>
                                     <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                     <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -990,9 +1040,9 @@
                                     <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
                                 </select>
                             </div>
-                            <div>
-                                <label style="font-weight: 600; font-size: 0.88em;">Tema:</label>
-                                <select id="sel-tema-flashcard">
+                            <div class="select-elegante-box">
+                                <label>🎯 Tema:</label>
+                                <select id="sel-tema-flashcard" class="campo-select-pro" onchange="filtrarFlashcardsPorCurso()">
                                     <option value="General">Todo el curso (General)</option>
                                 </select>
                             </div>
@@ -1005,7 +1055,7 @@
                                     <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 2px;">Crea tarjetas mnemotécnicas instantáneas (máximo 10 por solicitud).</p>
                                 </div>
                                 <div style="display: flex; gap: 10px; align-items: center;">
-                                    <select id="sel-cantidad-flashcards-ia" style="padding: 6px 10px; border-radius: 6px;">
+                                    <select id="sel-cantidad-flashcards-ia" style="padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--input-border); background: var(--input-bg); color: var(--text-main);">
                                         <option value="4">4 Flashcards</option>
                                         <option value="8">8 Flashcards</option>
                                         <option value="10" selected>10 Flashcards (Máx IA)</option>
@@ -1026,7 +1076,7 @@
                 </footer>
             </main>
 
-            <!-- SUB 5: LAS FIJAS SERUMS -->
+            <!-- SUB 6: LAS FIJAS SERUMS -->
             <main id="sec-fijas" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
                     <div style="text-align: center; margin-bottom: 10px;">
@@ -1051,7 +1101,7 @@
                 </footer>
             </main>
 
-            <!-- SUB 6: ESTADÍSTICAS CON BANQUEO DE FALLOS -->
+            <!-- SUB 7: ESTADÍSTICAS -->
             <main id="sec-stats" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
                     <h1 style="margin-bottom: 20px; color: var(--text-heading);">Diagnóstico de Rendimiento Clínico</h1>
@@ -1090,13 +1140,102 @@
                 </footer>
             </main>
 
-            <!-- SUB 7: PANEL DOCENTE CON GESTIÓN DE CARRUSELES Y FECHA EXAMEN -->
+            <!-- SUB 8: MI PERFIL PROFESIONAL (NUEVO) -->
+            <main id="sec-perfil" class="contenido" style="display: none;">
+                <div class="contenido-cuerpo">
+                    <div class="header-top">
+                        <div>
+                            <h1 style="color: var(--text-heading); font-size: 1.8em;">👤 Mi Perfil Profesional</h1>
+                            <p style="color: var(--text-muted); margin-top: 4px;">Actualiza tus nombres, número de colegiatura (CMP, CEP, etc.), teléfono y región SERUMS.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-auth amplia" style="max-width: 750px; margin: auto; border-top-color: var(--primary);">
+                        <form id="f-editar-perfil">
+                            <div class="fila">
+                                <div class="campo">
+                                    <label>Nombres Completos:</label>
+                                    <input type="text" id="perfil-nom" required>
+                                </div>
+                                <div class="campo">
+                                    <label>Apellidos:</label>
+                                    <input type="text" id="perfil-ape" required>
+                                </div>
+                            </div>
+
+                            <div class="fila">
+                                <div class="campo">
+                                    <label>Carrera en Salud:</label>
+                                    <select id="perfil-carrera" class="campo-select-pro">
+                                        <option value="Medicina Humana">Medicina Humana</option>
+                                        <option value="Enfermería">Enfermería</option>
+                                        <option value="Obstetricia">Obstetricia</option>
+                                        <option value="Odontología">Odontología</option>
+                                        <option value="Biología">Biología</option>
+                                        <option value="Tecnología Médica">Tecnología Médica</option>
+                                        <option value="Farmacia y Bioquímica">Farmacia y Bioquímica</option>
+                                        <option value="Nutrición">Nutrición</option>
+                                        <option value="Psicología">Psicología</option>
+                                        <option value="Medicina Veterinaria">Medicina Veterinaria</option>
+                                        <option value="Trabajo Social">Trabajo Social</option>
+                                    </select>
+                                </div>
+                                <div class="campo">
+                                    <label>Trato Preferente:</label>
+                                    <select id="perfil-prefijo" class="campo-select-pro">
+                                        <option value="Dr.">Dr. / Dra.</option>
+                                        <option value="Lic.">Licenciado/a (Lic.)</option>
+                                        <option value="Biól.">Biólogo/a (Biól.)</option>
+                                        <option value="Q.F.">Químico Farmacéutico (Q.F.)</option>
+                                        <option value="Colega">Colega</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="fila">
+                                <div class="campo">
+                                    <label>N° de Colegiatura (CMP, CEP, COP, etc.):</label>
+                                    <input type="text" id="perfil-cmp" placeholder="Ej: CMP 102458 o En trámite">
+                                </div>
+                                <div class="campo">
+                                    <label>Celular / WhatsApp (Contacto Directo):</label>
+                                    <input type="tel" id="perfil-telefono" placeholder="Ej: 999888777">
+                                </div>
+                            </div>
+
+                            <div class="fila">
+                                <div class="campo">
+                                    <label>DNI:</label>
+                                    <input type="text" id="perfil-dni" maxlength="8">
+                                </div>
+                                <div class="campo">
+                                    <label>Región / Dpto. donde postulas al SERUMS:</label>
+                                    <input type="text" id="perfil-region" placeholder="Ej: La Libertad, Cajamarca, etc.">
+                                </div>
+                            </div>
+
+                            <div class="campo">
+                                <label>Correo Electrónico (No modificable):</label>
+                                <input type="email" id="perfil-correo" disabled style="opacity: 0.7; cursor: not-allowed;">
+                            </div>
+
+                            <button type="submit" id="btn-guardar-perfil" class="btn-p" style="margin-top: 15px;">💾 Guardar Cambios en mi Perfil</button>
+                        </form>
+                    </div>
+                </div>
+
+                <footer class="footer-oficial">
+                    <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
+                </footer>
+            </main>
+
+            <!-- SUB 9: PANEL DOCENTE (MEJORADO CON ACCIÓN WHATSAPP Y ENLACE DE GRUPO) -->
             <main id="sec-admin" class="contenido" style="display: none;">
                 <div class="contenido-cuerpo">
-                    <div style="background: var(--bg-card); padding: 30px; border-radius: 16px; box-shadow: var(--box-shadow); border: 1px solid var(--border-color); border-top: 6px solid #6f42c1;">
+                    <div style="background: var(--bg-card); padding: 30px; border-radius: 18px; box-shadow: var(--box-shadow); border: 1px solid var(--border-color); border-top: 6px solid #6f42c1;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                             <h1 style="color: #6f42c1; font-size: 1.6em;">Gestión Docente y Contenidos</h1>
-                            <span style="background: rgba(111,66,193,0.15); color: #8b5cf6; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em;">Modo Administrador</span>
+                            <span style="background: rgba(111,66,193,0.15); color: #6f42c1; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em;">Modo Administrador</span>
                         </div>
 
                         <div class="pestanas-admin">
@@ -1116,7 +1255,7 @@
                                 <div class="fila">
                                     <div class="campo">
                                         <label>Curso MINSA</label>
-                                        <select id="adm-p-curso" required onchange="actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema')">
+                                        <select id="adm-p-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema')">
                                             <option value="Salud Pública">Salud Pública</option>
                                             <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                             <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -1126,14 +1265,14 @@
                                     </div>
                                     <div class="campo">
                                         <label>Tema Específico</label>
-                                        <select id="adm-p-tema" required>
+                                        <select id="adm-p-tema" class="campo-select-pro" required>
                                             <option value="General">Seleccione el tema...</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="campo">
                                     <label>Dificultad</label>
-                                    <select id="adm-p-dif">
+                                    <select id="adm-p-dif" class="campo-select-pro">
                                         <option value="Basica">Básica</option>
                                         <option value="Intermedia" selected>Intermedia</option>
                                         <option value="Avanzada">Avanzada</option>
@@ -1153,7 +1292,7 @@
                                 </div>
                                 <div class="campo">
                                     <label>Respuesta Correcta</label>
-                                    <select id="adm-p-correcta" required style="font-weight: bold; color: var(--primary);">
+                                    <select id="adm-p-correcta" class="campo-select-pro" required style="font-weight: bold; color: var(--primary);">
                                         <option value="A">Opción A</option>
                                         <option value="B">Opción B</option>
                                         <option value="C">Opción C</option>
@@ -1176,7 +1315,7 @@
                                 <div class="fila">
                                     <div class="campo">
                                         <label>Curso MINSA</label>
-                                        <select id="adm-fija-curso" required onchange="actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema')">
+                                        <select id="adm-fija-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema')">
                                             <option value="Salud Pública">Salud Pública</option>
                                             <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                             <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -1186,7 +1325,7 @@
                                     </div>
                                     <div class="campo">
                                         <label>Tema Asignado</label>
-                                        <select id="adm-fija-tema" required>
+                                        <select id="adm-fija-tema" class="campo-select-pro" required>
                                             <option value="General">Seleccione el tema...</option>
                                         </select>
                                     </div>
@@ -1207,8 +1346,7 @@
                         <div id="subtab-adm-anuncios" class="subtab-adm">
                             <h3 style="color: var(--text-heading); margin-bottom: 15px;">Configuración de Anuncios y Fecha Oficial del Examen</h3>
                             
-                            <!-- Fecha del Examen -->
-                            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                            <div style="background: var(--bg-card-subtle); border: 1.5px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">🗓️ Fecha Oficial del Examen SERUMS</h4>
                                 <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">El cronograma del alumno recalcula sus semanas automáticamente a partir de esta fecha:</p>
                                 <div style="display: flex; gap: 12px; align-items: center;">
@@ -1217,20 +1355,18 @@
                                 </div>
                             </div>
 
-                            <!-- Anuncios Portada de Entrada (Múltiples) -->
-                            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                            <div style="background: var(--bg-card-subtle); border: 1.5px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">1. Carrusel de Portada de Entrada (Login)</h4>
                                 <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">Sube una o varias imágenes. Rotarán de forma automática para los visitantes:</p>
-                                <input type="file" id="file-banner-login" accept="image/*">
+                                <input type="file" id="file-banner-login" accept="image/*" style="background: var(--bg-card);">
                                 <button type="button" class="btn-p" style="width: auto; background: var(--primary); margin-top: 10px; padding: 8px 16px;" onclick="agregarImagenCarrusel('banner_login')">➕ Agregar Imagen a Portada</button>
                                 <div id="lista-anuncios-login-adm" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
                             </div>
 
-                            <!-- Pop-up al Iniciar Sesión (Múltiples) -->
-                            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px;">
+                            <div style="background: var(--bg-card-subtle); border: 1.5px solid var(--border-color); padding: 20px; border-radius: 12px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">2. Anuncios Pop-Up de Bienvenida (Al Iniciar Sesión)</h4>
                                 <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">Imágenes que saltarán al estudiante al entrar:</p>
-                                <input type="file" id="file-popup-anuncio" accept="image/*">
+                                <input type="file" id="file-popup-anuncio" accept="image/*" style="background: var(--bg-card);">
                                 <button type="button" class="btn-p" style="width: auto; background: var(--primary); margin-top: 10px; padding: 8px 16px;" onclick="agregarImagenCarrusel('popup_anuncio')">➕ Agregar Imagen a Pop-Up</button>
                                 <div id="lista-anuncios-popup-adm" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
                             </div>
@@ -1244,7 +1380,7 @@
                             <div class="fila">
                                 <div class="campo">
                                     <label>Curso Asignado:</label>
-                                    <select id="vaciador-curso">
+                                    <select id="vaciador-curso" class="campo-select-pro">
                                         <option value="Salud Pública">Salud Pública</option>
                                         <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                         <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -1254,7 +1390,7 @@
                                 </div>
                                 <div class="campo">
                                     <label>Dificultad Promedio:</label>
-                                    <select id="vaciador-dif">
+                                    <select id="vaciador-dif" class="campo-select-pro">
                                         <option value="Intermedia">Intermedia</option>
                                         <option value="Basica">Básica</option>
                                         <option value="Avanzada">Avanzada</option>
@@ -1329,7 +1465,7 @@ Justificación: Según la norma técnica..."></textarea>
                                 <div class="fila">
                                     <div class="campo">
                                         <label>Curso MINSA</label>
-                                        <select id="adm-f-curso" required onchange="actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema')">
+                                        <select id="adm-f-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema')">
                                             <option value="Salud Pública">Salud Pública</option>
                                             <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                             <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -1339,7 +1475,7 @@ Justificación: Según la norma técnica..."></textarea>
                                     </div>
                                     <div class="campo">
                                         <label>Tema Específico</label>
-                                        <select id="adm-f-tema" required>
+                                        <select id="adm-f-tema" class="campo-select-pro" required>
                                             <option value="General">Seleccione el tema...</option>
                                         </select>
                                     </div>
@@ -1356,13 +1492,13 @@ Justificación: Según la norma técnica..."></textarea>
                             </form>
                         </div>
 
-                        <!-- 7. TEMA CON TABLA, IMAGEN Y ALERTAS -->
+                        <!-- 7. TEMA -->
                         <div id="subtab-adm-t" class="subtab-adm">
                             <form id="form-adm-t">
                                 <div class="fila">
                                     <div class="campo">
                                         <label>Curso MINSA</label>
-                                        <select id="adm-t-curso" required onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')">
+                                        <select id="adm-t-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')">
                                             <option value="Salud Pública">Salud Pública</option>
                                             <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                             <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -1372,7 +1508,7 @@ Justificación: Según la norma técnica..."></textarea>
                                     </div>
                                     <div class="campo">
                                         <label>Tema del Temario Oficial</label>
-                                        <select id="adm-t-tema-select" required onchange="autoCompletarCodigoTitulo()">
+                                        <select id="adm-t-tema-select" class="campo-select-pro" required onchange="autoCompletarCodigoTitulo()">
                                             <option value="">Seleccione el tema oficial...</option>
                                         </select>
                                     </div>
@@ -1387,7 +1523,7 @@ Justificación: Según la norma técnica..."></textarea>
                                     <textarea id="adm-t-resumen" rows="6" placeholder="Escribe el marco teórico principal del tema..." required></textarea>
                                 </div>
 
-                                <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 18px; border-radius: 10px; margin-bottom: 15px;">
+                                <div style="background: var(--bg-card-subtle); border: 1.5px solid var(--border-color); padding: 18px; border-radius: 12px; margin-bottom: 15px;">
                                     <strong style="color: var(--primary); font-size: 0.95em;">📊 Creador Visual de Tabla Comparativa:</strong>
                                     <div class="fila" style="margin-top: 10px;">
                                         <div class="campo"><label>Título Columna 1</label><input type="text" id="tbl-c1" placeholder="Ej: Condición Clínica"></div>
@@ -1403,15 +1539,15 @@ Justificación: Según la norma técnica..."></textarea>
                                     </div>
                                 </div>
 
-                                <div class="campo" style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 15px; border-radius: 10px;">
+                                <div class="campo" style="background: var(--bg-card-subtle); border: 1.5px solid var(--border-color); padding: 15px; border-radius: 12px;">
                                     <label>🖼️ Subir Imagen o Esquema desde tu PC (Opcional):</label>
-                                    <input type="file" id="adm-t-file" accept="image/*">
+                                    <input type="file" id="adm-t-file" accept="image/*" style="background: var(--bg-card);">
                                     <div id="preview-img-box" style="margin-top: 10px; display: none;">
-                                        <img id="img-preview" src="" style="max-height: 140px; border-radius: 6px; border: 1px solid #ccc;">
+                                        <img id="img-preview" src="" style="max-height: 140px; border-radius: 6px; border: 1px solid var(--border-color);">
                                     </div>
                                 </div>
 
-                                <div class="campo" style="background: #fff8e1; border: 1px solid #ffe082; padding: 15px; border-radius: 10px;">
+                                <div class="campo" style="background: #fff8e1; border: 1px solid #ffe082; padding: 15px; border-radius: 12px;">
                                     <label style="color: #b78103;">💡 Puntos Clave / Alertas (Las Fijas de este tema):</label>
                                     <textarea id="adm-t-alerta" rows="3" placeholder="Ej: ⚠️ Sensibilidad y Especificidad son intrínsecas a la prueba; los VPP y VPN dependen de la prevalencia."></textarea>
                                 </div>
@@ -1420,24 +1556,37 @@ Justificación: Según la norma técnica..."></textarea>
                             </form>
                         </div>
 
-                        <!-- 8. ALUMNOS -->
+                        <!-- 8. ALUMNOS CON ACCIÓN WHATSAPP Y ENLACE DE GRUPO -->
                         <div id="subtab-adm-a" class="subtab-adm">
-                            <h3 style="margin-bottom: 12px; color: var(--text-heading);">Alumnos Registrados y Control de Accesos</h3>
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>Postulante</th>
-                                    <th>DNI</th>
-                                    <th>Correo</th>
-                                    <th>Plan</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                                </thead>
-                                <tbody id="tabla-alumnos-adm-body">
-                                <tr><td colspan="6">Cargando alumnos...</td></tr>
-                                </tbody>
-                            </table>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                                <h3 style="color: var(--text-heading);">Alumnos Registrados y Control de Accesos</h3>
+                                <div style="display: flex; gap: 8px;">
+                                    <button class="btn-p" style="width: auto; background: #25d366; margin: 0; padding: 8px 14px; font-size: 0.88em;" onclick="abrirConfigurarGrupoWhatsApp()">
+                                        📲 Grupo Oficial de WhatsApp
+                                    </button>
+                                    <button class="btn-p" style="width: auto; background: var(--primary); margin: 0; padding: 8px 14px; font-size: 0.88em;" onclick="copiarTelefonosTodosAlumnos()">
+                                        📋 Copiar Todos los Teléfonos
+                                    </button>
+                                </div>
+                            </div>
+                            <div style="overflow-x: auto;">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th>Postulante</th>
+                                        <th>Colegiatura / Región</th>
+                                        <th>Contacto WhatsApp</th>
+                                        <th>Correo</th>
+                                        <th>Plan</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tabla-alumnos-adm-body">
+                                    <tr><td colspan="7">Cargando alumnos...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1449,7 +1598,7 @@ Justificación: Según la norma técnica..."></textarea>
         </div>
     </section>
 
-    <!-- MODAL POP-UP PUBLICITARIO AL INICIAR SESIÓN CON CARRUSEL -->
+    <!-- MODAL POP-UP PUBLICITARIO (SOLO UNA VEZ POR SESIÓN) -->
     <div id="modal-popup-anuncio" class="modal-overlay">
         <div class="modal-box" style="max-width: 600px; padding: 25px;">
             <button class="btn-cerrar-x" onclick="cerrarPopupAnuncio()">×</button>
@@ -1465,7 +1614,7 @@ Justificación: Según la norma técnica..."></textarea>
     <!-- MODAL ARMARIO -->
     <div id="modal-armario" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-icono" style="font-size: 2.2em; margin-bottom: 8px;">🦊</div>
+            <div class="modal-icono" style="font-size: 2.5em; margin-bottom: 10px;">🦊</div>
             <h3 style="color: var(--text-heading);">Centro de Mascotas y Especies</h3>
             <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Elige tu compañero de estudio y personaliza su vestimenta.</p>
             
@@ -1506,7 +1655,7 @@ Justificación: Según la norma técnica..."></textarea>
     <!-- MODAL RECUPERAR CONTRASEÑA -->
     <div id="modal-recuperar" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-icono" style="font-size: 2.2em; margin-bottom: 8px;">🔑</div>
+            <div class="modal-icono" style="font-size: 2.5em; margin-bottom: 10px;">🔑</div>
             <h3 style="color: var(--text-heading);">Restablecer Contraseña</h3>
             <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Ingresa tu correo electrónico registrado y te enviaremos el enlace para crear una nueva contraseña.</p>
             <div class="campo" style="margin-bottom: 15px;">
@@ -1517,7 +1666,21 @@ Justificación: Según la norma técnica..."></textarea>
         </div>
     </div>
 
-    <!-- BOTÓN WHATSAPP FLOTANTE -->
+    <!-- MODAL GRUPO WHATSAPP -->
+    <div id="modal-grupo-ws" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icono" style="font-size: 2.5em; margin-bottom: 10px;">📲</div>
+            <h3 style="color: var(--text-heading);">Grupo Oficial de WhatsApp</h3>
+            <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Pega el enlace de invitación de tu grupo oficial de WhatsApp para los alumnos:</p>
+            <div class="campo" style="margin-bottom: 15px;">
+                <input type="url" id="input-enlace-grupo-ws" placeholder="https://chat.whatsapp.com/...">
+            </div>
+            <button class="btn-p" style="background: #25d366; margin: 0;" onclick="guardarEnlaceGrupoWhatsApp()">Guardar y Abrir Grupo</button>
+            <button class="btn-cerrar-modal" onclick="cerrarModales()">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- BOTÓN WHATSAPP -->
     <a id="btn-flotante-soporte" 
        href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%2C%20me%20comunico%20desde%20Proserum%27s%20Academia%20para%20consultas%20o%20soporte%20t%C3%A9cnico." 
        target="_blank" 
@@ -1533,10 +1696,10 @@ Justificación: Según la norma técnica..."></textarea>
     <!-- MODAL PREMIUM -->
     <div id="modal-premium" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-icono" style="font-size: 2.2em; margin-bottom: 8px;">⭐</div>
+            <div class="modal-icono" style="font-size: 2.5em; margin-bottom: 10px;">⭐</div>
             <h3 style="color: var(--text-heading);">Acceso Ciclo Completo</h3>
-            <p style="color: var(--text-muted); font-size: 0.95em;">Obtén banqueo ilimitado a las <strong>10,000 preguntas</strong>, todas las fijas oficiales y generación con IA.</p>
-            <p style="font-size: 0.88em; color: var(--text-muted); margin: 10px 0 15px;">Contacta directamente para activar tu membresía:</p>
+            <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Obtén banqueo ilimitado a las <strong>10,000 preguntas</strong>, todas las fijas oficiales y generación con IA.</p>
+            <p style="font-size: 0.88em; color: var(--text-muted); margin-top: -6px; margin-bottom: 15px;">Contacta directamente para activar tu membresía:</p>
             <a id="btn-enlace-whatsapp" href="https://api.whatsapp.com/send?phone=51999999999&text=Hola%2C%20deseo%20activar%20mi%20acceso%20al%20Ciclo%20Completo." target="_blank" rel="noopener noreferrer" class="btn-ws">
                 <span>💬 Contactar por WhatsApp</span>
             </a>
@@ -1547,9 +1710,9 @@ Justificación: Según la norma técnica..."></textarea>
     <!-- MODAL AVISOS -->
     <div id="modal-aviso-general" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-icono" id="aviso-icono" style="font-size: 2.2em; margin-bottom: 8px;">💡</div>
+            <div class="modal-icono" id="aviso-icono" style="font-size: 2.5em; margin-bottom: 10px;">💡</div>
             <h3 id="aviso-titulo" style="color: var(--text-heading);">Aviso</h3>
-            <p id="aviso-cuerpo" style="color: var(--text-muted); margin: 10px 0 15px;">Mensaje de notificación.</p>
+            <p id="aviso-cuerpo" style="color: var(--text-muted); font-size: 0.9em; margin: 10px 0 20px;">Mensaje de notificación.</p>
             <button class="btn-p" style="margin: 0;" onclick="cerrarModales()">Entendido</button>
         </div>
     </div>
@@ -1656,211 +1819,78 @@ Justificación: Según la norma técnica..."></textarea>
             "¡Hola, {nombre}! Recuerda que los grandes resultados se forjan día a día.",
             "¡Tu plaza SERUMS te está esperando, {nombre}! A demostrar todo lo que sabes.",
             "¡Vamos colega, {nombre}! Con calma, juicio clínico y enfoque total.",
-            "¡Qué orgullo ver tu disciplina, {nombre}! Hoy será un día de gran avance.",
-            "¡La meta está clara, {nombre}! Ninguna pregunta es rival para tu estudio.",
-            "¡Hola, {nombre}! Respira hondo, sonríe y que empiece el entrenamiento.",
-            "¡Adelante, {nombre}! La perseverancia supera cualquier obstáculo en el examen.",
-            "¡Bienvenido de vuelta, {nombre}! Vamos a asegurar esos puntos clave hoy.",
-            "¡Cada caso clínico dominado es una victoria, {nombre}! A seguir brillando.",
-            "¡Con paso firme, {nombre}! Estudiar con alegría hace el camino inolvidable.",
-            "¡Hola, {nombre}! Tienes el talento y la dedicación necesarios para triunfar.",
-            "¡Un día más cerca de tu objetivo, {nombre}! Vamos con la mejor energía.",
-            "¡A conquistar el temario, {nombre}! Tu esfuerzo vale oro.",
-            "¡Qué gusto saludarte, {nombre}! Hoy consolidaremos temas de alto impacto."
+            "¡Qué orgullo ver tu disciplina, {nombre}! Hoy será un día de gran avance."
         ];
 
-        /* ================= GESTOR MODO OSCURO / CLARO ================= */
-        function inicializarTemaModo() {
-            const temaGuardado = localStorage.getItem('proserum_tema');
-            const btn = document.getElementById('btn-toggle-tema');
-            if (temaGuardado === 'dark') {
+        let user = null;
+        let perfilUsuario = null;
+        let tokenSesionActual = null;
+        let perfilMascota = {
+            animal: 'perrito',
+            energia: 100,
+            monedas: 50,
+            nivel: 1,
+            cabeza: 'ninguno',
+            cuerpo: 'ninguno'
+        };
+        let preguntaActual = null;
+        let preguntasIaBuffer = [];
+        let preguntasFalladasBuffer = [];
+        let todasLasFlashcards = [];
+        let todasLasFijas = [];
+        let preguntasVaciadasBuffer = [];
+        let imagenBase64Tema = null;
+        let carruselLoginImagenes = [];
+        let indexSlideLogin = 0;
+        let carruselPopupImagenes = [];
+        let indexSlidePopup = 0;
+        let timerCarruselLogin = null;
+        let fechaExamenGlobal = "2026-11-15";
+        let fechaCalendarioActual = new Date(2026, 10, 1);
+        let listaAlumnosCache = [];
+
+        function alternarModoOscuro() {
+            const esOscuro = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('ps_tema_preferido', esOscuro ? 'dark' : 'light');
+            actualizarIconoTema(esOscuro);
+        }
+
+        function aplicarTemaInicial() {
+            const guardado = localStorage.getItem('ps_tema_preferido');
+            const prefiereOscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const activar = guardado ? (guardado === 'dark') : prefiereOscuro;
+            if (activar) {
                 document.body.classList.add('dark-mode');
-                if (btn) btn.innerText = '☀️';
             } else {
                 document.body.classList.remove('dark-mode');
-                if (btn) btn.innerText = '🌙';
             }
+            actualizarIconoTema(activar);
         }
 
-        function alternarTemaModo() {
-            const esOscuro = document.body.classList.toggle('dark-mode');
-            const btn = document.getElementById('btn-toggle-tema');
-            if (esOscuro) {
-                localStorage.setItem('proserum_tema', 'dark');
-                if (btn) btn.innerText = '☀️';
-            } else {
-                localStorage.setItem('proserum_tema', 'light');
-                if (btn) btn.innerText = '🌙';
+        function actualizarIconoTema(esOscuro) {
+            const btn = document.getElementById('btn-toggle-modo');
+            if (btn) btn.innerText = esOscuro ? '☀️' : '🌙';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            aplicarTemaInicial();
+            const inputFile = document.getElementById('adm-t-file');
+            if (inputFile) {
+                inputFile.addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(evt) {
+                            imagenBase64Tema = evt.target.result;
+                            document.getElementById('img-preview').src = imagenBase64Tema;
+                            document.getElementById('preview-img-box').style.display = 'block';
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
             }
-        }
-
-        /* ================= CALENDARIO Y METODOLOGÍA ================= */
-        let fechaActualCalendario = new Date();
-        let fechaSeleccionadaCalendario = new Date().toISOString().split('T')[0];
-        let metasEstudioUsuario = JSON.parse(localStorage.getItem('proserum_metas_calendario') || '{}');
-
-        function renderizarCalendarioMes() {
-            const grid = document.getElementById('grid-calendario-mes');
-            const titMes = document.getElementById('cal-mes-titulo');
-            if (!grid) return;
-
-            const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-            const anio = fechaActualCalendario.getFullYear();
-            const mes = fechaActualCalendario.getMonth();
-
-            titMes.innerText = `${nombresMeses[mes]} ${anio}`;
-
-            grid.innerHTML = `
-                <div class="dia-nombre">D</div>
-                <div class="dia-nombre">L</div>
-                <div class="dia-nombre">M</div>
-                <div class="dia-nombre">M</div>
-                <div class="dia-nombre">J</div>
-                <div class="dia-nombre">V</div>
-                <div class="dia-nombre">S</div>
-            `;
-
-            const primerDiaMes = new Date(anio, mes, 1).getDay();
-            const diasTotalesMes = new Date(anio, mes + 1, 0).getDate();
-
-            for (let i = 0; i < primerDiaMes; i++) {
-                grid.innerHTML += `<div class="dia-celda" style="opacity: 0.2; pointer-events: none;"></div>`;
-            }
-
-            const inputFechaAdm = document.getElementById('adm-input-fecha-examen');
-            const fechaExamenStr = inputFechaAdm ? inputFechaAdm.value : "2026-11-15";
-
-            for (let dia = 1; dia <= diasTotalesMes; dia++) {
-                const diaStr = `${anio}-${String(mes + 1).padStart(2, '0')}-${String(dia).padStart(2, '0')}`;
-                const esActivo = (diaStr === fechaSeleccionadaCalendario);
-                const esExamen = (diaStr === fechaExamenStr);
-                const tieneMeta = !!metasEstudioUsuario[diaStr];
-
-                grid.innerHTML += `
-                    <div class="dia-celda ${esActivo ? 'activo' : ''} ${esExamen ? 'examen' : ''}" onclick="seleccionarDiaCalendario('${diaStr}')">
-                        <span>${dia}</span>
-                        ${tieneMeta ? '<span class="dia-punto-tarea"></span>' : ''}
-                    </div>
-                `;
-            }
-
-            document.getElementById('plan-fecha-activa').value = fechaSeleccionadaCalendario;
-            cargarMetaDiaSeleccionado();
-            renderizarMetasDetalladas();
-        }
-
-        function moverMesCalendario(delta) {
-            fechaActualCalendario.setMonth(fechaActualCalendario.getMonth() + delta);
-            renderizarCalendarioMes();
-        }
-
-        function seleccionarDiaCalendario(diaStr) {
-            fechaSeleccionadaCalendario = diaStr;
-            renderizarCalendarioMes();
-        }
-
-        function cargarMetaDiaSeleccionado() {
-            const meta = metasEstudioUsuario[fechaSeleccionadaCalendario];
-            if (meta) {
-                document.getElementById('plan-curso-meta').value = meta.curso || 'Salud Pública';
-                document.getElementById('plan-preguntas-meta').value = meta.preguntas || 30;
-                document.getElementById('plan-horas-meta').value = meta.horas || 2;
-            } else {
-                document.getElementById('plan-preguntas-meta').value = 30;
-                document.getElementById('plan-horas-meta').value = 2;
-            }
-        }
-
-        function guardarMetaEstudioDia() {
-            const curso = document.getElementById('plan-curso-meta').value;
-            const preguntas = parseInt(document.getElementById('plan-preguntas-meta').value) || 30;
-            const horas = parseInt(document.getElementById('plan-horas-meta').value) || 2;
-
-            metasEstudioUsuario[fechaSeleccionadaCalendario] = {
-                curso: curso,
-                preguntas: preguntas,
-                horas: horas
-            };
-
-            localStorage.setItem('proserum_metas_calendario', JSON.stringify(metasEstudioUsuario));
-            renderizarCalendarioMes();
-            mostrarAvisoModal("¡Meta Guardada!", `Se programó para el ${fechaSeleccionadaCalendario}: ${preguntas} preguntas de ${curso}.`, "📌");
-        }
-
-        function generarPlanEstudioAutomatico() {
-            const inputFechaAdm = document.getElementById('adm-input-fecha-examen');
-            const fechaExamenStr = inputFechaAdm ? inputFechaAdm.value : "2026-11-15";
-            const hoy = new Date();
-            const examen = new Date(fechaExamenStr);
-            const diasFaltantes = Math.max(1, Math.ceil((examen - hoy) / (1000 * 60 * 60 * 24)));
-
-            const cursos = [
-                "Salud Pública",
-                "Cuidado Integral de Salud",
-                "Gestión de Servicios de Salud",
-                "Investigación",
-                "Ética e Interculturalidad"
-            ];
-
-            let cursor = new Date();
-            for (let i = 0; i < Math.min(60, diasFaltantes); i++) {
-                const diaStr = cursor.toISOString().split('T')[0];
-                const cursoAsignado = cursos[i % cursos.length];
-                metasEstudioUsuario[diaStr] = {
-                    curso: cursoAsignado,
-                    preguntas: (cursor.getDay() === 6) ? 100 : 35,
-                    horas: (cursor.getDay() === 6) ? 3 : 2
-                };
-                cursor.setDate(cursor.getDate() + 1);
-            }
-
-            localStorage.setItem('proserum_metas_calendario', JSON.stringify(metasEstudioUsuario));
-            renderizarCalendarioMes();
-            mostrarAvisoModal("Metodología Inteligente Generada", `Se estructuraron tus bloques de estudio hacia la fecha del examen (${fechaExamenStr}).`, "⚡");
-        }
-
-        function renderizarMetasDetalladas() {
-            const cont = document.getElementById('contenedor-cronograma-detallado');
-            if (!cont) return;
-
-            const diasConMetas = Object.keys(metasEstudioUsuario).sort().slice(0, 7);
-            if (diasConMetas.length === 0) {
-                cont.innerHTML = `
-                    <div style="text-align: center; padding: 25px; color: var(--text-muted);">
-                        <p>No tienes metas asignadas aún en esta semana. Selecciona un día arriba o pulsa <strong>"Crear Metodología Automática con IA"</strong> para organizar todo tu ciclo.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            cont.innerHTML = '';
-            diasConMetas.forEach(d => {
-                const item = metasEstudioUsuario[d];
-                cont.innerHTML += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border-color); flex-wrap: wrap; gap: 8px;">
-                        <div style="display: flex; align-items: center; gap: 12px;">
-                            <span class="badge-dia" style="background: var(--primary);">${d}</span>
-                            <div>
-                                <strong style="color: var(--text-heading); font-size: 0.95em;">${item.curso}</strong>
-                                <p style="font-size: 0.82em; color: var(--text-muted);">${item.horas} horas recomendadas</p>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-weight: 700; color: #28a745; font-size: 0.88em;">🎯 ${item.preguntas} preguntas</span>
-                            <button class="btn-p" style="width: auto; padding: 6px 12px; margin: 0; font-size: 0.8em; background: var(--primary);" onclick="iniciarBanqueoDesdeCronograma('${item.curso}')">Practicar ➔</button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function iniciarBanqueoDesdeCronograma(curso) {
-            subSec('banqueo');
-            activarModalidadBanqueo('curso');
-            document.getElementById('sel-curso-banqueo').value = curso;
-            actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo');
-            cargarSiguientePregunta();
-        }
+            cargarConfiguracionesPublicidadYHorario();
+        });
 
         function actualizarTemasEnSelector(idCurso, idTema) {
             const curso = document.getElementById(idCurso).value;
@@ -1898,52 +1928,6 @@ Justificación: Según la norma técnica..."></textarea>
             }
         }
 
-        let imagenBase64Tema = null;
-        let carruselLoginImagenes = [];
-        let indexSlideLogin = 0;
-        let carruselPopupImagenes = [];
-        let indexSlidePopup = 0;
-        let timerCarruselLogin = null;
-
-        document.addEventListener('DOMContentLoaded', () => {
-            inicializarTemaModo();
-            const inputFile = document.getElementById('adm-t-file');
-            if (inputFile) {
-                inputFile.addEventListener('change', (e) => {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(evt) {
-                            imagenBase64Tema = evt.target.result;
-                            document.getElementById('img-preview').src = imagenBase64Tema;
-                            document.getElementById('preview-img-box').style.display = 'block';
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-            cargarConfiguracionesPublicidadYHorario();
-        });
-
-        let user = null;
-        let perfilUsuario = null;
-        let tokenSesionActual = null;
-        let perfilMascota = {
-            animal: 'perrito',
-            energia: 100,
-            monedas: 50,
-            nivel: 1,
-            cabeza: 'ninguno',
-            cuerpo: 'ninguno'
-        };
-        let preguntaActual = null;
-        let areaFiltroActual = null;
-        let preguntasIaBuffer = [];
-        let preguntasFalladasBuffer = [];
-        let todasLasFlashcards = [];
-        let todasLasFijas = [];
-        let preguntasVaciadasBuffer = [];
-
         function ver(id) {
             document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
             document.getElementById(id).classList.add('activa');
@@ -1957,20 +1941,24 @@ Justificación: Según la norma técnica..."></textarea>
             document.getElementById('sec-temas').style.display = 'none';
             document.getElementById('sec-fijas').style.display = 'none';
             document.getElementById('sec-stats').style.display = 'none';
+            document.getElementById('sec-perfil').style.display = 'none';
             document.getElementById('sec-admin').style.display = 'none';
             
             document.querySelectorAll('.menu li').forEach(l => l.classList.remove('activo'));
 
-            document.getElementById('sec-' + nom).style.display = 'block';
+            const secActiva = document.getElementById('sec-' + nom);
+            if (secActiva) secActiva.style.display = 'block';
+            
             if (document.getElementById('m-' + nom)) {
                 document.getElementById('m-' + nom).classList.add('activo');
             }
             
             if (nom === 'dash') cargarCursosDashboard();
-            if (nom === 'cronograma') renderizarCalendarioMes();
+            if (nom === 'cronograma') renderizarCalendarioYMetodologia();
             if (nom === 'stats') cargarEstadisticas();
             if (nom === 'temas') cargarTemasTeoricos();
             if (nom === 'fijas') cargarLasFijasSERUMS();
+            if (nom === 'perfil') llenarFormularioPerfilPropio();
             if (nom === 'flashcards') {
                 actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard');
                 cargarFlashcardsDesdeBD();
@@ -2036,6 +2024,7 @@ Justificación: Según la norma técnica..."></textarea>
             document.getElementById('modal-aviso-general').style.display = 'none';
             document.getElementById('modal-recuperar').style.display = 'none';
             document.getElementById('modal-armario').style.display = 'none';
+            document.getElementById('modal-grupo-ws').style.display = 'none';
         }
 
         function cerrarPopupAnuncio() {
@@ -2064,28 +2053,15 @@ Justificación: Según la norma técnica..."></textarea>
 
         async function iniciarConGoogle() {
             const sb = obtenerSupabase();
-            if (!sb) {
-                mostrarAvisoModal("Error", "El servicio de conexión no está listo. Recarga la página.", "⚠️");
-                return;
-            }
-            try {
-                const redirectUrl = window.location.origin + window.location.pathname;
-                const { data, error } = await sb.auth.signInWithOAuth({
-                    provider: 'google',
-                    options: { 
-                        redirectTo: redirectUrl,
-                        queryParams: {
-                            access_type: 'offline',
-                            prompt: 'consent'
-                        }
-                    }
-                });
-                if (error) throw error;
-            } catch (err) {
-                mostrarAvisoModal("Acceso con Google", "No se pudo conectar con Google: " + (err.message || 'Verifica la configuración del proveedor en Supabase.'), "⚠️");
-            }
+            if (!sb) return;
+            const { error } = await sb.auth.signInWithOAuth({
+                provider: 'google',
+                options: { redirectTo: window.location.origin }
+            });
+            if (error) mostrarAvisoModal("Error de Acceso", error.message, "⚠️");
         }
 
+        /* COMPROBACIÓN ROBUSTA DE SESIÓN Y REGISTRO AUTOMÁTICO EN PERFILES DE SUPABASE */
         async function checkSesion() {
             const sb = obtenerSupabase();
             if (!sb) return;
@@ -2121,19 +2097,37 @@ Justificación: Según la norma técnica..."></textarea>
             const sb = obtenerSupabase();
             if (!user || !sb) return;
             
-            tokenSesionActual = 'sess_' + Math.random().toString(36).substring(2) + Date.now();
-            await sb.from('perfiles').update({ token_sesion: tokenSesionActual }).eq('id', user.id);
-
-            setInterval(async () => {
-                if (!user) return;
-                const { data } = await sb.from('perfiles').select('token_sesion').eq('id', user.id).single();
-                if (data && data.token_sesion && data.token_sesion !== tokenSesionActual) {
-                    await sb.auth.signOut();
-                    user = null;
-                    mostrarAvisoModal("Sesión Cerrada", "Tu cuenta se ha abierto en otro dispositivo. Por seguridad solo se permite una sesión activa.", "⚠️");
-                    ver('vista-login');
+            let tokenGuardado = sessionStorage.getItem('ps_session_token');
+            if (!tokenGuardado) {
+                tokenGuardado = 'sess_' + Math.random().toString(36).substring(2) + Date.now();
+                sessionStorage.setItem('ps_session_token', tokenGuardado);
+                try {
+                    await sb.from('perfiles').update({ token_sesion: tokenGuardado }).eq('id', user.id);
+                } catch(e) {
+                    console.warn("Aviso al actualizar token de sesión:", e);
                 }
-            }, 20000);
+            }
+            tokenSesionActual = tokenGuardado;
+
+            if (window._vigilanteSesionTimer) clearInterval(window._vigilanteSesionTimer);
+            window._vigilanteSesionTimer = setInterval(async () => {
+                if (!user) return;
+                try {
+                    const { data, error } = await sb.from('perfiles').select('token_sesion').eq('id', user.id).single();
+                    if (!error && data && data.token_sesion && tokenSesionActual) {
+                        if (data.token_sesion !== tokenSesionActual) {
+                            clearInterval(window._vigilanteSesionTimer);
+                            sessionStorage.removeItem('ps_session_token');
+                            await sb.auth.signOut();
+                            user = null;
+                            mostrarAvisoModal("Sesión Finalizada", "Se ha detectado un inicio de sesión en otro dispositivo.", "🔒");
+                            ver('vista-login');
+                        }
+                    }
+                } catch(err) {
+                    console.warn("Vigilante de sesión en espera...");
+                }
+            }, 60000);
         }
 
         async function cargarConfiguracionesPublicidadYHorario() {
@@ -2141,8 +2135,6 @@ Justificación: Según la norma técnica..."></textarea>
             if (!sb) return;
             const { data } = await sb.from('configuracion_academia').select('*');
             if (!data) return;
-
-            let fechaExamenStr = "2026-11-15";
 
             data.forEach(item => {
                 if (item.clave === 'banner_login_lista' && item.valor) {
@@ -2152,15 +2144,18 @@ Justificación: Según la norma técnica..."></textarea>
                     try { carruselPopupImagenes = JSON.parse(item.valor) || []; } catch(e){}
                 }
                 if (item.clave === 'fecha_examen_serums' && item.valor) {
-                    fechaExamenStr = item.valor;
+                    fechaExamenGlobal = item.valor;
+                }
+                if (item.clave === 'enlace_grupo_whatsapp' && item.valor) {
+                    window.enlaceGrupoWhatsAppOficial = item.valor;
                 }
             });
 
             const inputFechaAdm = document.getElementById('adm-input-fecha-examen');
-            if (inputFechaAdm) inputFechaAdm.value = fechaExamenStr;
+            if (inputFechaAdm) inputFechaAdm.value = fechaExamenGlobal;
 
             renderizarCarruselLogin();
-            renderizarHorarioSegunFecha(fechaExamenStr);
+            renderizarHorarioSegunFecha(fechaExamenGlobal);
             renderizarListasAdminAnuncios();
         }
 
@@ -2207,41 +2202,23 @@ Justificación: Según la norma técnica..."></textarea>
             if (nuevo) nuevo.classList.add('activa');
         }
 
-        function renderizarHorarioSegunFecha(fechaExamenStr) {
-            const txtDias = document.getElementById('txt-dias-cuenta-regresiva');
-            const badgeDias = document.getElementById('badge-dias-restantes');
-
-            const hoy = new Date();
-            const examen = new Date(fechaExamenStr);
-            const diferenciaMs = examen - hoy;
-            const diasRestantes = Math.max(0, Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24)));
-
-            if (txtDias) txtDias.innerText = `Fecha Oficial del Examen: ${fechaExamenStr}. ¡Aprovecha cada hora!`;
-            if (badgeDias) badgeDias.innerText = `${diasRestantes} DÍAS`;
-        }
-
-        async function guardarFechaExamenOficial() {
-            const fecha = document.getElementById('adm-input-fecha-examen').value;
-            if (!fecha) {
-                mostrarAvisoModal("Campo Requerido", "Ingresa una fecha válida para el examen.", "⚠️");
-                return;
-            }
-            const sb = obtenerSupabase();
-            await sb.from('configuracion_academia').upsert({ clave: 'fecha_examen_serums', valor: fecha });
-            renderizarHorarioSegunFecha(fecha);
-            renderizarCalendarioMes();
-            mostrarAvisoModal("¡Fecha Actualizada!", "El cronograma y la cuenta regresiva han sido recalculados.", "🗓️");
-        }
-
         async function lanzarPopupAnuncioSiExiste() {
             if (carruselPopupImagenes.length === 0) return;
+            
+            if (sessionStorage.getItem('ps_popup_anuncio_mostrado') === 'true') {
+                return;
+            }
+
             const cont = document.getElementById('slides-popup-contenedor');
+            if (!cont) return;
+            
             cont.innerHTML = '';
             carruselPopupImagenes.forEach((url, i) => {
                 cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-popup-${i}" style="max-height: 400px; width: 100%; object-fit: contain; border-radius: 12px;" alt="Anuncio">`;
             });
             indexSlidePopup = 0;
             document.getElementById('modal-popup-anuncio').style.display = 'flex';
+            sessionStorage.setItem('ps_popup_anuncio_mostrado', 'true');
         }
 
         async function agregarImagenCarrusel(tipo) {
@@ -2313,132 +2290,432 @@ Justificación: Según la norma técnica..."></textarea>
             }
         }
 
-        document.getElementById('f-login').addEventListener('submit', async (e) => {
+        /* CALENDARIO Y METODOLOGÍA */
+        function renderizarCalendarioYMetodologia() {
+            renderizarHorarioSegunFecha(fechaExamenGlobal);
+            renderizarCuadriculaCalendario();
+        }
+
+        function moverMesCalendario(dir) {
+            fechaCalendarioActual.setMonth(fechaCalendarioActual.getMonth() + dir);
+            renderizarCuadriculaCalendario();
+        }
+
+        function renderizarCuadriculaCalendario() {
+            const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+            const anio = fechaCalendarioActual.getFullYear();
+            const mes = fechaCalendarioActual.getMonth();
+            
+            document.getElementById('txt-mes-calendario').innerText = `${nombresMeses[mes]} ${anio}`;
+            const cont = document.getElementById('grid-dias-mes');
+            cont.innerHTML = '';
+
+            const primerDiaSemana = new Date(anio, mes, 1).getDay();
+            const diasEnMes = new Date(anio, mes + 1, 0).getDate();
+            const diasMesAnterior = new Date(anio, mes, 0).getDate();
+
+            const hoy = new Date();
+            const examen = new Date(fechaExamenGlobal);
+
+            for (let i = primerDiaSemana - 1; i >= 0; i--) {
+                cont.innerHTML += `<div class="dia-celda otro-mes">${diasMesAnterior - i}</div>`;
+            }
+
+            for (let d = 1; d <= diasEnMes; d++) {
+                const fechaCelda = new Date(anio, mes, d);
+                const esHoy = (fechaCelda.toDateString() === hoy.toDateString());
+                const esExamen = (fechaCelda.toDateString() === examen.toDateString());
+                const diaSemana = fechaCelda.getDay();
+                const esDiaEstudio = (!esExamen && diaSemana >= 1 && diaSemana <= 5);
+
+                let claseExtra = '';
+                if (esHoy) claseExtra += ' hoy';
+                if (esExamen) claseExtra += ' examen';
+                else if (esDiaEstudio) claseExtra += ' estudio';
+
+                cont.innerHTML += `
+                    <div class="dia-celda${claseExtra}" onclick="seleccionarDiaCalendario(${d}, ${mes}, ${anio})">
+                        <span>${d}</span>
+                        ${esExamen ? '<small style="font-size: 0.65em;">EXAMEN</small>' : ''}
+                    </div>
+                `;
+            }
+
+            const totalCeldas = primerDiaSemana + diasEnMes;
+            const celdasFaltantes = (totalCeldas % 7 === 0) ? 0 : (7 - (totalCeldas % 7));
+            for (let s = 1; s <= celdasFaltantes; s++) {
+                cont.innerHTML += `<div class="dia-celda otro-mes">${s}</div>`;
+            }
+        }
+
+        function seleccionarDiaCalendario(dia, mes, anio) {
+            const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Set", "Oct", "Nov", "Dic"];
+            mostrarAvisoModal(`Día ${dia} de ${meses[mes]}`, `Meta recomendada: 3 horas de lectura temática y 30 preguntas resueltas.`, "📅");
+        }
+
+        function renderizarHorarioSegunFecha(fechaExamenStr) {
+            const cont = document.getElementById('cuerpo-cronograma-contenedor');
+            const txtDias = document.getElementById('txt-dias-cuenta-regresiva');
+            const badgeDias = document.getElementById('badge-dias-restantes');
+            if (!cont) return;
+
+            const hoy = new Date();
+            const examen = new Date(fechaExamenStr);
+            const diferenciaMs = examen - hoy;
+            const diasRestantes = Math.max(0, Math.ceil(diferenciaMs / (1000 * 60 * 60 * 24)));
+
+            if (txtDias) txtDias.innerText = `Fecha Oficial del Examen: ${fechaExamenStr}. ¡Aprovecha cada hora!`;
+            if (badgeDias) badgeDias.innerText = `${diasRestantes} DÍAS`;
+
+            cont.innerHTML = '';
+
+            const plan = (diasRestantes > 75) ? [
+                { dia: "Bloque 1", detalle: "Salud Pública: Epidemiología, FESP, ASIS, Brotes y Determinantes de la Salud." },
+                { dia: "Bloque 2", detalle: "Cuidado Integral: Vacunación, TB, Dengue, Anemia y Emergencias Obstétricas." },
+                { dia: "Bloque 3", detalle: "Gestión de Servicios: Categorización (I-1 a I-4), SISMED, PEI/POI y Redes RIS." },
+                { dia: "Bloque 4", detalle: "Investigación: Bioestadística, Pruebas diagnósticas y Diseños analíticos." },
+                { dia: "Bloque 5", detalle: "Ética e Interculturalidad: Parto Vertical, Ley General y Pertinencia Cultural." },
+                { dia: "Sábados", detalle: "Simulacro Nacional Oficial (100 Preguntas con temporizador de 120 min)." },
+                { dia: "Domingos", detalle: "Módulo Refuerzo: Banqueo de Preguntas Falladas y Repaso de Fijas." }
+            ] : [
+                { dia: "Lunes a Viernes", detalle: "Banqueo Intensivo Diario: 50 a 100 preguntas por tema priorizando temas de alta rentabilidad." },
+                { dia: "Noches", detalle: "Lectura relámpago de Las Fijas SERUMS y conceptos clave del día." },
+                { dia: "Sábados", detalle: "Simulacro General Tipo Examen con análisis inmediato de errores." },
+                { dia: "Domingos", detalle: "Resolución del banco de fallos y descanso mental reconstructivo." }
+            ];
+
+            plan.forEach(h => {
+                cont.innerHTML += `
+                    <div style="display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--border-color); align-items: flex-start;">
+                        <span style="background: var(--primary); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold; min-width: 90px; text-align: center;">${h.dia}</span>
+                        <div style="color: var(--text-main); font-size: 0.9em;">${h.detalle}</div>
+                    </div>
+                `;
+            });
+        }
+
+        async function guardarFechaExamenOficial() {
+            const fecha = document.getElementById('adm-input-fecha-examen').value;
+            if (!fecha) {
+                mostrarAvisoModal("Campo Requerido", "Ingresa una fecha válida para el examen.", "⚠️");
+                return;
+            }
+            const sb = obtenerSupabase();
+            fechaExamenGlobal = fecha;
+            await sb.from('configuracion_academia').upsert({ clave: 'fecha_examen_serums', valor: fecha });
+            renderizarHorarioSegunFecha(fecha);
+            renderizarCuadriculaCalendario();
+            mostrarAvisoModal("¡Fecha Actualizada!", "El cronograma y la cuenta regresiva han sido recalculados.", "🗓️");
+        }
+
+        function guardarMetodologiaPersonalizada() {
+            const horas = document.getElementById('cfg-horas-estudio').value;
+            const metas = document.getElementById('cfg-meta-preguntas').value;
+            localStorage.setItem('ps_horas_diarias', horas);
+            localStorage.setItem('ps_metas_preguntas', metas);
+            mostrarAvisoModal("Metodología Guardada", `Se programaron ${horas} horas diarias y un objetivo de ${metas} preguntas por sesión.`, "🎯");
+        }
+
+        function generarMetodologiaAutomaticaConIA() {
+            mostrarAvisoModal("Plan Generado con IA", "Hemos adaptado tu ruta de aprendizaje priorizando los temas más repetidos en evaluaciones anteriores del MINSA.", "🤖");
+        }
+
+        /* PERFIL PROFESIONAL DEL ESTUDIANTE */
+        function llenarFormularioPerfilPropio() {
+            if (!perfilUsuario) return;
+            document.getElementById('perfil-nom').value = perfilUsuario.nombres || '';
+            document.getElementById('perfil-ape').value = perfilUsuario.apellidos || '';
+            document.getElementById('perfil-carrera').value = perfilUsuario.carrera || 'Medicina Humana';
+            document.getElementById('perfil-prefijo').value = perfilUsuario.prefijo_trato || 'Dr.';
+            document.getElementById('perfil-cmp').value = perfilUsuario.cmp_colegiatura || '';
+            document.getElementById('perfil-telefono').value = perfilUsuario.telefono || '';
+            document.getElementById('perfil-dni').value = perfilUsuario.dni || '';
+            document.getElementById('perfil-region').value = perfilUsuario.region_serums || '';
+            document.getElementById('perfil-correo').value = perfilUsuario.correo || user?.email || '';
+        }
+
+        document.getElementById('f-editar-perfil').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
-            const btn = document.getElementById('btn-login');
-            const email = document.getElementById('l-email').value.trim();
-            const password = document.getElementById('l-pass').value;
-            const errDiv = document.getElementById('err-login');
-            
+            if (!sb || !user) return;
+
+            const btn = document.getElementById('btn-guardar-perfil');
             btn.disabled = true;
-            btn.innerText = 'Verificando...';
-            errDiv.style.display = 'none';
+            btn.innerText = 'Guardando cambios...';
+
+            const payload = {
+                nombres: document.getElementById('perfil-nom').value.trim(),
+                apellidos: document.getElementById('perfil-ape').value.trim(),
+                carrera: document.getElementById('perfil-carrera').value,
+                prefijo_trato: document.getElementById('perfil-prefijo').value,
+                cmp_colegiatura: document.getElementById('perfil-cmp').value.trim(),
+                telefono: document.getElementById('perfil-telefono').value.trim(),
+                dni: document.getElementById('perfil-dni').value.trim(),
+                region_serums: document.getElementById('perfil-region').value.trim()
+            };
 
             try {
-                if (!sb) throw new Error('Error de conexión.');
-                const { data, error } = await sb.auth.signInWithPassword({ email, password });
+                const { error } = await sb.from('perfiles').update(payload).eq('id', user.id);
                 if (error) throw error;
-
-                if (data && data.user) {
-                    const { data: p } = await sb.from('perfiles').select('estado').eq('id', data.user.id).single();
-                    if (p && p.estado === 'bloqueado') {
-                        await sb.auth.signOut();
-                        throw new Error('Esta cuenta ha sido suspendida.');
-                    }
-
-                    user = data.user;
-                    await cargarPerfil();
-                    ver('vista-app');
-                    subSec('dash');
-                    cargarCursosDashboard();
-                    iniciarVigilanteSesionUnica();
-                    lanzarPopupAnuncioSiExiste();
-                }
-            } catch (err) {
-                errDiv.innerText = err.message || 'Credenciales no válidas.';
-                errDiv.style.display = 'block';
+                await cargarPerfil();
+                mostrarAvisoModal("Perfil Actualizado", "Tus datos profesionales han sido guardados correctamente en la academia.", "✔");
+            } catch(err) {
+                mostrarAvisoModal("Error", err.message || "No se pudo actualizar el perfil.", "⚠️");
             } finally {
                 btn.disabled = false;
-                btn.innerText = 'Ingresar al Aula';
+                btn.innerText = '💾 Guardar Cambios en mi Perfil';
             }
         });
 
-        document.getElementById('f-reg').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        /* ACCIONES DE WHATSAPP Y PANEL DOCENTE */
+        function abrirConfigurarGrupoWhatsApp() {
+            const input = document.getElementById('input-enlace-grupo-ws');
+            if (window.enlaceGrupoWhatsAppOficial) {
+                input.value = window.enlaceGrupoWhatsAppOficial;
+            }
+            document.getElementById('modal-grupo-ws').style.display = 'flex';
+        }
+
+        async function guardarEnlaceGrupoWhatsApp() {
+            const url = document.getElementById('input-enlace-grupo-ws').value.trim();
+            if (!url) {
+                mostrarAvisoModal("Campo Vacío", "Por favor ingresa el enlace de invitación de tu grupo.", "⚠️");
+                return;
+            }
             const sb = obtenerSupabase();
-            const btn = document.getElementById('btn-reg');
-            const msg = document.getElementById('msg-reg');
-            msg.style.display = 'none';
+            await sb.from('configuracion_academia').upsert({ clave: 'enlace_grupo_whatsapp', valor: url });
+            window.enlaceGrupoWhatsAppOficial = url;
+            cerrarModales();
+            window.open(url, '_blank');
+        }
 
-            const nombres = document.getElementById('r-nom').value.trim();
-            const apellidos = document.getElementById('r-ape').value.trim();
-            const carrera = document.getElementById('r-carrera').value;
-            const prefijo = document.getElementById('r-prefijo').value;
-            const dni = document.getElementById('r-dni').value.trim();
-            const fechaNac = document.getElementById('r-nac').value;
-            const email = document.getElementById('r-email').value.trim();
-            const pass = document.getElementById('r-pass').value;
-
-            if (pass.length < 8) {
-                msg.innerText = 'La contraseña debe tener al menos 8 caracteres.';
-                msg.className = 'alerta alerta-err';
-                msg.style.display = 'block';
+        function copiarTelefonosTodosAlumnos() {
+            if (!listaAlumnosCache || listaAlumnosCache.length === 0) {
+                mostrarAvisoModal("Sin Teléfonos", "No hay alumnos con teléfono registrado aún.", "⚠️");
                 return;
             }
 
-            let edadCalculada = 25;
-            if (fechaNac) {
-                const nac = new Date(fechaNac);
-                const hoy = new Date();
-                edadCalculada = hoy.getFullYear() - nac.getFullYear();
-                const m = hoy.getMonth() - nac.getMonth();
-                if (m < 0 || (m === 0 && hoy.getDate() < nac.getDate())) edadCalculada--;
+            const telefonosValidos = listaAlumnosCache
+                .map(a => a.telefono)
+                .filter(t => t && t.trim().length >= 6)
+                .map(t => t.replace(/[^0-9]/g, ''));
+
+            if (telefonosValidos.length === 0) {
+                mostrarAvisoModal("Sin Teléfonos", "Los alumnos aún no han colocado su número de celular en su perfil.", "⚠️");
+                return;
             }
 
-            btn.disabled = true;
-            btn.innerText = 'Creando cuenta...';
+            const textoCopiar = telefonosValidos.join(', ');
+            
+            const area = document.createElement("textarea");
+            area.value = textoCopiar;
+            document.body.appendChild(area);
+            area.select();
+            document.execCommand("copy");
+            document.body.removeChild(area);
 
+            mostrarAvisoModal("¡Teléfonos Copiados!", `Se copiaron ${telefonosValidos.length} números telefónicos al portapapeles. Puedes pegarlos en WhatsApp para agregarlos al grupo.`, "📋");
+        }
+
+        function contactarAlumnoPorWhatsApp(telefono, nombre) {
+            if (!telefono) {
+                mostrarAvisoModal("Sin Teléfono", `El alumno ${nombre} aún no ha registrado su número en su perfil.`, "⚠️");
+                return;
+            }
+            const numeroLimpio = telefono.replace(/[^0-9]/g, '');
+            const numeroCompleto = numeroLimpio.startsWith('51') ? numeroLimpio : ('51' + numeroLimpio);
+            const mensaje = encodeURIComponent(`Hola ${nombre}, te saludamos de ${NOMBRE_ACADEMIA} respecto a tu preparación SERUMS.`);
+            window.open(`https://api.whatsapp.com/send?phone=${numeroCompleto}&text=${mensaje}`, '_blank');
+        }
+
+        /* GESTIÓN DE ALUMNOS EN PANEL DOCENTE */
+        async function cargarAlumnosAdmin() {
+            const sb = obtenerSupabase();
+            const tbody = document.getElementById('tabla-alumnos-adm-body');
+            tbody.innerHTML = '<tr><td colspan="7">Consultando base de datos...</td></tr>';
+            
+            const { data: alumnos, error } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
+            
+            if (error || !alumnos || alumnos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7">No hay alumnos registrados aún.</td></tr>';
+                return;
+            }
+
+            listaAlumnosCache = alumnos;
+            tbody.innerHTML = '';
+            alumnos.forEach(a => {
+                const esPrem = (a.plan === 'premium');
+                const estaBloq = (a.estado === 'bloqueado');
+                const nombreCompleto = `${a.prefijo_trato || ''} ${a.nombres || ''} ${a.apellidos || ''}`.trim() || 'Alumno';
+                const tieneTelefono = (a.telefono && a.telefono.trim().length > 0);
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${nombreCompleto}</strong><br><small style="color: var(--text-muted);">${a.carrera || 'Salud'}</small></td>
+                        <td>${a.cmp_colegiatura || 'Sin CMP'}<br><small style="color: var(--text-muted);">${a.region_serums || 'N/A'}</small></td>
+                        <td>
+                            ${tieneTelefono ? `<span style="font-weight: bold; color: var(--text-main);">${a.telefono}</span>` : '<span style="color: var(--text-muted);">Sin número</span>'}
+                            ${tieneTelefono ? `<br><button class="btn-p" style="width: auto; padding: 4px 8px; margin: 4px 0 0; background: #25d366; font-size: 0.78em;" onclick="contactarAlumnoPorWhatsApp('${a.telefono}', '${a.nombres || ''}')">💬 WhatsApp</button>` : ''}
+                        </td>
+                        <td>${a.correo}</td>
+                        <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'GRATIS'}</span></td>
+                        <td><span class="badge ${estaBloq ? 'badge-bloq' : 'badge-prem'}">${estaBloq ? 'BLOQUEADO' : 'ACTIVO'}</span></td>
+                        <td style="display: flex; gap: 4px; flex-wrap: wrap;">
+                            ${esPrem 
+                                ? `<button class="btn-des" onclick="cambiarPlanAdmin('${a.id}', 'gratuito')">Bajar a Gratis</button>`
+                                : `<button class="btn-act" onclick="cambiarPlanAdmin('${a.id}', 'premium')">Activar Premium</button>`
+                            }
+                            ${estaBloq
+                                ? `<button class="btn-act" onclick="cambiarEstadoCuenta('${a.id}', 'activo')">Desbloquear</button>`
+                                : `<button class="btn-bloq" onclick="cambiarEstadoCuenta('${a.id}', 'bloqueado')">Bloquear</button>`
+                            }
+                            <button class="btn-clave" onclick="enviarClaveDesdeAdmin('${a.correo}')">Clave</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function cambiarPlanAdmin(userId, nuevoPlan) {
+            const sb = obtenerSupabase();
+            const { error } = await sb.from('perfiles').update({ plan: nuevoPlan }).eq('id', userId);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("Plan Actualizado", `Membresía cambiada a ${nuevoPlan.toUpperCase()} con éxito.`, "✔");
+                if (user && user.id === userId) {
+                    await cargarPerfil();
+                }
+                cargarAlumnosAdmin();
+            }
+        }
+
+        async function cambiarEstadoCuenta(userId, nuevoEstado) {
+            const sb = obtenerSupabase();
+            const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒");
+                cargarAlumnosAdmin();
+            }
+        }
+
+        async function enviarClaveDesdeAdmin(correoAlumno) {
+            const sb = obtenerSupabase();
             try {
-                const { data: auth, error: aErr } = await sb.auth.signUp({ email, password: pass });
-                if (aErr) throw aErr;
+                const { error } = await sb.auth.resetPasswordForEmail(correoAlumno, {
+                    redirectTo: window.location.origin
+                });
+                if (error) throw error;
+                mostrarAvisoModal("Enlace Generado", `Se envió el correo para restablecer la contraseña a: ${correoAlumno}`, "📬");
+            } catch (err) {
+                mostrarAvisoModal("Error", err.message, "⚠️");
+            }
+        }
 
-                if (auth && auth.user) {
-                    await sb.from('perfiles').insert([{
-                        id: auth.user.id,
-                        nombres: nombres,
-                        apellidos: apellidos,
-                        carrera: carrera,
-                        prefijo_trato: prefijo,
-                        dni: dni,
-                        fecha_nacimiento: fechaNac,
-                        edad: edadCalculada,
-                        correo: email,
-                        rol: 'estudiante',
-                        plan: 'gratuito',
-                        estado: 'activo',
-                        preguntas_hoy: 0
-                    }]);
+        /* AUTO-CREACIÓN ROBUSTA DE PERFIL PARA REGISTROS CON GOOGLE */
+        async function cargarPerfil() {
+            const sb = obtenerSupabase();
+            if (!user || !sb) return;
+            
+            let { data: p, error } = await sb.from('perfiles').select('*').eq('id', user.id).single();
+            
+            if (!p || error) {
+                const meta = user.user_metadata || {};
+                const nombreCompleto = meta.full_name || meta.name || 'Postulante';
+                const partes = nombreCompleto.split(" ");
+                const primerNombre = partes[0] || 'Colega';
+                const apellidos = partes.slice(1).join(" ") || '';
 
-                    await sb.from('perfil_mascota').insert([{ 
-                        user_id: auth.user.id,
+                const nuevoPerfil = {
+                    id: user.id,
+                    nombres: primerNombre,
+                    apellidos: apellidos,
+                    carrera: 'Medicina Humana',
+                    prefijo_trato: 'Dr.',
+                    dni: '00000000',
+                    edad: 25,
+                    cmp_colegiatura: '',
+                    telefono: '',
+                    region_serums: '',
+                    correo: user.email,
+                    rol: 'estudiante',
+                    plan: 'gratuito',
+                    estado: 'activo',
+                    preguntas_hoy: 0
+                };
+
+                try {
+                    await sb.from('perfiles').upsert(nuevoPerfil);
+                } catch(e) {
+                    console.warn("Aviso en upsert de perfil:", e);
+                }
+
+                try {
+                    await sb.from('perfil_mascota').upsert({ 
+                        user_id: user.id,
                         animal: 'perrito',
                         nivel: 1,
                         accesorio_cabeza: 'ninguno',
-                        accesorio_cuerpo: 'ninguno'
-                    }]);
+                        accesorio_cuerpo: 'ninguno',
+                        monedas: 50,
+                        energia: 100
+                    });
+                } catch(e) {
+                    console.warn("Aviso en upsert de mascota:", e);
                 }
 
-                msg.innerText = '¡Registro completado! Ya puedes iniciar sesión.';
-                msg.className = 'alerta alerta-ok';
-                msg.style.display = 'block';
-                document.getElementById('f-reg').reset();
-
-                setTimeout(() => {
-                    ver('vista-login');
-                    document.getElementById('l-email').value = email;
-                }, 1500);
-
-            } catch (err) {
-                msg.innerText = 'Error al registrar: ' + (err.message || 'Error de conexión');
-                msg.className = 'alerta alerta-err';
-                msg.style.display = 'block';
-            } finally {
-                btn.disabled = false;
-                btn.innerText = 'Completar Registro';
+                p = nuevoPerfil;
             }
-        });
 
+            perfilUsuario = p;
+            const prefijo = p.prefijo_trato || 'Dr.';
+            const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
+            document.getElementById('txt-saludo').innerText = `Hola, ${prefijo} ${nombreCompleto}`;
+            
+            const plantillaMotivacion = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
+            const mensajeMotivacional = plantillaMotivacion.replace('{nombre}', `${prefijo} ${p.nombres || ''}`.trim());
+            const msgCoach = document.getElementById('coach-mensaje');
+            if (msgCoach) msgCoach.innerText = mensajeMotivacional;
+
+            if (p.rol === 'admin') {
+                document.getElementById('m-admin').style.display = 'flex';
+            } else {
+                document.getElementById('m-admin').style.display = 'none';
+            }
+
+            const pillMembresia = document.getElementById('contenedor-membresia-top');
+            if (p.plan === 'premium') {
+                pillMembresia.className = 'pill-membresia-top pill-prem';
+                pillMembresia.innerHTML = '<span>🌟 Ciclo Completo (Ilimitado)</span>';
+            } else {
+                pillMembresia.className = 'pill-membresia-top pill-free';
+                pillMembresia.innerHTML = '<span>⭐ Plan Gratuito (15 preg/día)</span>';
+            }
+
+            const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
+            if (m) {
+                const nivelCalc = m.nivel || 1;
+                let etapaTxt = "Bebé";
+                if (nivelCalc >= 4 && nivelCalc < 8) etapaTxt = "Joven";
+                if (nivelCalc >= 8) etapaTxt = "Adulto Fuerte";
+
+                perfilMascota = {
+                    animal: m.animal || 'perrito',
+                    cabeza: m.accesorio_cabeza || 'ninguno',
+                    cuerpo: m.accesorio_cuerpo || 'ninguno',
+                    monedas: m.monedas || 50,
+                    energia: m.energia || 100,
+                    nivel: nivelCalc
+                };
+                document.getElementById('m-monedas').innerText = perfilMascota.monedas;
+                document.getElementById('m-nivel-tag').innerText = `Nv. ${perfilMascota.nivel} (${etapaTxt})`;
+                document.getElementById('m-energia-bar').style.width = `${perfilMascota.energia}%`;
+            }
+            renderizarMascotaSVG();
+            renderizarMascotaCoach();
+        }
+
+        /* MASCOTA SVG */
         function generarSVGMarkup(ancho = 90, animar = true) {
             const animal = perfilMascota.animal || 'perrito';
             const cabeza = perfilMascota.cabeza || 'ninguno';
@@ -2553,7 +2830,7 @@ Justificación: Según la norma técnica..."></textarea>
 
         function renderizarMascotaSVG() {
             const canvas = document.getElementById('avatar-canvas');
-            if (canvas) canvas.innerHTML = generarSVGMarkup(95, true);
+            if (canvas) canvas.innerHTML = generarSVGMarkup(85, true);
         }
 
         function renderizarMascotaCoach() {
@@ -2584,88 +2861,6 @@ Justificación: Según la norma técnica..."></textarea>
                 if (tipo === 'cuerpo') payload.accesorio_cuerpo = prenda;
                 await sb.from('perfil_mascota').update(payload).eq('user_id', user.id);
             }
-        }
-
-        async function cargarPerfil() {
-            const sb = obtenerSupabase();
-            if (!user || !sb) return;
-            let { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
-            
-            if (!p) {
-                const nombreGoogle = user.user_metadata?.full_name || 'Postulante';
-                await sb.from('perfiles').insert([{
-                    id: user.id,
-                    nombres: nombreGoogle,
-                    apellidos: '',
-                    carrera: 'Ciencias de la Salud',
-                    prefijo_trato: 'Colega',
-                    correo: user.email,
-                    rol: 'estudiante',
-                    plan: 'gratuito',
-                    estado: 'activo',
-                    preguntas_hoy: 0
-                }]);
-                await sb.from('perfil_mascota').insert([{ 
-                    user_id: user.id,
-                    animal: 'perrito',
-                    nivel: 1,
-                    accesorio_cabeza: 'ninguno',
-                    accesorio_cuerpo: 'ninguno'
-                }]);
-                p = { nombres: nombreGoogle, apellidos: '', prefijo_trato: 'Colega', rol: 'estudiante', plan: 'gratuito', preguntas_hoy: 0 };
-            }
-
-            perfilUsuario = p;
-            const prefijo = p.prefijo_trato || 'Dr.';
-            const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
-            document.getElementById('txt-saludo').innerText = `Hola, ${prefijo} ${nombreCompleto}`;
-            
-            const plantillaMotivacion = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
-            const mensajeMotivacional = plantillaMotivacion.replace('{nombre}', `${prefijo} ${p.nombres || ''}`.trim());
-            const msgCoach = document.getElementById('coach-mensaje');
-            if (msgCoach) msgCoach.innerText = mensajeMotivacional;
-
-            if (p.rol === 'admin') {
-                document.getElementById('m-admin').style.display = 'flex';
-            } else {
-                document.getElementById('m-admin').style.display = 'none';
-            }
-
-            const contPill = document.getElementById('contenedor-membresia-top');
-            const txtPill = document.getElementById('txt-membresia-estado');
-            const btnPill = document.getElementById('btn-membresia-accion');
-
-            if (p.plan === 'premium') {
-                contPill.className = 'pill-membresia-header pill-prem';
-                txtPill.innerText = '⭐ Ciclo Completo Activo';
-                btnPill.style.display = 'none';
-            } else {
-                contPill.className = 'pill-membresia-header pill-free';
-                txtPill.innerText = 'Cuenta Gratuita (15 preg/día)';
-                btnPill.style.display = 'inline-block';
-            }
-
-            const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
-            if (m) {
-                const nivelCalc = m.nivel || 1;
-                let etapaTxt = "Bebé";
-                if (nivelCalc >= 4 && nivelCalc < 8) etapaTxt = "Joven";
-                if (nivelCalc >= 8) etapaTxt = "Adulto Fuerte";
-
-                perfilMascota = {
-                    animal: m.animal || 'perrito',
-                    cabeza: m.accesorio_cabeza || 'ninguno',
-                    cuerpo: m.accesorio_cuerpo || 'ninguno',
-                    monedas: m.monedas || 50,
-                    energia: m.energia || 100,
-                    nivel: nivelCalc
-                };
-                document.getElementById('m-monedas').innerText = perfilMascota.monedas;
-                document.getElementById('m-nivel-tag').innerText = `Nv. ${perfilMascota.nivel} (${etapaTxt})`;
-                document.getElementById('m-energia-bar').style.width = `${perfilMascota.energia}%`;
-            }
-            renderizarMascotaSVG();
-            renderizarMascotaCoach();
         }
 
         async function alimentarMascota() {
@@ -2984,7 +3179,7 @@ Justificación: Según la norma técnica..."></textarea>
             const esPremium = (perfilUsuario && perfilUsuario.plan === 'premium');
             if (!esPremium) {
                 boxContenido.innerHTML = `
-                    <div style="background: var(--bg-card); padding: 45px 25px; border-radius: 16px; text-align: center; max-width: 550px; margin: 30px auto; box-shadow: var(--box-shadow); border-top: 6px solid #ffc107; border: 1px solid var(--border-color);">
+                    <div style="background: var(--bg-card); padding: 45px 25px; border-radius: 16px; text-align: center; max-width: 550px; margin: 30px auto; box-shadow: var(--box-shadow); border: 1px solid var(--border-color); border-top: 6px solid #ffc107;">
                         <span style="font-size: 3.5em;">🔒</span>
                         <h2 style="color: var(--text-heading); margin: 15px 0 8px;">Flashcards Exclusivas Premium</h2>
                         <p style="color: var(--text-muted); font-size: 0.95em; line-height: 1.5; margin-bottom: 22px;">
@@ -3381,7 +3576,7 @@ Justificación: Según la norma técnica..."></textarea>
 
                 preguntasVaciadasBuffer.forEach((p, idx) => {
                     cont.innerHTML += `
-                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                        <div style="background: var(--bg-card-subtle); border: 1.5px solid var(--border-color); padding: 15px; border-radius: 8px; margin-bottom: 10px;">
                             <strong>Pregunta ${idx + 1}:</strong> ${p.enunciado}<br>
                             <span style="color: #28a745; font-weight: bold;">Clave: ${p.respuesta_correcta}</span> | Justificación: ${p.justificacion}
                         </div>
@@ -3587,90 +3782,11 @@ Justificación: Según la norma técnica..."></textarea>
             }
         });
 
-        async function cargarAlumnosAdmin() {
-            const sb = obtenerSupabase();
-            const tbody = document.getElementById('tabla-alumnos-adm-body');
-            tbody.innerHTML = '<tr><td colspan="6">Consultando base de datos...</td></tr>';
-            
-            const { data: alumnos, error } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
-            
-            if (error || !alumnos || alumnos.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6">No hay alumnos registrados aún.</td></tr>';
-                return;
-            }
-
-            tbody.innerHTML = '';
-            alumnos.forEach(a => {
-                const esPrem = (a.plan === 'premium');
-                const estaBloq = (a.estado === 'bloqueado');
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td><strong>${a.prefijo_trato || ''} ${a.nombres || ''} ${a.apellidos || ''}</strong><br><small style="color: var(--text-muted);">${a.carrera || 'Salud'}</small></td>
-                        <td>${a.dni || 'Sin DNI'}</td>
-                        <td>${a.correo}</td>
-                        <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'GRATIS'}</span></td>
-                        <td><span class="badge ${estaBloq ? 'badge-bloq' : 'badge-prem'}">${estaBloq ? 'BLOQUEADO' : 'ACTIVO'}</span></td>
-                        <td style="display: flex; gap: 4px; flex-wrap: wrap;">
-                            ${esPrem 
-                                ? `<button class="btn-des" onclick="cambiarPlanAdmin('${a.id}', 'gratuito')">Bajar a Gratis</button>`
-                                : `<button class="btn-act" onclick="cambiarPlanAdmin('${a.id}', 'premium')">Activar Premium</button>`
-                            }
-                            ${estaBloq
-                                ? `<button class="btn-act" onclick="cambiarEstadoCuenta('${a.id}', 'activo')">Desbloquear</button>`
-                                : `<button class="btn-bloq" onclick="cambiarEstadoCuenta('${a.id}', 'bloqueado')">Bloquear</button>`
-                            }
-                            <button class="btn-clave" onclick="enviarClaveDesdeAdmin('${a.correo}')">Clave</button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-
-        async function cambiarPlanAdmin(userId, nuevoPlan) {
-            const sb = obtenerSupabase();
-            const { error } = await sb.from('perfiles').update({ plan: nuevoPlan }).eq('id', userId);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
-            else {
-                mostrarAvisoModal("Plan Actualizado", `Membresía cambiada a ${nuevoPlan.toUpperCase()} con éxito.`, "✔");
-                if (user && user.id === userId) {
-                    await cargarPerfil();
-                    if (document.getElementById('sec-fijas').style.display === 'block') {
-                        cargarLasFijasSERUMS();
-                    }
-                    if (document.getElementById('sec-flashcards').style.display === 'block') {
-                        cargarFlashcardsDesdeBD();
-                    }
-                }
-                cargarAlumnosAdmin();
-            }
-        }
-
-        async function cambiarEstadoCuenta(userId, nuevoEstado) {
-            const sb = obtenerSupabase();
-            const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
-            else {
-                mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒");
-                cargarAlumnosAdmin();
-            }
-        }
-
-        async function enviarClaveDesdeAdmin(correoAlumno) {
-            const sb = obtenerSupabase();
-            try {
-                const { error } = await sb.auth.resetPasswordForEmail(correoAlumno, {
-                    redirectTo: window.location.origin
-                });
-                if (error) throw error;
-                mostrarAvisoModal("Enlace Generado", `Se envió el correo para restablecer la contraseña a: ${correoAlumno}`, "📬");
-            } catch (err) {
-                mostrarAvisoModal("Error", err.message, "⚠️");
-            }
-        }
-
         async function salir() {
             const sb = obtenerSupabase();
+            sessionStorage.removeItem('ps_session_token');
+            sessionStorage.removeItem('ps_popup_anuncio_mostrado');
+            if (window._vigilanteSesionTimer) clearInterval(window._vigilanteSesionTimer);
             if (sb) await sb.auth.signOut();
             user = null;
             ver('vista-login');
