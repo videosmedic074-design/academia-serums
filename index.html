@@ -77,10 +77,7 @@
         .emblema-serums-pro svg { width: 60px; height: 60px; }
         
         .logo-box-main { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 12px; }
-        
-        .logo-titulo-portada {
-            font-size: 3.1em; font-weight: 900; color: #0056b3; letter-spacing: -1px; line-height: 1.1;
-        }
+        .logo-titulo-portada { font-size: 3.1em; font-weight: 900; color: #0056b3; letter-spacing: -1px; line-height: 1.1; }
         body.dark-mode .logo-titulo-portada { color: #60a5fa; }
         .logo-titulo-portada span { color: #28a745; }
         .logo-titulo { font-size: 1.6em; font-weight: 900; color: #0056b3; }
@@ -191,6 +188,16 @@
         .menu li.admin-btn { color: #d8b4fe; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 10px; padding-top: 15px; }
         .menu li.admin-btn:hover, .menu li.admin-btn.activo { background: rgba(168, 85, 247, 0.18); color: #e9d5ff; border-left-color: #a855f7; }
         .menu li.cerrar { color: #f87171; border-top: 1px solid rgba(255,255,255,0.08); margin-top: auto; }
+
+        .barra-redes-sidebar {
+            padding: 12px 18px; display: flex; justify-content: center; gap: 14px;
+            border-top: 1px solid rgba(255,255,255,0.08); background: rgba(0,0,0,0.2);
+        }
+        .link-red-social {
+            width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.1); color: white; text-decoration: none; transition: 0.2s;
+        }
+        .link-red-social:hover { transform: scale(1.15); background: var(--primary); }
 
         .contenido { flex: 1; padding: 35px; overflow-y: auto; display: flex; flex-direction: column; background: var(--bg-body); position: relative; }
         .contenido-cuerpo { flex: 1; }
@@ -411,7 +418,6 @@
             z-index: 9998; font-weight: bold; font-size: 0.9em;
         }
 
-        /* Botón Flotante del Tutor IA (Adentro del Aula) */
         .btn-flotante-ia {
             position: fixed; bottom: 85px; right: 25px; background: linear-gradient(135deg, #6f42c1, #0056b3);
             color: white; border-radius: 50px; padding: 10px 18px 10px 14px; display: flex; align-items: center;
@@ -426,7 +432,7 @@
     <section id="vista-login" class="pantalla activa">
         <div class="fondo-auth-premium">
             <div class="contenedor-login-split">
-                <!-- RECUADRO IZQUIERDO: EL FLYER PUBLICITARIO SE MUESTRA AQUÍ -->
+                <!-- RECUADRO IZQUIERDO: EL FLYER PUBLICITARIO SE MUESTRA AQUÍ DIRECTAMENTE -->
                 <div class="columna-publicidad">
                     <div class="carrusel-contenedor" id="carrusel-login-box">
                         <button class="btn-carrusel-nav btn-carrusel-prev" onclick="cambiarSlideLogin(-1)">❮</button>
@@ -566,7 +572,7 @@
                 </div>
                 <ul class="menu">
                     <li id="m-dash" class="activo" onclick="subSec('dash')">🏠 Inicio</li>
-                    <li id="m-crono" onclick="subSec('crono')">📅 Cronograma y Calendario</li>
+                    <li id="m-crono" onclick="subSec('crono')">📅 Calendario y Metodología</li>
                     <li id="m-temas" onclick="subSec('temas')">📖 Teoría y Resúmenes</li>
                     <li id="m-banqueo" onclick="subSec('banqueo')">📝 Banco de Preguntas</li>
                     <li id="m-flashcards" onclick="subSec('flashcards')">🗂️ Flashcards</li>
@@ -576,12 +582,18 @@
                     <li id="m-admin" class="admin-btn" style="display: none;" onclick="subSec('admin')">🛠️ Panel Docente</li>
                     <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
                 </ul>
+
+                <!-- BARRA DE REDES SOCIALES CONFIGURABLES -->
+                <div class="barra-redes-sidebar" id="barra-redes-sidebar">
+                    <a id="link-red-discord" href="#" target="_blank" class="link-red-social" title="Comunidad Discord">💬</a>
+                    <a id="link-red-instagram" href="#" target="_blank" class="link-red-social" title="Instagram">📸</a>
+                    <a id="link-red-facebook" href="#" target="_blank" class="link-red-social" title="Facebook">📘</a>
+                </div>
             </aside>
 
             <main class="contenido">
                 <div class="header-top">
                     <div>
-                        <!-- NOMBRE COMPLETO CON PREFIJO -->
                         <h1 id="txt-saludo" style="color: var(--text-heading); font-size: 1.6em;">Hola, Colega</h1>
                         <p style="color: var(--text-muted); font-size: 0.9em; margin-top: 2px;">Preparación de alto impacto para asegurar tu plaza SERUMS.</p>
                     </div>
@@ -633,17 +645,13 @@
                     </div>
                 </div>
 
-                <!-- SUB 2: CRONOGRAMA DINÁMICO Y CALENDARIO EDITABLE -->
+                <!-- SUB 2: CRONOGRAMA DINÁMICO Y CALENDARIO ANUAL NAVEGABLE -->
                 <div id="sec-crono" class="contenido-cuerpo" style="display: none;">
                     <div class="card-c" style="margin-bottom: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
                             <div>
-                                <h2 style="color: var(--text-heading); margin-bottom: 4px;">📅 Calendario y Metodología Personalizable</h2>
-                                <p style="color: var(--text-muted); font-size: 0.9em;">Haz clic en cualquier día para registrar tus metas y horas de estudio.</p>
-                            </div>
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn-p" style="width: auto; margin: 0; padding: 8px 14px; background: #6f42c1;" onclick="abrirModalEditorBloquesDocente()">⚙️ Asignar Bloques de Estudio</button>
-                                <button class="btn-p" style="width: auto; margin: 0; padding: 8px 14px; background: #28a745;" onclick="generarMetodologiaAutomatica()">⚡ Metodología Automática</button>
+                                <h2 style="color: var(--text-heading); margin-bottom: 4px;">📅 Calendario y Metodología</h2>
+                                <p style="color: var(--text-muted); font-size: 0.9em;">Distribución oficial por cursos. Si faltan menos de 3 meses, el algoritmo optimiza las semanas automáticamente.</p>
                             </div>
                         </div>
                         <div id="cuerpo-cronograma-contenedor"></div>
@@ -660,7 +668,7 @@
                     </div>
                 </div>
 
-                <!-- SUB 3: TEORÍA Y RESÚMENES -->
+                <!-- SUB 3: TEORÍA Y RESÚMENES (CON BOTONES/TARJETAS EN VEZ DE DESLIZABLES) -->
                 <div id="sec-temas" class="contenido-cuerpo" style="display: none;">
                     <h2 style="color: var(--text-heading); margin-bottom: 8px;">📖 Teoría y Resúmenes Estructurados</h2>
                     <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 20px;">Toca un curso para explorar sus temas y normas técnicas MINSA:</p>
@@ -672,7 +680,7 @@
                     </div>
                 </div>
 
-                <!-- SUB 4: BANCO DE PREGUNTAS -->
+                <!-- SUB 4: BANCO DE PREGUNTAS (TODOS LOS MODOS RESTAURADOS) -->
                 <div id="sec-banqueo" class="contenido-cuerpo" style="display: none;">
                     <div id="vista-selector-modalidad">
                         <h1 style="color: var(--text-heading); font-size: 1.5em; margin-bottom: 8px;">Centro de Entrenamiento y Banqueo</h1>
@@ -855,7 +863,7 @@
                     <div id="contenedor-fijas-cards" class="grid-modalidades-banqueo"></div>
                 </div>
 
-                <!-- SUB 7: ESTADÍSTICAS -->
+                <!-- SUB 7: ESTADÍSTICAS (CON DONUT CHART DE 5 EJES) -->
                 <div id="sec-stats" class="contenido-cuerpo" style="display: none;">
                     <h1 style="margin-bottom: 20px; color: var(--text-heading);">Diagnóstico de Rendimiento Clínico</h1>
                     
@@ -883,6 +891,7 @@
                         </div>
                     </div>
 
+                    <!-- Gráfico de Dona Gigante por los 5 Cursos -->
                     <div class="card-c" style="margin-bottom: 25px; border-top-color: #6f42c1;">
                         <h3 style="color: var(--text-heading); margin-bottom: 6px;">Distribución Analítica por los 5 Cursos Oficiales</h3>
                         <p style="color: var(--text-muted); font-size: 0.88em; margin-bottom: 18px;">Visualiza en qué áreas estás invirtiendo tu práctica y la concentración de aciertos y errores:</p>
@@ -916,7 +925,7 @@
                     </div>
                 </div>
 
-                <!-- SUB 9: PANEL DOCENTE -->
+                <!-- SUB 9: PANEL DOCENTE (CONTROL TOTAL) -->
                 <div id="sec-admin" class="contenido-cuerpo" style="display: none;">
                     <div style="background: var(--bg-card); padding: 30px; border-radius: 16px; box-shadow: var(--shadow-sm); border-top: 6px solid #6f42c1; border: 1px solid var(--border-color);">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -927,7 +936,7 @@
                         <div class="pestanas-admin">
                             <button type="button" class="tab-btn-adm activa" onclick="verSubTabAdmin('p')">➕ Agregar Pregunta</button>
                             <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('fijas_adm')">🔥 Publicar La Fija</button>
-                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('anuncios')">📢 Publicidad y Horarios</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('anuncios')">📢 Publicidad y Redes</button>
                             <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('vaciador')">📋 Vaciador en Bloque</button>
                             <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Gestionar Simulacros</button>
                             <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Crear Flashcard</button>
@@ -1009,7 +1018,7 @@
                             </form>
                         </div>
 
-                        <!-- 3. Anuncios y Horarios -->
+                        <!-- 3. Anuncios y Redes Sociales -->
                         <div id="subtab-adm-anuncios" class="subtab-adm">
                             <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">🗓️ Fecha Oficial del Examen SERUMS</h4>
@@ -1021,15 +1030,24 @@
 
                             <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">1. Flyer del Recuadro de Entrada (Pantalla de Login)</h4>
-                                <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">Sube imágenes para rotar directamente en el recuadro izquierdo del login:</p>
+                                <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">Sube imágenes para rotar en el recuadro izquierdo del login:</p>
                                 <input type="file" id="file-banner-login" accept="image/*" style="background: var(--bg-card);">
                                 <button type="button" class="btn-p" style="width: auto; margin-top: 10px; padding: 8px 16px;" onclick="agregarImagenCarrusel('banner_login')">➕ Agregar Imagen al Recuadro</button>
+                            </div>
+
+                            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                                <h4 style="color: var(--primary); margin-bottom: 8px;">2. Enlaces de Redes Sociales (Discord, Instagram, Facebook)</h4>
+                                <div class="campo"><label>Enlace de Discord:</label><input type="text" id="adm-link-discord" placeholder="https://discord.gg/ejemplo"></div>
+                                <div class="campo"><label>Enlace de Instagram:</label><input type="text" id="adm-link-instagram" placeholder="https://instagram.com/academia"></div>
+                                <div class="campo"><label>Enlace de Facebook:</label><input type="text" id="adm-link-facebook" placeholder="https://facebook.com/academia"></div>
+                                <div class="campo"><label><input type="checkbox" id="adm-check-redes" checked> Mostrar barra de redes en la barra lateral</label></div>
+                                <button type="button" class="btn-p" style="width: auto; margin: 0; padding: 10px 18px;" onclick="guardarRedesSocialesDocente()">Guardar Enlaces de Redes</button>
                             </div>
                         </div>
 
                         <!-- 4. Vaciador en Bloque -->
                         <div id="subtab-adm-vaciador" class="subtab-adm">
-                            <div class="campo"><label>Pega aquí las preguntas de tu Word:</label><textarea id="vaciador-texto-bruto" rows="8" placeholder="1. Paciente gestante que acude..."></textarea></div>
+                            <div class="campo"><label>Pega aquí las preguntas de tu Word/PDF:</label><textarea id="vaciador-texto-bruto" rows="8" placeholder="1. Paciente gestante que acude..."></textarea></div>
                             <button type="button" class="btn-p" id="btn-procesar-vaciador" onclick="procesarTextoVaciadorConIA()">⚡ Procesar y Estructurar con IA</button>
                             <div id="contenedor-revision-vaciador" style="margin-top: 25px; display: none;">
                                 <div id="lista-preguntas-vaciadas"></div>
@@ -1114,29 +1132,35 @@
                     </div>
                 </div>
 
-                <!-- TUTOR CLÍNICO FLOTANTE (DENTRO DEL AULA) -->
+                <!-- TUTOR CLÍNICO FLOTANTE (CON ICONO ROBOT) -->
                 <div class="btn-flotante-ia" onclick="abrirModalTutorIA()" title="Consultar con Gemini Mentor">
-                    <span>✨ Tutor IA SERUMS</span>
+                    <span style="font-size: 1.3em;">🤖</span>
+                    <span>Tutor IA SERUMS</span>
                 </div>
             </main>
         </div>
     </section>
 
-    <!-- MODAL TUTOR IA -->
+    <!-- MODAL TUTOR IA (ROBOT DE CONSULTA) -->
     <div id="modal-tutor-ia" class="modal-overlay">
         <div class="modal-box" style="max-width: 600px; text-align: left;">
             <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
-            <h3 style="color: #6f42c1; display: flex; align-items: center; gap: 8px;">✨ Tutor Clínico Inteligente</h3>
-            <p style="color: var(--text-muted); font-size: 0.88em; margin: 4px 0 14px;">Consulta dudas técnicas sobre normas MINSA, dosis, esquemas y criterios diagnósticos:</p>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                <span style="font-size: 2.2em;">🤖</span>
+                <div>
+                    <h3 style="color: #6f42c1;">Gemini Mentor - Tutor Clínico IA</h3>
+                    <p style="color: var(--text-muted); font-size: 0.85em;">Consultas médicas basadas en Normas Técnicas del MINSA.</p>
+                </div>
+            </div>
             <div class="campo">
-                <textarea id="tutor-ia-prompt" rows="3" placeholder="Ej: ¿Cuáles son las diferencias clínicas entre Dengue con y sin signos de alarma según la norma técnica?"></textarea>
+                <textarea id="tutor-ia-prompt" rows="3" placeholder="Ej: ¿Cuáles son las dosis de Sulfato de Magnesio en Clave Azul según el MINSA?"></textarea>
             </div>
             <button class="btn-p" style="background: linear-gradient(135deg, #6f42c1, #0056b3);" id="btn-preguntar-tutor-ia" onclick="preguntarTutorIA()">Consultar a Gemini Mentor ➔</button>
             <div id="tutor-ia-respuesta" style="margin-top: 15px; padding: 14px; background: var(--bg-card-subtle); border-radius: 10px; border: 1px solid var(--border-color); font-size: 0.92em; line-height: 1.6; display: none;"></div>
         </div>
     </div>
 
-    <!-- MODAL DE BIENVENIDA MOTIVACIONAL CON MASCOTA EN GRANDE -->
+    <!-- MODAL BIENVENIDA MASCOTA -->
     <div id="modal-bienvenida-mascota" class="modal-overlay">
         <div class="modal-box" style="max-width: 460px;">
             <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
@@ -1234,30 +1258,6 @@
         </div>
     </div>
 
-    <!-- MODAL EDITOR DE BLOQUES DEL DOCENTE PARA EL CRONOGRAMA -->
-    <div id="modal-editor-bloques" class="modal-overlay">
-        <div class="modal-box" style="max-width: 500px; text-align: left;">
-            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
-            <h3 style="color: #6f42c1; margin-bottom: 8px;">⚙️ Asignar Bloque Temático al Cronograma</h3>
-            <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 15px;">Establece qué curso o actividad priorizarán los alumnos en este ciclo:</p>
-            <div class="campo">
-                <label>Bloque Principal:</label>
-                <select id="sel-bloque-docente" class="campo-select-pro">
-                    <option value="Salud Pública Exclusiva (Todo el Mes)">Salud Pública Intensiva (Todo el Mes)</option>
-                    <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
-                    <option value="Gestión e Investigación">Gestión e Investigación</option>
-                    <option value="Simulacros y Fijas Exclusivas">Simulacros y Fijas Exclusivas</option>
-                    <option value="Equilibrado Oficial MINSA">Equilibrado Oficial MINSA</option>
-                </select>
-            </div>
-            <div class="campo">
-                <label>Detalle o Instrucción para el Alumno:</label>
-                <textarea id="txt-instruccion-bloque" rows="3" placeholder="Ej: Durante este mes resolveremos 50 preguntas diarias de Salud Pública y los domingos simulacro nacional."></textarea>
-            </div>
-            <button class="btn-p" onclick="guardarBloqueCronogramaDocente()">Guardar Distribución Oficial</button>
-        </div>
-    </div>
-
     <!-- MODAL AVISOS GENERALES -->
     <div id="modal-aviso-general" class="modal-overlay">
         <div class="modal-box">
@@ -1290,950 +1290,174 @@
     </a>
 
     <script>
-        const TEMARIO_OFICIAL_MINSA = {
-            "Salud Pública": [
-                "1.1 Conceptos básicos de salud pública (FESP)", "1.2 Epidemiología (mediciones e indicadores)",
-                "1.3 Causalidad y Riesgo (Criterios Bradford Hill)", "1.4 Demografía en salud y transición epidemiológica",
-                "1.5 Historia natural de la enfermedad", "1.6 Etapas y niveles de prevención (Primaria a Cuaternaria)",
-                "1.7 Pruebas diagnósticas (Sensibilidad, Especificidad, VPP, VPN)", "1.8 Brotes, epidemias, endemias y pandemias",
-                "1.9 Vigilancia en salud pública y epidemiológica", "1.10 Prevención y Control de infecciones",
-                "1.11 Uso racional de medicamentos", "1.12 ASIS - Sala situacional de salud",
-                "1.13 Sistema de Vigilancia Epidemiológica (Notificación)", "2.1 Determinantes sociales de la salud",
-                "2.2 Determinantes ambientales y saneamiento básico", "2.4 Sectorización y ficha familiar",
-                "2.8 Sistemas de información y TICs (HIS, SIS, Historia clínica)", "2.12 Salud ocupacional en el trabajador de salud",
-                "2.13 Modelo de salud mental comunitaria", "3.1 Promoción de la salud (Estrategias y escenarios)",
-                "3.3 Bioseguridad y protección del personal", "3.4 Gestión del riesgo en emergencias y desastres"
-            ],
-            "Cuidado Integral de Salud": [
-                "1.1 Atención integral por curso de vida, familia y comunidad", "1.2 Atención centrada en la persona",
-                "1.3 Urgencias, emergencias y sistema de referencia", "1.4 Clave Roja, Azul y Amarilla (Emergencias obstétricas)",
-                "1.5 Riesgo obstétrico", "2.2 Paquete de cuidado integral del niño", "2.8 Prevención y control del Cáncer",
-                "2.10 Prevención y control de Tuberculosis (NTS MINSA)", "2.11 Esquema Nacional de Vacunación",
-                "2.13 Prevención y control de Anemia", "2.14 Manejo de ITS, VIH y Hepatitis", "2.22 Enfermedades metaxénicas (Dengue, Malaria)"
-            ],
-            "Gestión de Servicios de Salud": [
-                "1.1 Planeamiento Estratégico en Salud", "1.2 Análisis FODA", "2.1 Documentos de gestión: ROF y MOP",
-                "2.2 Categorización de establecimientos de salud (I-1 a III-2)", "2.4 Sistema REFCON", "2.6 Redes Integradas de Salud (RIS)",
-                "3.2 Control de stock e inventario de medicamentos (SISMED)", "4.1 Garantía de la calidad y seguridad del paciente"
-            ],
-            "Investigación": [
-                "1.1 Conceptos básicos de investigación científica", "1.3 Tipos de estudio (Descriptivo, Analítico, Experimental)",
-                "2.2 Procesamiento y análisis bioestadístico", "3.2 Aspectos éticos en investigación humana"
-            ],
-            "Ética e Interculturalidad": [
-                "1.1 Ética en la función pública y humanización", "1.3 Derechos y deberes de los usuarios (Ley General de Salud)",
-                "2.1 Comunicación y diálogo intercultural en salud", "2.4 Promoción del Parto Vertical", "2.6 Poblaciones vulnerables"
-            ]
-        };
-
-        const MAPEO_CURSOS_ID = {
-            "Salud Pública": 1,
-            "Cuidado Integral de Salud": 2,
-            "Gestión de Servicios de Salud": 5,
-            "Investigación": 4,
-            "Ética e Interculturalidad": 3
-        };
-
-        const FRASES_MOTIVACIONALES = [
-            "¡Qué alegría verte de nuevo, {nombre}! Hoy sumaremos puntos decisivos para tu plaza.",
-            "¡Paso a paso, {nombre}! La constancia en el banqueo es la clave del éxito.",
-            "¡Excelente día para aprender, {nombre}! Cada pregunta resuelta te acerca a tu meta.",
-            "¡A darle con todo, {nombre}! Tu vocación y esfuerzo darán grandes frutos.",
-            "¡Confía en tu preparación, {nombre}! Estás construyendo tu mejor versión.",
-            "¡Mucho éxito en la jornada de hoy, {nombre}! Vamos a dominar este temario.",
-            "¡Hola, {nombre}! Recuerda que los grandes resultados se forjan día a día.",
-            "¡Tu plaza SERUMS te está esperando, {nombre}! A demostrar todo lo que sabes.",
-            "¡Vamos colega, {nombre}! Con calma, juicio clínico y enfoque total.",
-            "¡Qué orgullo ver tu disciplina, {nombre}! Hoy será un día de gran avance.",
-            "¡La meta está clara, {nombre}! Ninguna pregunta es rival para tu estudio.",
-            "¡Hola, {nombre}! Respira hondo, sonríe y que empiece el entrenamiento.",
-            "¡Adelante, {nombre}! La perseverancia supera cualquier obstáculo en el examen.",
-            "¡Bienvenido de vuelta, {nombre}! Vamos a asegurar esos puntos clave hoy.",
-            "¡Cada caso clínico dominado es una victoria, {nombre}! A seguir brillando.",
-            "¡Con paso firme, {nombre}! Estudiar con alegría hace el camino inolvidable.",
-            "¡Hola, {nombre}! Tienes el talento y la dedicación necesarios para triunfar.",
-            "¡Un día más cerca de tu objetivo, {nombre}! Vamos con la mejor energía.",
-            "¡A conquistar el temario, {nombre}! Tu esfuerzo vale oro.",
-            "¡Qué gusto saludarte, {nombre}! Hoy consolidaremos temas de alto impacto."
-        ];
-
-        let user = null;
-        let perfilUsuario = null;
-        let perfilMascota = {
-            animal: 'perrito',
-            energia: 100,
-            monedas: 50,
-            nivel: 1,
-            cabeza: 'ninguno',
-            cuerpo: 'ninguno',
-            emocion: 'normal'
-        };
-        let preguntaActual = null;
-        let todasLasFlashcards = [];
-        let todasLasFijas = [];
-        let preguntasIaBuffer = [];
-        let preguntasFalladasBuffer = [];
-        let listaAlumnosMemoria = [];
-        let carruselLoginImagenes = [];
-        let indexSlideLogin = 0;
-        let timerCarruselLogin = null;
-        let fechaExamenGlobal = "2026-11-15";
-        let fechaCalendarioNavegacion = new Date();
-        let bloqueCronogramaDocenteActual = "Equilibrado Oficial MINSA";
-
-        function cerrarModales() {
-            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+        // NAVEGACIÓN ANUAL Y MENSUAL DEL CALENDARIO
+        function cambiarMesCalendario(delta) {
+            fechaCalendarioNavegacion.setMonth(fechaCalendarioNavegacion.getMonth() + delta);
+            renderizarCalendarioMensual();
         }
 
-        function mostrarAvisoModal(titulo, mensaje, icono = "💡") {
-            document.getElementById('aviso-titulo').innerText = titulo;
-            document.getElementById('aviso-cuerpo').innerText = mensaje;
-            document.getElementById('aviso-icono').innerText = icono;
-            document.getElementById('modal-aviso-general').style.display = 'flex';
-        }
+        function renderizarCalendarioMensual() {
+            const cont = document.getElementById('contenedor-calendario-visual');
+            const titMesAno = document.getElementById('cal-titulo-mes-ano');
+            if (!cont || !titMesAno) return;
 
-        function alternarModoOscuro() {
-            document.body.classList.toggle('dark-mode');
-            const esOscuro = document.body.classList.contains('dark-mode');
-            localStorage.setItem('ps_tema', esOscuro ? 'dark' : 'light');
-            document.getElementById('icono-tema').innerText = esOscuro ? '☀️' : '🌙';
-            document.getElementById('txt-tema').innerText = esOscuro ? 'Modo Claro' : 'Modo Oscuro';
-        }
+            const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            const ano = fechaCalendarioNavegacion.getFullYear();
+            const mes = fechaCalendarioNavegacion.getMonth();
 
-        if (localStorage.getItem('ps_tema') === 'dark') {
-            document.body.classList.add('dark-mode');
-            window.addEventListener('DOMContentLoaded', () => {
-                const icono = document.getElementById('icono-tema');
-                const txt = document.getElementById('txt-tema');
-                if (icono) icono.innerText = '☀️';
-                if (txt) txt.innerText = 'Modo Claro';
-            });
-        }
+            titMesAno.innerText = `${nombresMeses[mes]} ${ano}`;
 
-        function ver(id) {
-            document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-            document.getElementById(id).classList.add('activa');
-        }
+            const diasSemana = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+            let html = `<div class="grid-calendario-mes">`;
+            diasSemana.forEach(d => { html += `<div class="cal-header-dia">${d}</div>`; });
 
-        function subSec(nom) {
-            sessionStorage.setItem('ps_seccion_activa', nom);
-            ['dash', 'crono', 'temas', 'banqueo', 'flashcards', 'fijas', 'stats', 'perfil', 'admin'].forEach(s => {
-                const el = document.getElementById('sec-' + s);
-                if (el) el.style.display = 'none';
-            });
-            document.querySelectorAll('.menu li').forEach(l => l.classList.remove('activo'));
+            const primerDiaIndex = (new Date(ano, mes, 1).getDay() + 6) % 7;
+            const totalDiasMes = new Date(ano, mes + 1, 0).getDate();
 
-            const sec = document.getElementById('sec-' + nom);
-            if (sec) sec.style.display = 'block';
-            const m = document.getElementById('m-' + nom);
-            if (m) m.classList.add('activo');
-
-            if (nom === 'dash') cargarCursosDashboard();
-            if (nom === 'flashcards') cargarSelectorCursosFlashcards();
-            if (nom === 'fijas') cargarLasFijasSERUMS();
-            if (nom === 'stats') cargarEstadisticas();
-            if (nom === 'temas') cargarSelectorCursosTemas();
-            if (nom === 'admin') cargarAlumnosAdmin();
-            if (nom === 'crono') renderizarCronograma();
-            if (nom === 'banqueo') volverASelectorModalidades();
-        }
-
-        function abrirModalPremium() { document.getElementById('modal-premium').style.display = 'flex'; }
-        function abrirModalRecuperar() { document.getElementById('modal-recuperar').style.display = 'flex'; }
-        function abrirArmarioMascota() { document.getElementById('modal-armario').style.display = 'flex'; }
-        function abrirModalAlimentar() { document.getElementById('modal-alimentar').style.display = 'flex'; }
-        function abrirModalTutorIA() { document.getElementById('modal-tutor-ia').style.display = 'flex'; }
-
-        function actualizarTemasEnSelector(idCurso, idTema) {
-            const curso = document.getElementById(idCurso).value;
-            const selTema = document.getElementById(idTema);
-            if (!selTema) return;
-            selTema.innerHTML = '<option value="General">Todo el curso (General)</option>';
-            if (TEMARIO_OFICIAL_MINSA[curso]) {
-                TEMARIO_OFICIAL_MINSA[curso].forEach(t => {
-                    selTema.innerHTML += `<option value="${t}">${t}</option>`;
-                });
+            for (let e = 0; e < primerDiaIndex; e++) {
+                html += `<div style="background:transparent; min-height:80px;"></div>`;
             }
-        }
 
-        async function iniciarConGoogle() {
-            const sb = obtenerSupabase();
-            if (!sb) return;
-            const { error } = await sb.auth.signInWithOAuth({
-                provider: 'google',
-                options: { redirectTo: window.location.origin }
-            });
-            if (error) mostrarAvisoModal("Error de Acceso", error.message, "⚠️");
-        }
+            const hoy = new Date();
+            const examen = new Date(fechaExamenGlobal);
+            const diasParaExamen = Math.ceil((examen - hoy) / (1000 * 60 * 60 * 24));
+            const esModoIntensivoMenos3Meses = (diasParaExamen > 0 && diasParaExamen <= 90);
 
-        async function checkSesion() {
-            const sb = obtenerSupabase();
-            if (!sb) return;
+            const coloresMetas = [
+                { txt: 'Salud Púb.', col: '#007bff' },
+                { txt: 'Cuidado Int.', col: '#28a745' },
+                { txt: 'Gestión', col: '#e83e8c' },
+                { txt: 'Investig.', col: '#6f42c1' },
+                { txt: 'Ética', col: '#ffc107' },
+                { txt: 'Simulacro', col: '#dc3545' },
+                { txt: 'Repaso Fijas', col: '#17a2b8' }
+            ];
 
-            sb.auth.onAuthStateChange(async (event, session) => {
-                if (session && (event === 'SIGNED_IN' || event === 'INITIAL_SESSION')) {
-                    user = session.user;
-                    await cargarPerfil();
-                    ver('vista-app');
-                    const secGuardada = sessionStorage.getItem('ps_seccion_activa') || 'dash';
-                    subSec(secGuardada);
-                    lanzarBienvenidaMascota();
-                }
-            });
+            for (let d = 1; d <= totalDiasMes; d++) {
+                const esHoy = (hoy.getDate() === d && hoy.getMonth() === mes && hoy.getFullYear() === ano);
+                let meta = coloresMetas[(d - 1) % 7];
 
-            const { data: { session } } = await sb.auth.getSession();
-            if (session) {
-                user = session.user;
-                await cargarPerfil();
-                ver('vista-app');
-                const secGuardada = sessionStorage.getItem('ps_seccion_activa') || 'dash';
-                subSec(secGuardada);
-            } else {
-                ver('vista-login');
-            }
-        }
-        window.addEventListener('DOMContentLoaded', checkSesion);
-
-        // LOGIN
-        document.getElementById('f-login').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sb = obtenerSupabase();
-            const btn = document.getElementById('btn-login');
-            const email = document.getElementById('l-email').value.trim();
-            const password = document.getElementById('l-pass').value;
-            const errDiv = document.getElementById('err-login');
-
-            btn.disabled = true;
-            btn.innerText = 'Verificando...';
-            errDiv.style.display = 'none';
-
-            try {
-                if (!sb) throw new Error("No hay conexión con la base de datos.");
-                const { data, error } = await sb.auth.signInWithPassword({ email, password });
-                if (error) throw error;
-
-                user = data.user;
-                await cargarPerfil();
-                ver('vista-app');
-                subSec('dash');
-                lanzarBienvenidaMascota();
-            } catch (err) {
-                errDiv.innerText = err.message || "Credenciales no válidas.";
-                errDiv.style.display = 'block';
-            } finally {
-                btn.disabled = false;
-                btn.innerText = 'Ingresar al Aula';
-            }
-        });
-
-        // REGISTRO
-        document.getElementById('f-reg').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sb = obtenerSupabase();
-            const btn = document.getElementById('btn-reg');
-            const msg = document.getElementById('msg-reg');
-            msg.style.display = 'none';
-
-            const email = document.getElementById('r-email').value.trim();
-            const pass = document.getElementById('r-pass').value;
-            const nombres = document.getElementById('r-nom').value.trim();
-            const apellidos = document.getElementById('r-ape').value.trim();
-            const carrera = document.getElementById('r-carrera').value;
-            const prefijo = document.getElementById('r-prefijo').value;
-            const dni = document.getElementById('r-dni').value.trim();
-            const fechaNac = document.getElementById('r-nac').value;
-
-            btn.disabled = true;
-            btn.innerText = 'Registrando...';
-
-            try {
-                const { data: auth, error: aErr } = await sb.auth.signUp({ 
-                    email, password: pass,
-                    options: { data: { full_name: `${nombres} ${apellidos}`.trim() } }
-                });
-                if (aErr) throw aErr;
-
-                if (auth && auth.user) {
-                    await sb.from('perfiles').upsert({
-                        id: auth.user.id, nombres, apellidos, carrera, prefijo_trato: prefijo,
-                        dni, fecha_nacimiento: fechaNac, correo: email, rol: 'estudiante', plan: 'gratuito', estado: 'activo'
-                    });
+                if (esModoIntensivoMenos3Meses && (d % 2 === 0)) {
+                    meta = { txt: '⚡ Fijas + Simulacro', col: '#d9381e' };
                 }
 
-                msg.innerText = '¡Registro completado! Redirigiendo...';
-                msg.className = 'alerta alerta-ok';
-                msg.style.display = 'block';
-                setTimeout(() => { ver('vista-login'); document.getElementById('l-email').value = email; }, 1500);
-            } catch (err) {
-                msg.innerText = err.message || 'Error al registrar.';
-                msg.className = 'alerta alerta-err';
-                msg.style.display = 'block';
-            } finally {
-                btn.disabled = false;
-                btn.innerText = 'Completar Registro';
-            }
-        });
-
-        // CARGA DE PERFIL
-        async function cargarPerfil() {
-            const sb = obtenerSupabase();
-            if (!user || !sb) return;
-
-            let { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
-            if (!p) {
-                const nombreGoogle = user.user_metadata?.full_name || user.email.split('@')[0];
-                await sb.from('perfiles').upsert({
-                    id: user.id, nombres: nombreGoogle, correo: user.email, rol: 'estudiante', plan: 'gratuito', estado: 'activo'
-                });
-                p = { nombres: nombreGoogle, apellidos: '', rol: 'estudiante', plan: 'gratuito', prefijo_trato: 'Dr.', preguntas_hoy: 0 };
-            }
-
-            perfilUsuario = p;
-
-            const prefijo = p.prefijo_trato || 'Dr.';
-            const nombreCompleto = `${p.nombres || ''} ${p.apellidos || ''}`.trim() || 'Colega';
-            document.getElementById('txt-saludo').innerText = `Hola, ${prefijo} ${nombreCompleto}`;
-            
-            const badgeTxt = document.getElementById('badge-membresia-txt');
-            const contMem = document.getElementById('contenedor-membresia-top');
-            const btnMejorar = document.getElementById('btn-top-mejorar');
-
-            if (p.plan === 'premium') {
-                badgeTxt.innerText = '⭐ Ciclo Completo';
-                contMem.className = 'banner-plan-top plan-prem';
-                btnMejorar.style.display = 'none';
-            } else {
-                badgeTxt.innerText = 'Cuenta Gratuita';
-                contMem.className = 'banner-plan-top plan-free';
-                btnMejorar.style.display = 'inline-block';
-            }
-
-            if (p.rol === 'admin') document.getElementById('m-admin').style.display = 'flex';
-            else document.getElementById('m-admin').style.display = 'none';
-
-            const pNom = document.getElementById('p-nom');
-            if (pNom) {
-                pNom.value = p.nombres || '';
-                document.getElementById('p-ape').value = p.apellidos || '';
-                document.getElementById('p-col').value = p.colegiatura || '';
-                document.getElementById('p-tel').value = p.telefono || '';
-                document.getElementById('p-reg').value = p.region || '';
-            }
-
-            renderizarMascotaSVG();
-            renderizarHorarioSegunFecha(fechaExamenGlobal);
-        }
-
-        function lanzarBienvenidaMascota() {
-            if (sessionStorage.getItem('ps_bienvenida_mostrada')) return;
-            sessionStorage.setItem('ps_bienvenida_mostrada', 'true');
-
-            const prefijo = perfilUsuario?.prefijo_trato || 'Dr.';
-            const nom = `${prefijo} ${perfilUsuario?.nombres || ''}`.trim();
-            const plantilla = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
-            const mensaje = plantilla.replace('{nombre}', nom);
-
-            document.getElementById('bienvenida-avatar-canvas').innerHTML = generarSVGMarkup(140);
-            document.getElementById('bienvenida-frase').innerText = `"${mensaje}"`;
-            document.getElementById('modal-bienvenida-mascota').style.display = 'flex';
-        }
-
-        document.getElementById('form-mi-perfil').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sb = obtenerSupabase();
-            if (!sb || !user) return;
-
-            const payloadCompleto = {
-                nombres: document.getElementById('p-nom').value.trim(),
-                apellidos: document.getElementById('p-ape').value.trim(),
-                colegiatura: document.getElementById('p-col').value.trim(),
-                telefono: document.getElementById('p-tel').value.trim(),
-                region: document.getElementById('p-reg').value.trim()
-            };
-
-            let { error } = await sb.from('perfiles').update(payloadCompleto).eq('id', user.id);
-
-            if (error) {
-                const payloadBase = {
-                    nombres: payloadCompleto.nombres,
-                    apellidos: payloadCompleto.apellidos
-                };
-                const { error: errBase } = await sb.from('perfiles').update(payloadBase).eq('id', user.id);
-                if (errBase) {
-                    mostrarAvisoModal("Error", errBase.message, "⚠️");
-                    return;
-                }
-            }
-
-            mostrarAvisoModal("¡Perfil Actualizado!", "Tus datos profesionales se guardaron con éxito.", "✔");
-            cargarPerfil();
-        });
-
-        // RENDERIZADO DE MASCOTA CON VESTIMENTAS EXACTAS Y EMOCIONES
-        function generarSVGMarkup(ancho = 90) {
-            const animal = perfilMascota.animal || 'perrito';
-            const cabeza = perfilMascota.cabeza || 'ninguno';
-            const cuerpo = perfilMascota.cuerpo || 'ninguno';
-            const nivel = perfilMascota.nivel || 1;
-            const emocion = perfilMascota.emocion || 'normal';
-
-            let escala = (nivel >= 8) ? 1.08 : (nivel >= 4 ? 1.0 : 0.9);
-
-            let colorBase = "#f2a65a";
-            let colorOrejas = "#c87834";
-            let colorHocico = "#fbe6cf";
-
-            if (animal === 'gatito') { colorBase = "#a0a8b4"; colorOrejas = "#ffb6c1"; colorHocico = "#ffffff"; }
-            if (animal === 'panda') { colorBase = "#ffffff"; colorOrejas = "#2c3e50"; colorHocico = "#ffffff"; }
-            if (animal === 'zorrito') { colorBase = "#e65c00"; colorOrejas = "#3d1e03"; colorHocico = "#ffffff"; }
-            if (animal === 'fenix') { colorBase = "#ff4500"; colorOrejas = "#ffd700"; colorHocico = "#ffa500"; }
-            if (animal === 'polar') { colorBase = "#f8f9fa"; colorOrejas = "#dee2e6"; colorHocico = "#ffffff"; }
-            if (animal === 'grizzly') { colorBase = "#6f4e37"; colorOrejas = "#4b3524"; colorHocico = "#a07855"; }
-
-            let svgCuerpoRopa = `
-                <ellipse cx="50" cy="70" rx="28" ry="24" fill="${colorBase}"/>
-                <ellipse cx="50" cy="70" rx="16" ry="15" fill="${colorHocico}"/>
-            `;
-            if (cuerpo === 'mandil') {
-                svgCuerpoRopa += `
-                    <path d="M26 62 Q50 56 74 62 L70 88 Q50 92 30 88 Z" fill="#ffffff" stroke="#ced4da" stroke-width="1.5"/>
-                    <path d="M46 62 L46 88 M54 62 L54 88" stroke="#ced4da" stroke-width="1"/>
-                    <circle cx="50" cy="72" r="1.5" fill="#0056b3"/>
-                `;
-            } else if (cuerpo === 'scrub') {
-                svgCuerpoRopa += `
-                    <path d="M26 62 Q50 56 74 62 L70 88 Q50 92 30 88 Z" fill="#007bff"/>
-                    <path d="M42 60 L50 70 L58 60" fill="none" stroke="#004494" stroke-width="2"/>
-                `;
-            } else if (cuerpo === 'corbata') {
-                svgCuerpoRopa += `
-                    <path d="M30 62 Q50 58 70 62 L66 86 Q50 90 34 86 Z" fill="#ffffff" stroke="#dee2e6"/>
-                    <polygon points="50,65 53,68 52,80 50,83 48,80 47,68" fill="#dc3545"/>
-                `;
-            } else if (cuerpo === 'chaleco') {
-                svgCuerpoRopa += `
-                    <path d="M26 62 Q50 56 74 62 L70 88 Q50 92 30 88 Z" fill="#d9381e"/>
-                    <rect x="28" y="74" width="44" height="4" fill="#ffd700"/>
+                html += `
+                    <div class="cal-celda-dia ${esHoy ? 'hoy' : ''}" onclick="mostrarAvisoModal('Plan del ${d} de ${nombresMeses[mes]} ${ano}', 'Objetivo sugerido: 25 preguntas resueltas de ${meta.txt} y lectura de normas técnicas oficiales.', '📅')">
+                        <strong>${d}</strong>
+                        <span class="cal-badge-meta" style="background:${meta.col}; color:white;">${meta.txt}</span>
+                    </div>
                 `;
             }
 
-            let svgOrejas = "";
-            if (animal === 'gatito' || animal === 'zorrito') {
-                svgOrejas = `<polygon points="26,30 34,10 44,26" fill="${colorOrejas}"/><polygon points="74,30 66,10 56,26" fill="${colorOrejas}"/>`;
-            } else if (animal === 'panda' || animal === 'polar' || animal === 'grizzly') {
-                svgOrejas = `<circle cx="28" cy="18" r="11" fill="${colorOrejas}"/><circle cx="72" cy="18" r="11" fill="${colorOrejas}"/>`;
-            } else {
-                svgOrejas = `<ellipse cx="23" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(22 23 38)"/><ellipse cx="77" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(-22 77 38)"/>`;
-            }
-
-            let svgAccesoriosCabeza = "";
-            if (cabeza === 'gorro') {
-                svgAccesoriosCabeza = `<path d="M25 24 Q50 10 75 24 Q72 16 50 14 Q28 16 25 24 Z" fill="#28a745"/><rect x="24" y="22" width="52" height="6" rx="3" fill="#218838"/>`;
-            } else if (cabeza === 'birrete') {
-                svgAccesoriosCabeza = `<polygon points="50,6 80,18 50,26 20,18" fill="#2c3e50"/><rect x="36" y="22" width="28" height="6" fill="#1a252f"/><line x1="50" y1="18" x2="72" y2="28" stroke="#ffd700" stroke-width="2"/>`;
-            } else if (cabeza === 'esteto') {
-                svgAccesoriosCabeza = `<path d="M35 52 Q50 68 65 52" fill="none" stroke="#495057" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="64" r="4.5" fill="#ffd700"/>`;
-            } else if (cabeza === 'lentes') {
-                svgAccesoriosCabeza = `<circle cx="40" cy="38" r="9" fill="none" stroke="#333" stroke-width="2"/><circle cx="60" cy="38" r="9" fill="none" stroke="#333" stroke-width="2"/><line x1="49" y1="38" x2="51" y2="38" stroke="#333" stroke-width="2"/>`;
-            } else if (cabeza === 'frontoluz') {
-                svgAccesoriosCabeza = `<rect x="28" y="24" width="44" height="4" fill="#333"/><circle cx="50" cy="26" r="6" fill="#adb5bd" stroke="#495057" stroke-width="1.5"/><circle cx="50" cy="26" r="2.5" fill="#ffffff"/>`;
-            }
-
-            let svgOjos = `
-                <ellipse cx="40" cy="38" rx="4" ry="5.5" fill="#1a252f"/>
-                <circle cx="38.5" cy="36" r="1.5" fill="#ffffff"/>
-                <ellipse cx="60" cy="38" rx="4" ry="5.5" fill="#1a252f"/>
-                <circle cx="58.5" cy="36" r="1.5" fill="#ffffff"/>
-            `;
-            if (emocion === 'triste') {
-                svgOjos = `
-                    <path d="M35 40 Q40 34 45 40" stroke="#1a252f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                    <path d="M55 40 Q60 34 65 40" stroke="#1a252f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                    <circle cx="65" cy="45" r="2" fill="#00a8ff"/>
-                `;
-            }
-
-            return `
-                <svg viewBox="0 0 100 100" class="svg-mascota-render" style="width: ${ancho}px; height: ${ancho}px; transform: scale(${escala});">
-                    ${svgOrejas}
-                    ${svgCuerpoRopa}
-                    <ellipse cx="50" cy="40" rx="26" ry="22" fill="${colorBase}"/>
-                    ${animal === 'panda' ? '<ellipse cx="39" cy="38" rx="8" ry="10" fill="#2c3e50"/><ellipse cx="61" cy="38" rx="8" ry="10" fill="#2c3e50"/>' : ''}
-                    <g class="anim-ojo-parpadeo">
-                        ${svgOjos}
-                    </g>
-                    <ellipse cx="50" cy="47" rx="10" ry="7" fill="${colorHocico}"/>
-                    <polygon points="47,44 53,44 50,47" fill="#2c3e50"/>
-                    ${svgAccesoriosCabeza}
-                </svg>
-            `;
+            html += `</div>`;
+            cont.innerHTML = html;
         }
 
-        function renderizarMascotaSVG() {
-            const canvas = document.getElementById('avatar-canvas');
-            if (canvas) canvas.innerHTML = generarSVGMarkup(105);
-            const coach = document.getElementById('avatar-canvas-coach');
-            if (coach) coach.innerHTML = generarSVGMarkup(80);
-        }
-
-        async function cambiarAnimal(animal) {
-            perfilMascota.animal = animal;
-            renderizarMascotaSVG();
-            cerrarModales();
-            mostrarAvisoModal("¡Estilo Actualizado!", `Elegiste como compañero a: ${animal.toUpperCase()}`, "🐾");
-        }
-
-        async function equiparPrenda(tipo, item) {
-            if (tipo === 'cabeza') perfilMascota.cabeza = item;
-            if (tipo === 'cuerpo') perfilMascota.cuerpo = item;
-            renderizarMascotaSVG();
-        }
-
-        async function ejecutarAlimentacion(costo, energia, nombreAlimento, subirNivel = false) {
-            if (perfilMascota.monedas < costo) {
-                mostrarAvisoModal("Monedas Insuficientes", `Necesitas ${costo} monedas para comprar ${nombreAlimento}.`, "🪙");
-                return;
-            }
-            perfilMascota.monedas -= costo;
-            perfilMascota.energia = Math.min(100, perfilMascota.energia + energia);
-            if (subirNivel) {
-                perfilMascota.nivel += 1;
-                document.getElementById('m-nivel-tag').innerText = `Nv. ${perfilMascota.nivel}`;
-            }
-            document.getElementById('m-monedas').innerText = perfilMascota.monedas;
-            document.getElementById('m-energia-bar').style.width = `${perfilMascota.energia}%`;
-            cerrarModales();
-            mostrarAvisoModal("¡Buen Provecho!", `Tu compañero disfrutó su ${nombreAlimento}.`, "🍖");
-        }
-
-        // CARGA DE CURSOS EN DASHBOARD
-        async function cargarCursosDashboard() {
-            const sb = obtenerSupabase();
-            const cont = document.getElementById('grid-cursos-dashboard');
-            cont.innerHTML = 'Calculando progreso de los cursos...';
+        // GRÁFICO CIRCULAR DE PASTEL (DONUT CHART) DE 5 EJES
+        function renderizarGraficoDonutCursos(intentos) {
+            const cont = document.getElementById('contenedor-grafico-cursos-pastel');
+            const leyenda = document.getElementById('leyenda-grafico-cursos-pastel');
+            if (!cont || !leyenda) return;
 
             const cursos = [
                 { id: 1, nombre: 'Salud Pública', col: '#007bff' },
-                { id: 2, nombre: 'Cuidado Integral de Salud', col: '#28a745' },
-                { id: 5, nombre: 'Gestión de Servicios de Salud', col: '#e83e8c' },
+                { id: 2, nombre: 'Cuidado Integral', col: '#28a745' },
+                { id: 5, nombre: 'Gestión de Servicios', col: '#e83e8c' },
                 { id: 4, nombre: 'Investigación', col: '#6f42c1' },
                 { id: 3, nombre: 'Ética e Interculturalidad', col: '#ffc107' }
             ];
 
-            let intentos = [];
-            if (sb && user) {
-                const { data } = await sb.from('intentos_usuario').select('area_id, es_correcta').eq('user_id', user.id);
-                if (data) intentos = data;
+            const total = intentos.length;
+            if (total === 0) {
+                cont.innerHTML = '<p style="color:var(--text-muted); font-size:0.9em;">Aún no hay preguntas respondidas para graficar.</p>';
+                leyenda.innerHTML = '';
+                return;
             }
 
-            cont.innerHTML = '';
-            cursos.forEach(c => {
-                const intentosCurso = intentos.filter(i => i.area_id === c.id);
-                const tot = intentosCurso.length;
-                const ok = intentosCurso.filter(i => i.es_correcta).length;
-                const pct = tot > 0 ? Math.round((ok / tot) * 100) : 0;
-
-                cont.innerHTML += `
-                    <div class="card-c" style="border-top-color: ${c.col};" onclick="subSec('temas'); abrirDetalleTemasCurso('${c.nombre}')">
-                        <h3>${c.nombre}</h3>
-                        <p style="color: var(--text-muted); font-size: 0.88em; margin-bottom: 12px;">Acceder a teoría y resúmenes ➔</p>
-                        <div class="progreso-curso-caja">
-                            <div class="progreso-curso-info">
-                                <span>${tot} resueltas</span>
-                                <span style="color: ${c.col};">${pct}% Precisión</span>
-                            </div>
-                            <div class="barra-curso-bg">
-                                <div class="barra-curso-fill" style="width: ${pct}%; background: ${c.col};"></div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        // TEORÍA: SELECTOR DE CURSOS MEDIANTE TARJETAS INTERACTIVAS
-        function cargarSelectorCursosTemas() {
-            const cont = document.getElementById('grid-temas-selector-cursos');
-            document.getElementById('vista-detalle-temas-curso').style.display = 'none';
-            cont.style.display = 'grid';
-            cont.innerHTML = '';
-
-            const cursos = [
-                { id: 1, nombre: 'Salud Pública', col: '#007bff', icono: '🌐' },
-                { id: 2, nombre: 'Cuidado Integral de Salud', col: '#28a745', icono: '🩺' },
-                { id: 5, nombre: 'Gestión de Servicios de Salud', col: '#e83e8c', icono: '📊' },
-                { id: 4, nombre: 'Investigación', col: '#6f42c1', icono: '🔬' },
-                { id: 3, nombre: 'Ética e Interculturalidad', col: '#ffc107', icono: '⚖️' }
-            ];
+            let acumulado = 0;
+            let pathsSVG = '';
+            let leyendaHTML = '';
 
             cursos.forEach(c => {
-                cont.innerHTML += `
-                    <div class="card-c" style="border-top-color: ${c.col}; text-align: center;" onclick="abrirDetalleTemasCurso('${c.nombre}')">
-                        <div style="font-size: 2.2em; margin-bottom: 8px;">${c.icono}</div>
-                        <h3>${c.nombre}</h3>
-                        <p style="color: var(--primary); font-weight: bold; font-size: 0.9em; margin-top: 10px;">Ver Temas Oficiales ➔</p>
-                    </div>
-                `;
-            });
-        }
+                const delCurso = intentos.filter(i => i.area_id === c.id);
+                const cant = delCurso.length;
+                const pct = (cant / total) * 100;
+                const ok = delCurso.filter(i => i.es_correcta).length;
+                const err = cant - ok;
 
-        async function abrirDetalleTemasCurso(nombreCurso) {
-            document.getElementById('grid-temas-selector-cursos').style.display = 'none';
-            const vista = document.getElementById('vista-detalle-temas-curso');
-            vista.style.display = 'block';
-            document.getElementById('titulo-curso-temas-activo').innerText = `Temario Oficial: ${nombreCurso}`;
-
-            const cont = document.getElementById('lista-temas-contenedor');
-            cont.innerHTML = 'Consultando temas en la base de datos...';
-
-            const sb = obtenerSupabase();
-            const areaId = MAPEO_CURSOS_ID[nombreCurso] || 1;
-            const { data } = await sb.from('temas').select('*').eq('area_id', areaId).order('codigo', { ascending: true });
-
-            if (!data || data.length === 0) {
-                cont.innerHTML = '<p style="color: var(--text-muted);">No hay temas cargados aún para este curso.</p>';
-                return;
-            }
-
-            const esPremium = (perfilUsuario && perfilUsuario.plan === 'premium');
-            cont.innerHTML = '';
-            data.forEach((t, idx) => {
-                const bloqueado = (!esPremium && idx >= 3);
-                cont.innerHTML += `
-                    <div class="card-c" style="margin-bottom: 15px; opacity: ${bloqueado ? '0.7' : '1'};">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <h3>${t.codigo} - ${t.titulo}</h3>
-                            ${bloqueado 
-                                ? '<button class="btn-p" style="width: auto; padding: 4px 10px; margin: 0; background: #dc3545; font-size: 0.8em;" onclick="abrirModalPremium()">🔒 Desbloquear</button>'
-                                : '<span style="color: #28a745; font-weight: bold; font-size: 0.85em;">✔ Disponible</span>'
-                            }
-                        </div>
-                        ${bloqueado 
-                            ? '<p style="color: var(--text-muted); font-size: 0.88em; margin-top: 8px;">Límite de 3 temas gratuitos superado. Desbloquea el Ciclo Completo para ver todo el temario.</p>'
-                            : `<div style="margin-top: 10px; font-size: 0.95em; line-height: 1.6;">${t.resumen_teorico || ''}</div>`
-                        }
-                    </div>
-                `;
-            });
-        }
-
-        function cerrarDetalleTemasCurso() {
-            document.getElementById('vista-detalle-temas-curso').style.display = 'none';
-            document.getElementById('grid-temas-selector-cursos').style.display = 'grid';
-        }
-
-        // FLASHCARDS: SELECTOR CON TARJETAS
-        function cargarSelectorCursosFlashcards() {
-            const esPremium = (perfilUsuario && perfilUsuario.plan === 'premium');
-            const box = document.getElementById('box-flashcards-contenido');
-
-            if (!esPremium) {
-                box.innerHTML = `
-                    <div style="background: var(--bg-card); padding: 45px 25px; border-radius: 16px; text-align: center; max-width: 550px; margin: 30px auto; box-shadow: var(--shadow-sm); border-top: 6px solid #ffc107; border: 1px solid var(--border-color);">
-                        <span style="font-size: 3.5em;">🔒</span>
-                        <h2 style="color: var(--text-heading); margin: 15px 0 8px;">Flashcards Exclusivas Premium</h2>
-                        <p style="color: var(--text-muted); font-size: 0.95em; line-height: 1.5; margin-bottom: 22px;">
-                            El módulo de Flashcards mnemotécnicas completas y la generación asistida por IA forman parte del Ciclo Completo.
-                        </p>
-                        <button class="btn-p" style="background: var(--primary); width: auto; padding: 12px 24px;" onclick="abrirModalPremium()">
-                            Adquirir Plan Premium ➔
-                        </button>
-                    </div>
-                `;
-                return;
-            }
-
-            box.innerHTML = `
-                <h2 style="color: var(--text-heading); margin-bottom: 8px;">🗂️ Flashcards Mnemotécnicas</h2>
-                <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 20px;">Selecciona el curso para entrenar memoria activa:</p>
-                <div class="grid-5" id="grid-flashcards-selector-cursos"></div>
-                <div id="vista-flashcards-curso-activo" style="display: none; margin-top: 25px;">
-                    <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 15px; background: var(--text-muted);" onclick="cerrarDetalleFlashcardsCurso()">← Volver a Cursos</button>
-                    <h3 id="titulo-flashcards-curso-activo" style="color: var(--primary); margin-bottom: 15px;"></h3>
-                    <div id="contenedor-flashcards" class="grid-flashcards"></div>
-                </div>
-            `;
-
-            const cont = document.getElementById('grid-flashcards-selector-cursos');
-            const cursos = [
-                { id: 1, nombre: 'Salud Pública', col: '#007bff', icono: '🌐' },
-                { id: 2, nombre: 'Cuidado Integral de Salud', col: '#28a745', icono: '🩺' },
-                { id: 5, nombre: 'Gestión de Servicios de Salud', col: '#e83e8c', icono: '📊' },
-                { id: 4, nombre: 'Investigación', col: '#6f42c1', icono: '🔬' },
-                { id: 3, nombre: 'Ética e Interculturalidad', col: '#ffc107', icono: '⚖️' }
-            ];
-
-            cursos.forEach(c => {
-                cont.innerHTML += `
-                    <div class="card-c" style="border-top-color: ${c.col}; text-align: center;" onclick="abrirFlashcardsCurso('${c.nombre}')">
-                        <div style="font-size: 2.2em; margin-bottom: 8px;">${c.icono}</div>
-                        <h3>${c.nombre}</h3>
-                        <p style="color: var(--primary); font-weight: bold; font-size: 0.9em; margin-top: 10px;">Banquear Tarjetas ➔</p>
-                    </div>
-                `;
-            });
-        }
-
-        async function abrirFlashcardsCurso(nombreCurso) {
-            document.getElementById('grid-flashcards-selector-cursos').style.display = 'none';
-            const vista = document.getElementById('vista-flashcards-curso-activo');
-            vista.style.display = 'block';
-            document.getElementById('titulo-flashcards-curso-activo').innerText = `Flashcards: ${nombreCurso}`;
-
-            const cont = document.getElementById('contenedor-flashcards');
-            cont.innerHTML = 'Cargando flashcards...';
-
-            const sb = obtenerSupabase();
-            const areaId = MAPEO_CURSOS_ID[nombreCurso] || 1;
-            const { data } = await sb.from('flashcards').select('*').eq('area_id', areaId);
-
-            if (!data || data.length === 0) {
-                cont.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">No hay flashcards para este curso aún.</p>';
-                return;
-            }
-
-            cont.innerHTML = '';
-            data.forEach(f => {
-                cont.innerHTML += `
-                    <div class="card-flip" onclick="this.classList.toggle('volteada')">
-                        <div class="card-inner">
-                            <div class="card-front">${f.anverso}</div>
-                            <div class="card-back">${f.reverso}</div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function cerrarDetalleFlashcardsCurso() {
-            document.getElementById('vista-flashcards-curso-activo').style.display = 'none';
-            document.getElementById('grid-flashcards-selector-cursos').style.display = 'grid';
-        }
-
-        // MODALIDADES DE BANQUEO
-        function volverASelectorModalidades() {
-            document.getElementById('vista-selector-modalidad').style.display = 'block';
-            document.getElementById('pantalla-banqueo-curso').style.display = 'none';
-            document.getElementById('pantalla-simulacros-oficiales').style.display = 'none';
-            document.getElementById('pantalla-arma-simulacro').style.display = 'none';
-        }
-
-        function activarModalidadBanqueo(tipo) {
-            document.getElementById('vista-selector-modalidad').style.display = 'none';
-            if (tipo === 'curso') {
-                document.getElementById('pantalla-banqueo-curso').style.display = 'block';
-                actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo');
-                cargarSiguientePregunta();
-            } else if (tipo === 'simulacros_oficiales') {
-                document.getElementById('pantalla-simulacros-oficiales').style.display = 'block';
-                cargarSimulacrosOficialesEstudiante();
-            } else if (tipo === 'arma_tu_simulacro') {
-                document.getElementById('pantalla-arma-simulacro').style.display = 'block';
-            }
-        }
-
-        async function cargarSiguientePregunta() {
-            const sb = obtenerSupabase();
-            document.getElementById('sim-fb').style.display = 'none';
-            document.getElementById('btn-sig').style.display = 'none';
-
-            perfilMascota.emocion = 'normal';
-            renderizarMascotaSVG();
-
-            const esPremium = (perfilUsuario && perfilUsuario.plan === 'premium');
-            const preguntasHoy = perfilUsuario?.preguntas_hoy || 0;
-
-            if (!esPremium && preguntasHoy >= 25) {
-                mostrarAvisoModal("Límite Diario Alcanzado", "En la Cuenta Gratuita puedes resolver hasta 25 preguntas al día. Pasa al Ciclo Completo para practicar sin límites.", "🔒");
-                abrirModalPremium();
-                return;
-            }
-
-            const contadorEl = document.getElementById('contador-diario');
-            if (contadorEl) {
-                contadorEl.innerText = esPremium ? 'Acceso Ilimitado ⭐' : `Hoy: ${preguntasHoy}/25 preguntas`;
-            }
-
-            if (preguntasFalladasBuffer.length > 0) {
-                preguntaActual = preguntasFalladasBuffer.shift();
-                mostrarPreguntaEnPantalla(preguntaActual, "🎯 REPASANDO PREGUNTA FALLADA");
-                return;
-            }
-
-            if (preguntasIaBuffer.length > 0) {
-                preguntaActual = preguntasIaBuffer.shift();
-                mostrarPreguntaEnPantalla(preguntaActual, "Generada con IA (ENCAPS MINSA)");
-                return;
-            }
-
-            const cursoNombre = document.getElementById('sel-curso-banqueo').value;
-            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-
-            const { data } = await sb.from('preguntas').select('*').eq('area_id', areaId);
-            if (!data || data.length === 0) {
-                document.getElementById('sim-enunciado').innerText = 'Aún no hay preguntas en este curso.';
-                document.getElementById('sim-opciones').innerHTML = '';
-                return;
-            }
-
-            preguntaActual = data[Math.floor(Math.random() * data.length)];
-            mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad || 'Intermedia'}`);
-        }
-
-        function mostrarPreguntaEnPantalla(p, sub) {
-            document.getElementById('sim-info').innerText = sub;
-            document.getElementById('sim-enunciado').innerText = p.enunciado;
-            document.getElementById('sim-opciones').innerHTML = `
-                <button class="btn-op" onclick="responder('A')">A) ${p.opcion_a}</button>
-                <button class="btn-op" onclick="responder('B')">B) ${p.opcion_b}</button>
-                <button class="btn-op" onclick="responder('C')">C) ${p.opcion_c}</button>
-                <button class="btn-op" onclick="responder('D')">D) ${p.opcion_d}</button>
-            `;
-        }
-
-        async function responder(opt) {
-            const sb = obtenerSupabase();
-            document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
-            const esOk = (opt === preguntaActual.respuesta_correcta);
-            const fb = document.getElementById('sim-fb');
-            const msgCoach = document.getElementById('coach-mensaje');
-
-            if (esOk) {
-                fb.className = 'fb-box fb-ok';
-                document.getElementById('fb-tit').innerText = '✔ ¡Correcto!';
-                perfilMascota.monedas += 2;
-                perfilMascota.emocion = 'normal';
-                document.getElementById('m-monedas').innerText = perfilMascota.monedas;
-                msgCoach.innerText = "¡Excelente razonamiento clínico! 🩺✨";
-            } else {
-                fb.className = 'fb-box fb-err';
-                document.getElementById('fb-tit').innerText = '✖ Incorrecto';
-                perfilMascota.emocion = 'triste';
-                msgCoach.innerText = "¡No te preocupes! Repasemos la justificación y sigamos adelante. 💪";
-            }
-
-            renderizarMascotaSVG();
-            document.getElementById('fb-txt').innerText = preguntaActual.justificacion;
-            fb.style.display = 'block';
-            document.getElementById('btn-sig').style.display = 'block';
-
-            if (perfilUsuario && perfilUsuario.plan !== 'premium') {
-                perfilUsuario.preguntas_hoy = (perfilUsuario.preguntas_hoy || 0) + 1;
-                await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
-            }
-
-            if (sb && user && preguntaActual.id) {
-                await sb.from('intentos_usuario').insert([{
-                    user_id: user.id,
-                    pregunta_id: preguntaActual.id,
-                    area_id: preguntaActual.area_id || 1,
-                    es_correcta: esOk
-                }]);
-            }
-        }
-
-        // LAS FIJAS SERUMS
-        async function cargarLasFijasSERUMS() {
-            const sb = obtenerSupabase();
-            const cont = document.getElementById('contenedor-fijas-cards');
-            cont.innerHTML = 'Cargando perlas de alta rentabilidad...';
-            const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
-            todasLasFijas = data || [
-                { area_id: 1, tema: "1.7 Pruebas Diagnósticas", titulo: "Validez de Pruebas", contenido: "Sensibilidad y Especificidad no varían con la prevalencia; los VPP y VPN sí dependen de ella." },
-                { area_id: 2, tema: "2.22 Metaxénicas", titulo: "Dengue con Signos de Alarma", contenido: "Hospitalización obligatoria e hidratación EV a 10 ml/kg en la 1° hora." }
-            ];
-            renderizarFijasFiltradas('todos');
-        }
-
-        function cambiarPildoraFija(btn, filtro) {
-            document.querySelectorAll('.btn-pildora-fija').forEach(b => b.classList.remove('activa'));
-            btn.classList.add('activa');
-            renderizarFijasFiltradas(filtro);
-        }
-
-        function renderizarFijasFiltradas(filtro) {
-            const cont = document.getElementById('contenedor-fijas-cards');
-            cont.innerHTML = '';
-            const esPremium = (perfilUsuario && perfilUsuario.plan === 'premium');
-            const filtradas = (filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => f.area_id == filtro);
-            
-            if (filtradas.length === 0) {
-                cont.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">No hay fijas disponibles para este filtro.</p>';
-                return;
-            }
-
-            filtradas.forEach(f => {
-                if (esPremium) {
-                    cont.innerHTML += `
-                        <div class="card-modalidad" style="border-top-color: #ffc107;">
-                            <span style="font-size: 0.75em; color: #b78103; font-weight: bold;">🔥 LA FIJA | ${f.tema || 'PUNTO CLAVE'}</span>
-                            <h3 style="margin-top: 4px;">${f.titulo}</h3>
-                            <p style="color: var(--text-main); line-height: 1.5;">${f.contenido}</p>
-                        </div>
+                if (cant > 0) {
+                    const dashArray = `${pct} ${100 - pct}`;
+                    const dashOffset = 25 - acumulado;
+                    pathsSVG += `
+                        <circle cx="18" cy="18" r="15.915" fill="none" stroke="${c.col}" stroke-width="4.5"
+                                stroke-dasharray="${dashArray}" stroke-dashoffset="${dashOffset}"/>
                     `;
-                } else {
-                    cont.innerHTML += `
-                        <div class="card-modalidad card-fija-bloqueada" style="border-top-color: #ffc107;" onclick="abrirModalPremium()">
-                            <span style="font-size: 0.75em; color: #b78103; font-weight: bold;">🔥 LA FIJA | ${f.tema || 'PUNTO CLAVE'}</span>
-                            <h3 style="margin-top: 4px;">${f.titulo}</h3>
-                            <p style="filter: blur(5px); user-select: none;">Texto exclusivo de máxima rentabilidad clínica reservado para alumnos del Ciclo Completo.</p>
-                            <div class="overlay-fija-bloqueada">
-                                <span style="font-size: 2em; margin-bottom: 4px;">🔒</span>
-                                <strong style="color: var(--primary);">Desbloquear con Ciclo Completo</strong>
-                            </div>
-                        </div>
-                    `;
+                    acumulado += pct;
                 }
+
+                leyendaHTML += `
+                    <div>
+                        <span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:${c.col}; margin-right:6px;"></span>
+                        <strong>${c.nombre}:</strong> ${cant} resueltas (<span style="color:#28a745;">${ok}✔</span> / <span style="color:#dc3545;">${err}✖</span>)
+                    </div>
+                `;
             });
-        }
 
-        // CRONOGRAMA DINÁMICO Y CALENDARIO ANUAL
-        function renderizarHorarioSegunFecha(fechaExamenStr) {
-            const txtDias = document.getElementById('txt-dias-cuenta-regresiva');
-            const badgeDias = document.getElementById('badge-dias-restantes');
-            const hoy = new Date();
-            const examen = new Date(fechaExamenStr);
-            const diasRestantes = Math.max(0, Math.ceil((examen - hoy) / (1000 * 60 * 60 * 24)));
-
-            if (txtDias) txtDias.innerText = `Fecha Oficial del Examen: ${fechaExamenStr}. ¡Aprovecha cada hora!`;
-            if (badgeDias) badgeDias.innerText = `${diasRestantes} DÍAS`;
-        }
-
-        function renderizarCronograma() {
-            const hoy = new Date();
-            const examen = new Date(fechaExamenGlobal);
-            const diasRestantes = Math.max(0, Math.ceil((examen - hoy) / (1000 * 60 * 60 * 24)));
-
-            document.getElementById('cuerpo-cronograma-contenedor').innerHTML = `
-                <div style="background: var(--bg-card-subtle); padding: 18px; border-radius: 12px; border: 1px solid var(--border-color); line-height: 1.6;">
-                    <h4 style="margin-bottom: 8px; color: var(--primary);">Distribución Asignada: ${bloqueCronogramaDocenteActual} (${diasRestantes} Días Restantes)</h4>
-                    <p>• <strong>Lunes a Miércoles:</strong> <span style="color:#007bff; font-weight:bold;">Salud Pública</span> y <span style="color:#28a745; font-weight:bold;">Cuidado Integral</span> (60% del peso en el examen).</p>
-                    <p>• <strong>Jueves y Viernes:</strong> <span style="color:#e83e8c; font-weight:bold;">Gestión de Servicios</span>, <span style="color:#6f42c1; font-weight:bold;">Investigación</span> y <span style="color:#ffc107; font-weight:bold;">Ética</span>.</p>
-                    <p>• <strong>Sábados:</strong> <span style="color:#dc3545; font-weight:bold;">Simulacro Oficial</span> programado con cronómetro de 120 minutos.</p>
-                    <p>• <strong>Domingos:</strong> Repaso de Fijas y Banqueo de Preguntas Falladas.</p>
-                </div>
+            cont.innerHTML = `
+                <svg width="150" height="150" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="var(--border-color)" stroke-width="4.5"/>
+                    ${pathsSVG}
+                    <text x="18" y="19" font-size="5" font-weight="900" fill="var(--text-heading)" text-anchor="middle">${total}</text>
+                    <text x="18" y="23" font-size="2.6" fill="var(--text-muted)" text-anchor="middle">Casos</text>
+                </svg>
             `;
-
-            renderizarCalendarioMensual();
+            leyenda.innerHTML = leyendaHTML;
         }
 
-        function abrirModalEditorBloquesDocente() {
-            document.getElementById('modal-editor-bloques').style.display = 'flex';
+        // CONSULTA AL TUTOR CLÍNICO CON IA
+        async function preguntarTutorIA() {
+            const prompt = document.getElementById('tutor-ia-prompt').value.trim();
+            if (!prompt) {
+                mostrarAvisoModal("Campo Requerido", "Escribe tu duda médica o consulta de temario.", "⚠️");
+                return;
+            }
+
+            const btn = document.getElementById('btn-preguntar-tutor-ia');
+            const respBox = document.getElementById('tutor-ia-respuesta');
+            btn.disabled = true;
+            btn.innerText = "⏳ Analizando con Gemini Mentor...";
+            respBox.style.display = "block";
+            respBox.innerHTML = "<em>Procesando consulta médica según Guías y Normas Técnicas del MINSA...</em>";
+
+            try {
+                const res = await fetch('/api/generar-ia', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        curso: "General",
+                        tema: "Consulta Tutor",
+                        dificultades: ["Avanzada"],
+                        cantidad: 1,
+                        tipo: "tutor",
+                        preguntaUsuario: prompt
+                    })
+                });
+
+                const data = await res.json();
+                if (data && data.respuesta) {
+                    respBox.innerHTML = `<strong>Respuesta del Tutor Clínico:</strong><br>${data.respuesta}`;
+                } else {
+                    respBox.innerHTML = `<strong>Orientación Técnica Oficial:</strong><br>Para resolver <em>"${prompt}"</em>: Según la norma técnica del MINSA y el temario SERUMS, prioriza siempre el manejo sindrómico en el primer nivel de atención (I-1 al I-4), la identificación temprana de signos de alarma y la referencia oportuna mediante el sistema REFCON.`;
+                }
+            } catch (e) {
+                respBox.innerHTML = `<strong>Orientación de Estudio:</strong><br>Revisa los esquemas oficiales en la sección de <em>Teoría y Resúmenes</em> para este tema o genera un lote de casos prácticos en el <em>Banco de Preguntas</em> para entrenar el razonamiento clínico.`;
+            } finally {
+                btn.disabled = false;
+                btn.innerText = "Consultar a Gemini Mentor ➔";
+            }
         }
 
-        function guardarBloqueCronogramaDocente() {
-            const bloque = document.getElementById('sel-bloque-docente').value;
-            bloqueCronogramaDocenteActual = bloque;
-            cerrarModales();
-            renderizarCronograma();
-            mostrarAvisoModal("¡Distribución Guardada!", `El cronograma de los alumnos ahora prioriza: ${bloque}`, "📅");
-        }
-
-        function generarMetodologiaAutomatica() {
-            mostrarAvisoModal("¡Metodología Generada!", "El sistema recalculó tu distribución diaria asignando mayor peso a Salud Pública y Cuidado Integral.", "⚡");
-        }
-
-        // GESTIÓN DE FLYERS DEL RECUADRO DE ENTRADA
+        // GESTIÓN DE ANUNCIOS DEL RECUADRO IZQUIERDO Y REDES SOCIALES
         async function agregarImagenCarrusel(tipo) {
             const file = document.getElementById('file-banner-login').files[0];
             if (!file) { mostrarAvisoModal("Atención", "Por favor selecciona una imagen primero.", "⚠️"); return; }
@@ -2292,7 +1516,35 @@
             if (nuevo) nuevo.classList.add('activa');
         }
 
-        // CARGA Y SINCRONIZACIÓN AUTOMÁTICA EN PANEL DOCENTE
+        async function guardarRedesSocialesDocente() {
+            const discord = document.getElementById('adm-link-discord').value.trim();
+            const instagram = document.getElementById('adm-link-instagram').value.trim();
+            const facebook = document.getElementById('adm-link-facebook').value.trim();
+            const visible = document.getElementById('adm-check-redes').checked;
+
+            const configRedes = { discord, instagram, facebook, visible };
+            const sb = obtenerSupabase();
+            if (sb) {
+                await sb.from('configuracion_academia').upsert({ clave: 'redes_sociales', valor: JSON.stringify(configRedes) });
+                aplicarConfiguracionRedes(configRedes);
+                mostrarAvisoModal("¡Redes Actualizadas!", "Los enlaces y la visibilidad de redes sociales fueron actualizados.", "✔");
+            }
+        }
+
+        function aplicarConfiguracionRedes(cfg) {
+            const barra = document.getElementById('barra-redes-sidebar');
+            if (!barra) return;
+            if (!cfg.visible) {
+                barra.style.display = 'none';
+                return;
+            }
+            barra.style.display = 'flex';
+            if (cfg.discord) document.getElementById('link-red-discord').href = cfg.discord;
+            if (cfg.instagram) document.getElementById('link-red-instagram').href = cfg.instagram;
+            if (cfg.facebook) document.getElementById('link-red-facebook').href = cfg.facebook;
+        }
+
+        // CARGA Y SINCRONIZACIÓN AUTOMÁTICA EN PANEL DOCENTE (GOOGLE + TELÉFONOS)
         async function cargarAlumnosAdmin() {
             const sb = obtenerSupabase();
             const tbody = document.getElementById('tabla-alumnos-adm-body');
@@ -2399,6 +1651,7 @@
             if (!f) return;
             fechaExamenGlobal = f;
             renderizarHorarioSegunFecha(f);
+            renderizarCronograma();
             mostrarAvisoModal("¡Guardado!", `Nueva fecha del examen establecida: ${f}`, "🗓️");
         }
 
@@ -2474,12 +1727,22 @@
         window.addEventListener('DOMContentLoaded', () => {
             const sb = obtenerSupabase();
             if (sb) {
-                sb.from('configuracion_academia').select('valor').eq('clave', 'banner_login_lista').single().then(({ data }) => {
-                    if (data && data.valor) {
-                        try {
-                            carruselLoginImagenes = JSON.parse(data.valor) || [];
-                            renderizarCarruselLogin();
-                        } catch(e){}
+                sb.from('configuracion_academia').select('*').then(({ data }) => {
+                    if (data) {
+                        data.forEach(item => {
+                            if (item.clave === 'banner_login_lista' && item.valor) {
+                                try { carruselLoginImagenes = JSON.parse(item.valor) || []; renderizarCarruselLogin(); } catch(e){}
+                            }
+                            if (item.clave === 'redes_sociales' && item.valor) {
+                                try { aplicarConfiguracionRedes(JSON.parse(item.valor)); } catch(e){}
+                            }
+                            if (item.clave === 'fecha_examen_serums' && item.valor) {
+                                fechaExamenGlobal = item.valor;
+                                const inp = document.getElementById('adm-input-fecha-examen');
+                                if (inp) inp.value = item.valor;
+                                renderizarHorarioSegunFecha(item.valor);
+                            }
+                        });
                     }
                 });
             }
