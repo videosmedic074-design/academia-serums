@@ -103,7 +103,7 @@
         }
         @media (max-width: 880px) {
             .contenedor-login-split { flex-direction: column; max-width: 500px; }
-            .columna-publicidad { display: none !important; }
+            .columna-publicidad { min-height: 300px !important; }
             .columna-formulario { padding: 35px 25px !important; }
         }
         
@@ -116,7 +116,7 @@
             display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 18px;
         }
         .carrusel-img {
-            width: 100%; height: 100%; max-height: 500px; object-fit: cover;
+            width: 100%; height: 100%; max-height: 500px; object-fit: contain;
             border-radius: 18px; border: 2px solid rgba(255,215,0,0.3);
             display: none; transition: opacity 0.4s ease;
         }
@@ -448,6 +448,7 @@
     <section id="vista-login" class="pantalla activa">
         <div class="fondo-auth-premium">
             <div class="contenedor-login-split">
+                <!-- COLUMNA IZQUIERDA: EL FLYER PUBLICITARIO SE MUESTRA AQUÍ DIRECTAMENTE -->
                 <div class="columna-publicidad">
                     <div class="carrusel-contenedor" id="carrusel-login-box">
                         <button class="btn-carrusel-nav btn-carrusel-prev" onclick="cambiarSlideLogin(-1)">❮</button>
@@ -1028,7 +1029,7 @@
                             </form>
                         </div>
 
-                        <!-- 3. Anuncios y Horarios (SUBIDA DE FLYERS DE ENTRADA Y POP-UP) -->
+                        <!-- 3. Anuncios y Horarios -->
                         <div id="subtab-adm-anuncios" class="subtab-adm">
                             <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">🗓️ Fecha Oficial del Examen SERUMS</h4>
@@ -1040,18 +1041,10 @@
 
                             <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">1. Carrusel de Entrada (Flyer de Portada de Login)</h4>
-                                <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">Sube imágenes para rotar en la columna izquierda del login:</p>
+                                <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">Sube imágenes para rotar en el recuadro izquierdo de la pantalla de inicio:</p>
                                 <input type="file" id="file-banner-login" accept="image/*" style="background: var(--bg-card);">
-                                <button type="button" class="btn-p" style="width: auto; margin-top: 10px; padding: 8px 16px;" onclick="agregarImagenCarrusel('banner_login')">➕ Agregar Imagen a Portada</button>
+                                <button type="button" class="btn-p" style="width: auto; margin-top: 10px; padding: 8px 16px;" onclick="agregarImagenCarrusel('banner_login')">➕ Agregar Imagen al Recuadro</button>
                                 <div id="lista-anuncios-login-adm" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
-                            </div>
-
-                            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px;">
-                                <h4 style="color: var(--primary); margin-bottom: 8px;">2. Anuncio Pop-Up al Iniciar Sesión (Aviso Único para Alumnos)</h4>
-                                <p style="font-size: 0.88em; color: var(--text-muted); margin-bottom: 12px;">Sube un flyer que saltará al alumno una sola vez al entrar:</p>
-                                <input type="file" id="file-popup-anuncio" accept="image/*" style="background: var(--bg-card);">
-                                <button type="button" class="btn-p" style="width: auto; margin-top: 10px; padding: 8px 16px;" onclick="agregarImagenCarrusel('popup_anuncio')">➕ Guardar Pop-Up</button>
-                                <div id="lista-anuncios-popup-adm" style="margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap;"></div>
                             </div>
                         </div>
 
@@ -1127,7 +1120,7 @@
                             </form>
                         </div>
 
-                        <!-- 8. Alumnos y Membresías (SINCRONIZACIÓN AUTOMÁTICA DE GOOGLE Y TELÉFONOS) -->
+                        <!-- 8. Alumnos y Membresías -->
                         <div id="subtab-adm-a" class="subtab-adm">
                             <div style="display: flex; gap: 10px; margin-bottom: 15px;">
                                 <button class="btn-p" style="width: auto; background: #25d366; margin: 0; padding: 8px 14px;" onclick="copiarTodosLosTelefonos()">📋 Copiar Teléfonos</button>
@@ -1161,15 +1154,6 @@
             </div>
             <button class="btn-p" style="background: linear-gradient(135deg, #6f42c1, #0056b3);" id="btn-preguntar-tutor-ia" onclick="preguntarTutorIA()">Consultar a Gemini Mentor ➔</button>
             <div id="tutor-ia-respuesta" style="margin-top: 15px; padding: 14px; background: var(--bg-card-subtle); border-radius: 10px; border: 1px solid var(--border-color); font-size: 0.92em; line-height: 1.6; display: none;"></div>
-        </div>
-    </div>
-
-    <!-- MODAL POP-UP PUBLICITARIO ÚNICO AL INICIAR SESIÓN -->
-    <div id="modal-popup-anuncio" class="modal-overlay">
-        <div class="modal-box" style="max-width: 580px; padding: 22px;">
-            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
-            <div id="popup-anuncio-contenedor-img" style="margin-bottom: 15px;"></div>
-            <button class="btn-p" onclick="cerrarModales()">Continuar al Aula ➔</button>
         </div>
     </div>
 
@@ -1320,11 +1304,9 @@
             let html = `<div class="grid-calendario-mes">`;
             diasSemana.forEach(d => { html += `<div class="cal-header-dia">${d}</div>`; });
 
-            // Primer día y total de días del mes
-            const primerDiaIndex = (new Date(ano, mes, 1).getDay() + 6) % 7; // Ajustar a Lunes = 0
+            const primerDiaIndex = (new Date(ano, mes, 1).getDay() + 6) % 7;
             const totalDiasMes = new Date(ano, mes + 1, 0).getDate();
 
-            // Celdas vacías iniciales
             for (let e = 0; e < primerDiaIndex; e++) {
                 html += `<div style="background:transparent; min-height:75px;"></div>`;
             }
@@ -1465,55 +1447,63 @@
             }
         }
 
-        // LANZAR POP-UP PUBLICITARIO ÚNICO AL ENTRAR
-        function lanzarPopupAnuncioUnico() {
-            if (sessionStorage.getItem('ps_popup_anuncio_mostrado')) return;
-            sessionStorage.setItem('ps_popup_anuncio_mostrado', 'true');
-
-            const cont = document.getElementById('popup-anuncio-contenedor-img');
-            if (!cont) return;
-
-            // Lee de Supabase o usa el flyer guardado
-            const sb = obtenerSupabase();
-            if (!sb) return;
-
-            sb.from('configuracion_academia').select('valor').eq('clave', 'popup_anuncio_lista').single().then(({ data }) => {
-                if (data && data.valor) {
-                    try {
-                        const lista = JSON.parse(data.valor);
-                        if (lista && lista.length > 0) {
-                            cont.innerHTML = `<img src="${lista[0]}" style="width:100%; max-height:400px; object-fit:contain; border-radius:12px;">`;
-                            document.getElementById('modal-popup-anuncio').style.display = 'flex';
-                        }
-                    } catch (e) {}
-                }
-            });
-        }
-
         // GESTIÓN DE ANUNCIOS EN PANEL DOCENTE
         async function agregarImagenCarrusel(tipo) {
-            const fileId = (tipo === 'banner_login') ? 'file-banner-login' : 'file-popup-anuncio';
-            const file = document.getElementById(fileId).files[0];
+            const file = document.getElementById('file-banner-login').files[0];
             if (!file) { mostrarAvisoModal("Atención", "Por favor selecciona una imagen primero.", "⚠️"); return; }
             
             const reader = new FileReader();
             reader.onload = async function(evt) {
                 const base64 = evt.target.result;
                 const sb = obtenerSupabase();
-                const claveConfig = (tipo === 'banner_login') ? 'banner_login_lista' : 'popup_anuncio_lista';
 
-                const { data } = await sb.from('configuracion_academia').select('valor').eq('clave', claveConfig).single();
+                const { data } = await sb.from('configuracion_academia').select('valor').eq('clave', 'banner_login_lista').single();
                 let lista = [];
                 if (data && data.valor) {
                     try { lista = JSON.parse(data.valor); } catch(e){}
                 }
                 lista.push(base64);
 
-                await sb.from('configuracion_academia').upsert({ clave: claveConfig, valor: JSON.stringify(lista) });
-                mostrarAvisoModal("¡Imagen Guardada!", "El flyer publicitario se sincronizó en la base de datos.", "✔");
-                document.getElementById(fileId).value = '';
+                await sb.from('configuracion_academia').upsert({ clave: 'banner_login_lista', valor: JSON.stringify(lista) });
+                carruselLoginImagenes = lista;
+                renderizarCarruselLogin();
+                mostrarAvisoModal("¡Imagen Guardada!", "El flyer se colocó correctamente en el recuadro de inicio.", "✔");
+                document.getElementById('file-banner-login').value = '';
             };
             reader.readAsDataURL(file);
+        }
+
+        function renderizarCarruselLogin() {
+            const cont = document.getElementById('slides-login-contenedor');
+            const placeholder = document.getElementById('banner-login-placeholder');
+            if (!cont) return;
+
+            if (carruselLoginImagenes.length === 0) {
+                if (placeholder) placeholder.style.display = 'block';
+                return;
+            }
+
+            if (placeholder) placeholder.style.display = 'none';
+            cont.innerHTML = '';
+            carruselLoginImagenes.forEach((url, i) => {
+                cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-login-${i}" alt="Anuncio">`;
+            });
+            indexSlideLogin = 0;
+
+            if (timerCarruselLogin) clearInterval(timerCarruselLogin);
+            if (carruselLoginImagenes.length > 1) {
+                timerCarruselLogin = setInterval(() => { cambiarSlideLogin(1); }, 5000);
+            }
+        }
+
+        function cambiarSlideLogin(dir) {
+            if (carruselLoginImagenes.length <= 1) return;
+            const actual = document.getElementById(`slide-login-${indexSlideLogin}`);
+            if (actual) actual.classList.remove('activa');
+
+            indexSlideLogin = (indexSlideLogin + dir + carruselLoginImagenes.length) % carruselLoginImagenes.length;
+            const nuevo = document.getElementById(`slide-login-${indexSlideLogin}`);
+            if (nuevo) nuevo.classList.add('activa');
         }
 
         // CARGA Y SINCRONIZACIÓN AUTOMÁTICA EN PANEL DOCENTE
@@ -1522,7 +1512,6 @@
             const tbody = document.getElementById('tabla-alumnos-adm-body');
             tbody.innerHTML = '<tr><td colspan="6">Sincronizando alumnos en tiempo real...</td></tr>';
 
-            // 1. Sincroniza al usuario actual si viene de Google para garantizar su presencia
             if (user) {
                 await sb.from('perfiles').upsert({
                     id: user.id,
@@ -1537,7 +1526,6 @@
                 });
             }
 
-            // 2. Consulta todos los perfiles registrados
             const { data, error } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
             if (error || !data || data.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="6">No hay alumnos registrados aún.</td></tr>';
@@ -1574,6 +1562,60 @@
             });
         }
 
+        async function alternarPlanAdmin(id, plan) {
+            const sb = obtenerSupabase();
+            await sb.from('perfiles').update({ plan }).eq('id', id);
+            cargarAlumnosAdmin();
+        }
+
+        async function cambiarEstadoCuenta(userId, nuevoEstado) {
+            const sb = obtenerSupabase();
+            const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒");
+                cargarAlumnosAdmin();
+            }
+        }
+
+        async function enviarClaveDesdeAdmin(correoAlumno) {
+            const sb = obtenerSupabase();
+            try {
+                const { error } = await sb.auth.resetPasswordForEmail(correoAlumno, {
+                    redirectTo: window.location.origin
+                });
+                if (error) throw error;
+                mostrarAvisoModal("Enlace Generado", `Se envió el correo para restablecer contraseña a: ${correoAlumno}`, "📬");
+            } catch (err) {
+                mostrarAvisoModal("Error", err.message, "⚠️");
+            }
+        }
+
+        function copiarTodosLosTelefonos() {
+            const tels = listaAlumnosMemoria.map(a => a.telefono).filter(t => t && t.length >= 7);
+            if (tels.length === 0) { mostrarAvisoModal("Aviso", "No hay teléfonos registrados todavía.", "⚠️"); return; }
+            navigator.clipboard.writeText(tels.join(', '));
+            mostrarAvisoModal("¡Copiado!", `Se copiaron ${tels.length} números al portapapeles.`, "📋");
+        }
+
+        function verSubTabAdmin(tipo) {
+            document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
+            document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
+            event.target.classList.add('activa');
+            document.getElementById('subtab-adm-' + tipo).classList.add('activa');
+            if (tipo === 'p') actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema');
+            if (tipo === 'fijas_adm') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema');
+            if (tipo === 'a') cargarAlumnosAdmin();
+        }
+
+        async function guardarFechaExamenOficial() {
+            const f = document.getElementById('adm-input-fecha-examen').value;
+            if (!f) return;
+            fechaExamenGlobal = f;
+            renderizarHorarioSegunFecha(f);
+            mostrarAvisoModal("¡Guardado!", `Nueva fecha del examen establecida: ${f}`, "🗓️");
+        }
+
         // ACTUALIZACIÓN DE ESTADÍSTICAS Y LLAMADA A DONUTS
         async function cargarEstadisticas() {
             const sb = obtenerSupabase();
@@ -1604,11 +1646,59 @@
             renderizarGraficoDonutCursos(data);
         }
 
-        // DISPARAR ANUNCIO Y BIENVENIDA EN LOGIN
+        function renderizarGraficoDonut(pctOk, pctErr) {
+            const strokeDash = pctOk;
+            const strokeGap = 100 - strokeDash;
+            document.getElementById('contenedor-grafico-donut').innerHTML = `
+                <svg width="100" height="100" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#fee2e2" stroke-width="3.8"/>
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="#28a745" stroke-width="3.8"
+                            stroke-dasharray="${strokeDash} ${strokeGap}" stroke-dashoffset="25"/>
+                    <text x="18" y="20.5" font-size="7" font-weight="bold" fill="var(--text-heading)" text-anchor="middle">${pctOk}%</text>
+                </svg>
+            `;
+        }
+
+        async function banquearPreguntasFalladas() {
+            const sb = obtenerSupabase();
+            if (!sb || !user) return;
+            const { data: intentos } = await sb.from('intentos_usuario').select('pregunta_id').eq('user_id', user.id).eq('es_correcta', false);
+            if (!intentos || intentos.length === 0) {
+                mostrarAvisoModal("¡Excelente!", "No tienes preguntas falladas registradas.", "✨");
+                return;
+            }
+            const ids = [...new Set(intentos.map(i => i.pregunta_id))];
+            const { data: preguntas } = await sb.from('preguntas').select('*').in('id', ids);
+            if (preguntas && preguntas.length > 0) {
+                preguntasFalladasBuffer = [...preguntas];
+                subSec('banqueo');
+                activarModalidadBanqueo('curso');
+                cargarSiguientePregunta();
+            }
+        }
+
+        async function salir() {
+            const sb = obtenerSupabase();
+            if (sb) await sb.auth.signOut();
+            user = null;
+            sessionStorage.removeItem('ps_seccion_activa');
+            sessionStorage.removeItem('ps_bienvenida_mostrada');
+            ver('vista-login');
+        }
+
+        // CARGA INICIAL DE ANUNCIOS DEL RECUADRO IZQUIERDO
         window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                lanzarPopupAnuncioUnico();
-            }, 1200);
+            const sb = obtenerSupabase();
+            if (sb) {
+                sb.from('configuracion_academia').select('valor').eq('clave', 'banner_login_lista').single().then(({ data }) => {
+                    if (data && data.valor) {
+                        try {
+                            carruselLoginImagenes = JSON.parse(data.valor) || [];
+                            renderizarCarruselLogin();
+                        } catch(e){}
+                    }
+                });
+            }
         });
     </script>
 </body>
