@@ -22,6 +22,7 @@
     </script>
 
     <style>
+        /* === VARIABLES GLOBALES Y MODO OSCURO === */
         :root {
             --bg-body: #f4f7f9;
             --bg-card: #ffffff;
@@ -64,7 +65,7 @@
             margin: 0; padding: 0; box-sizing: border-box; 
             font-family: 'Poppins', sans-serif; 
             transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            user-select: none; 
+            user-select: none;
         }
         
         input, textarea, [contenteditable="true"], [contenteditable="true"] * { 
@@ -92,7 +93,7 @@
         body.dark-mode .logo-titulo { color: #60a5fa; }
         .logo-titulo span { color: #28a745; }
 
-        /* === AUTH VIEWS === */
+        /* === PANTALLAS DE AUTENTICACIÓN === */
         .fondo-auth-premium { width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top left, #002b5c, #001229); padding: 30px 15px; overflow-y: auto; }
         .contenedor-login-split { display: flex; max-width: 1000px; width: 100%; background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); overflow: hidden; min-height: 550px; }
         @media (max-width: 880px) { .contenedor-login-split { flex-direction: column; max-width: 450px; } .columna-publicidad { display: none !important; } .columna-formulario { padding: 35px 25px !important; } }
@@ -171,18 +172,23 @@
         body.dark-mode .plan-free { background: #78350f; color: #fde68a; border-color: #92400e; }
         body.dark-mode .plan-prem { background: #064e3b; color: #a7f3d0; border-color: #047857; }
 
-        /* === DASHBOARD === */
+        /* === DASHBOARD, MASCOTA Y CURSOS === */
         .dashboard-grid-layout { display: flex; gap: 25px; align-items: flex-start; }
         .dashboard-col-principal { flex: 1; min-width: 0; }
         .dashboard-col-mascota { width: 300px; flex-shrink: 0; }
         @media (max-width: 1000px) { .dashboard-grid-layout { flex-direction: column; } .dashboard-col-mascota { width: 100%; } }
 
-        /* Tarjetas de Cursos Centrales (Inicio, Teoría, Fijas y Flashcards) */
+        /* Tarjetas Cuadradas (Inicio, Teoría, Fijas, Flashcards) */
         .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        .card-c { background: var(--bg-card); padding: 22px; border-radius: 14px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-top: 5px solid var(--primary); cursor: pointer; position: relative; text-align: center; }
+        
+        .flex-tarjetas-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 30px; }
+        .flex-tarjetas-nav .card-c { flex: 1 1 150px; max-width: 200px; }
+        
+        .card-c { background: var(--bg-card); padding: 18px; border-radius: 14px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-top: 5px solid var(--primary); cursor: pointer; position: relative; text-align: center; }
         .card-c:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-        .card-c-icono { font-size: 2.8em; margin-bottom: 10px; }
-        .card-c h3 { margin-bottom: 6px; font-size: 1.1em; color: var(--text-heading); font-weight: 700; }
+        .card-c.activa { box-shadow: 0 0 0 2px var(--primary); background: var(--sidebar-active-bg); }
+        .card-c-icono { font-size: 2.2em; margin-bottom: 8px; }
+        .card-c h3 { margin-bottom: 6px; font-size: 1.05em; color: var(--text-heading); font-weight: 700; }
         
         .progreso-curso-caja { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border-color); text-align: left; }
         .progreso-curso-info { display: flex; justify-content: space-between; font-size: 0.85em; font-weight: bold; margin-bottom: 5px; color: var(--text-muted); }
@@ -192,14 +198,14 @@
         .banner-countdown-dias { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 18px 25px; border-radius: 16px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-md); }
         .banner-countdown-dias.modo-probable { background: linear-gradient(135deg, #0d9488, #115e59); }
 
-        /* Mascota Widget */
+        /* Mascota Widget Lateral */
         .widget-mascota-lateral { background: linear-gradient(135deg, #0056b3, #0098b8); color: white; padding: 25px 20px; border-radius: 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center; }
         body.dark-mode .widget-mascota-lateral { background: linear-gradient(135deg, #1e3a8a, #0369a1); }
         .avatar-canvas-box { position: relative; width: 110px; height: 110px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; }
         .svg-mascota-render { transform-origin: bottom center; transition: all 0.3s ease; animation: respirarMascota 3s infinite ease-in-out; }
         @keyframes respirarMascota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
         
-        /* Selectores de Banco */
+        /* === BANCO DE PREGUNTAS === */
         .campo-select-pro {
             appearance: none; background-color: var(--input-bg);
             background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -209,15 +215,22 @@
         }
         .campo-select-pro:hover { border-color: var(--primary); }
 
-        .panel-banqueo-bd { background: var(--bg-card); padding: 20px; border-radius: 14px; margin-bottom: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-left: 5px solid var(--primary); display: grid; grid-template-columns: minmax(150px, 1fr) minmax(200px, 2fr) minmax(100px, 1fr) auto; gap: 15px; align-items: end; }
+        .panel-banqueo-bd { background: var(--bg-card); padding: 20px; border-radius: 14px; margin-bottom: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-left: 5px solid var(--primary); display: grid; grid-template-columns: minmax(150px, 1.2fr) minmax(200px, 2fr) minmax(100px, 1fr) auto; gap: 15px; align-items: end; }
         @media (max-width: 800px) { .panel-banqueo-bd { grid-template-columns: 1fr; } }
         
+        /* Botón IA Mejorado */
         .panel-control-ia { background: var(--bg-card-subtle); padding: 20px; border-radius: 14px; margin-bottom: 25px; box-shadow: var(--shadow-sm); border: 1px solid #d8b4fe; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        
+        .btn-ia-accion { 
+            background: transparent; color: #a855f7; border: 2px solid #a855f7; padding: 10px 20px; 
+            border-radius: 25px; font-weight: bold; cursor: pointer; display: inline-flex; 
+            align-items: center; gap: 8px; font-size: 0.95em; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.2); 
+        }
+        .btn-ia-accion:hover { background: #a855f7; color: white; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(168, 85, 247, 0.4); }
+
         .layout-simulador { display: flex; gap: 20px; align-items: flex-start; max-width: 950px; margin: auto; }
         .box-pregunta { flex: 1; background: var(--bg-card); padding: 30px; border-radius: 18px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
         .mascota-coach-lateral { width: 170px; background: var(--bg-card); padding: 18px 12px; border-radius: 14px; box-shadow: var(--shadow-sm); text-align: center; border-top: 4px solid var(--primary); border: 1px solid var(--border-color); }
-        .globo-dialogo { background: rgba(0,86,179,0.08); border: 1px solid rgba(0,86,179,0.2); border-radius: 12px; padding: 12px; font-size: 0.85em; color: var(--primary); font-weight: 600; line-height: 1.4; margin-bottom: 12px; position: relative; }
+        .globo-dialogo { background: rgba(0,86,179,0.08); border: 1px solid rgba(0,86,179,0.2); border-radius: 12px; padding: 12px; font-size: 0.85em; color: var(--primary); font-weight: 700; line-height: 1.4; margin-bottom: 12px; position: relative; }
         
         .btn-op { display: block; width: 100%; padding: 14px 18px; margin: 12px 0; border: 2px solid var(--border-color); border-radius: 10px; background: var(--bg-card-subtle); text-align: left; font-size: 1.02em; color: var(--text-main); font-weight: 500; cursor: pointer; }
         .btn-op:hover:not(:disabled) { background: rgba(0,86,179,0.06); border-color: var(--primary); transform: translateX(4px); }
@@ -229,7 +242,7 @@
         .fb-err { background: #f8d7da; border-left: 5px solid #dc3545; color: #721c24; }
 
         .grid-modalidades-banqueo { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 25px; }
-        .card-modalidad { background: var(--bg-card); padding: 25px; border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-top: 5px solid var(--primary); cursor: pointer; transition: 0.25s; text-align: center; }
+        .card-modalidad { background: var(--bg-card); padding: 22px; border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-top: 5px solid var(--primary); cursor: pointer; transition: 0.25s; text-align: center; }
         .card-modalidad:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
         
         /* Flashcards 3D */
@@ -243,10 +256,10 @@
 
         .grid-tienda { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 10px; margin-bottom: 15px; }
         .item-tienda-card { background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; font-weight: 600; font-size: 0.85em; color: var(--text-main); }
-        .item-tienda-card:hover { border-color: var(--primary); background: rgba(0,86,179,0.08); transform: translateY(-2px); }
+        .item-tienda-card:hover { border-color: var(--primary); background: rgba(0,86,179,0.06); transform: translateY(-2px); }
         .item-icono { font-size: 2.2em; margin-bottom: 5px; }
 
-        /* Panel Docente */
+        /* === PANEL DOCENTE Y TABLAS === */
         .pestanas-admin { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 2px solid var(--border-color); flex-wrap: wrap; }
         .tab-btn-adm { padding: 10px 16px; cursor: pointer; font-weight: 600; color: var(--text-muted); border: none; background: none; font-size: 0.95em; border-bottom: 3px solid transparent; }
         .tab-btn-adm.activa { color: #a855f7; border-bottom-color: #a855f7; }
@@ -255,15 +268,18 @@
         table.base-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
         table.base-table th, table.base-table td { padding: 12px 10px; border-bottom: 1px solid var(--border-color); text-align: left; }
         table.base-table th { background: var(--bg-card-subtle); color: var(--text-heading); }
+        .badge { padding: 6px 10px; border-radius: 8px; font-weight: bold; font-size: 0.8em; }
+        .badge-free { background: #e2e3e5; color: #383d41; }
+        .badge-prem { background: #d4edda; color: #155724; }
         
         /* Modales */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .modal-box { background: var(--bg-card); border-radius: 20px; padding: 30px; max-width: 520px; width: 92%; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.4); position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color); color: var(--text-main); }
         .btn-cerrar-x { position: absolute; top: 12px; right: 18px; background: none; border: none; font-size: 1.6em; cursor: pointer; color: var(--text-muted); font-weight: bold; }
         .btn-ws { background: #25d366; color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; font-size: 1.05em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-shadow: 0 4px 15px rgba(37,211,102,0.3); }
         .btn-cerrar-modal { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; }
 
-        /* Botón de Soporte Fijo */
+        /* Botón de Soporte Fijo Exclusivo */
         .btn-flotante-ws {
             position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; 
             border-radius: 50px; padding: 12px 22px; display: flex; align-items: center; gap: 10px; 
@@ -272,17 +288,28 @@
         }
         .btn-flotante-ws:hover { transform: scale(1.05); }
 
-        /* Modal Animado de Bienvenida */
-        @keyframes popupFadeIn {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+        /* Modal Animado de Bienvenida (Estilo Premium) */
+        @keyframes popupBounce {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
         }
         #modal-bienvenida-mascota .modal-box {
-            animation: popupFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-top: 8px solid var(--primary);
+            animation: popupBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 30px rgba(0, 123, 255, 0.4);
         }
 
-        /* Calendario con Colores */
+        /* === CALENDARIO Y EDITOR === */
+        .toolbar-word { display: flex; gap: 6px; padding: 8px; background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; flex-wrap: wrap; }
+        .btn-tool { background: var(--bg-card); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.85em; font-weight: 600; color: var(--text-main); }
+        .editor-word { min-height: 150px; max-height: 350px; overflow-y: auto; padding: 12px; border: 1px solid var(--border-color); border-radius: 0 0 8px 8px; background: var(--input-bg); color: var(--text-main); outline: none; line-height: 1.5; font-size: 0.95em; }
+        .editor-word table, .teoria-render table { width: 100%; border-collapse: collapse; margin: 10px 0; border-radius: 6px; overflow: hidden; }
+        .editor-word th, .editor-word td, .teoria-render th, .teoria-render td { border: 1px solid var(--border-color); padding: 8px; text-align: left; }
+        .editor-word th, .teoria-render th { background: var(--primary); color: white; }
+        .video-box-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-top: 15px; border-radius: 12px; overflow: hidden; }
+        .video-box-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
         .calendar-container { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px; margin-top: 20px; box-shadow: var(--shadow-sm); }
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
         .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; text-align: center; }
@@ -302,16 +329,6 @@
         .grafico-pastel-inner { width: 120px; height: 120px; background: var(--bg-card); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 1.4em; }
 
         .footer-oficial { margin-top: auto; padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.85em; border-top: 1px solid var(--border-color); }
-        
-        /* Editor de Texto Integrado */
-        .toolbar-word { display: flex; gap: 6px; padding: 8px; background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; flex-wrap: wrap; }
-        .btn-tool { background: var(--bg-card); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 0.85em; font-weight: 600; color: var(--text-main); }
-        .editor-word { min-height: 150px; max-height: 350px; overflow-y: auto; padding: 12px; border: 1px solid var(--border-color); border-radius: 0 0 8px 8px; background: var(--input-bg); color: var(--text-main); outline: none; line-height: 1.5; }
-        .editor-word table, .teoria-render table { width: 100%; border-collapse: collapse; margin: 10px 0; border-radius: 6px; overflow: hidden; }
-        .editor-word th, .editor-word td, .teoria-render th, .teoria-render td { border: 1px solid var(--border-color); padding: 8px; text-align: left; }
-        .editor-word th, .teoria-render th { background: var(--primary); color: white; }
-        .video-box-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin-top: 15px; border-radius: 12px; overflow: hidden; }
-        .video-box-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
     </style>
 </head>
 <body>
@@ -337,17 +354,15 @@
                 <div class="columna-formulario">
                     <div class="logo-box-main">
                         <div class="emblema-serums-pro">
-                            <!-- LOGO MUNDO CIENCIAS DE LA SALUD -->
+                            <!-- NUEVO LOGO MUNDO / CIENCIAS DE LA SALUD -->
                             <svg viewBox="0 0 100 100" fill="none">
-                                <circle cx="50" cy="50" r="42" fill="#ffffff"/>
-                                <!-- Estetoscopio -->
-                                <path d="M 25 50 C 25 82, 75 82, 75 50" stroke="#0056b3" stroke-width="5" fill="none" stroke-linecap="round"/>
-                                <path d="M 75 50 C 75 35, 65 25, 50 25" stroke="#0056b3" stroke-width="5" fill="none" stroke-linecap="round"/>
-                                <circle cx="50" cy="25" r="4" fill="#0056b3"/>
-                                <!-- Cruz Médica / Salud -->
-                                <path d="M41 50 h18 M50 41 v18" stroke="#28a745" stroke-width="7" stroke-linecap="round"/>
-                                <!-- Línea de Pulso -->
-                                <path d="M 15 50 L 30 50 L 35 35 L 45 65 L 50 50 L 65 50" stroke="#e83e8c" stroke-width="3" fill="none" stroke-linejoin="round"/>
+                                <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="4"/>
+                                <path d="M50 10 C30 10, 10 30, 10 50 C10 70, 30 90, 50 90" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+                                <path d="M50 10 C70 10, 90 30, 90 50 C90 70, 70 90, 50 90" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+                                <line x1="10" y1="50" x2="90" y2="50" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+                                <line x1="50" y1="10" x2="50" y2="90" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+                                <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
+                                <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
                             </svg>
                         </div>
                         <div class="logo-titulo-portada">Proserum's<br><span>Academia</span></div>
@@ -389,11 +404,10 @@
             <div class="card-auth amplia">
                 <div class="logo-box-main">
                     <div class="emblema-serums-pro" style="width: 55px; height: 55px;">
-                        <svg viewBox="0 0 100 100" fill="none">
-                            <circle cx="50" cy="50" r="45" fill="#ffffff"/>
-                            <path d="M 25 50 C 25 80, 75 80, 75 50" stroke="#0056b3" stroke-width="6" fill="none" stroke-linecap="round"/>
-                            <path d="M 75 50 C 75 35, 65 25, 50 25" stroke="#0056b3" stroke-width="6" fill="none" stroke-linecap="round"/>
-                            <path d="M42 50 h16 M50 42 v16" stroke="#28a745" stroke-width="8" stroke-linecap="round"/>
+                        <svg viewBox="0 0 100 100" fill="none" style="width:36px; height:36px;">
+                            <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="4"/>
+                            <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
+                            <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
                         </svg>
                     </div>
                     <div class="logo-titulo" style="font-size: 1.6em;">Proserum's <span>Academia</span></div>
@@ -431,7 +445,7 @@
                         <div class="campo"><label>Fecha Nacimiento</label><input type="date" id="r-nac" required></div>
                     </div>
                     <div class="campo"><label>Correo Electrónico</label><input type="email" id="r-email" required placeholder="correo@gmail.com"></div>
-                    <div class="campo"><label>Contraseña</label><input type="password" id="r-pass" required placeholder="Mínimo 8 caracteres"></div>
+                    <div class="campo"><label>Contraseña (Mínimo 8 caracteres)</label><input type="password" id="r-pass" required placeholder="Contraseña segura"></div>
                     <button type="submit" id="btn-reg" class="btn-p">Completar Registro</button>
                 </form>
                 <div class="links"><a onclick="ver('vista-login')">¿Ya tienes cuenta? Inicia Sesión</a></div>
@@ -446,10 +460,9 @@
                 <div class="side-logo-header">
                     <div class="emblema-serums-pro" style="width: 45px; height: 45px; border-radius: 12px; border-width: 1px;">
                         <svg viewBox="0 0 100 100" fill="none" style="width: 28px; height: 28px;">
-                            <circle cx="50" cy="50" r="45" fill="#ffffff"/>
-                            <path d="M 25 50 C 25 80, 75 80, 75 50" stroke="#0056b3" stroke-width="6" fill="none" stroke-linecap="round"/>
-                            <path d="M 75 50 C 75 35, 65 25, 50 25" stroke="#0056b3" stroke-width="6" fill="none" stroke-linecap="round"/>
-                            <path d="M42 50 h16 M50 42 v16" stroke="#28a745" stroke-width="8" stroke-linecap="round"/>
+                            <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="4"/>
+                            <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
+                            <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
                         </svg>
                     </div>
                     <div class="logo-titulo" style="font-size: 1.2em; color: white;">Proserum's<br><span>Academia</span></div>
@@ -476,14 +489,10 @@
                             <p style="color: var(--text-muted); font-size: 0.95em;">Preparación de alto impacto SERUMS.</p>
                         </div>
                         <div class="header-actions">
-                            <!-- WhatsApp Soporte Cabecera -->
-                            <a id="btn-header-wa" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-theme-toggle" style="text-decoration: none; color: #28a745; border-color: #28a745;">
-                                💬 Soporte Técnico
-                            </a>
                             <button class="btn-theme-toggle" onclick="alternarModoOscuro()"><span id="icono-tema">🌙</span></button>
                             <div id="contenedor-membresia-top" class="banner-plan-top plan-free">
                                 <span id="badge-membresia-txt">Cuenta Básica</span>
-                                <button id="btn-upgrade-top" class="btn-p" style="padding: 4px 12px; font-size: 0.85em; margin-left: 8px; box-shadow:none;" onclick="abrirModalPremium()">Mejorar</button>
+                                <button id="btn-upgrade-top" class="btn-p" style="padding: 4px 10px; font-size: 0.85em; margin-left: 8px; box-shadow:none;" onclick="abrirModalPremium()">Mejorar</button>
                             </div>
                         </div>
                     </div>
@@ -503,21 +512,21 @@
 
                         <div class="dashboard-grid-layout">
                             <div class="dashboard-col-principal">
-                                <h2 style="margin-bottom: 15px; font-size: 1.25em; color: var(--text-heading); font-weight: 800;">Temario</h2>
+                                <h2 style="margin-bottom: 15px; font-size: 1.2em; color: var(--text-heading); font-weight: 800;">Temario</h2>
                                 <div class="grid-5" id="grid-cursos-dashboard"></div>
                             </div>
                             <div class="dashboard-col-mascota">
                                 <div class="widget-mascota-lateral">
                                     <div class="avatar-canvas-box" id="avatar-canvas"></div>
-                                    <h4 id="m-nombre" style="font-size: 1.2em; margin-bottom: 4px; font-weight: 800;">Compañero</h4>
-                                    <span id="m-nivel-tag" style="background: rgba(255,255,255,0.25); padding: 4px 12px; border-radius: 12px; font-size: 0.8em; margin-bottom: 10px; font-weight: bold;">Nv. 1 (Bebé)</span>
-                                    <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.3); border-radius: 8px; margin-bottom: 12px; overflow: hidden;">
-                                        <div id="m-energia-bar" style="height: 100%; width: 100%; background: #28a745; transition: width 0.4s ease;"></div>
+                                    <h4 id="m-nombre" style="font-size: 1.1em; margin-bottom: 4px;">Compañero</h4>
+                                    <span id="m-nivel-tag" style="background: rgba(255,255,255,0.25); padding: 2px 10px; border-radius: 10px; font-size: 0.75em; margin-bottom: 10px;">Nv. 1 (Bebé)</span>
+                                    <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.3); border-radius: 8px; margin-bottom: 10px; overflow: hidden;">
+                                        <div id="m-energia-bar" style="height: 100%; width: 100%; background: #28a745;"></div>
                                     </div>
-                                    <p style="font-size: 0.9em; margin-bottom: 16px; font-weight: bold;">🪙 <strong id="m-monedas">50</strong> Monedas</p>
+                                    <p style="font-size: 0.85em; margin-bottom: 12px;">🪙 <strong id="m-monedas">50</strong> Monedas</p>
                                     <div style="display: flex; gap: 8px; width: 100%;">
-                                        <button class="btn-p" style="background: #28a745; padding: 10px;" onclick="abrirModalAlimentar()">🍖 Alimentar</button>
-                                        <button class="btn-p" style="background: #6f42c1; padding: 10px;" onclick="abrirArmarioMascota()">👗 Armario</button>
+                                        <button class="btn-p" style="background: #28a745; padding: 8px;" onclick="abrirModalAlimentar()">🍖 Alimentar</button>
+                                        <button class="btn-p" style="background: #6f42c1; padding: 8px;" onclick="abrirArmarioMascota()">👗 Armario</button>
                                     </div>
                                 </div>
                             </div>
@@ -527,14 +536,15 @@
                     <!-- CRONOGRAMA Y CALENDARIO -->
                     <div id="sec-crono" style="display: none;">
                         <div class="card-c" style="border-top-color: #0d9488; margin-bottom: 25px; padding: 30px;">
-                            <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 10px;">📅 Metodología y Calendario Interactivo</h2>
+                            <h2 style="color: var(--text-heading); font-size: 1.2em; margin-bottom: 10px;">📅 Metodología y Calendario Interactivo</h2>
                             <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 1em;" id="crono-subtitulo-dinamico">Planificación inteligente según modalidad del examen.</p>
                             
+                            <!-- Ahora alineado a la izquierda -->
                             <div id="cuerpo-cronograma-contenedor" style="text-align: left; margin-bottom: 25px;"></div>
                             
                             <div class="calendar-container">
                                 <div class="calendar-header">
-                                    <h3 id="cal-mes-titulo" style="color: var(--primary); font-size: 1.2em;">Mes Actual</h3>
+                                    <h3 id="cal-mes-titulo" style="color: var(--primary); font-size: 1.1em;">Mes Actual</h3>
                                     <div style="display: flex; gap: 8px;">
                                         <button class="btn-tool" onclick="cambiarMesCalendario(-1)">◀ Mes Anterior</button>
                                         <button class="btn-tool" onclick="cambiarMesCalendario(1)">Siguiente Mes ▶</button>
@@ -547,19 +557,19 @@
 
                     <!-- TEORÍA Y RESÚMENES (Botones Cuadrados) -->
                     <div id="sec-temas" style="display: none;">
-                        <h2 style="color: var(--text-heading); font-size: 1.4em; margin-bottom: 20px;">📖 Teoría y Resúmenes Grabados</h2>
-                        <div class="grid-5" style="margin-bottom: 30px;" id="tabs-teoria">
-                            <div class="card-c activa" style="border-top-color: var(--primary); text-align: center;" onclick="filtrarTeoria('todos')"><div class="card-c-icono">🌟</div><h3>Todo el Temario</h3></div>
-                            <div class="card-c" style="border-top-color: #007bff; text-align: center;" onclick="filtrarTeoria('1')"><div class="card-c-icono">🌍</div><h3>Salud Pública</h3></div>
-                            <div class="card-c" style="border-top-color: #28a745; text-align: center;" onclick="filtrarTeoria('2')"><div class="card-c-icono">🩺</div><h3>Cuidado Integral</h3></div>
-                            <div class="card-c" style="border-top-color: #e83e8c; text-align: center;" onclick="filtrarTeoria('5')"><div class="card-c-icono">🏥</div><h3>Gestión</h3></div>
-                            <div class="card-c" style="border-top-color: #6f42c1; text-align: center;" onclick="filtrarTeoria('4')"><div class="card-c-icono">🔬</div><h3>Investigación</h3></div>
-                            <div class="card-c" style="border-top-color: #ffc107; text-align: center;" onclick="filtrarTeoria('3')"><div class="card-c-icono">⚖️</div><h3>Ética</h3></div>
+                        <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 20px;">📖 Teoría y Resúmenes Grabados</h2>
+                        <div class="flex-tarjetas-nav" id="tabs-teoria">
+                            <div class="card-c activa" style="border-top-color: var(--primary);" onclick="filtrarTeoria('todos')"><div class="card-c-icono">🌟</div><h3>Todo el Temario</h3></div>
+                            <div class="card-c" style="border-top-color: #007bff;" onclick="filtrarTeoria('1')"><div class="card-c-icono">🌍</div><h3>Salud Pública</h3></div>
+                            <div class="card-c" style="border-top-color: #28a745;" onclick="filtrarTeoria('2')"><div class="card-c-icono">🩺</div><h3>Cuidado Integral</h3></div>
+                            <div class="card-c" style="border-top-color: #e83e8c;" onclick="filtrarTeoria('5')"><div class="card-c-icono">🏥</div><h3>Gestión</h3></div>
+                            <div class="card-c" style="border-top-color: #6f42c1;" onclick="filtrarTeoria('4')"><div class="card-c-icono">🔬</div><h3>Investigación</h3></div>
+                            <div class="card-c" style="border-top-color: #ffc107;" onclick="filtrarTeoria('3')"><div class="card-c-icono">⚖️</div><h3>Ética</h3></div>
                         </div>
                         <div id="lista-temas-contenedor">Selecciona un curso arriba para ver sus temas...</div>
                     </div>
 
-                    <!-- BANQUEO Y ENTRENAMIENTO -->
+                    <!-- BANQUEO -->
                     <div id="sec-banqueo" style="display: none;">
                         <div id="vista-selector-modalidad">
                             <h1 style="color: var(--text-heading); font-size: 1.6em; margin-bottom: 10px;">Centro de Entrenamiento y Banqueo</h1>
@@ -584,7 +594,7 @@
                             </div>
                         </div>
 
-                        <!-- Modo: Por Curso -->
+                        <!-- Modo: Por Curso (Diseño Horizontal Corregido) -->
                         <div id="pantalla-banqueo-curso" style="display: none;">
                             <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                             
@@ -601,7 +611,7 @@
                                 </div>
                                 <div>
                                     <label style="font-weight: 600; font-size: 0.9em; display: block; margin-bottom: 8px;">Tema Oficial:</label>
-                                    <select id="sel-tema-banqueo" class="campo-select-pro" style="width: 100%;">
+                                    <select id="sel-tema-banqueo" class="campo-select-pro" style="width: 100%; text-overflow: ellipsis;">
                                         <option value="General">Todo el curso (General)</option>
                                     </select>
                                 </div>
@@ -668,7 +678,7 @@
                                         <option value="15">15 Preguntas (Rápido)</option>
                                         <option value="25" selected>25 Preguntas (Máximo Plan Gratuito)</option>
                                         <option value="50">50 Preguntas (Plan Premium)</option>
-                                        <option value="100">100 Preguntas (Examen Completo - Premium)</option>
+                                        <option value="100">100 Preguntas (Examen Completo)</option>
                                     </select>
                                 </div>
 
@@ -689,35 +699,32 @@
                         </div>
                     </div>
 
-                    <!-- FLASHCARDS (Botones Cuadrados) -->
+                    <!-- FLASHCARDS (BOTONES CUADRADOS CENTRADOS) -->
                     <div id="sec-flashcards" style="display: none;">
-                        <h2 style="color: var(--text-heading); font-size: 1.4em; margin-bottom: 20px;">🗂️ Módulo Flashcards</h2>
-                        <div class="grid-5" style="margin-bottom: 30px;" id="tabs-flashcards">
-                            <div class="card-c activa" style="border-top-color: #007bff; text-align: center;" onclick="filtrarFlashcardsBtn('1')"><div class="card-c-icono">🌍</div><h3>Salud Pública</h3></div>
-                            <div class="card-c" style="border-top-color: #28a745; text-align: center;" onclick="filtrarFlashcardsBtn('2')"><div class="card-c-icono">🩺</div><h3>Cuidado Integral</h3></div>
-                            <div class="card-c" style="border-top-color: #e83e8c; text-align: center;" onclick="filtrarFlashcardsBtn('5')"><div class="card-c-icono">🏥</div><h3>Gestión</h3></div>
-                            <div class="card-c" style="border-top-color: #6f42c1; text-align: center;" onclick="filtrarFlashcardsBtn('4')"><div class="card-c-icono">🔬</div><h3>Investigación</h3></div>
-                            <div class="card-c" style="border-top-color: #ffc107; text-align: center;" onclick="filtrarFlashcardsBtn('3')"><div class="card-c-icono">⚖️</div><h3>Ética</h3></div>
+                        <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">🗂️ Módulo Flashcards</h2>
+                        <div class="flex-tarjetas-nav" id="tabs-flashcards">
+                            <div class="card-c activa" style="border-top-color: #007bff;" onclick="filtrarFlashcardsBtn('1')"><div class="card-c-icono">🌍</div><h3>Salud Pública</h3></div>
+                            <div class="card-c" style="border-top-color: #28a745;" onclick="filtrarFlashcardsBtn('2')"><div class="card-c-icono">🩺</div><h3>Cuidado Integral</h3></div>
+                            <div class="card-c" style="border-top-color: #e83e8c;" onclick="filtrarFlashcardsBtn('5')"><div class="card-c-icono">🏥</div><h3>Gestión</h3></div>
+                            <div class="card-c" style="border-top-color: #6f42c1;" onclick="filtrarFlashcardsBtn('4')"><div class="card-c-icono">🔬</div><h3>Investigación</h3></div>
+                            <div class="card-c" style="border-top-color: #ffc107;" onclick="filtrarFlashcardsBtn('3')"><div class="card-c-icono">⚖️</div><h3>Ética</h3></div>
                         </div>
                         <div id="contenedor-flashcards" class="grid-flashcards"></div>
                     </div>
 
-                    <!-- FIJAS (Botones Cuadrados) -->
+                    <!-- FIJAS (BOTONES CUADRADOS CENTRADOS) -->
                     <div id="sec-fijas" style="display: none;">
-                        <div style="text-align: center; margin-bottom: 25px;">
-                            <h1 style="color: var(--text-heading); font-size: 2em; font-weight: 900;">🔥 Las Fijas SERUMS</h1>
-                            <p style="color: var(--text-muted); font-size: 1.05em; margin-top: 8px;">Perlas clínicas y normativas de máxima rentabilidad para asegurar tu plaza:</p>
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <h1 style="color: var(--text-heading); font-size: 1.6em; font-weight: 900;">🔥 Las Fijas SERUMS</h1>
                         </div>
-
-                        <div class="grid-5" style="margin-bottom: 30px;" id="tabs-fijas">
-                            <div class="card-c activa" style="border-top-color: #ffd700; text-align: center;" onclick="cambiarPildoraFija(this, 'todos')"><div class="card-c-icono">🌟</div><h3>Todas Las Fijas</h3></div>
-                            <div class="card-c" style="border-top-color: #ffd700; text-align: center;" onclick="cambiarPildoraFija(this, '1')"><div class="card-c-icono">🌍</div><h3>Salud Pública</h3></div>
-                            <div class="card-c" style="border-top-color: #ffd700; text-align: center;" onclick="cambiarPildoraFija(this, '2')"><div class="card-c-icono">🩺</div><h3>Cuidado Integral</h3></div>
-                            <div class="card-c" style="border-top-color: #ffd700; text-align: center;" onclick="cambiarPildoraFija(this, '5')"><div class="card-c-icono">🏥</div><h3>Gestión</h3></div>
-                            <div class="card-c" style="border-top-color: #ffd700; text-align: center;" onclick="cambiarPildoraFija(this, '4')"><div class="card-c-icono">🔬</div><h3>Investigación</h3></div>
-                            <div class="card-c" style="border-top-color: #ffd700; text-align: center;" onclick="cambiarPildoraFija(this, '3')"><div class="card-c-icono">⚖️</div><h3>Ética</h3></div>
+                        <div class="flex-tarjetas-nav" id="tabs-fijas">
+                            <div class="card-c activa" style="border-top-color: #ffd700;" onclick="cambiarPildoraFija(this, 'todos')"><div class="card-c-icono">🌟</div><h3>Todas Las Fijas</h3></div>
+                            <div class="card-c" style="border-top-color: #ffd700;" onclick="cambiarPildoraFija(this, '1')"><div class="card-c-icono">🌍</div><h3>Salud Pública</h3></div>
+                            <div class="card-c" style="border-top-color: #ffd700;" onclick="cambiarPildoraFija(this, '2')"><div class="card-c-icono">🩺</div><h3>Cuidado Integral</h3></div>
+                            <div class="card-c" style="border-top-color: #ffd700;" onclick="cambiarPildoraFija(this, '5')"><div class="card-c-icono">🏥</div><h3>Gestión</h3></div>
+                            <div class="card-c" style="border-top-color: #ffd700;" onclick="cambiarPildoraFija(this, '4')"><div class="card-c-icono">🔬</div><h3>Investigación</h3></div>
+                            <div class="card-c" style="border-top-color: #ffd700;" onclick="cambiarPildoraFija(this, '3')"><div class="card-c-icono">⚖️</div><h3>Ética</h3></div>
                         </div>
-
                         <div id="contenedor-fijas-cards" class="grid-modalidades-banqueo"></div>
                     </div>
 
@@ -749,10 +756,11 @@
                         <div id="contenedor-stats-por-curso"></div>
                     </div>
 
-                    <!-- PERFIL -->
+                    <!-- PERFIL Y UNIVERSIDAD -->
                     <div id="sec-perfil" style="display: none;">
                         <div class="card-auth amplia" style="margin: 0 auto; max-width: 750px;">
-                            <h2 style="color: var(--text-heading); font-size: 1.4em; margin-bottom: 15px; text-align: center;">👤 Mi Perfil Profesional</h2>
+                            <h2 style="color: var(--text-heading); margin-bottom: 12px; font-size: 1.6em; text-align: center;">👤 Mi Perfil Profesional</h2>
+                            <p style="color: var(--text-muted); font-size: 1.05em; margin-bottom: 25px; text-align: center;">Actualiza tus datos para soporte, comunicación docente y gestión de tu plaza.</p>
                             <form id="form-mi-perfil">
                                 <div class="fila">
                                     <div class="campo"><label>Nombres</label><input type="text" id="p-nom" required></div>
@@ -767,7 +775,7 @@
                                     <div class="campo"><label>Teléfono</label><input type="text" id="p-tel"></div>
                                 </div>
                                 <div class="campo"><label>Región de Postulación</label><input type="text" id="p-reg"></div>
-                                <button type="submit" class="btn-p" style="margin-top: 15px; padding: 14px; font-size: 1.05em;">Guardar Perfil</button>
+                                <button type="submit" class="btn-p" style="font-size: 1.1em; padding: 16px; margin-top: 15px;">Guardar Cambios del Perfil</button>
                             </form>
                         </div>
                     </div>
@@ -825,7 +833,7 @@
                                 </form>
                             </div>
 
-                            <!-- Pestaña de Redes y Cronograma Editable -->
+                            <!-- Configuración Redes y Cronograma Editable -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
                                 <div style="background: var(--bg-card-subtle); padding: 20px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color);">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🌐 Redes Sociales y WhatsApp</h3>
@@ -842,11 +850,11 @@
                                 <div style="background: var(--bg-card-subtle); padding: 20px; border-radius: 12px; border: 1px solid var(--border-color);">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📅 Configuración de Fecha y Cronograma Editable</h3>
                                     <div class="fila" style="margin-bottom: 15px;">
-                                        <div class="campo"><label>Modalidad de Fecha:</label><select id="adm-sel-modalidad-fecha" class="campo-select-pro"><option value="oficial" selected>Fecha Oficial Confirmada</option><option value="probable">Fecha Probable / Estimada</option></select></div>
+                                        <div class="campo"><label>Modalidad de la Fecha Activa:</label><select id="adm-sel-modalidad-fecha" class="campo-select-pro"><option value="oficial" selected>Fecha Oficial Confirmada</option><option value="probable">Fecha Probable / Estimada</option></select></div>
                                         <div class="campo"><label>Fecha del Examen:</label><input type="date" id="adm-input-fecha-examen"></div>
                                     </div>
-                                    <div class="campo" style="margin-bottom: 15px;">
-                                        <label>Mensaje Personalizado del Cronograma de Estudio (Metodología):</label>
+                                    <div class="campo">
+                                        <label>Mensaje Personalizado del Cronograma de Estudio (Opcional):</label>
                                         <textarea id="adm-texto-metodologia" rows="4" placeholder="Ej: Esta semana estudiaremos Salud Pública y repasaremos simulacros el sábado..."></textarea>
                                         <small style="color: var(--text-muted);">Si dejas esto en blanco, se mostrará el mensaje inteligente por defecto.</small>
                                     </div>
@@ -854,70 +862,127 @@
                                         <label>Anotación en el Calendario (Ej: Simulacro Semanal):</label>
                                         <div style="display: flex; gap: 8px;">
                                             <input type="date" id="adm-cal-fecha" style="width: auto; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
-                                            <input type="text" id="adm-cal-texto" placeholder="Etiqueta del día (ej: Simulacro)" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
-                                            <button type="button" class="btn-tool" onclick="guardarEventoCalendario()">➕ Agregar Día</button>
+                                            <input type="text" id="adm-cal-texto" placeholder="Etiqueta del día" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
+                                            <button type="button" class="btn-tool" onclick="guardarEventoCalendario()">➕ Agregar Día al Calendario</button>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn-p" style="width: auto; margin: 0; padding: 12px 24px;" onclick="guardarConfiguracionFechaExamen()">Guardar Configuración y Cronograma</button>
+                                    <button type="button" class="btn-p" style="width: auto; margin: 0; padding: 14px 26px; font-size: 1.05em;" onclick="guardarConfiguracionFechaExamen()">Guardar Configuración y Cronograma</button>
                                 </div>
                             </div>
 
                             <div id="subtab-adm-vaciador" class="subtab-adm">
-                                <div class="campo"><label>Pega aquí las preguntas de tu Word:</label><textarea id="vaciador-texto-bruto" rows="8"></textarea></div>
-                                <button type="button" class="btn-p" onclick="procesarTextoVaciadorConIA()">⚡ Procesar con IA</button>
+                                <div class="campo"><label>Pega aquí las preguntas de tu Word:</label><textarea id="vaciador-texto-bruto" rows="10" placeholder="1. Paciente gestante que acude..."></textarea></div>
+                                <button type="button" class="btn-p" id="btn-procesar-vaciador" style="font-size: 1.1em; padding: 16px;" onclick="procesarTextoVaciadorConIA()">⚡ Procesar y Estructurar con IA</button>
+                                <div id="contenedor-revision-vaciador" style="margin-top: 30px; display: none;">
+                                    <h3 style="color: #28a745; margin-bottom: 15px;">Revisión de Casos Procesados:</h3>
+                                    <div id="lista-preguntas-vaciadas"></div>
+                                    <button type="button" class="btn-p" style="background: #28a745; margin-top: 20px; font-size: 1.1em; padding: 16px;" onclick="guardarPreguntasVaciadasEnBD()">✔ Guardar en Base de Datos Oficial</button>
+                                </div>
                             </div>
 
                             <div id="subtab-adm-sims" class="subtab-adm">
                                 <form id="form-adm-sim">
                                     <div class="fila">
-                                        <div class="campo"><label>Título</label><input type="text" id="adm-sim-tit" required></div>
-                                        <div class="campo"><label>Minutos</label><input type="number" id="adm-sim-dur" value="120" required></div>
+                                        <div class="campo"><label>Título del Simulacro</label><input type="text" id="adm-sim-tit" required></div>
+                                        <div class="campo"><label>Duración (Minutos)</label><input type="number" id="adm-sim-dur" value="120" required></div>
                                     </div>
-                                    <button type="submit" class="btn-p" style="background: #28a745;">Crear Simulacro</button>
+                                    <button type="submit" class="btn-p" style="background: #28a745; padding: 14px; font-size: 1.05em;">Crear Simulacro</button>
                                 </form>
+                                <table class="base-table" style="margin-top: 30px;">
+                                    <thead><tr><th>Simulacro</th><th>Duración</th><th>Estado</th><th>Acción</th></tr></thead>
+                                    <tbody id="tabla-simulacros-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
+                                </table>
                             </div>
 
                             <div id="subtab-adm-f" class="subtab-adm">
                                 <form id="form-adm-f">
                                     <div class="fila">
-                                        <div class="campo"><label>Curso</label><select id="adm-f-curso" class="campo-select-pro"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral</option><option value="Gestión de Servicios de Salud">Gestión de Servicios</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética</option></select></div>
+                                        <div class="campo">
+                                            <label>Curso MINSA</label>
+                                            <select id="adm-f-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema')">
+                                                <option value="Salud Pública">Salud Pública</option>
+                                                <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                                <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                                <option value="Investigación">Investigación</option>
+                                                <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                            </select>
+                                        </div>
+                                        <div class="campo">
+                                            <label>Tema Específico</label>
+                                            <select id="adm-f-tema" class="campo-select-pro" required>
+                                                <option value="General">Seleccione el tema...</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="campo"><label>Anverso</label><textarea id="adm-f-anverso" rows="2" required></textarea></div>
-                                    <div class="campo"><label>Reverso</label><textarea id="adm-f-reverso" rows="2" required></textarea></div>
-                                    <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Flashcard</button>
+                                    <div class="campo"><label>Anverso (Pregunta)</label><textarea id="adm-f-anverso" rows="3" required></textarea></div>
+                                    <div class="campo"><label>Reverso (Respuesta / Criterio)</label><textarea id="adm-f-reverso" rows="3" required></textarea></div>
+                                    <button type="submit" class="btn-p" style="background: #6f42c1; padding: 16px; font-size: 1.1em;">Guardar Flashcard</button>
                                 </form>
                             </div>
 
                             <div id="subtab-adm-t" class="subtab-adm">
                                 <form id="form-adm-t">
                                     <div class="fila">
-                                        <div class="campo"><label>Curso</label><select id="adm-t-curso" class="campo-select-pro" onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral</option><option value="Gestión de Servicios de Salud">Gestión de Servicios</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética</option></select></div>
-                                        <div class="campo"><label>Tema Oficial</label><select id="adm-t-tema-select" class="campo-select-pro" onchange="autoCompletarCodigoTitulo()"><option value="">Seleccione...</option></select></div>
+                                        <div class="campo">
+                                            <label>Curso</label>
+                                            <select id="adm-t-curso" class="campo-select-pro" onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')">
+                                                <option value="Salud Pública">Salud Pública</option>
+                                                <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                                <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                                <option value="Investigación">Investigación</option>
+                                                <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                            </select>
+                                        </div>
+                                        <div class="campo">
+                                            <label>Tema del Temario Oficial</label>
+                                            <select id="adm-t-tema-select" class="campo-select-pro" onchange="autoCompletarCodigoTitulo()">
+                                                <option value="">Seleccione el tema...</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="fila">
-                                        <div class="campo"><label>Código</label><input type="text" id="adm-t-codigo" required></div>
-                                        <div class="campo"><label>Título</label><input type="text" id="adm-t-titulo" required></div>
+                                        <div class="campo"><label>Código Oficial</label><input type="text" id="adm-t-codigo" required placeholder="Ej: 1.1"></div>
+                                        <div class="campo"><label>Título del Resumen</label><input type="text" id="adm-t-titulo" required></div>
                                     </div>
-                                    <div class="campo"><label>Enlace Video (Opcional):</label><input type="url" id="adm-t-video"></div>
+
                                     <div class="campo">
-                                        <label>Contenido Teórico:</label>
+                                        <label>Enlace de Video (Opcional - YouTube, Drive o Vimeo):</label>
+                                        <input type="url" id="adm-t-video" placeholder="https://... (Deja en blanco si el tema es solo lectura)">
+                                        <small style="color: var(--text-muted);">Si agregas un enlace, se incrustará un reproductor debajo de la teoría.</small>
+                                    </div>
+
+                                    <div class="campo">
+                                        <label>Contenido Teórico (Editor de Texto - Soporta copiar/pegar de Word y Tablas):</label>
                                         <div class="toolbar-word">
                                             <button type="button" class="btn-tool" onclick="document.execCommand('bold', false, null)"><b>B</b></button>
                                             <button type="button" class="btn-tool" onclick="document.execCommand('italic', false, null)"><i>I</i></button>
-                                            <button type="button" class="btn-tool" onclick="insertarTablaEnEditor()">📊 Tabla</button>
+                                            <button type="button" class="btn-tool" onclick="document.execCommand('underline', false, null)"><u>U</u></button>
+                                            <button type="button" class="btn-tool" onclick="document.execCommand('insertUnorderedList', false, null)">• Lista</button>
+                                            <button type="button" class="btn-tool" onclick="insertarTablaEnEditor()">📊 Insertar Tabla</button>
                                         </div>
-                                        <div id="adm-t-editor" class="editor-word" contenteditable="true"></div>
+                                        <div id="adm-t-editor" class="editor-word" contenteditable="true" placeholder="Redacta o pega aquí el resumen teórico..."></div>
                                     </div>
-                                    <button type="submit" class="btn-p" style="background: #6f42c1;">Publicar Tema</button>
+
+                                    <button type="submit" class="btn-p" style="background: #6f42c1; padding: 16px; font-size: 1.1em;">Publicar Tema Completo</button>
                                 </form>
                             </div>
 
                             <div id="subtab-adm-a" class="subtab-adm">
-                                <button class="btn-p" style="width: auto; background: #25d366; padding: 8px 14px; font-size: 0.9em; margin-bottom: 15px;" onclick="copiarTodosLosTelefonos()">📋 Copiar Teléfonos</button>
+                                <div style="display: flex; gap: 12px; margin-bottom: 20px;">
+                                    <button class="btn-p" style="width: auto; background: #25d366; margin: 0; padding: 10px 18px;" onclick="copiarTodosLosTelefonos()">📋 Copiar Todos los Teléfonos</button>
+                                </div>
                                 <div style="overflow-x: auto;">
                                     <table class="base-table">
-                                        <thead><tr><th>Alumno / Correo</th><th>Carrera / Teléfono</th><th>Plan</th><th>Estado</th><th>Acciones</th></tr></thead>
-                                        <tbody id="tabla-alumnos-adm-body"><tr><td colspan="5">Cargando...</td></tr></tbody>
+                                        <thead>
+                                            <tr>
+                                                <th>Alumno / Correo</th>
+                                                <th>Carrera / Universidad</th>
+                                                <th>Contacto</th>
+                                                <th>Plan</th>
+                                                <th>Acciones Rápidas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-alumnos-adm-body"><tr><td colspan="5">Cargando alumnos...</td></tr></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -928,7 +993,7 @@
                 <!-- FOOTER RESTAURADO -->
                 <footer class="footer-oficial">
                     <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
-                    <p>Propiedad Intelectual y Contenidos Registrados. Versión 3.0 Pro.</p>
+                    <p>Propiedad Intelectual y Contenidos Registrados. Versión 3.5 Pro.</p>
                 </footer>
             </main>
         </div>
@@ -1025,12 +1090,12 @@
             <h3 style="font-size: 1.4em;">🔑 Restablecer Contraseña</h3>
             <p style="margin: 8px 0 18px; color: var(--text-muted); font-size: 0.95em;">Ingresa tu correo oficial.</p>
             <div class="campo"><input type="email" id="recuperar-email" placeholder="correo@ejemplo.com"></div>
-            <button class="btn-p" onclick="enviarRestablecimientoPassword()">Enviar Enlace</button>
+            <button class="btn-p" style="padding: 14px; font-size: 1.1em;" onclick="enviarRestablecimientoPassword()">Enviar Enlace</button>
             <button class="btn-cerrar-modal" onclick="cerrarModales()">Cancelar</button>
         </div>
     </div>
 
-    <!-- BOTONES DE REDES SOCIALES FLOTANTES -->
+    <!-- BOTONES FLOTANTES REDES SOCIALES (Solo WhatsApp fijo, los demás editables arriba) -->
     <div class="contenedor-redes-flotante">
         <a id="btn-flotante-wa" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-flotante-ws" title="Soporte Técnico por WhatsApp">
             <svg style="width: 22px; height: 22px; fill: white;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
@@ -1244,19 +1309,23 @@
         }
 
         function subSec(nom) {
+            // Ocultar todas las subsecciones
             ['dash', 'crono', 'temas', 'banqueo', 'flashcards', 'fijas', 'stats', 'perfil', 'admin'].forEach(s => {
                 const el = document.getElementById('sec-' + s);
                 if (el) el.style.display = 'none';
             });
             
+            // Quitar clase activa del menú
             document.querySelectorAll('.menu li').forEach(l => l.classList.remove('activo'));
 
+            // Mostrar la sección seleccionada
             const sec = document.getElementById('sec-' + nom);
             if (sec) sec.style.display = 'block';
             
             const m = document.getElementById('m-' + nom);
             if (m) m.classList.add('activo');
 
+            // Disparadores por sección
             if (nom === 'dash') cargarCursosDashboard();
             if (nom === 'flashcards') {
                 if (perfilUsuario.plan !== 'premium') {
@@ -1276,6 +1345,7 @@
             if (nom === 'stats') cargarEstadisticas();
             if (nom === 'temas') {
                 cargarTemasTeoricos();
+                // Seleccionar "Todo el Temario" por defecto al entrar a Teoría
                 document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
                 const firstCard = document.querySelector('#tabs-teoria .card-c');
                 if(firstCard) firstCard.classList.add('activa');
@@ -1324,6 +1394,17 @@
             document.getElementById('adm-t-titulo').value = partes.slice(1).join(" ") || '';
         }
 
+        function insertarTablaEnEditor() {
+            const htmlTabla = `
+                <table style="width:100%; border-collapse:collapse; margin:15px 0;">
+                    <tr><th style="border:1px solid #cbd5e1; padding:10px;">Condición / Criterio</th><th style="border:1px solid #cbd5e1; padding:10px;">Conducta MINSA</th></tr>
+                    <tr><td style="border:1px solid #cbd5e1; padding:10px;">Leve / Ambulatorio</td><td style="border:1px solid #cbd5e1; padding:10px;">Manejo inicial en puesto I-1 o I-2</td></tr>
+                    <tr><td style="border:1px solid #cbd5e1; padding:10px;">Signos de Alarma</td><td style="border:1px solid #cbd5e1; padding:10px;">Referencia inmediata a nivel II o III</td></tr>
+                </table><br>
+            `;
+            document.execCommand('insertHTML', false, htmlTabla);
+        }
+
         function convertirUrlAEmbed(url) {
             if (!url) return '';
             url = url.trim();
@@ -1362,6 +1443,7 @@
                     user = session.user;
                     await cargarPerfil();
                     
+                    // Solo pasamos al dashboard si estamos en la pantalla de Login (evita el bug de reinicio al cambiar de pestaña)
                     if (document.getElementById('vista-login').classList.contains('activa') || document.getElementById('vista-registro').classList.contains('activa')) {
                         ver('vista-app');
                         subSec('dash');
@@ -1480,6 +1562,7 @@
             const sb = obtenerSupabase();
             if (!user || !sb) return;
 
+            // Upsert robusto por si entra directo desde Google Auth
             let { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
             if (!p) {
                 const nombreGoogle = user.user_metadata?.full_name || user.email.split('@')[0];
@@ -1519,6 +1602,7 @@
             if (p.rol === 'admin') document.getElementById('m-admin').style.display = 'flex';
             else document.getElementById('m-admin').style.display = 'none';
 
+            // Poblar campos del formulario "Mi Perfil"
             if (document.getElementById('p-nom')) document.getElementById('p-nom').value = p.nombres || '';
             if (document.getElementById('p-ape')) document.getElementById('p-ape').value = p.apellidos || '';
             if (document.getElementById('p-col')) document.getElementById('p-col').value = p.colegiatura || '';
@@ -1527,6 +1611,7 @@
             if (document.getElementById('p-uni')) document.getElementById('p-uni').value = p.universidad || '';
             if (document.getElementById('p-esc')) document.getElementById('p-esc').value = p.escuela_profesional || '';
 
+            // Cargar Mascota
             const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
             if (m) {
                 perfilMascota = {
@@ -1548,6 +1633,7 @@
 
             renderizarMascotaSVG();
 
+            // Saludo motivacional en el coach del Banco de Preguntas
             const msgCoach = document.getElementById('coach-mensaje');
             if (msgCoach) {
                 const fraseAleatoria = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
@@ -1615,6 +1701,7 @@
                 <ellipse cx="50" cy="70" rx="${esAdulto ? '18' : '16'}" ry="15" fill="${colorHocico}"/>
             `;
             
+            // Prendas (Colores fieles)
             if (cuerpo === 'mandil') {
                 svgCuerpo += `
                     <path d="M22 62 Q50 56 78 62 L74 90 Q50 94 26 90 Z" fill="#ffffff" stroke="#ced4da" stroke-width="2"/>
@@ -1638,6 +1725,7 @@
                 `;
             }
 
+            // Patas
             svgCuerpo += `
                 <ellipse cx="36" cy="88" rx="${esAdulto ? '9' : '8'}" ry="6" fill="${colorBase}"/>
                 <ellipse cx="64" cy="88" rx="${esAdulto ? '9' : '8'}" ry="6" fill="${colorBase}"/>
@@ -1660,6 +1748,7 @@
                 svgOrejas = `<ellipse cx="23" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(22 23 38)"/><ellipse cx="77" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(-22 77 38)"/>`;
             }
 
+            // Accesorios Cabeza
             let svgAccesorios = "";
             if (cabeza === 'gorro') {
                 svgAccesorios = `<path d="M25 24 Q50 10 75 24 Q72 16 50 14 Q28 16 25 24 Z" fill="#28a745"/><rect x="24" y="22" width="52" height="6" rx="3" fill="#218838"/>`;
@@ -1734,8 +1823,11 @@
                 mostrarAvisoModal("Monedas Insuficientes", `Necesitas al menos ${costo} monedas para este ítem.`, "🪙"); 
                 return; 
             }
+            
             perfilMascota.monedas -= costo;
             perfilMascota.energia = Math.min(100, perfilMascota.energia + energiaGanada);
+            
+            // Sistema de Evolución: Cada comida aporta XP oculta y sube el nivel en decimales
             perfilMascota.nivel = Math.min(10, perfilMascota.nivel + (costo * 0.02));
 
             document.getElementById('m-monedas').innerText = perfilMascota.monedas;
@@ -1844,6 +1936,7 @@
         }
 
         async function cargarSiguientePregunta() {
+            // Límite Plan Gratuito (25 diarias)
             if (perfilUsuario.plan !== 'premium' && perfilUsuario.preguntas_hoy >= 25) {
                 mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado', 'Has alcanzado el límite de 25 preguntas diarias de la cuenta básica. Pasa al Ciclo Completo para practicar sin límites.');
                 return;
@@ -1922,9 +2015,11 @@
 
             const sb = obtenerSupabase();
             if (sb && user) {
+                // Registrar intento
                 if (preguntaActual.id) {
                     await sb.from('intentos_usuario').insert([{ user_id: user.id, pregunta_id: preguntaActual.id, area_id: preguntaActual.area_id || 1, es_correcta: esOk }]);
                 }
+                // Actualizar contador free
                 if (perfilUsuario.plan !== 'premium') {
                     perfilUsuario.preguntas_hoy = (perfilUsuario.preguntas_hoy || 0) + 1;
                     await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
@@ -1935,7 +2030,7 @@
         function iniciarSimulacroArmado() {
             const cantidad = parseInt(document.getElementById('cfg-sim-cantidad').value) || 25;
             if (perfilUsuario.plan !== 'premium' && cantidad > 25) {
-                mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'Las cuentas básicas tienen un límite máximo de 25 preguntas por simulacro. Para exámenes completos necesitas el Ciclo Completo.');
+                mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'Las cuentas básicas tienen un límite máximo de 25 preguntas por simulacro. Para exámenes de 50 o 100 preguntas necesitas el Ciclo Completo.');
                 return;
             }
             mostrarAvisoModal("Simulacro Iniciado", `Preparando examen personalizado de ${cantidad} preguntas. ¡A darlo todo!`, "📝");
@@ -1970,21 +2065,27 @@
 
         /* === 9. MÓDULOS DE TEORÍA, FLASHCARDS Y FIJAS === */
         
+        // Teoría y Resúmenes (Con Tarjetas Cuadradas)
         async function cargarTemasTeoricos() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('lista-temas-contenedor');
+            
             const { data: temas } = await sb.from('temas').select('*');
             temasTeoricosEnMemoria = temas || [];
+            
+            // Ya no lo cargamos todo de golpe, pedimos al usuario que seleccione un curso haciendo click en las tarjetas
+            cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em;">Selecciona un curso arriba para ver sus resúmenes y videos.</p>';
         }
 
         function filtrarTeoria(areaIdStr) {
             const cont = document.getElementById('lista-temas-contenedor');
             cont.innerHTML = '';
             
+            // Iluminar la tarjeta seleccionada
             document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
             const tarjetas = document.querySelectorAll('#tabs-teoria .card-c');
             tarjetas.forEach(tarjeta => {
-                if (tarjeta.getAttribute('onclick').includes(areaIdStr)) {
+                if (tarjeta.getAttribute('onclick').includes(`('${areaIdStr}')`)) {
                     tarjeta.classList.add('activa');
                 }
             });
@@ -1996,6 +2097,7 @@
                 temasFiltrados = temasTeoricosEnMemoria.filter(t => t.area_id == areaIdStr);
             }
 
+            // Aplicar Límite Plan Básico (Máx 3 por curso si no es premium)
             if (perfilUsuario.plan !== 'premium') {
                 const conteoPorArea = {};
                 temasFiltrados = temasFiltrados.filter(t => {
@@ -2024,14 +2126,17 @@
                             <span style="color: #28a745; font-weight: bold; font-size: 0.95em;">✔ Disponible</span>
                         </div>
                         <h3 style="color: var(--text-heading); margin-top: 15px; font-size: 1.5em;">${t.codigo} - ${t.titulo}</h3>
+                        
                         <div class="teoria-render" style="margin-top: 15px; font-size: 1.05em; line-height: 1.7; color: var(--text-main);">
                             ${t.resumen_teorico || ''}
                         </div>
+                        
                         ${embedUrl ? `
                             <div class="video-box-container">
                                 <iframe src="${embedUrl}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                         ` : ''}
+                        
                         <div style="margin-top: 25px; text-align: right; border-top: 1px dashed var(--border-color); padding-top: 20px;">
                             <button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo}')">
                                 🎯 Practicar Banqueo de este Tema ➔
@@ -2053,29 +2158,28 @@
             }
         }
 
+        /* === FLASHCARDS Y LAS FIJAS (Pestañas Cuadradas) === */
         async function cargarFlashcardsDesdeBD() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('contenedor-flashcards');
             cont.innerHTML = 'Cargando flashcards...';
             const { data } = await sb.from('flashcards').select('*');
             todasLasFlashcards = data || [];
-            filtrarFlashcardsBtn('todos');
+            filtrarFlashcardsBtn('1'); // Empieza con Salud Pública por defecto
         }
 
         function filtrarFlashcardsBtn(areaIdStr) {
             document.querySelectorAll('#tabs-flashcards .card-c').forEach(b => b.classList.remove('activa'));
+            
+            // Buscar la tarjeta correcta para ponerla 'activa' visualmente
             const tarjetas = document.querySelectorAll('#tabs-flashcards .card-c');
             tarjetas.forEach(tarjeta => {
-                if (tarjeta.getAttribute('onclick').includes(areaIdStr)) {
+                if (tarjeta.getAttribute('onclick').includes(`('${areaIdStr}')`)) {
                     tarjeta.classList.add('activa');
                 }
             });
 
-            let filtradas = todasLasFlashcards;
-            if (areaIdStr !== 'todos') {
-                filtradas = todasLasFlashcards.filter(f => f.area_id == areaIdStr);
-            }
-            
+            const filtradas = todasLasFlashcards.filter(f => f.area_id == areaIdStr);
             const cont = document.getElementById('contenedor-flashcards');
             cont.innerHTML = '';
             
@@ -2111,7 +2215,7 @@
             if (btn) {
                 btn.classList.add('activa');
             } else {
-                document.querySelector('#tabs-fijas .card-c').classList.add('activa');
+                document.querySelector('#tabs-fijas .card-c').classList.add('activa'); // Selecciona "Todas" por defecto
             }
 
             const cont = document.getElementById('contenedor-fijas-cards');
@@ -2126,7 +2230,7 @@
 
             filtradas.forEach(f => {
                 cont.innerHTML += `
-                    <div class="card-modalidad" style="border-top-color: #ffd700;">
+                    <div class="card-modalidad" style="border-top-color: #ffd700; text-align: left;">
                         <span style="font-size: 0.85em; color: #b78103; font-weight: bold; display: block; margin-bottom: 6px;">🔥 LA FIJA | ${f.tema || 'PUNTO CLAVE'}</span>
                         <h3 style="margin-top: 5px; font-size: 1.35em;">${f.titulo}</h3>
                         <p style="color: var(--text-main); font-size: 1.05em; line-height: 1.6; margin-top: 10px;">${f.contenido}</p>
@@ -2135,8 +2239,18 @@
             });
         }
 
-        async function generarPreguntasConIA() { mostrarAvisoModal("Función IA", "La formulación de casos clínicos inéditos con Gemini está configurada. (Requiere conexión activa al Backend de Gemini).", "🤖"); }
-        async function procesarTextoVaciadorConIA() { mostrarAvisoModal("Vaciador IA", "El módulo estructurador con Gemini está en línea. Pega tus preguntas para procesarlas.", "🤖"); }
+        /* === GENERADORES DE IA DENTRO DE LOS MÓDULOS === */
+        async function generarPreguntasConIA() {
+            mostrarAvisoModal("Función IA", "La formulación de casos clínicos inéditos con Gemini está configurada. (Requiere conexión activa al Backend de Gemini).", "🤖");
+        }
+
+        async function generarFlashcardsConIA() {
+            mostrarAvisoModal("Función IA", "La generación automática de tarjetas con Gemini está configurada. (Requiere conexión activa al Backend).", "🤖");
+        }
+        
+        async function procesarTextoVaciadorConIA() {
+            mostrarAvisoModal("Vaciador IA", "El módulo estructurador con Gemini está en línea. Pega tus preguntas para procesarlas.", "🤖");
+        }
 
         /* === 10. ESTADÍSTICAS Y GRÁFICO CIRCULAR === */
         async function cargarEstadisticas() {
@@ -2152,8 +2266,11 @@
             const pctBox = document.getElementById('grafico-pastel-rendimiento');
 
             if (!data || data.length === 0) {
-                txtTot.innerText = '0'; txtOk.innerText = '0%'; txtErr.innerText = '0';
-                pctVal.innerText = '0%'; pctBox.style.setProperty('--pct', '0%');
+                txtTot.innerText = '0';
+                txtOk.innerText = '0%';
+                txtErr.innerText = '0';
+                pctVal.innerText = '0%';
+                pctBox.style.setProperty('--pct', '0%');
                 document.getElementById('contenedor-stats-por-curso').innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em;">Aún no has respondido preguntas. ¡Comienza en el Banco!</p>';
                 return;
             }
@@ -2167,6 +2284,7 @@
             txtOk.innerText = ptGlobal + '%';
             txtErr.innerText = errs;
             
+            // Actualizar Gráfico Circular (Pie Chart CSS variable)
             pctVal.innerText = ptGlobal + '%';
             pctBox.style.setProperty('--pct', `${ptGlobal}%`);
 
@@ -2223,6 +2341,334 @@
                 cargarSiguientePregunta();
             }
         }
+
+        // === 11. CONFIGURACIONES GLOBALES (ANUNCIOS, REDES Y FECHAS) ===
+        async function cargarConfiguracionesGenerales() {
+            const sb = obtenerSupabase();
+            if (!sb) return;
+            const { data } = await sb.from('configuracion_academia').select('*');
+            if (data) {
+                data.forEach(item => {
+                    if (item.clave === 'fecha_examen_serums') fechaExamenGlobal = item.valor || "2026-11-15";
+                    if (item.clave === 'modalidad_fecha_serums') modalidadFechaGlobal = item.valor || "oficial";
+                    if (item.clave === 'calendario_notas' && item.valor) {
+                        try { eventosCalendarioMemoria = JSON.parse(item.valor) || {}; } catch(e){}
+                    }
+                    if (item.clave === 'texto_metodologia' && item.valor) {
+                        const admTxt = document.getElementById('adm-texto-metodologia');
+                        if (admTxt) admTxt.value = item.valor;
+                    }
+                    if (item.clave === 'banner_login_lista' && item.valor) {
+                        try { carruselLoginImagenes = JSON.parse(item.valor) || []; } catch(e){}
+                    }
+                    if (item.clave === 'popup_anuncio_lista' && item.valor) {
+                        try { carruselPopupImagenes = JSON.parse(item.valor) || []; } catch(e){}
+                    }
+                    if (item.clave === 'redes_sociales' && item.valor) {
+                        try {
+                            const redes = JSON.parse(item.valor);
+                            document.getElementById('adm-link-wa').value = redes.wa || '';
+                            document.getElementById('adm-link-fb').value = redes.fb || '';
+                            document.getElementById('adm-link-msg').value = redes.msg || '';
+                            document.getElementById('adm-link-dc').value = redes.dc || '';
+                            
+                            // Botones de Soporte (Flotante y Cabecera)
+                            const waUrl = redes.wa ? `https://api.whatsapp.com/send?phone=${redes.wa}` : `https://api.whatsapp.com/send?phone=${TU_NUMERO_WHATSAPP}`;
+                            const btnWa = document.getElementById('btn-flotante-wa');
+                            const btnWaHeader = document.getElementById('btn-header-wa');
+                            if(btnWa) btnWa.href = waUrl;
+                            if(btnWaHeader) btnWaHeader.href = waUrl;
+                            
+                            const btnFb = document.getElementById('btn-flotante-fb');
+                            if(btnFb) { btnFb.href = redes.fb || '#'; btnFb.style.display = redes.fb ? 'flex' : 'none'; }
+                            
+                            const btnMsg = document.getElementById('btn-flotante-msg');
+                            if(btnMsg) { btnMsg.href = redes.msg || '#'; btnMsg.style.display = redes.msg ? 'flex' : 'none'; }
+                            
+                            const btnDc = document.getElementById('btn-flotante-dc');
+                            if(btnDc) { btnDc.href = redes.dc || '#'; btnDc.style.display = redes.dc ? 'flex' : 'none'; }
+                        } catch(e){}
+                    }
+                });
+            }
+
+            const inputFecha = document.getElementById('adm-input-fecha-examen');
+            const selModalidad = document.getElementById('adm-sel-modalidad-fecha');
+            if (inputFecha) inputFecha.value = fechaExamenGlobal;
+            if (selModalidad) selModalidad.value = modalidadFechaGlobal;
+
+            actualizarBannerYMetodologiaSegunModalidad();
+            renderizarCalendarioCompleto();
+            renderizarCarruselLogin();
+            renderizarListasAdminAnuncios();
+
+            if (user && !sessionStorage.getItem('ps_popup_anuncio_mostrado')) {
+                lanzarPopupAnuncioSiExiste();
+            }
+        }
+
+        async function guardarConfiguracionFechaExamen() {
+            const fecha = document.getElementById('adm-input-fecha-examen').value;
+            const modalidad = document.getElementById('adm-sel-modalidad-fecha').value;
+            const textoCrono = document.getElementById('adm-texto-metodologia').value.trim();
+            if (!fecha) {
+                mostrarAvisoModal("Fecha requerida", "Por favor ingresa una fecha válida.", "⚠️");
+                return;
+            }
+            const sb = obtenerSupabase();
+            await sb.from('configuracion_academia').upsert({ clave: 'fecha_examen_serums', valor: fecha });
+            await sb.from('configuracion_academia').upsert({ clave: 'modalidad_fecha_serums', valor: modalidad });
+            await sb.from('configuracion_academia').upsert({ clave: 'texto_metodologia', valor: textoCrono });
+
+            fechaExamenGlobal = fecha;
+            modalidadFechaGlobal = modalidad;
+            actualizarBannerYMetodologiaSegunModalidad();
+            mostrarAvisoModal("¡Guardado!", "Se actualizó la fecha y la metodología del cronograma.", "🗓️");
+        }
+
+        async function guardarRedesSociales() {
+            const redes = {
+                wa: document.getElementById('adm-link-wa').value.trim(),
+                fb: document.getElementById('adm-link-fb').value.trim(),
+                msg: document.getElementById('adm-link-msg').value.trim(),
+                dc: document.getElementById('adm-link-dc').value.trim()
+            };
+            const sb = obtenerSupabase();
+            await sb.from('configuracion_academia').upsert({ clave: 'redes_sociales', valor: JSON.stringify(redes) });
+            cargarConfiguracionesGenerales();
+            mostrarAvisoModal("Guardado", "Redes sociales actualizadas.", "🌐");
+        }
+
+        function actualizarBannerYMetodologiaSegunModalidad() {
+            const banner = document.getElementById('banner-examen-dinamico');
+            const icono = document.getElementById('icono-modalidad-fecha');
+            const titulo = document.getElementById('titulo-modalidad-fecha');
+            const txtDias = document.getElementById('txt-dias-cuenta-regresiva');
+            const badge = document.getElementById('badge-dias-restantes');
+            const cuerpoCrono = document.getElementById('cuerpo-cronograma-contenedor');
+            const txtManual = document.getElementById('adm-texto-metodologia')?.value;
+
+            if (!banner) return;
+
+            const hoy = new Date();
+            const examen = new Date(fechaExamenGlobal);
+            const diff = examen - hoy;
+            const dias = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+
+            badge.innerText = `${dias} DÍAS`;
+
+            if (modalidadFechaGlobal === 'probable') {
+                banner.className = 'banner-countdown-dias modo-probable';
+                icono.innerText = '🗓️';
+                titulo.innerText = 'Fecha Probable / Estimada del Examen';
+                txtDias.innerText = `Estimado para el ${fechaExamenGlobal}. Estudia con calma, priorizando comprensión.`;
+                
+                if (cuerpoCrono) {
+                    cuerpoCrono.innerHTML = `
+                        <div style="background: var(--bg-card-subtle); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); line-height: 1.7; font-size: 1.05em;">
+                            <h4 style="color: #0d9488; margin-bottom: 12px; font-size: 1.15em;">🌱 Ruta de Estudio Flexible (Modo con Calma):</h4>
+                            ${txtManual ? `<p>${txtManual}</p>` : `
+                                <p>• <strong>Fase 1:</strong> Dominio de marcos teóricos clave en Salud Pública y Cuidado Integral.</p>
+                                <p>• <strong>Fase 2:</strong> Banqueo modular de 15 a 25 preguntas diarias analizando la justificación técnica de cada clave.</p>
+                                <p>• <strong>Fase 3:</strong> Repaso progresivo con Flashcards mnemotécnicas cada fin de semana.</p>
+                            `}
+                        </div>
+                    `;
+                }
+            } else {
+                banner.className = 'banner-countdown-dias';
+                icono.innerText = '🎯';
+                titulo.innerText = 'Fecha Oficial del Examen SERUMS';
+                txtDias.innerText = `Examen confirmado para el ${fechaExamenGlobal}. ¡Cada día cuenta para asegurar tu plaza!`;
+                
+                if (cuerpoCrono) {
+                    if (txtManual) {
+                        cuerpoCrono.innerHTML = `<div style="background: var(--bg-card-subtle); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); line-height: 1.7; font-size: 1.05em;">${txtManual}</div>`;
+                    } else if (dias > 75) {
+                        cuerpoCrono.innerHTML = `
+                            <div style="background: var(--bg-card-subtle); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); line-height: 1.7; font-size: 1.05em;">
+                                <h4 style="color: var(--primary); margin-bottom: 12px; font-size: 1.15em;">⚖️ Ruta Oficial Balanceada:</h4>
+                                <p>• <strong>Lunes a Miércoles:</strong> Salud Pública y Cuidado Integral (60% del peso en la evaluación).</p>
+                                <p>• <strong>Jueves y Viernes:</strong> Gestión de Servicios de Salud, Investigación y Bioestadística.</p>
+                                <p>• <strong>Sábados:</strong> Simulacro Oficial programado con cronómetro de 120 minutos.</p>
+                                <p>• <strong>Domingos:</strong> Repaso de Fijas y Banqueo de Preguntas Falladas.</p>
+                            </div>
+                        `;
+                    } else {
+                        cuerpoCrono.innerHTML = `
+                            <div style="background: var(--bg-card-subtle); padding: 25px; border-radius: 14px; border: 1px solid var(--border-color); line-height: 1.7; font-size: 1.05em;">
+                                <h4 style="color: #d9381e; margin-bottom: 12px; font-size: 1.15em;">🔥 Ruta Rápida e Intensiva (Recta Final):</h4>
+                                <p>• <strong>Lunes a Viernes:</strong> Banqueo intensivo diario de 50 a 100 preguntas por tema de alta rentabilidad.</p>
+                                <p>• <strong>Noches:</strong> Lectura relámpago de Las Fijas SERUMS de cada eje temático.</p>
+                                <p>• <strong>Sábados:</strong> Simulacro Completo con análisis inmediato de fallos.</p>
+                                <p>• <strong>Domingos:</strong> Banco de Errores para no volver a fallar ninguna pregunta clave.</p>
+                            </div>
+                        `;
+                    }
+                }
+            }
+        }
+
+        // === 12. FUNCIONES DEL PANEL DOCENTE ===
+        async function cargarAlumnosAdmin() {
+            const sb = obtenerSupabase();
+            const tbody = document.getElementById('tabla-alumnos-adm-body');
+            tbody.innerHTML = '<tr><td colspan="5">Sincronizando alumnos...</td></tr>';
+            
+            const { data } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
+            if (!data || data.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">No hay alumnos registrados.</td></tr>';
+                return;
+            }
+            listaAlumnosMemoria = data;
+            tbody.innerHTML = '';
+            
+            data.forEach(a => {
+                const esPrem = (a.plan === 'premium');
+                const estaBloq = (a.estado === 'bloqueado');
+                const tel = a.telefono || '';
+                
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${a.nombres || ''} ${a.apellidos || ''}</strong><br><small style="color: var(--text-muted);">${a.correo}</small></td>
+                        <td>${a.carrera || 'Salud'}<br><small style="color: var(--text-muted);">${a.universidad || ''}</small></td>
+                        <td>${tel ? `<a href="https://api.whatsapp.com/send?phone=51${tel}&text=Hola%20${encodeURIComponent(a.nombres)}" target="_blank" style="color:#28a745; text-decoration:none; font-weight:bold;">💬 ${tel}</a>` : 'N/A'}</td>
+                        <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'BÁSICO'}</span><br><span style="font-size: 0.8em; color: ${estaBloq ? 'red' : 'green'}; font-weight: bold;">${estaBloq ? 'BLOQUEADO' : 'ACTIVO'}</span></td>
+                        <td style="display:flex; gap:6px; flex-wrap:wrap;">
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${esPrem ? '#6c757d' : '#28a745'}" onclick="alternarPlanAdmin('${a.id}', '${esPrem ? 'gratuito' : 'premium'}')">
+                                ${esPrem ? '⬇️ Hacer Básico' : '⬆️ Hacer Premium'}
+                            </button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${estaBloq ? '#28a745' : '#dc3545'}" onclick="cambiarEstadoCuenta('${a.id}', '${estaBloq ? 'activo' : 'bloqueado'}')">
+                                ${estaBloq ? '🔓 Desbloquear' : '🔒 Bloquear'}
+                            </button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="enviarClaveDesdeAdmin('${a.correo}')">
+                                🔑 Reset Clave
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function alternarPlanAdmin(id, plan) {
+            const sb = obtenerSupabase();
+            await sb.from('perfiles').update({ plan }).eq('id', id);
+            cargarAlumnosAdmin();
+        }
+
+        async function cambiarEstadoCuenta(userId, nuevoEstado) {
+            const sb = obtenerSupabase();
+            const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒");
+                cargarAlumnosAdmin();
+            }
+        }
+
+        async function enviarClaveDesdeAdmin(correoAlumno) {
+            try {
+                const { error } = await obtenerSupabase().auth.resetPasswordForEmail(correoAlumno, { redirectTo: window.location.origin });
+                if (error) throw error;
+                mostrarAvisoModal("Enlace Enviado", `Se envió el correo oficial de recuperación a: ${correoAlumno}`, "📬");
+            } catch (err) {
+                mostrarAvisoModal("Error", err.message, "⚠️");
+            }
+        }
+
+        function copiarTodosLosTelefonos() {
+            const tels = listaAlumnosMemoria.map(a => a.telefono).filter(t => t && t.length >= 7);
+            if (tels.length === 0) { mostrarAvisoModal("Aviso", "No hay teléfonos registrados todavía.", "⚠️"); return; }
+            navigator.clipboard.writeText(tels.join(', '));
+            mostrarAvisoModal("¡Copiado!", `Se copiaron ${tels.length} números listos para pegar en WhatsApp.`, "📋");
+        }
+        
+        function verSubTabAdmin(tipo) {
+            document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
+            document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
+            event.target.classList.add('activa');
+            document.getElementById('subtab-adm-' + tipo).classList.add('activa');
+            
+            if (tipo === 'p') actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema');
+            if (tipo === 't') actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select');
+            if (tipo === 'fijas_adm') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema');
+            if (tipo === 'a') cargarAlumnosAdmin();
+            if (tipo === 'anuncios') cargarConfiguracionesGenerales();
+        }
+
+        /* GUARDAR TEMA EN LA BASE DE DATOS (CON EDITOR Y VIDEO) */
+        document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-t-curso').value;
+            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const contenidoHtml = document.getElementById('adm-t-editor').innerHTML;
+            const urlVideo = document.getElementById('adm-t-video').value.trim();
+
+            const payload = {
+                area_id: areaId,
+                codigo: document.getElementById('adm-t-codigo').value.trim(),
+                titulo: document.getElementById('adm-t-titulo').value.trim(),
+                resumen_teorico: contenidoHtml,
+                url_video: urlVideo
+            };
+
+            const { error } = await sb.from('temas').insert([payload]);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("¡Tema Publicado!", "El tema con formato y video se guardó correctamente.", "✔");
+                document.getElementById('form-adm-t').reset();
+                document.getElementById('adm-t-editor').innerHTML = '';
+            }
+        });
+        
+        /* GUARDAR PREGUNTA EN LA BASE DE DATOS */
+        document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-p-curso').value;
+            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+
+            const payload = {
+                area_id: areaId,
+                dificultad: document.getElementById('adm-p-dif').value,
+                enunciado: document.getElementById('adm-p-enunciado').value.trim(),
+                opcion_a: document.getElementById('adm-p-oa').value.trim(),
+                opcion_b: document.getElementById('adm-p-ob').value.trim(),
+                opcion_c: document.getElementById('adm-p-oc').value.trim(),
+                opcion_d: document.getElementById('adm-p-od').value.trim(),
+                respuesta_correcta: document.getElementById('adm-p-correcta').value,
+                justificacion: document.getElementById('adm-p-justificacion').value.trim()
+            };
+
+            const { error } = await sb.from('preguntas').insert([payload]);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔");
+                document.getElementById('form-adm-p').reset();
+            }
+        });
+
+        /* GUARDAR FLASHCARD EN LA BASE DE DATOS */
+        document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-f-curso').value;
+            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+
+            const payload = {
+                area_id: areaId,
+                anverso: document.getElementById('adm-f-anverso').value.trim(),
+                reverso: document.getElementById('adm-f-reverso').value.trim()
+            };
+
+            const { error } = await sb.from('flashcards').insert([payload]);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("¡Guardado!", "Flashcard creada correctamente.", "✔");
+                document.getElementById('form-adm-f').reset();
+            }
+        });
     </script>
 </body>
 </html>
