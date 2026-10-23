@@ -22,6 +22,7 @@
     </script>
 
     <style>
+        /* === VARIABLES GLOBALES Y MODO OSCURO === */
         :root {
             --bg-body: #f4f7f9;
             --bg-card: #ffffff;
@@ -76,32 +77,53 @@
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
 
-        /* === LOGO MAXIMIZADO === */
+        /* === LOGO (MUNDO Y CRUZ MÉDICA) === */
         .emblema-serums-pro {
             display: inline-flex; align-items: center; justify-content: center;
-            width: 85px; height: 85px; background: linear-gradient(135deg, #002b5c, #0056b3);
-            border-radius: 22px; box-shadow: 0 6px 20px rgba(0,43,92,0.4); flex-shrink: 0;
+            width: 75px; height: 75px; background: linear-gradient(135deg, #002b5c, #0056b3);
+            border-radius: 20px; box-shadow: 0 6px 20px rgba(0,43,92,0.4); flex-shrink: 0;
             border: 2px solid #ffd700; overflow: hidden; position: relative;
         }
-        .emblema-serums-pro svg { width: 55px; height: 55px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .emblema-serums-pro svg { width: 50px; height: 50px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
         
         .logo-box-main { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 25px; }
-        .logo-titulo-portada { font-size: 3em; font-weight: 900; color: var(--primary); letter-spacing: -0.5px; line-height: 1.1; }
+        .logo-titulo-portada { font-size: 2.5em; font-weight: 900; color: var(--primary); letter-spacing: -0.5px; line-height: 1.1; }
         .logo-titulo-portada span { color: #28a745; }
-        
-        .logo-titulo { font-size: 1.6em; font-weight: 900; color: #0056b3; line-height: 1.2; }
+        .logo-titulo { font-size: 1.4em; font-weight: 900; color: #0056b3; line-height: 1.2; }
         body.dark-mode .logo-titulo { color: #60a5fa; }
         .logo-titulo span { color: #28a745; }
 
         /* === PANTALLAS DE AUTENTICACIÓN === */
-        .fondo-auth-premium { width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top left, #002b5c, #001229); padding: 30px 15px; overflow-y: auto; }
-        .contenedor-login-split { display: flex; max-width: 1000px; width: 100%; background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); overflow: hidden; min-height: 550px; }
-        @media (max-width: 880px) { .contenedor-login-split { flex-direction: column; max-width: 450px; } .columna-publicidad { display: none !important; } .columna-formulario { padding: 35px 25px !important; } }
+        .fondo-auth-premium {
+            width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            background: radial-gradient(circle at top left, #002b5c, #001229); padding: 30px 15px; overflow-y: auto;
+        }
+        .contenedor-login-split {
+            display: flex; max-width: 1000px; width: 100%; background: var(--bg-card);
+            border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); overflow: hidden; min-height: 550px;
+        }
+        @media (max-width: 880px) {
+            .contenedor-login-split { flex-direction: column; max-width: 450px; }
+            .columna-publicidad { display: none !important; }
+            .columna-formulario { padding: 35px 25px !important; }
+        }
         
         .columna-publicidad { flex: 1.1; background: #071527; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 25px; position: relative; }
         .carrusel-contenedor { position: relative; width: 100%; height: 100%; min-height: 400px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 16px; }
         .carrusel-img { width: 100%; height: 100%; max-height: 480px; object-fit: cover; border-radius: 16px; border: 2px solid rgba(255,215,0,0.4); display: none; }
         .carrusel-img.activa { display: block; }
+        
+        /* Botones de Carrusel Mejorados */
+        .btn-carrusel-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
+            color: white; border: 1px solid rgba(255,255,255,0.4); font-size: 1.5em;
+            width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex;
+            align-items: center; justify-content: center; z-index: 5; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .btn-carrusel-nav:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-50%) scale(1.1); }
+        .btn-carrusel-prev { left: 15px; } 
+        .btn-carrusel-next { right: 15px; }
         
         .columna-formulario { flex: 1; padding: 45px 35px; display: flex; flex-direction: column; justify-content: center; }
         .card-auth { background: var(--bg-card); width: 100%; max-width: 450px; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-md); border-top: 5px solid var(--primary); margin: auto; }
@@ -110,12 +132,19 @@
         .sub { color: var(--text-muted); font-size: 1.05em; text-align: center; margin-bottom: 25px; font-weight: 500; }
         .campo { margin-bottom: 16px; width: 100%; }
         .campo label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9em; color: var(--text-heading); }
-        .campo input, .campo select, .campo textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 10px; outline: none; font-size: 0.95em; background: var(--input-bg); color: var(--text-main); }
+        .campo input, .campo select, .campo textarea { 
+            width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 10px; 
+            outline: none; font-size: 0.95em; background: var(--input-bg); color: var(--text-main);
+        }
         .campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,86,179,0.15); }
         .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         @media (max-width: 600px) { .fila { grid-template-columns: 1fr; } }
         
-        .btn-p { width: 100%; background: var(--primary); color: white; border: none; padding: 13px; border-radius: 10px; font-size: 1em; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,86,179,0.2); }
+        .btn-p { 
+            width: 100%; background: var(--primary); color: white; border: none; padding: 13px; 
+            border-radius: 10px; font-size: 1em; font-weight: 700; cursor: pointer; display: inline-flex; 
+            align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,86,179,0.2); 
+        }
         .btn-p:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,86,179,0.3); }
         .btn-p:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
@@ -124,7 +153,11 @@
         .separador-o span { padding: 0 15px; font-size: 0.85em; font-weight: bold; }
         
         .contenedor-google-circular { display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 10px; }
-        .btn-google-circle { width: 60px; height: 60px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: 0.25s; }
+        .btn-google-circle {
+            width: 60px; height: 60px; border-radius: 50%; background: var(--bg-card);
+            border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center;
+            cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: 0.25s;
+        }
         .btn-google-circle:hover { transform: scale(1.1); border-color: var(--primary); box-shadow: 0 6px 18px rgba(0,86,179,0.2); }
 
         .links { margin-top: 20px; text-align: center; font-size: 0.95em; display: flex; flex-direction: column; gap: 10px; }
@@ -141,8 +174,9 @@
         .sidebar { width: 270px; background: var(--sidebar-bg); border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; flex-shrink: 0; }
         
         .side-logo-header { padding: 22px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 14px; }
-        .side-logo-header .emblema-serums-pro { width: 55px; height: 55px; border-radius: 12px; border-width: 1px;}
-        .side-logo-header .emblema-serums-pro svg { width: 38px; height: 38px; }
+        .side-logo-header .emblema-serums-pro { width: 48px; height: 48px; border-radius: 12px; border-width: 1px;}
+        .side-logo-header .emblema-serums-pro svg { width: 32px; height: 32px; }
+        .side-logo-header .logo-titulo { color: #ffffff !important; font-size: 1.25em; line-height: 1.2; }
         
         .menu { list-style: none; padding: 20px 12px; flex: 1; overflow-y: auto; }
         .menu li { padding: 12px 16px; cursor: pointer; font-weight: 600; color: var(--sidebar-text); border-radius: 10px; display: flex; align-items: center; gap: 12px; margin-bottom: 5px; font-size: 0.95em; }
@@ -168,15 +202,16 @@
         body.dark-mode .plan-free { background: #78350f; color: #fde68a; border-color: #92400e; }
         body.dark-mode .plan-prem { background: #064e3b; color: #a7f3d0; border-color: #047857; }
 
-        /* === DASHBOARD, MASCOTA Y CURSOS === */
+        /* === DASHBOARD Y TARJETAS DE CURSOS === */
         .dashboard-grid-layout { display: flex; gap: 25px; align-items: flex-start; }
         .dashboard-col-principal { flex: 1; min-width: 0; }
         .dashboard-col-mascota { width: 300px; flex-shrink: 0; }
         @media (max-width: 1000px) { .dashboard-grid-layout { flex-direction: column; } .dashboard-col-mascota { width: 100%; } }
 
-        /* Tarjetas Nav Cuadradas */
+        /* Tarjetas de Cursos (Inicio, Teoría, Fijas, Flashcards) */
         .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
         
+        /* Contenedor Nav Flex (Tarjetas centradas) */
         .flex-tarjetas-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 30px; }
         .flex-tarjetas-nav .card-c { flex: 1 1 150px; max-width: 200px; }
         
@@ -194,7 +229,7 @@
         .banner-countdown-dias { background: linear-gradient(135deg, #1e3c72, #2a5298); color: white; padding: 18px 25px; border-radius: 16px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-md); }
         .banner-countdown-dias.modo-probable { background: linear-gradient(135deg, #0d9488, #115e59); }
 
-        /* Mascota Widget */
+        /* Mascota Widget Lateral */
         .widget-mascota-lateral { background: linear-gradient(135deg, #0056b3, #0098b8); color: white; padding: 25px 20px; border-radius: 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center; }
         body.dark-mode .widget-mascota-lateral { background: linear-gradient(135deg, #1e3a8a, #0369a1); }
         .avatar-canvas-box { position: relative; width: 110px; height: 110px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; }
@@ -214,6 +249,7 @@
         .panel-banqueo-bd { background: var(--bg-card); padding: 20px; border-radius: 14px; margin-bottom: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-left: 5px solid var(--primary); display: grid; grid-template-columns: minmax(150px, 1.2fr) minmax(200px, 2fr) minmax(100px, 1fr) auto; gap: 15px; align-items: end; }
         @media (max-width: 800px) { .panel-banqueo-bd { grid-template-columns: 1fr; } }
         
+        /* Botón IA Mejorado */
         .panel-control-ia { background: var(--bg-card-subtle); padding: 20px; border-radius: 14px; margin-bottom: 25px; box-shadow: var(--shadow-sm); border: 1px solid #d8b4fe; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
         .btn-ia-accion { 
             background: transparent; color: #a855f7; border: 2px solid #a855f7; padding: 10px 20px; 
@@ -277,6 +313,15 @@
         .btn-ws { background: #25d366; color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; font-size: 1.05em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-shadow: 0 4px 15px rgba(37,211,102,0.3); }
         .btn-cerrar-modal { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; }
 
+        /* Botón de Soporte Fijo Exclusivo */
+        .btn-flotante-ws {
+            position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; 
+            border-radius: 50px; padding: 12px 22px; display: flex; align-items: center; gap: 10px; 
+            box-shadow: 0 6px 20px rgba(37,211,102,0.4); text-decoration: none; font-weight: bold; font-size: 1em; z-index: 9998;
+            transition: 0.3s;
+        }
+        .btn-flotante-ws:hover { transform: scale(1.05); }
+
         /* Modal Animado de Bienvenida (Estilo Premium) */
         @keyframes popupBounce {
             0% { transform: scale(0.5); opacity: 0; }
@@ -288,15 +333,6 @@
             border: 4px solid var(--primary);
             box-shadow: 0 0 30px rgba(0, 123, 255, 0.4);
         }
-
-        /* Botón de Soporte Fijo Exclusivo */
-        .btn-flotante-ws {
-            position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; 
-            border-radius: 50px; padding: 12px 22px; display: flex; align-items: center; gap: 10px; 
-            box-shadow: 0 6px 20px rgba(37,211,102,0.4); text-decoration: none; font-weight: bold; font-size: 1em; z-index: 9998;
-            transition: 0.3s;
-        }
-        .btn-flotante-ws:hover { transform: scale(1.05); }
 
         /* === CALENDARIO Y EDITOR === */
         .toolbar-word { display: flex; gap: 6px; padding: 8px; background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; flex-wrap: wrap; }
@@ -409,12 +445,10 @@
             <div class="card-auth amplia">
                 <div class="logo-box-main">
                     <div class="emblema-serums-pro" style="width: 55px; height: 55px;">
-                        <svg viewBox="0 0 100 100" fill="none">
-                            <circle cx="50" cy="50" r="42" fill="#ffffff"/>
-                            <path d="M 25 50 C 25 82, 75 82, 75 50" stroke="#0056b3" stroke-width="5" fill="none" stroke-linecap="round"/>
-                            <path d="M 75 50 C 75 35, 65 25, 50 25" stroke="#0056b3" stroke-width="5" fill="none" stroke-linecap="round"/>
-                            <circle cx="50" cy="25" r="4" fill="#0056b3"/>
-                            <path d="M41 50 h18 M50 41 v18" stroke="#28a745" stroke-width="7" stroke-linecap="round"/>
+                        <svg viewBox="0 0 100 100" fill="none" style="width:36px; height:36px;">
+                            <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="4"/>
+                            <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
+                            <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
                         </svg>
                     </div>
                     <div class="logo-titulo" style="font-size: 1.6em;">Proserum's <span>Academia</span></div>
@@ -467,10 +501,9 @@
                 <div class="side-logo-header">
                     <div class="emblema-serums-pro" style="width: 45px; height: 45px; border-radius: 12px; border-width: 1px;">
                         <svg viewBox="0 0 100 100" fill="none" style="width: 28px; height: 28px;">
-                            <circle cx="50" cy="50" r="42" fill="#ffffff"/>
-                            <path d="M 25 50 C 25 82, 75 82, 75 50" stroke="#0056b3" stroke-width="5" fill="none" stroke-linecap="round"/>
-                            <path d="M 75 50 C 75 35, 65 25, 50 25" stroke="#0056b3" stroke-width="5" fill="none" stroke-linecap="round"/>
-                            <path d="M41 50 h18 M50 41 v18" stroke="#28a745" stroke-width="7" stroke-linecap="round"/>
+                            <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="5"/>
+                            <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
+                            <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
                         </svg>
                     </div>
                     <div class="logo-titulo" style="font-size: 1.2em; color: white;">Proserum's<br><span>Academia</span></div>
@@ -497,10 +530,13 @@
                             <p style="color: var(--text-muted); font-size: 0.95em;">Preparación de alto impacto SERUMS.</p>
                         </div>
                         <div class="header-actions">
+                            <a id="btn-header-wa" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-theme-toggle" style="text-decoration: none; color: #28a745; border-color: #28a745;">
+                                💬 Soporte Técnico
+                            </a>
                             <button class="btn-theme-toggle" onclick="alternarModoOscuro()"><span id="icono-tema">🌙</span></button>
                             <div id="contenedor-membresia-top" class="banner-plan-top plan-free">
                                 <span id="badge-membresia-txt">Cuenta Básica</span>
-                                <button id="btn-upgrade-top" class="btn-p" style="padding: 4px 10px; font-size: 0.85em; margin-left: 8px; box-shadow:none;" onclick="abrirModalPremium()">Mejorar</button>
+                                <button id="btn-upgrade-top" class="btn-p" style="padding: 4px 12px; font-size: 0.85em; margin-left: 8px; box-shadow:none;" onclick="abrirModalPremium()">Mejorar</button>
                             </div>
                         </div>
                     </div>
@@ -544,10 +580,9 @@
                     <!-- CRONOGRAMA Y CALENDARIO -->
                     <div id="sec-crono" style="display: none;">
                         <div class="card-c" style="border-top-color: #0d9488; margin-bottom: 25px; padding: 30px;">
-                            <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 10px;">📅 Metodología y Calendario Interactivo</h2>
+                            <h2 style="color: var(--text-heading); font-size: 1.2em; margin-bottom: 10px;">📅 Metodología y Calendario Interactivo</h2>
                             <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 1em;" id="crono-subtitulo-dinamico">Planificación inteligente según modalidad del examen.</p>
                             
-                            <!-- Metodología alineada a la izquierda -->
                             <div id="cuerpo-cronograma-contenedor" style="text-align: left; margin-bottom: 25px;"></div>
                             
                             <div class="calendar-container">
@@ -563,9 +598,9 @@
                         </div>
                     </div>
 
-                    <!-- TEORÍA Y RESÚMENES (Botones Cuadrados) -->
+                    <!-- TEORÍA Y RESÚMENES -->
                     <div id="sec-temas" style="display: none;">
-                        <h2 style="color: var(--text-heading); font-size: 1.4em; margin-bottom: 20px;">📖 Teoría y Resúmenes Grabados</h2>
+                        <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 20px;">📖 Teoría y Resúmenes Grabados</h2>
                         <div class="flex-tarjetas-nav" id="tabs-teoria">
                             <div class="card-c activa" style="border-top-color: var(--primary);" onclick="filtrarTeoria('todos')"><div class="card-c-icono">🌟</div><h3>Todo el Temario</h3></div>
                             <div class="card-c" style="border-top-color: #007bff;" onclick="filtrarTeoria('1')"><div class="card-c-icono">🌍</div><h3>Salud Pública</h3></div>
@@ -602,7 +637,7 @@
                             </div>
                         </div>
 
-                        <!-- Modo: Por Curso (Diseño Horizontal Solucionado) -->
+                        <!-- Modo: Por Curso -->
                         <div id="pantalla-banqueo-curso" style="display: none;">
                             <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                             
@@ -619,7 +654,7 @@
                                 </div>
                                 <div>
                                     <label style="font-weight: 600; font-size: 0.9em; display: block; margin-bottom: 8px;">Tema Oficial:</label>
-                                    <select id="sel-tema-banqueo" class="campo-select-pro" style="width: 100%;">
+                                    <select id="sel-tema-banqueo" class="campo-select-pro" style="width: 100%; text-overflow: ellipsis;">
                                         <option value="General">Todo el curso (General)</option>
                                     </select>
                                 </div>
@@ -638,7 +673,7 @@
                             <div class="panel-control-ia">
                                 <div>
                                     <strong style="color: #6f42c1; font-size: 1.05em;">✨ Generador Inteligente con IA</strong>
-                                    <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">Crea casos clínicos inéditos.</p>
+                                    <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 4px;">Crea casos inéditos.</p>
                                 </div>
                                 <button class="btn-ia-accion" id="btn-generar-preguntas-ia" onclick="mostrarAvisoModal('Función IA', 'Conectado a Gemini Studio exitosamente.', '🤖')">
                                     ⚡ Formular IA
@@ -706,7 +741,7 @@
                         </div>
                     </div>
 
-                    <!-- FLASHCARDS (BOTONES CUADRADOS CENTRADOS) -->
+                    <!-- FLASHCARDS -->
                     <div id="sec-flashcards" style="display: none;">
                         <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">🗂️ Módulo Flashcards</h2>
                         <div class="flex-tarjetas-nav" id="tabs-flashcards">
@@ -719,10 +754,10 @@
                         <div id="contenedor-flashcards" class="grid-flashcards"></div>
                     </div>
 
-                    <!-- FIJAS (BOTONES CUADRADOS CENTRADOS) -->
+                    <!-- FIJAS -->
                     <div id="sec-fijas" style="display: none;">
                         <div style="text-align: center; margin-bottom: 15px;">
-                            <h1 style="color: var(--text-heading); font-size: 1.8em; font-weight: 900;">🔥 Las Fijas SERUMS</h1>
+                            <h1 style="color: var(--text-heading); font-size: 1.6em; font-weight: 900;">🔥 Las Fijas SERUMS</h1>
                         </div>
                         <div class="flex-tarjetas-nav" id="tabs-fijas">
                             <div class="card-c activa" style="border-top-color: #ffd700;" onclick="cambiarPildoraFija(this, 'todos')"><div class="card-c-icono">🌟</div><h3>Todas Las Fijas</h3></div>
@@ -735,7 +770,7 @@
                         <div id="contenedor-fijas-cards" class="grid-modalidades-banqueo"></div>
                     </div>
 
-                    <!-- ESTADISTICAS CON PASTEL Y BALANCE POR CURSO -->
+                    <!-- ESTADISTICAS CON PASTEL Y RANKING -->
                     <div id="sec-stats" style="display: none;">
                         <h2 style="color: var(--text-heading); font-size: 1.4em; margin-bottom: 20px;">📈 Diagnóstico Clínico y Rendimiento</h2>
                         
@@ -758,24 +793,23 @@
                                 <div style="display: flex; gap: 12px; margin-top: 15px; font-size: 0.9em; font-weight: bold;"><span style="color: #28a745;">🟩 Correctas</span><span style="color: #dc3545;">🟥 Incorrectas</span></div>
                             </div>
                         </div>
-
+                        
                         <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">Balance Detallado por Curso</h2>
                         <div id="contenedor-stats-por-curso"></div>
 
-                        <!-- SECCIÓN: RANKING DE SIMULACROS -->
+                        <!-- RANKING DE SIMULACROS -->
                         <div style="margin-top: 35px;">
                             <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">🏆 Ranking Nacional de Simulacros</h2>
                             <div class="card-c" style="border-top-color: #ffd700; padding: 25px;">
                                 <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 15px;">Clasificación anónima basada en la precisión global de los exámenes oficiales.</p>
                                 <ul class="ranking-list" id="lista-ranking-alumnos">
-                                    <!-- Aquí se inyecta el ranking dinámico -->
                                     <li style="text-align: center; color: var(--text-muted);">Calculando tu posición...</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <!-- PERFIL -->
+                    <!-- PERFIL Y UNIVERSIDAD -->
                     <div id="sec-perfil" style="display: none;">
                         <div class="card-auth amplia" style="margin: 0 auto; max-width: 750px;">
                             <h2 style="color: var(--text-heading); margin-bottom: 12px; font-size: 1.6em; text-align: center;">👤 Mi Perfil Profesional</h2>
@@ -827,12 +861,12 @@
                                     <div class="campo"><label>Dificultad</label><select id="adm-p-dif" class="campo-select-pro"><option value="Basica">Básica</option><option value="Intermedia" selected>Intermedia</option><option value="Avanzada">Avanzada</option></select></div>
                                     <div class="campo"><label>Enunciado</label><textarea id="adm-p-enunciado" rows="3" required></textarea></div>
                                     <div class="fila">
-                                        <div class="campo"><label>A</label><input type="text" id="adm-p-oa" required></div>
-                                        <div class="campo"><label>B</label><input type="text" id="adm-p-ob" required></div>
+                                        <div class="campo"><label>Alternativa A</label><input type="text" id="adm-p-oa" required></div>
+                                        <div class="campo"><label>Alternativa B</label><input type="text" id="adm-p-ob" required></div>
                                     </div>
                                     <div class="fila">
-                                        <div class="campo"><label>C</label><input type="text" id="adm-p-oc" required></div>
-                                        <div class="campo"><label>D</label><input type="text" id="adm-p-od" required></div>
+                                        <div class="campo"><label>Alternativa C</label><input type="text" id="adm-p-oc" required></div>
+                                        <div class="campo"><label>Alternativa D</label><input type="text" id="adm-p-od" required></div>
                                     </div>
                                     <div class="campo"><label>Correcta</label><select id="adm-p-correcta" class="campo-select-pro" required><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
                                     <div class="campo"><label>Justificación</label><textarea id="adm-p-justificacion" rows="2" required></textarea></div>
@@ -855,27 +889,31 @@
                             <!-- Configuración Redes y Cronograma Editable -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🌐 Redes Sociales y WhatsApp</h3>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📢 Banners Publicitarios</h3>
                                     <div class="fila">
-                                        <div class="campo"><label>WhatsApp Oficial (ej: 51999999999)</label><input type="text" id="adm-link-wa"></div>
-                                        <div class="campo"><label>Facebook</label><input type="text" id="adm-link-fb"></div>
+                                        <div class="campo">
+                                            <label>Carrusel Login (Asegura tu plaza):</label>
+                                            <input type="file" id="file-banner-login" accept="image/*">
+                                            <button type="button" class="btn-tool" style="margin-top:6px;" onclick="agregarImagenCarrusel('banner_login')">➕ Agregar</button>
+                                            <div id="lista-anuncios-login-adm" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
+                                        </div>
+                                        <div class="campo">
+                                            <label>Pop-up de Bienvenida (Aula Virtual):</label>
+                                            <input type="file" id="file-popup-anuncio" accept="image/*">
+                                            <button type="button" class="btn-tool" style="margin-top:6px;" onclick="agregarImagenCarrusel('popup_anuncio')">➕ Agregar</button>
+                                            <div id="lista-anuncios-popup-adm" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
+                                        </div>
                                     </div>
-                                    <div class="fila">
-                                        <div class="campo"><label>Messenger (m.me)</label><input type="text" id="adm-link-msg"></div>
-                                        <div class="campo"><label>Discord</label><input type="text" id="adm-link-dc"></div>
-                                    </div>
-                                    <button type="button" class="btn-p" style="width: auto; padding: 10px 18px;" onclick="guardarRedesSociales()">Guardar Redes Sociales</button>
                                 </div>
                                 <div class="admin-form-box">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📅 Configuración de Fecha y Cronograma Editable</h3>
                                     <div class="fila" style="margin-bottom: 15px;">
                                         <div class="campo"><label>Modalidad de la Fecha Activa:</label><select id="adm-sel-modalidad-fecha" class="campo-select-pro"><option value="oficial" selected>Fecha Oficial Confirmada</option><option value="probable">Fecha Probable / Estimada</option></select></div>
-                                        <div class="campo"><label>Fecha del Examen:</label><input type="date" id="adm-input-fecha-examen"></div>
+                                        <div class="campo"><label>Fecha del Examen:</label><input type="date" id="adm-input-fecha-examen" style="padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);"></div>
                                     </div>
                                     <div class="campo">
                                         <label>Mensaje Personalizado del Cronograma de Estudio (Opcional):</label>
                                         <textarea id="adm-texto-metodologia" rows="4" placeholder="Ej: Esta semana estudiaremos Salud Pública y repasaremos simulacros el sábado..."></textarea>
-                                        <small style="color: var(--text-muted);">Si dejas esto en blanco, se mostrará el mensaje inteligente por defecto.</small>
                                     </div>
                                     <div class="campo" style="margin-bottom: 15px;">
                                         <label>Anotación en el Calendario (Ej: Simulacro Semanal):</label>
@@ -893,11 +931,6 @@
                                 <div class="admin-form-box">
                                     <div class="campo"><label>Pega aquí las preguntas de tu Word:</label><textarea id="vaciador-texto-bruto" rows="10" placeholder="1. Paciente gestante que acude..."></textarea></div>
                                     <button type="button" class="btn-p" id="btn-procesar-vaciador" style="font-size: 1.1em; padding: 16px;" onclick="procesarTextoVaciadorConIA()">⚡ Procesar y Estructurar con IA</button>
-                                    <div id="contenedor-revision-vaciador" style="margin-top: 30px; display: none;">
-                                        <h3 style="color: #28a745; margin-bottom: 15px;">Revisión de Casos Procesados:</h3>
-                                        <div id="lista-preguntas-vaciadas"></div>
-                                        <button type="button" class="btn-p" style="background: #28a745; margin-top: 20px; font-size: 1.1em; padding: 16px;" onclick="guardarPreguntasVaciadasEnBD()">✔ Guardar en Base de Datos Oficial</button>
-                                    </div>
                                 </div>
                             </div>
 
@@ -909,10 +942,6 @@
                                     </div>
                                     <button type="submit" class="btn-p" style="background: #28a745; padding: 14px; font-size: 1.05em;">Crear Simulacro</button>
                                 </form>
-                                <table class="base-table" style="margin-top: 30px;">
-                                    <thead><tr><th>Simulacro</th><th>Duración</th><th>Estado</th><th>Acción</th></tr></thead>
-                                    <tbody id="tabla-simulacros-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
-                                </table>
                             </div>
 
                             <div id="subtab-adm-f" class="subtab-adm">
@@ -940,7 +969,6 @@
                                     <div class="campo">
                                         <label>Enlace de Video (Opcional - YouTube, Drive o Vimeo):</label>
                                         <input type="url" id="adm-t-video" placeholder="https://... (Deja en blanco si el tema es solo lectura)">
-                                        <small style="color: var(--text-muted);">Si agregas un enlace, se incrustará un reproductor debajo de la teoría.</small>
                                     </div>
                                     <div class="campo">
                                         <label>Contenido Teórico (Editor de Texto - Soporta copiar/pegar de Word y Tablas):</label>
@@ -968,7 +996,7 @@
                                                 <th>Alumno / Correo</th>
                                                 <th>Carrera / Universidad</th>
                                                 <th>Contacto</th>
-                                                <th>Plan</th>
+                                                <th>Plan / Estado</th>
                                                 <th>Acciones Rápidas</th>
                                             </tr>
                                         </thead>
@@ -979,8 +1007,7 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- FOOTER RESTAURADO -->
+                <!-- FOOTER -->
                 <footer class="footer-oficial">
                     <p><strong>© 2026 Proserum's Academia. Todos los derechos reservados.</strong></p>
                     <p>Propiedad Intelectual y Contenidos Registrados. Versión 3.5 Pro.</p>
@@ -988,115 +1015,9 @@
             </main>
         </div>
     </section>
-
-    <!-- MODALES VARIOS -->
-    <div id="modal-alimentar" class="modal-overlay">
-        <div class="modal-box" style="max-width: 450px;">
-            <h3 style="font-size: 1.3em;">Tienda de Alimentos</h3>
-            <p style="margin: 5px 0 15px; color: var(--text-muted); font-size: 0.95em;">Gasta monedas para ganar energía y subir de nivel.</p>
-            <div class="grid-tienda" style="grid-template-columns: 1fr 1fr;">
-                <div class="item-tienda-card" onclick="comprarAlimento(5, 10)"><div class="item-icono">💧</div>Agua<br><small style="color:var(--primary);">5 Monedas</small></div>
-                <div class="item-tienda-card" onclick="comprarAlimento(10, 25)"><div class="item-icono">🍎</div>Manzana<br><small style="color:var(--primary);">10 Monedas</small></div>
-                <div class="item-tienda-card" onclick="comprarAlimento(15, 50)"><div class="item-icono">☕</div>Café<br><small style="color:var(--primary);">15 Monedas</small></div>
-                <div class="item-tienda-card" onclick="comprarAlimento(25, 100)"><div class="item-icono">🍔</div>Menú<br><small style="color:var(--primary);">25 Monedas</small></div>
-            </div>
-            <button class="btn-cerrar-modal" onclick="cerrarModales()">Cerrar Tienda</button>
-        </div>
-    </div>
-
-    <div id="modal-armario" class="modal-overlay">
-        <div class="modal-box" style="max-width: 600px;">
-            <h3 style="font-size: 1.3em;">Centro de Mascotas y Especies</h3>
-            <h4 style="text-align: left; font-size: 0.95em; color: var(--primary); margin-top: 15px;">Especie Base:</h4>
-            <div class="grid-tienda">
-                <div class="item-tienda-card" onclick="cambiarAnimal('perrito')"><div class="item-icono">🐶</div>Perrito</div>
-                <div class="item-tienda-card" onclick="cambiarAnimal('gatito')"><div class="item-icono">🐱</div>Gatito</div>
-                <div class="item-tienda-card" onclick="cambiarAnimal('panda')"><div class="item-icono">🐼</div>Pandita</div>
-                <div class="item-tienda-card" onclick="cambiarAnimal('zorrito')"><div class="item-icono">🦊</div>Zorrito</div>
-                <div class="item-tienda-card" onclick="cambiarAnimal('fenix')"><div class="item-icono">🔥</div>Fénix</div>
-                <div class="item-tienda-card" onclick="cambiarAnimal('polar')"><div class="item-icono">🐻‍❄️</div>Polar</div>
-                <div class="item-tienda-card" onclick="cambiarAnimal('grizzly')"><div class="item-icono">🐻</div>Grizzly</div>
-            </div>
-            <h4 style="text-align: left; font-size: 0.95em; color: var(--primary); margin-top: 15px;">Cabeza:</h4>
-            <div class="grid-tienda">
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'ninguno')"><div class="item-icono">❌</div>Ninguno</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'esteto')"><div class="item-icono">🩺</div>Estetoscopio</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'gorro')"><div class="item-icono">🧢</div>Gorro Verde</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'birrete')"><div class="item-icono">🎓</div>Birrete</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'lentes')"><div class="item-icono">👓</div>Lentes</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'frontoluz')"><div class="item-icono">🔦</div>Frontoluz</div>
-            </div>
-            <h4 style="text-align: left; font-size: 0.95em; color: var(--primary); margin-top: 15px;">Cuerpo:</h4>
-            <div class="grid-tienda">
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'ninguno')"><div class="item-icono">❌</div>Sin ropa</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'mandil')"><div class="item-icono">🥼</div>Mandil Blanco</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'scrub')"><div class="item-icono">👕</div>Scrub Azul</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'corbata')"><div class="item-icono">👔</div>Camisa Formal</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'chaleco')"><div class="item-icono">🦺</div>Chaleco Rojo</div>
-            </div>
-            <button class="btn-cerrar-modal" onclick="cerrarModales()">Guardar Estilo</button>
-        </div>
-    </div>
-
-    <div id="modal-premium" class="modal-overlay">
-        <div class="modal-box" style="max-width: 480px;">
-            <div style="font-size: 3em; margin-bottom: 10px;">⭐</div>
-            <h3 style="font-size: 1.4em; color: var(--primary);">Acceso Ciclo Completo</h3>
-            <p style="margin: 10px 0 20px; color: var(--text-muted); font-size: 0.95em; line-height: 1.5;">
-                Obtén banqueo ilimitado a más de <strong>30,000 preguntas</strong>, desbloquea Las Fijas, simulacros ilimitados y teoría completa.
-            </p>
-            <a id="btn-enlace-whatsapp-premium" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-ws">💬 Activar Membresía</a>
-            <button class="btn-cerrar-modal" onclick="cerrarModales()">Volver al Tablero</button>
-        </div>
-    </div>
-
-    <!-- MODAL DE BIENVENIDA MASCOTA -->
-    <div id="modal-bienvenida-mascota" class="modal-overlay">
-        <div class="modal-box" style="max-width: 420px; border-top: 6px solid var(--primary); animation: popupFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
-            <div class="globo-dialogo" id="txt-bienvenida-mascota" style="font-size: 1.1em; margin-bottom: 20px; padding: 15px; border-radius: 12px; background: rgba(0,86,179,0.08); color: var(--primary); font-weight: bold; border: 1px solid rgba(0,86,179,0.2);">¡Bienvenido de nuevo, un gran día para estudiar!</div>
-            <div class="avatar-canvas-box" id="avatar-canvas-bienvenida" style="width: 140px; height: 140px; margin: 0 auto 20px;"></div>
-            <button class="btn-p" style="padding: 12px; font-size: 1.1em;" onclick="cerrarModales()">¡Vamos a darle! ➔</button>
-        </div>
-    </div>
-
-    <style>
-        @keyframes popupFadeIn {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-    </style>
-
-    <div id="modal-aviso-general" class="modal-overlay">
-        <div class="modal-box" style="max-width: 420px;">
-            <div id="aviso-icono" style="font-size: 3em; margin-bottom: 10px;">💡</div>
-            <h3 id="aviso-titulo" style="font-size: 1.3em;">Aviso</h3>
-            <p id="aviso-cuerpo" style="margin: 12px 0 20px; color: var(--text-muted); font-size: 1em; line-height: 1.5;"></p>
-            <button class="btn-p" style="padding: 12px;" onclick="cerrarModales()">Entendido</button>
-        </div>
-    </div>
-
-    <div id="modal-recuperar" class="modal-overlay">
-        <div class="modal-box">
-            <h3 style="font-size: 1.4em;">🔑 Restablecer Contraseña</h3>
-            <p style="margin: 8px 0 18px; color: var(--text-muted); font-size: 0.95em;">Ingresa tu correo oficial.</p>
-            <div class="campo"><input type="email" id="recuperar-email" placeholder="correo@ejemplo.com"></div>
-            <button class="btn-p" style="padding: 14px; font-size: 1.1em;" onclick="enviarRestablecimientoPassword()">Enviar Enlace</button>
-            <button class="btn-cerrar-modal" onclick="cerrarModales()">Cancelar</button>
-        </div>
-    </div>
-
-    <!-- BOTONES FLOTANTES REDES SOCIALES (Solo WhatsApp fijo, los demás editables arriba) -->
-    <div class="contenedor-redes-flotante">
-        <a id="btn-flotante-wa" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-flotante-ws" title="Soporte Técnico por WhatsApp">
-            <svg style="width: 22px; height: 22px; fill: white;" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-            <span>Soporte Técnico</span>
-        </a>
-        <div class="lista-redes-hijas" id="lista-redes-box" style="display: flex;">
-            <a id="btn-flotante-fb" href="#" target="_blank" class="btn-red-item red-fb" style="display: none;" title="Facebook">F</a>
-            <a id="btn-flotante-msg" href="#" target="_blank" class="btn-red-item red-msg" style="display: none;" title="Messenger">M</a>
-            <a id="btn-flotante-dc" href="#" target="_blank" class="btn-red-item red-dc" style="display: none;" title="Discord">D</a>
-        </div>
-        <script>
+    </script>
+</body>
+<script>
         // === 1. DATOS OFICIALES Y FRASES MOTIVACIONALES ===
         const FRASES_MOTIVACIONALES = [
             "¡Qué alegría verte de nuevo, {nombre}! Hoy sumaremos puntos decisivos.",
@@ -1420,6 +1341,7 @@
                     user = session.user;
                     await cargarPerfil();
                     
+                    // Solo pasamos al dashboard si estamos en la pantalla de Login 
                     if (document.getElementById('vista-login').classList.contains('activa') || document.getElementById('vista-registro').classList.contains('activa')) {
                         ver('vista-app');
                         subSec('dash');
@@ -1578,6 +1500,7 @@
             if (p.rol === 'admin') document.getElementById('m-admin').style.display = 'flex';
             else document.getElementById('m-admin').style.display = 'none';
 
+            // Poblar campos del formulario "Mi Perfil"
             if (document.getElementById('p-nom')) document.getElementById('p-nom').value = p.nombres || '';
             if (document.getElementById('p-ape')) document.getElementById('p-ape').value = p.apellidos || '';
             if (document.getElementById('p-col')) document.getElementById('p-col').value = p.colegiatura || '';
@@ -1586,6 +1509,7 @@
             if (document.getElementById('p-uni')) document.getElementById('p-uni').value = p.universidad || '';
             if (document.getElementById('p-esc')) document.getElementById('p-esc').value = p.escuela_profesional || '';
 
+            // Cargar Mascota
             const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
             if (m) {
                 perfilMascota = {
@@ -1607,6 +1531,7 @@
 
             renderizarMascotaSVG();
 
+            // Saludo motivacional en el coach del Banco de Preguntas
             const msgCoach = document.getElementById('coach-mensaje');
             if (msgCoach) {
                 const fraseAleatoria = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
@@ -1674,6 +1599,7 @@
                 <ellipse cx="50" cy="70" rx="${esAdulto ? '18' : '16'}" ry="15" fill="${colorHocico}"/>
             `;
             
+            // Prendas (Colores fieles)
             if (cuerpo === 'mandil') {
                 svgCuerpo += `
                     <path d="M22 62 Q50 56 78 62 L74 90 Q50 94 26 90 Z" fill="#ffffff" stroke="#ced4da" stroke-width="2"/>
@@ -1697,6 +1623,7 @@
                 `;
             }
 
+            // Patas
             svgCuerpo += `
                 <ellipse cx="36" cy="88" rx="${esAdulto ? '9' : '8'}" ry="6" fill="${colorBase}"/>
                 <ellipse cx="64" cy="88" rx="${esAdulto ? '9' : '8'}" ry="6" fill="${colorBase}"/>
@@ -1719,6 +1646,7 @@
                 svgOrejas = `<ellipse cx="23" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(22 23 38)"/><ellipse cx="77" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(-22 77 38)"/>`;
             }
 
+            // Accesorios Cabeza
             let svgAccesorios = "";
             if (cabeza === 'gorro') {
                 svgAccesorios = `<path d="M25 24 Q50 10 75 24 Q72 16 50 14 Q28 16 25 24 Z" fill="#28a745"/><rect x="24" y="22" width="52" height="6" rx="3" fill="#218838"/>`;
@@ -1906,7 +1834,6 @@
         }
 
         async function cargarSiguientePregunta() {
-            // Límite Plan Básico (25 diarias)
             if (perfilUsuario.plan !== 'premium' && perfilUsuario.preguntas_hoy >= 25) {
                 mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado', 'Has alcanzado el límite de 25 preguntas diarias de la cuenta básica. Pasa al Ciclo Completo para practicar sin límites.');
                 return;
@@ -1985,9 +1912,11 @@
 
             const sb = obtenerSupabase();
             if (sb && user) {
+                // Registrar intento
                 if (preguntaActual.id) {
                     await sb.from('intentos_usuario').insert([{ user_id: user.id, pregunta_id: preguntaActual.id, area_id: preguntaActual.area_id || 1, es_correcta: esOk }]);
                 }
+                // Actualizar contador free
                 if (perfilUsuario.plan !== 'premium') {
                     perfilUsuario.preguntas_hoy = (perfilUsuario.preguntas_hoy || 0) + 1;
                     await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
@@ -1998,7 +1927,7 @@
         function iniciarSimulacroArmado() {
             const cantidad = parseInt(document.getElementById('cfg-sim-cantidad').value) || 25;
             if (perfilUsuario.plan !== 'premium' && cantidad > 25) {
-                mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'Las cuentas básicas tienen un límite máximo de 25 preguntas por simulacro. Para exámenes de 50 o 100 preguntas necesitas el Ciclo Completo.');
+                mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'Las cuentas básicas tienen un límite máximo de 25 preguntas por simulacro. Para exámenes completos necesitas el Ciclo Completo.');
                 return;
             }
             mostrarAvisoModal("Simulacro Iniciado", `Preparando examen personalizado de ${cantidad} preguntas. ¡A darlo todo!`, "📝");
@@ -2032,9 +1961,12 @@
         }
 
         // === 8. TEORÍA, FLASHCARDS Y FIJAS ===
+        
+        // Teoría y Resúmenes (Con Tarjetas Cuadradas)
         async function cargarTemasTeoricos() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('lista-temas-contenedor');
+            
             const { data: temas } = await sb.from('temas').select('*');
             temasTeoricosEnMemoria = temas || [];
         }
@@ -2239,6 +2171,7 @@
             txtOk.innerText = ptGlobal + '%';
             txtErr.innerText = errs;
             
+            // Actualizar Gráfico Circular
             pctVal.innerText = ptGlobal + '%';
             pctBox.style.setProperty('--pct', `${ptGlobal}%`);
 
@@ -2280,7 +2213,7 @@
             const lista = document.getElementById('lista-ranking-alumnos');
             if(!lista) return;
 
-            // Simulamos un ranking base nacional
+            // Simulamos un ranking base nacional anónimo
             let competidores = [
                 { nombre: "Participante 892", pt: 96 },
                 { nombre: "Participante 412", pt: 92 },
@@ -2720,4 +2653,4 @@
     </script>
 </body>
 </html>
-    </div>
+</html>
