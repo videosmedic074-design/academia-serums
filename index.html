@@ -77,7 +77,7 @@
         .pantalla { display: none; min-height: 100vh; }
         .pantalla.activa { display: flex; }
 
-        /* === LOGO (MUNDO Y CRUZ MÉDICA) === */
+        /* === NUEVO LOGO UNIVERSAL (SALUD) === */
         .emblema-serums-pro {
             display: inline-flex; align-items: center; justify-content: center;
             width: 75px; height: 75px; background: linear-gradient(135deg, #002b5c, #0056b3);
@@ -94,36 +94,17 @@
         .logo-titulo span { color: #28a745; }
 
         /* === PANTALLAS DE AUTENTICACIÓN === */
-        .fondo-auth-premium {
-            width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center;
-            background: radial-gradient(circle at top left, #002b5c, #001229); padding: 30px 15px; overflow-y: auto;
-        }
-        .contenedor-login-split {
-            display: flex; max-width: 1000px; width: 100%; background: var(--bg-card);
-            border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); overflow: hidden; min-height: 550px;
-        }
-        @media (max-width: 880px) {
-            .contenedor-login-split { flex-direction: column; max-width: 450px; }
-            .columna-publicidad { display: none !important; }
-            .columna-formulario { padding: 35px 25px !important; }
-        }
+        .fondo-auth-premium { width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top left, #002b5c, #001229); padding: 30px 15px; overflow-y: auto; }
+        .contenedor-login-split { display: flex; max-width: 1000px; width: 100%; background: var(--bg-card); border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); overflow: hidden; min-height: 550px; }
+        @media (max-width: 880px) { .contenedor-login-split { flex-direction: column; max-width: 450px; } .columna-publicidad { display: none !important; } .columna-formulario { padding: 35px 25px !important; } }
         
         .columna-publicidad { flex: 1.1; background: #071527; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 25px; position: relative; }
         .carrusel-contenedor { position: relative; width: 100%; height: 100%; min-height: 400px; display: flex; justify-content: center; align-items: center; overflow: hidden; border-radius: 16px; }
         .carrusel-img { width: 100%; height: 100%; max-height: 480px; object-fit: cover; border-radius: 16px; border: 2px solid rgba(255,215,0,0.4); display: none; }
         .carrusel-img.activa { display: block; }
-        
-        /* Botones de Carrusel Mejorados */
-        .btn-carrusel-nav {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px);
-            color: white; border: 1px solid rgba(255,255,255,0.4); font-size: 1.5em;
-            width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: flex;
-            align-items: center; justify-content: center; z-index: 5; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .btn-carrusel-nav:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-50%) scale(1.1); }
-        .btn-carrusel-prev { left: 15px; } 
-        .btn-carrusel-next { right: 15px; }
+        .btn-carrusel-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: white; border: none; font-size: 1.4em; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 5; }
+        .btn-carrusel-nav:hover { background: rgba(0,0,0,0.9); }
+        .btn-carrusel-prev { left: 12px; } .btn-carrusel-next { right: 12px; }
         
         .columna-formulario { flex: 1; padding: 45px 35px; display: flex; flex-direction: column; justify-content: center; }
         .card-auth { background: var(--bg-card); width: 100%; max-width: 450px; padding: 40px; border-radius: 20px; box-shadow: var(--shadow-md); border-top: 5px solid var(--primary); margin: auto; }
@@ -132,19 +113,12 @@
         .sub { color: var(--text-muted); font-size: 1.05em; text-align: center; margin-bottom: 25px; font-weight: 500; }
         .campo { margin-bottom: 16px; width: 100%; }
         .campo label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9em; color: var(--text-heading); }
-        .campo input, .campo select, .campo textarea { 
-            width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 10px; 
-            outline: none; font-size: 0.95em; background: var(--input-bg); color: var(--text-main);
-        }
+        .campo input, .campo select, .campo textarea { width: 100%; padding: 12px 15px; border: 1px solid var(--border-color); border-radius: 10px; outline: none; font-size: 0.95em; background: var(--input-bg); color: var(--text-main); }
         .campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,86,179,0.15); }
         .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         @media (max-width: 600px) { .fila { grid-template-columns: 1fr; } }
         
-        .btn-p { 
-            width: 100%; background: var(--primary); color: white; border: none; padding: 13px; 
-            border-radius: 10px; font-size: 1em; font-weight: 700; cursor: pointer; display: inline-flex; 
-            align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,86,179,0.2); 
-        }
+        .btn-p { width: 100%; background: var(--primary); color: white; border: none; padding: 13px; border-radius: 10px; font-size: 1em; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,86,179,0.2); }
         .btn-p:hover { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,86,179,0.3); }
         .btn-p:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
         
@@ -153,11 +127,7 @@
         .separador-o span { padding: 0 15px; font-size: 0.85em; font-weight: bold; }
         
         .contenedor-google-circular { display: flex; justify-content: center; align-items: center; width: 100%; margin-bottom: 10px; }
-        .btn-google-circle {
-            width: 60px; height: 60px; border-radius: 50%; background: var(--bg-card);
-            border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center;
-            cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: 0.25s;
-        }
+        .btn-google-circle { width: 60px; height: 60px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border-color); display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: 0.25s; }
         .btn-google-circle:hover { transform: scale(1.1); border-color: var(--primary); box-shadow: 0 6px 18px rgba(0,86,179,0.2); }
 
         .links { margin-top: 20px; text-align: center; font-size: 0.95em; display: flex; flex-direction: column; gap: 10px; }
@@ -202,16 +172,13 @@
         body.dark-mode .plan-free { background: #78350f; color: #fde68a; border-color: #92400e; }
         body.dark-mode .plan-prem { background: #064e3b; color: #a7f3d0; border-color: #047857; }
 
-        /* === DASHBOARD Y TARJETAS DE CURSOS === */
+        /* === DASHBOARD === */
         .dashboard-grid-layout { display: flex; gap: 25px; align-items: flex-start; }
         .dashboard-col-principal { flex: 1; min-width: 0; }
         .dashboard-col-mascota { width: 300px; flex-shrink: 0; }
         @media (max-width: 1000px) { .dashboard-grid-layout { flex-direction: column; } .dashboard-col-mascota { width: 100%; } }
 
-        /* Tarjetas de Cursos (Inicio, Teoría, Fijas, Flashcards) */
         .grid-5 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 25px; }
-        
-        /* Contenedor Nav Flex (Tarjetas centradas) */
         .flex-tarjetas-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-bottom: 30px; }
         .flex-tarjetas-nav .card-c { flex: 1 1 150px; max-width: 200px; }
         
@@ -233,9 +200,9 @@
         .widget-mascota-lateral { background: linear-gradient(135deg, #0056b3, #0098b8); color: white; padding: 25px 20px; border-radius: 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center; }
         body.dark-mode .widget-mascota-lateral { background: linear-gradient(135deg, #1e3a8a, #0369a1); }
         .avatar-canvas-box { position: relative; width: 110px; height: 110px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; }
-        .svg-mascota-render { transform-origin: bottom center; transition: all 0.3s ease; animation: respirarMascota 3s infinite ease-in-out; }
-        @keyframes respirarMascota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
         
+        @keyframes respirarMascota { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
         /* === BANCO DE PREGUNTAS === */
         .campo-select-pro {
             appearance: none; background-color: var(--input-bg);
@@ -249,20 +216,14 @@
         .panel-banqueo-bd { background: var(--bg-card); padding: 20px; border-radius: 14px; margin-bottom: 20px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-left: 5px solid var(--primary); display: grid; grid-template-columns: minmax(150px, 1.2fr) minmax(200px, 2fr) minmax(100px, 1fr) auto; gap: 15px; align-items: end; }
         @media (max-width: 800px) { .panel-banqueo-bd { grid-template-columns: 1fr; } }
         
-        /* Botón IA Mejorado */
         .panel-control-ia { background: var(--bg-card-subtle); padding: 20px; border-radius: 14px; margin-bottom: 25px; box-shadow: var(--shadow-sm); border: 1px solid #d8b4fe; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .btn-ia-accion { 
-            background: transparent; color: #a855f7; border: 2px solid #a855f7; padding: 10px 20px; 
-            border-radius: 25px; font-weight: bold; cursor: pointer; display: inline-flex; 
-            align-items: center; gap: 8px; font-size: 0.95em; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.2); 
-            transition: 0.3s;
-        }
+        .btn-ia-accion { background: transparent; color: #a855f7; border: 2px solid #a855f7; padding: 10px 20px; border-radius: 25px; font-weight: bold; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; font-size: 0.95em; box-shadow: 0 4px 10px rgba(168, 85, 247, 0.2); transition: 0.3s; }
         .btn-ia-accion:hover { background: #a855f7; color: white; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(168, 85, 247, 0.4); }
 
         .layout-simulador { display: flex; gap: 20px; align-items: flex-start; max-width: 950px; margin: auto; }
         .box-pregunta { flex: 1; background: var(--bg-card); padding: 30px; border-radius: 18px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
         .mascota-coach-lateral { width: 170px; background: var(--bg-card); padding: 18px 12px; border-radius: 14px; box-shadow: var(--shadow-sm); text-align: center; border-top: 4px solid var(--primary); border: 1px solid var(--border-color); }
-        .globo-dialogo { background: rgba(0,86,179,0.08); border: 1px solid rgba(0,86,179,0.2); border-radius: 12px; padding: 12px; font-size: 0.85em; color: var(--primary); font-weight: 700; line-height: 1.4; margin-bottom: 12px; position: relative; }
+        .globo-dialogo { background: rgba(0,86,179,0.08); border: 1px solid rgba(0,86,179,0.2); border-radius: 12px; padding: 12px; font-size: 0.85em; color: var(--primary); font-weight: 600; line-height: 1.4; margin-bottom: 12px; position: relative; }
         
         .btn-op { display: block; width: 100%; padding: 14px 18px; margin: 12px 0; border: 2px solid var(--border-color); border-radius: 10px; background: var(--bg-card-subtle); text-align: left; font-size: 1.02em; color: var(--text-main); font-weight: 500; cursor: pointer; }
         .btn-op:hover:not(:disabled) { background: rgba(0,86,179,0.06); border-color: var(--primary); transform: translateX(4px); }
@@ -288,7 +249,7 @@
 
         .grid-tienda { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-top: 10px; margin-bottom: 15px; }
         .item-tienda-card { background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 8px; text-align: center; cursor: pointer; font-weight: 600; font-size: 0.85em; color: var(--text-main); }
-        .item-tienda-card:hover { border-color: var(--primary); background: rgba(0,86,179,0.08); transform: translateY(-2px); }
+        .item-tienda-card:hover { border-color: var(--primary); background: rgba(0,86,179,0.06); transform: translateY(-2px); }
         .item-icono { font-size: 2.2em; margin-bottom: 5px; }
 
         /* === PANEL DOCENTE === */
@@ -306,14 +267,14 @@
         .badge-free { background: #e2e3e5; color: #383d41; }
         .badge-prem { background: #d4edda; color: #155724; }
         
-        /* === MODALES === */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        /* === MODALES (Avisos, Login, Recuperar) === */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .modal-box { background: var(--bg-card); border-radius: 20px; padding: 30px; max-width: 520px; width: 92%; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.4); position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color); color: var(--text-main); }
         .btn-cerrar-x { position: absolute; top: 12px; right: 18px; background: none; border: none; font-size: 1.6em; cursor: pointer; color: var(--text-muted); font-weight: bold; }
         .btn-ws { background: #25d366; color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; font-size: 1.05em; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; box-shadow: 0 4px 15px rgba(37,211,102,0.3); }
-        .btn-cerrar-modal { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; }
+        .btn-cerrar-modal { background: var(--bg-card-subtle); color: var(--text-main); border: 2px solid var(--border-color); padding: 10px 15px; border-radius: 8px; font-weight: bold; width: 100%; margin-top: 15px; cursor: pointer; }
 
-        /* Botón de Soporte Fijo Exclusivo */
+        /* Botón Flotante Soporte */
         .btn-flotante-ws {
             position: fixed; bottom: 25px; right: 25px; background: #25d366; color: white; 
             border-radius: 50px; padding: 12px 22px; display: flex; align-items: center; gap: 10px; 
@@ -321,18 +282,6 @@
             transition: 0.3s;
         }
         .btn-flotante-ws:hover { transform: scale(1.05); }
-
-        /* Modal Animado de Bienvenida (Estilo Premium) */
-        @keyframes popupBounce {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        #modal-bienvenida-mascota .modal-box {
-            animation: popupBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            border: 4px solid var(--primary);
-            box-shadow: 0 0 30px rgba(0, 123, 255, 0.4);
-        }
 
         /* === CALENDARIO Y EDITOR === */
         .toolbar-word { display: flex; gap: 6px; padding: 8px; background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-bottom: none; border-radius: 8px 8px 0 0; flex-wrap: wrap; }
@@ -445,10 +394,11 @@
             <div class="card-auth amplia">
                 <div class="logo-box-main">
                     <div class="emblema-serums-pro" style="width: 55px; height: 55px;">
-                        <svg viewBox="0 0 100 100" fill="none" style="width:36px; height:36px;">
-                            <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="4"/>
-                            <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
-                            <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
+                        <svg viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="50" r="45" fill="#ffffff"/>
+                            <path d="M 25 50 C 25 80, 75 80, 75 50" stroke="#0056b3" stroke-width="6" fill="none" stroke-linecap="round"/>
+                            <path d="M 75 50 C 75 35, 65 25, 50 25" stroke="#0056b3" stroke-width="6" fill="none" stroke-linecap="round"/>
+                            <path d="M42 50 h16 M50 42 v16" stroke="#28a745" stroke-width="8" stroke-linecap="round"/>
                         </svg>
                     </div>
                     <div class="logo-titulo" style="font-size: 1.6em;">Proserum's <span>Academia</span></div>
@@ -530,13 +480,10 @@
                             <p style="color: var(--text-muted); font-size: 0.95em;">Preparación de alto impacto SERUMS.</p>
                         </div>
                         <div class="header-actions">
-                            <a id="btn-header-wa" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-theme-toggle" style="text-decoration: none; color: #28a745; border-color: #28a745;">
-                                💬 Soporte Técnico
-                            </a>
                             <button class="btn-theme-toggle" onclick="alternarModoOscuro()"><span id="icono-tema">🌙</span></button>
                             <div id="contenedor-membresia-top" class="banner-plan-top plan-free">
                                 <span id="badge-membresia-txt">Cuenta Básica</span>
-                                <button id="btn-upgrade-top" class="btn-p" style="padding: 4px 12px; font-size: 0.85em; margin-left: 8px; box-shadow:none;" onclick="abrirModalPremium()">Mejorar</button>
+                                <button id="btn-upgrade-top" class="btn-p" style="padding: 4px 10px; font-size: 0.85em; margin-left: 8px; box-shadow:none;" onclick="abrirModalPremium()">Mejorar</button>
                             </div>
                         </div>
                     </div>
@@ -942,6 +889,10 @@
                                     </div>
                                     <button type="submit" class="btn-p" style="background: #28a745; padding: 14px; font-size: 1.05em;">Crear Simulacro</button>
                                 </form>
+                                <table class="base-table" style="margin-top: 30px;">
+                                    <thead><tr><th>Simulacro</th><th>Duración</th><th>Estado</th><th>Acción</th></tr></thead>
+                                    <tbody id="tabla-simulacros-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
+                                </table>
                             </div>
 
                             <div id="subtab-adm-f" class="subtab-adm">
@@ -1055,7 +1006,7 @@
         let preguntasFalladasBuffer = [];
         let listaAlumnosMemoria = [];
         
-        // Memoria del Administrador
+        // Memoria del Administrador y Configuraciones
         let eventosCalendarioMemoria = {};
         let fechaExamenGlobal = "2026-11-15";
         let modalidadFechaGlobal = "oficial";
@@ -1169,6 +1120,10 @@
             const partes = val.split(" "); document.getElementById('adm-t-codigo').value = partes[0] || ''; document.getElementById('adm-t-titulo').value = partes.slice(1).join(" ") || '';
         }
 
+        window.insertarTablaEnEditor = function() {
+            document.execCommand('insertHTML', false, `<table style="width:100%; border-collapse:collapse; margin:15px 0;"><tr><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Condición / Criterio</th><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Conducta MINSA</th></tr><tr><td style="border:1px solid #cbd5e1; padding:10px;">Leve / Ambulatorio</td><td style="border:1px solid #cbd5e1; padding:10px;">Manejo inicial</td></tr></table><p></p>`);
+        }
+
         window.convertirUrlAEmbed = function(url) {
             if (!url) return ''; url = url.trim();
             if (url.includes('youtube.com/watch?v=')) return `https://www.youtube.com/embed/${url.split('v=')[1]?.split('&')[0]}`;
@@ -1273,16 +1228,23 @@
             if (document.getElementById('p-uni')) document.getElementById('p-uni').value = p.universidad || '';
             if (document.getElementById('p-esc')) document.getElementById('p-esc').value = p.escuela_profesional || '';
 
+            // CARGA DE MASCOTA CON AUTO-CREACIÓN SI ES NUEVO
             const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
-            if (m) { perfilMascota = { animal: m.animal || 'perrito', cabeza: m.accesorio_cabeza || 'ninguno', cuerpo: m.accesorio_cuerpo || 'ninguno', monedas: m.monedas || 50, energia: m.energia || 100, nivel: m.nivel || 1.0 }; } 
-            else { await sb.from('perfil_mascota').insert([{ user_id: user.id, animal: 'perrito', energia: 100, monedas: 50, nivel: 1.0 }]); perfilMascota = { animal: 'perrito', energia: 100, monedas: 50, nivel: 1.0, cabeza: 'ninguno', cuerpo: 'ninguno' }; }
+            if (m) {
+                perfilMascota = { animal: m.animal || 'perrito', cabeza: m.accesorio_cabeza || 'ninguno', cuerpo: m.accesorio_cuerpo || 'ninguno', monedas: m.monedas || 50, energia: m.energia || 100, nivel: m.nivel || 1.0 };
+            } else {
+                await sb.from('perfil_mascota').insert([{ user_id: user.id, animal: 'perrito', energia: 100, monedas: 50, nivel: 1.0 }]);
+                perfilMascota = { animal: 'perrito', energia: 100, monedas: 50, nivel: 1.0, cabeza: 'ninguno', cuerpo: 'ninguno' };
+            }
 
             document.getElementById('m-monedas').innerText = perfilMascota.monedas; document.getElementById('m-energia-bar').style.width = `${Math.min(100, perfilMascota.energia)}%`;
             let etapa = "Bebé"; if (perfilMascota.nivel >= 4 && perfilMascota.nivel < 8) etapa = "Joven"; if (perfilMascota.nivel >= 8) etapa = "Adulto Fuerte";
             document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${etapa})`;
 
             renderizarMascotaSVG();
-            const msgCoach = document.getElementById('coach-mensaje'); if (msgCoach) { const fraseAleatoria = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)]; msgCoach.innerText = fraseAleatoria.replace('{nombre}', p.nombres || 'Colega'); }
+
+            const msgCoach = document.getElementById('coach-mensaje');
+            if (msgCoach) { const fraseAleatoria = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)]; msgCoach.innerText = fraseAleatoria.replace('{nombre}', p.nombres || 'Colega'); }
         }
 
         document.getElementById('form-mi-perfil').addEventListener('submit', async (e) => {
@@ -1366,11 +1328,7 @@
 
             cursos.forEach(c => {
                 const intentosCurso = intentos.filter(i => i.area_id === c.id); const tot = intentosCurso.length; const ok = intentosCurso.filter(i => i.es_correcta).length; const pct = tot > 0 ? Math.round((ok / tot) * 100) : 0;
-                cont.innerHTML += `
-                    <div class="card-c" style="border-top-color: ${c.col}; text-align: center;" onclick="subSec('temas'); filtrarTeoria('${c.id}')">
-                        <div class="card-c-icono">${c.icon}</div><h3>${c.nombre}</h3><p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 12px;">Acceder a teoría y clases ➔</p>
-                        <div class="progreso-curso-caja"><div class="progreso-curso-info"><span>${tot} resueltas</span><span style="color: ${c.col};">${pct}% Precisión</span></div><div class="barra-curso-bg"><div class="barra-curso-fill" style="width: ${pct}%; background: ${c.col};"></div></div></div>
-                    </div>`;
+                cont.innerHTML += `<div class="card-c" style="border-top-color: ${c.col}; text-align: center;" onclick="subSec('temas'); filtrarTeoria('${c.id}')"><div class="card-c-icono">${c.icon}</div><h3>${c.nombre}</h3><p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 12px;">Acceder a teoría y clases ➔</p><div class="progreso-curso-caja"><div class="progreso-curso-info"><span>${tot} resueltas</span><span style="color: ${c.col};">${pct}% Precisión</span></div><div class="barra-curso-bg"><div class="barra-curso-fill" style="width: ${pct}%; background: ${c.col};"></div></div></div></div>`;
             });
         }
 
@@ -1381,9 +1339,7 @@
             cargarSiguientePregunta();
         }
 
-        window.volverASelectorModalidades = function() {
-            document.getElementById('vista-selector-modalidad').style.display = 'block'; document.getElementById('pantalla-banqueo-curso').style.display = 'none'; document.getElementById('pantalla-simulacros-oficiales').style.display = 'none'; document.getElementById('pantalla-arma-simulacro').style.display = 'none';
-        }
+        window.volverASelectorModalidades = function() { document.getElementById('vista-selector-modalidad').style.display = 'block'; document.getElementById('pantalla-banqueo-curso').style.display = 'none'; document.getElementById('pantalla-simulacros-oficiales').style.display = 'none'; document.getElementById('pantalla-arma-simulacro').style.display = 'none'; }
 
         window.activarModalidadBanqueo = function(tipo) {
             document.getElementById('vista-selector-modalidad').style.display = 'none';
@@ -1637,7 +1593,6 @@
             mostrarAvisoModal("Guardado", "Redes sociales actualizadas.", "🌐");
         }
 
-        // === CALENDARIO LÓGICA BLINDADA ===
         window.cambiarMesCalendario = function(offset) {
             fechaActualCalendario.setMonth(fechaActualCalendario.getMonth() + offset); renderizarCalendarioCompleto();
         }
@@ -1747,7 +1702,7 @@
             if (tipo === 'p') actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema'); if (tipo === 't') actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select'); if (tipo === 'fijas_adm') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); if (tipo === 'a') cargarAlumnosAdmin(); if (tipo === 'anuncios') cargarConfiguracionesGenerales();
         }
 
-        /* GUARDAR TEMA EN LA BASE DE DATOS (CON EDITOR Y VIDEO) */
+        // GUARDAR EVENTOS (TEMAS, PREGUNTAS, FLASHCARDS, FIJAS)
         document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
             e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-t-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
             const payload = { area_id: areaId, codigo: document.getElementById('adm-t-codigo').value.trim(), titulo: document.getElementById('adm-t-titulo').value.trim(), resumen_teorico: document.getElementById('adm-t-editor').innerHTML, url_video: document.getElementById('adm-t-video').value.trim() };
@@ -1755,7 +1710,6 @@
             if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Tema Publicado!", "El tema con formato y video se guardó correctamente.", "✔"); document.getElementById('form-adm-t').reset(); document.getElementById('adm-t-editor').innerHTML = ''; }
         });
         
-        /* GUARDAR PREGUNTA EN LA BASE DE DATOS */
         document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
             e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-p-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
             const payload = { area_id: areaId, dificultad: document.getElementById('adm-p-dif').value, enunciado: document.getElementById('adm-p-enunciado').value.trim(), opcion_a: document.getElementById('adm-p-oa').value.trim(), opcion_b: document.getElementById('adm-p-ob').value.trim(), opcion_c: document.getElementById('adm-p-oc').value.trim(), opcion_d: document.getElementById('adm-p-od').value.trim(), respuesta_correcta: document.getElementById('adm-p-correcta').value, justificacion: document.getElementById('adm-p-justificacion').value.trim() };
@@ -1763,7 +1717,6 @@
             if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔"); document.getElementById('form-adm-p').reset(); }
         });
 
-        /* GUARDAR FLASHCARD EN LA BASE DE DATOS */
         document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
             e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-f-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
             const payload = { area_id: areaId, anverso: document.getElementById('adm-f-anverso').value.trim(), reverso: document.getElementById('adm-f-reverso').value.trim() };
@@ -1771,7 +1724,6 @@
             if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "Flashcard creada correctamente.", "✔"); document.getElementById('form-adm-f').reset(); }
         });
 
-        /* GUARDAR LA FIJA EN LA BASE DE DATOS */
         document.getElementById('form-adm-fija').addEventListener('submit', async (e) => {
             e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-fija-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
             const payload = { area_id: areaId, tema: document.getElementById('adm-fija-tema').value, titulo: document.getElementById('adm-fija-titulo').value.trim(), contenido: document.getElementById('adm-fija-contenido').value.trim() };
@@ -1819,7 +1771,6 @@
             const inputId = (tipo === 'banner_login') ? 'file-banner-login' : 'file-popup-anuncio';
             const file = document.getElementById(inputId).files[0];
             if (!file) { mostrarAvisoModal("Selecciona Imagen", "Por favor elige un archivo.", "⚠️"); return; }
-
             const reader = new FileReader();
             reader.onload = async function(evt) {
                 const b64 = evt.target.result;
@@ -1856,4 +1807,5 @@
         }
     </script>
 </body>
+</html>
 </html>
