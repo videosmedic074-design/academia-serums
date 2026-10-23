@@ -1170,17 +1170,18 @@
         let preguntasIaBuffer = [];
         let preguntasFalladasBuffer = [];
         let listaAlumnosMemoria = [];
-        let eventosCalendarioMemoria = {};
         
+        // Calendario y Configuración Global
+        let eventosCalendarioMemoria = {};
+        let fechaExamenGlobal = "2026-11-15";
+        let modalidadFechaGlobal = "oficial";
+        let fechaActualCalendario = new Date();
+
         let carruselLoginImagenes = [];
         let indexSlideLogin = 0;
         let timerCarruselLogin = null;
         let carruselPopupImagenes = [];
         let indexSlidePopup = 0;
-        
-        let fechaExamenGlobal = "2026-11-15";
-        let modalidadFechaGlobal = "oficial";
-        let fechaActualCalendario = new Date();
 
         // === 3. FUNCIONES UTILITARIAS Y MODALES ===
         function toggleMenuRedes() {
@@ -1227,7 +1228,7 @@
             // Disparadores por sección
             if (nom === 'dash') cargarCursosDashboard();
             if (nom === 'flashcards') {
-                if (perfilUsuario.plan !== 'premium') {
+                if (perfilUsuario && perfilUsuario.plan !== 'premium') {
                     mostrarBloqueoFree('sec-flashcards', '🗂️ Módulo de Flashcards', 'Las flashcards mnemotécnicas y el generador IA son exclusivos del Ciclo Completo.');
                     return;
                 }
@@ -1235,7 +1236,7 @@
                 cargarFlashcardsDesdeBD();
             }
             if (nom === 'fijas') {
-                if (perfilUsuario.plan !== 'premium') {
+                if (perfilUsuario && perfilUsuario.plan !== 'premium') {
                     mostrarBloqueoFree('sec-fijas', '🔥 Las Fijas SERUMS', 'Las perlas clínicas de máxima rentabilidad están reservadas para los alumnos del Ciclo Completo.');
                     return;
                 }
@@ -1292,17 +1293,6 @@
             document.getElementById('adm-t-titulo').value = partes.slice(1).join(" ") || '';
         }
 
-        function insertarTablaEnEditor() {
-            const htmlTabla = `
-                <table style="width:100%; border-collapse:collapse; margin:15px 0;">
-                    <tr><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Condición / Criterio</th><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Conducta MINSA</th></tr>
-                    <tr><td style="border:1px solid #cbd5e1; padding:10px;">Leve / Ambulatorio</td><td style="border:1px solid #cbd5e1; padding:10px;">Manejo inicial en puesto I-1 o I-2</td></tr>
-                    <tr><td style="border:1px solid #cbd5e1; padding:10px;">Signos de Alarma</td><td style="border:1px solid #cbd5e1; padding:10px;">Referencia inmediata a nivel II o III</td></tr>
-                </table><br>
-            `;
-            document.execCommand('insertHTML', false, htmlTabla);
-        }
-
         function convertirUrlAEmbed(url) {
             if (!url) return '';
             url = url.trim();
@@ -1341,7 +1331,6 @@
                     user = session.user;
                     await cargarPerfil();
                     
-                    // Solo pasamos al dashboard si estamos en la pantalla de Login 
                     if (document.getElementById('vista-login').classList.contains('activa') || document.getElementById('vista-registro').classList.contains('activa')) {
                         ver('vista-app');
                         subSec('dash');
@@ -1500,7 +1489,6 @@
             if (p.rol === 'admin') document.getElementById('m-admin').style.display = 'flex';
             else document.getElementById('m-admin').style.display = 'none';
 
-            // Poblar campos del formulario "Mi Perfil"
             if (document.getElementById('p-nom')) document.getElementById('p-nom').value = p.nombres || '';
             if (document.getElementById('p-ape')) document.getElementById('p-ape').value = p.apellidos || '';
             if (document.getElementById('p-col')) document.getElementById('p-col').value = p.colegiatura || '';
@@ -1509,7 +1497,6 @@
             if (document.getElementById('p-uni')) document.getElementById('p-uni').value = p.universidad || '';
             if (document.getElementById('p-esc')) document.getElementById('p-esc').value = p.escuela_profesional || '';
 
-            // Cargar Mascota
             const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
             if (m) {
                 perfilMascota = {
@@ -1531,7 +1518,6 @@
 
             renderizarMascotaSVG();
 
-            // Saludo motivacional en el coach del Banco de Preguntas
             const msgCoach = document.getElementById('coach-mensaje');
             if (msgCoach) {
                 const fraseAleatoria = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
@@ -1599,7 +1585,6 @@
                 <ellipse cx="50" cy="70" rx="${esAdulto ? '18' : '16'}" ry="15" fill="${colorHocico}"/>
             `;
             
-            // Prendas (Colores fieles)
             if (cuerpo === 'mandil') {
                 svgCuerpo += `
                     <path d="M22 62 Q50 56 78 62 L74 90 Q50 94 26 90 Z" fill="#ffffff" stroke="#ced4da" stroke-width="2"/>
@@ -1623,7 +1608,6 @@
                 `;
             }
 
-            // Patas
             svgCuerpo += `
                 <ellipse cx="36" cy="88" rx="${esAdulto ? '9' : '8'}" ry="6" fill="${colorBase}"/>
                 <ellipse cx="64" cy="88" rx="${esAdulto ? '9' : '8'}" ry="6" fill="${colorBase}"/>
@@ -1646,7 +1630,6 @@
                 svgOrejas = `<ellipse cx="23" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(22 23 38)"/><ellipse cx="77" cy="38" rx="8" ry="18" fill="${colorOrejas}" transform="rotate(-22 77 38)"/>`;
             }
 
-            // Accesorios Cabeza
             let svgAccesorios = "";
             if (cabeza === 'gorro') {
                 svgAccesorios = `<path d="M25 24 Q50 10 75 24 Q72 16 50 14 Q28 16 25 24 Z" fill="#28a745"/><rect x="24" y="22" width="52" height="6" rx="3" fill="#218838"/>`;
@@ -1724,8 +1707,6 @@
             
             perfilMascota.monedas -= costo;
             perfilMascota.energia = Math.min(100, perfilMascota.energia + energiaGanada);
-            
-            // Experiencia y nivel (Cada comida suma XP)
             perfilMascota.nivel = Math.min(10, perfilMascota.nivel + (costo * 0.02));
 
             document.getElementById('m-monedas').innerText = perfilMascota.monedas;
@@ -1834,6 +1815,7 @@
         }
 
         async function cargarSiguientePregunta() {
+            // Límite Plan Básico (25 diarias)
             if (perfilUsuario.plan !== 'premium' && perfilUsuario.preguntas_hoy >= 25) {
                 mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado', 'Has alcanzado el límite de 25 preguntas diarias de la cuenta básica. Pasa al Ciclo Completo para practicar sin límites.');
                 return;
@@ -1912,11 +1894,9 @@
 
             const sb = obtenerSupabase();
             if (sb && user) {
-                // Registrar intento
                 if (preguntaActual.id) {
                     await sb.from('intentos_usuario').insert([{ user_id: user.id, pregunta_id: preguntaActual.id, area_id: preguntaActual.area_id || 1, es_correcta: esOk }]);
                 }
-                // Actualizar contador free
                 if (perfilUsuario.plan !== 'premium') {
                     perfilUsuario.preguntas_hoy = (perfilUsuario.preguntas_hoy || 0) + 1;
                     await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
@@ -1962,11 +1942,8 @@
 
         // === 8. TEORÍA, FLASHCARDS Y FIJAS ===
         
-        // Teoría y Resúmenes (Con Tarjetas Cuadradas)
         async function cargarTemasTeoricos() {
             const sb = obtenerSupabase();
-            const cont = document.getElementById('lista-temas-contenedor');
-            
             const { data: temas } = await sb.from('temas').select('*');
             temasTeoricosEnMemoria = temas || [];
         }
@@ -1975,7 +1952,6 @@
             const cont = document.getElementById('lista-temas-contenedor');
             cont.innerHTML = '';
             
-            // Iluminar la tarjeta seleccionada
             document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
             const tarjetas = document.querySelectorAll('#tabs-teoria .card-c');
             tarjetas.forEach(tarjeta => {
@@ -1991,7 +1967,6 @@
                 temasFiltrados = temasTeoricosEnMemoria.filter(t => t.area_id == areaIdStr);
             }
 
-            // Aplicar Límite Plan Básico (Máx 3 por curso si no es premium)
             if (perfilUsuario.plan !== 'premium') {
                 const conteoPorArea = {};
                 temasFiltrados = temasFiltrados.filter(t => {
@@ -2054,8 +2029,6 @@
 
         async function cargarFlashcardsDesdeBD() {
             const sb = obtenerSupabase();
-            const cont = document.getElementById('contenedor-flashcards');
-            cont.innerHTML = 'Cargando flashcards...';
             const { data } = await sb.from('flashcards').select('*');
             todasLasFlashcards = data || [];
             filtrarFlashcardsBtn('1'); 
@@ -2093,8 +2066,6 @@
 
         async function cargarLasFijasSERUMS() {
             const sb = obtenerSupabase();
-            const cont = document.getElementById('contenedor-fijas-cards');
-            cont.innerHTML = 'Cargando perlas clínicas...';
             const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
             todasLasFijas = data || [];
             cambiarPildoraFija(null, 'todos');
@@ -2284,9 +2255,20 @@
                 data.forEach(item => {
                     if (item.clave === 'fecha_examen_serums') fechaExamenGlobal = item.valor || "2026-11-15";
                     if (item.clave === 'modalidad_fecha_serums') modalidadFechaGlobal = item.valor || "oficial";
+                    
                     if (item.clave === 'calendario_notas' && item.valor) {
-                        try { eventosCalendarioMemoria = JSON.parse(item.valor) || {}; } catch(e){}
+                        try { 
+                            const parsed = JSON.parse(item.valor);
+                            if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)) {
+                                eventosCalendarioMemoria = parsed;
+                            } else {
+                                eventosCalendarioMemoria = {};
+                            }
+                        } catch(e){
+                            eventosCalendarioMemoria = {};
+                        }
                     }
+                    
                     if (item.clave === 'texto_metodologia' && item.valor) {
                         const admTxt = document.getElementById('adm-texto-metodologia');
                         if (admTxt) admTxt.value = item.valor;
@@ -2306,7 +2288,7 @@
                             document.getElementById('adm-link-dc').value = redes.dc || '';
                             
                             // Botones de Soporte (Flotante y Cabecera)
-                            const waUrl = redes.wa ? `https://api.whatsapp.com/send?phone=${redes.wa}` : `https://api.whatsapp.com/send?phone=${TU_NUMERO_WHATSAPP}`;
+                            const waUrl = redes.wa ? `https://api.whatsapp.com/send?phone=${redes.wa}` : `https://api.whatsapp.com/send?phone=51999999999`;
                             const btnWa = document.getElementById('btn-flotante-wa');
                             const btnWaHeader = document.getElementById('btn-header-wa');
                             if(btnWa) btnWa.href = waUrl;
@@ -2370,6 +2352,101 @@
             await sb.from('configuracion_academia').upsert({ clave: 'redes_sociales', valor: JSON.stringify(redes) });
             cargarConfiguracionesGenerales();
             mostrarAvisoModal("Guardado", "Redes sociales actualizadas.", "🌐");
+        }
+
+        // LÓGICA DEL CALENDARIO BLINDADA CONTRA ERRORES
+        function cambiarMesCalendario(offset) {
+            fechaActualCalendario.setMonth(fechaActualCalendario.getMonth() + offset);
+            renderizarCalendarioCompleto();
+        }
+
+        function renderizarCalendarioCompleto() {
+            try {
+                const cont = document.getElementById('grid-calendario-box');
+                const tit = document.getElementById('cal-mes-titulo');
+                if (!cont || !tit) return;
+
+                const nombresMeses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+                const anio = fechaActualCalendario.getFullYear();
+                const mes = fechaActualCalendario.getMonth();
+                tit.innerText = `${nombresMeses[mes]} ${anio}`;
+
+                let htmlStr = `
+                    <div class="calendar-day-header">Lun</div><div class="calendar-day-header">Mar</div>
+                    <div class="calendar-day-header">Mié</div><div class="calendar-day-header">Jue</div>
+                    <div class="calendar-day-header">Vie</div><div class="calendar-day-header">Sáb</div>
+                    <div class="calendar-day-header">Dom</div>
+                `;
+
+                const primerDiaIndex = (new Date(anio, mes, 1).getDay() + 6) % 7;
+                const totalDias = new Date(anio, mes + 1, 0).getDate();
+                const hoy = new Date();
+
+                for (let i = 0; i < primerDiaIndex; i++) {
+                    htmlStr += `<div></div>`;
+                }
+
+                for (let d = 1; d <= totalDias; d++) {
+                    const esHoy = (hoy.getDate() === d && hoy.getMonth() === mes && hoy.getFullYear() === anio);
+                    const mesStr = String(mes + 1).padStart(2, '0');
+                    const diaStr = String(d).padStart(2, '0');
+                    const fechaFormat = `${anio}-${mesStr}-${diaStr}`;
+                    
+                    let colorClase = "cal-color-default";
+                    let textoEtiqueta = "";
+                    
+                    if (eventosCalendarioMemoria && eventosCalendarioMemoria[fechaFormat]) {
+                        textoEtiqueta = eventosCalendarioMemoria[fechaFormat];
+                        const txtLower = textoEtiqueta.toLowerCase();
+                        if(txtLower.includes('simulacro') || txtLower.includes('examen')) colorClase = "cal-color-simulacro";
+                        else if(txtLower.includes('salud') || txtLower.includes('pública')) colorClase = "cal-color-salud";
+                        else if(txtLower.includes('integral') || txtLower.includes('cuidado')) colorClase = "cal-color-cuidado";
+                        else if(txtLower.includes('gestión')) colorClase = "cal-color-gestion";
+                        else colorClase = "cal-color-salud"; 
+                    } else {
+                        if (d % 2 === 0) { textoEtiqueta = 'Banqueo'; colorClase = "cal-color-cuidado"; }
+                        else { textoEtiqueta = 'Teoría'; colorClase = "cal-color-salud"; }
+                    }
+
+                    // Prevenir inyección de comillas en el onClick
+                    const textoLimpio = textoEtiqueta.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+
+                    const notaDia = `<div class="badge-cal-tema ${colorClase}">${textoEtiqueta}</div>`;
+                    
+                    htmlStr += `
+                        <div class="calendar-day-cell ${esHoy ? 'hoy' : ''}" onclick="seleccionarDiaCalendario(${d}, '${textoLimpio}')">
+                            <span style="font-size: 1.1em; font-weight: bold;">${d}</span>
+                            ${notaDia}
+                        </div>
+                    `;
+                }
+                
+                cont.innerHTML = htmlStr;
+            } catch (err) {
+                console.error("Error renderizando calendario:", err);
+            }
+        }
+
+        window.seleccionarDiaCalendario = function(dia, nota) {
+            mostrarAvisoModal(`Plan para el Día ${dia}`, `Actividad Programada: ${nota}. \n\n¡Recuerda alcanzar tu meta diaria en el Banco de Preguntas!`, "🎯");
+        }
+
+        async function guardarEventoCalendario() {
+            const fecha = document.getElementById('adm-cal-fecha').value;
+            const texto = document.getElementById('adm-cal-texto').value.trim();
+            if(!fecha || !texto) {
+                mostrarAvisoModal("Error", "Debes colocar una fecha y una etiqueta.", "⚠️");
+                return;
+            }
+            if (!eventosCalendarioMemoria) eventosCalendarioMemoria = {};
+            
+            eventosCalendarioMemoria[fecha] = texto;
+            const sb = obtenerSupabase();
+            await sb.from('configuracion_academia').upsert({ clave: 'calendario_notas', valor: JSON.stringify(eventosCalendarioMemoria) });
+            
+            document.getElementById('adm-cal-texto').value = '';
+            renderizarCalendarioCompleto();
+            mostrarAvisoModal("Agregado", "El evento se guardó en el calendario.", "📅");
         }
 
         function actualizarBannerYMetodologiaSegunModalidad() {
@@ -2442,7 +2519,7 @@
             }
         }
 
-        // === 11. FUNCIONES DEL PANEL DOCENTE ===
+        // === 12. FUNCIONES DEL PANEL DOCENTE ===
         async function cargarAlumnosAdmin() {
             const sb = obtenerSupabase();
             const tbody = document.getElementById('tabla-alumnos-adm-body');
@@ -2652,5 +2729,4 @@
         }
     </script>
 </body>
-</html>
 </html>
