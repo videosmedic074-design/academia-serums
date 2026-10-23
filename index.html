@@ -92,14 +92,19 @@
             background: radial-gradient(circle at top left, #002b5c, #001229);
             padding: 30px 15px; position: relative; overflow-y: auto;
         }
+        .fondo-auth-premium::before {
+            content: ''; position: absolute; width: 500px; height: 500px;
+            background: rgba(0, 123, 255, 0.15); border-radius: 50%; top: -120px; right: -120px; filter: blur(70px);
+        }
         .contenedor-login-split {
             display: flex; max-width: 1100px; width: 100%; background: var(--bg-card);
             border-radius: 26px; box-shadow: 0 25px 70px rgba(0,0,0,0.45);
             overflow: hidden; z-index: 1; min-height: 600px;
         }
-        @media (max-width: 850px) {
+        @media (max-width: 880px) {
             .contenedor-login-split { flex-direction: column; max-width: 500px; }
             .columna-publicidad { display: none !important; }
+            .columna-formulario { padding: 35px 25px !important; }
         }
         
         .columna-publicidad {
@@ -130,22 +135,22 @@
             flex: 1; padding: 45px 40px; display: flex; flex-direction: column; justify-content: center;
         }
 
-        .card-auth { background: var(--bg-card); width: 100%; max-width: 480px; padding: 35px; border-radius: 16px; box-shadow: var(--shadow-md); border-top: 6px solid var(--primary); margin: auto; }
+        .card-auth { background: var(--bg-card); width: 100%; max-width: 480px; padding: 35px; border-radius: 18px; box-shadow: var(--shadow-md); border-top: 6px solid var(--primary); margin: auto; }
         .card-auth.amplia { max-width: 640px; }
         .sub { color: var(--text-muted); font-size: 1.05em; text-align: center; margin-bottom: 22px; font-weight: 500; }
         .campo { margin-bottom: 15px; }
         .campo label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.88em; color: var(--text-heading); }
         .campo input, .campo select, .campo textarea { 
-            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; 
+            width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 10px; 
             outline: none; transition: 0.2s; font-size: 0.95em; background: var(--input-bg); color: var(--text-main);
         }
         .campo input:focus, .campo select:focus, .campo textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,86,179,0.15); }
         .fila { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        @media(max-width:550px){.fila{grid-template-columns:1fr;}}
+        @media (max-width: 550px) { .fila { grid-template-columns: 1fr; } }
         
         .btn-p { 
             width: 100%; background: var(--primary); color: white; border: none; padding: 14px; 
-            border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; 
+            border-radius: 10px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; 
             margin-top: 10px; display: inline-flex; align-items: center; justify-content: center; gap: 8px;
         }
         .btn-p:hover { background: var(--primary-hover); transform: translateY(-1px); }
@@ -167,9 +172,9 @@
         .links a { color: var(--primary); text-decoration: none; font-weight: bold; cursor: pointer; }
         
         .alerta { display: none; padding: 12px; border-radius: 8px; font-size: 0.88em; margin-bottom: 15px; line-height: 1.4; }
-        .alerta-err { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .alerta-err { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
         body.dark-mode .alerta-err { background: #450a0a; color: #fca5a5; border-color: #7f1d1d; }
-        .alerta-ok { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .alerta-ok { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
         body.dark-mode .alerta-ok { background: #052e16; color: #86efac; border-color: #14532d; }
 
         /* Layout */
@@ -263,6 +268,12 @@
         .barra-curso-bg { width: 100%; height: 7px; background: var(--border-color); border-radius: 6px; overflow: hidden; }
         .barra-curso-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease; }
 
+        .banner-countdown-dias {
+            background: linear-gradient(135deg, #1e3c72, #2a5298); color: white;
+            padding: 14px 22px; border-radius: 14px; margin-bottom: 22px;
+            display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm);
+        }
+
         /* Selectores estilizados */
         .campo-select-pro {
             appearance: none;
@@ -276,13 +287,24 @@
         }
 
         .panel-banqueo-bd {
-            background: var(--bg-card); padding: 20px; border-radius: 14px; margin-bottom: 20px;
+            background: var(--bg-card); padding: 22px; border-radius: 16px; margin-bottom: 20px;
             box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-left: 5px solid var(--primary);
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; align-items: end;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; align-items: end;
         }
 
+        .panel-control-ia { 
+            background: var(--bg-card-subtle); padding: 22px; border-radius: 16px; margin-bottom: 25px; 
+            box-shadow: var(--shadow-sm); border: 1px solid #d8b4fe; display: flex; flex-direction: column; gap: 15px; 
+        }
+        .btn-ia-accion { 
+            background: linear-gradient(135deg, #6f42c1, #0056b3); color: white; border: none; 
+            padding: 12px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.95em; transition: 0.2s; 
+        }
+        .btn-ia-accion:hover { opacity: 0.95; transform: translateY(-1px); }
+
         .layout-simulador { display: flex; gap: 20px; align-items: flex-start; max-width: 950px; margin: auto; }
-        .box-pregunta { flex: 1; background: var(--bg-card); padding: 35px; border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
+        .box-pregunta { flex: 1; background: var(--bg-card); padding: 35px; border-radius: 18px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color); }
         .mascota-coach-lateral {
             width: 175px; background: var(--bg-card); padding: 20px 15px; border-radius: 16px; 
             box-shadow: var(--shadow-sm); text-align: center; border-top: 4px solid var(--primary); border: 1px solid var(--border-color);
@@ -314,8 +336,17 @@
             border: 1px solid var(--border-color); border-top: 6px solid var(--primary); cursor: pointer; transition: 0.25s; text-align: left;
         }
         .card-modalidad:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-        .card-modalidad h3 { color: var(--text-heading); font-size: 1.25em; margin-bottom: 8px; }
+        .card-modalidad h3 { color: var(--text-heading); font-size: 1.25em; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .card-modalidad p { color: var(--text-muted); font-size: 0.9em; line-height: 1.5; margin-bottom: 15px; }
+
+        .nav-pildoras-fijas { display: flex; justify-content: center; gap: 10px; margin: 15px 0 30px; flex-wrap: wrap; }
+        .btn-pildora-fija {
+            background: var(--bg-card); border: 2px solid var(--border-color); padding: 10px 18px; border-radius: 25px;
+            font-size: 0.92em; font-weight: 700; color: var(--text-main); cursor: pointer; transition: 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+        .btn-pildora-fija:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+        .btn-pildora-fija.activa { background: var(--primary); color: white; border-color: var(--primary); }
 
         .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
         .card-flip { background-color: transparent; height: 180px; perspective: 1000px; cursor: pointer; }
@@ -334,12 +365,24 @@
         .item-tienda-card:hover { border-color: var(--primary); background: rgba(0,86,179,0.06); }
         .item-icono { font-size: 2.2em; margin-bottom: 5px; }
 
+        .pestanas-admin { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 2px solid var(--border-color); flex-wrap: wrap; }
+        .tab-btn-adm { padding: 10px 16px; cursor: pointer; font-weight: bold; color: var(--text-muted); border: none; background: none; font-size: 0.95em; border-bottom: 3px solid transparent; }
+        .tab-btn-adm.activa { color: #a855f7; border-bottom-color: #a855f7; }
+        .subtab-adm { display: none; }
+        .subtab-adm.activa { display: block; }
+
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.88em; }
         th, td { padding: 10px 8px; border-bottom: 1px solid var(--border-color); text-align: left; }
         th { background: var(--bg-card-subtle); color: var(--text-heading); }
         .badge { padding: 4px 8px; border-radius: 10px; font-weight: bold; font-size: 0.78em; }
         .badge-free { background: #e2e3e5; color: #383d41; }
         .badge-prem { background: #d4edda; color: #155724; }
+        .badge-bloq { background: #f8d7da; color: #721c24; }
+
+        .btn-act { background: #28a745; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.82em; }
+        .btn-des { background: #6c757d; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.82em; }
+        .btn-bloq { background: #dc3545; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.82em; }
+        .btn-clave { background: #0056b3; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.82em; }
 
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
@@ -463,9 +506,12 @@
                                 <option value="Obstetricia">Obstetricia</option>
                                 <option value="Odontología">Odontología</option>
                                 <option value="Biología">Biología</option>
+                                <option value="Tecnología Médica">Tecnología Médica</option>
                                 <option value="Farmacia y Bioquímica">Farmacia y Bioquímica</option>
                                 <option value="Nutrición">Nutrición</option>
                                 <option value="Psicología">Psicología</option>
+                                <option value="Medicina Veterinaria">Medicina Veterinaria</option>
+                                <option value="Trabajo Social">Trabajo Social</option>
                             </select>
                         </div>
                         <div class="campo">
@@ -474,6 +520,7 @@
                                 <option value="Dr.">Dr. / Dra.</option>
                                 <option value="Lic.">Licenciado/a (Lic.)</option>
                                 <option value="Biól.">Biólogo/a</option>
+                                <option value="Q.F.">Químico Farmacéutico (Q.F.)</option>
                                 <option value="Colega">Colega</option>
                             </select>
                         </div>
@@ -500,6 +547,7 @@
                         <svg viewBox="0 0 100 100" fill="none" style="width: 30px; height: 30px;">
                             <circle cx="50" cy="28" r="13" fill="#ffffff"/>
                             <path d="M22 84 L36 48 L46 48 L44 84 Z" fill="#ffffff"/>
+                            <path d="M78 84 L64 48 L54 48 L56 84 Z" fill="#ffffff"/>
                         </svg>
                     </div>
                     <div class="logo-titulo">Proserum's <span>Academia</span></div>
@@ -537,6 +585,17 @@
 
                 <!-- SUB 1: INICIO -->
                 <div id="sec-dash" class="contenido-cuerpo">
+                    <div class="banner-countdown-dias">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <span style="font-size: 1.8em;">🎯</span>
+                            <div>
+                                <strong style="font-size: 1.05em;">Cuenta Regresiva SERUMS</strong>
+                                <p style="font-size: 0.85em; opacity: 0.9;" id="txt-dias-cuenta-regresiva">Calculando días restantes...</p>
+                            </div>
+                        </div>
+                        <span id="badge-dias-restantes" style="background: #ffd700; color: #002b5c; font-weight: 900; padding: 6px 14px; border-radius: 20px; font-size: 0.95em;">-- DÍAS</span>
+                    </div>
+
                     <div class="dashboard-grid-layout">
                         <div class="dashboard-col-principal">
                             <h2 style="margin-bottom: 15px; font-size: 1.25em; color: var(--text-heading);">Cursos Oficiales del Temario</h2>
@@ -576,25 +635,41 @@
                     <div id="lista-temas-contenedor">Cargando temas...</div>
                 </div>
 
-                <!-- SUB 4: BANQUEO -->
+                <!-- SUB 4: BANCO DE PREGUNTAS (COMPLETO CON LOS 3 MODOS) -->
                 <div id="sec-banqueo" class="contenido-cuerpo" style="display: none;">
                     <div id="vista-selector-modalidad">
-                        <h2 style="color: var(--text-heading); margin-bottom: 15px;">Modalidades de Entrenamiento</h2>
+                        <h1 style="color: var(--text-heading); font-size: 1.5em; margin-bottom: 8px;">Centro de Entrenamiento y Banqueo</h1>
+                        <p style="color: var(--text-muted); margin-bottom: 25px;">Selecciona cómo deseas practicar para el examen SERUMS:</p>
+
                         <div class="grid-modalidades-banqueo">
                             <div class="card-modalidad" onclick="activarModalidadBanqueo('curso')">
-                                <h3>🎯 Banqueo por Curso</h3>
-                                <p>Entrena con preguntas filtradas por eje oficial del MINSA.</p>
-                                <span style="color: var(--primary); font-weight: bold;">Ingresar ➔</span>
+                                <h3>🎯 Banqueo por Curso y Tema</h3>
+                                <p>Entrena con preguntas de la base de datos oficial. Puedes seleccionar sesiones de 10 hasta 100 preguntas.</p>
+                                <span style="color: var(--primary); font-weight: bold; font-size: 0.9em;">Ingresar a Banquear ➔</span>
+                            </div>
+
+                            <div class="card-modalidad" style="border-top-color: #28a745;" onclick="activarModalidadBanqueo('simulacros_oficiales')">
+                                <h3>📋 Simulacros Oficiales Programados</h3>
+                                <p>Exámenes completos tipo simulacro habilitados semana a semana por la academia con temporizador.</p>
+                                <span style="color: #28a745; font-weight: bold; font-size: 0.9em;">Ver Simulacros Disponibles ➔</span>
+                            </div>
+
+                            <div class="card-modalidad" style="border-top-color: #6f42c1;" onclick="activarModalidadBanqueo('arma_tu_simulacro')">
+                                <h3>⚙️ Arma tu Examen Personalizado</h3>
+                                <p>Configura tu propio examen combinando cursos, volumen de preguntas y niveles de dificultad.</p>
+                                <span style="color: #6f42c1; font-weight: bold; font-size: 0.9em;">Configurar Examen ➔</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Modo 1: Banqueo por Curso -->
                     <div id="pantalla-banqueo-curso" style="display: none;">
-                        <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 15px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver</button>
+                        <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                        
                         <div class="panel-banqueo-bd">
                             <div>
                                 <label style="font-weight: 600; font-size: 0.88em;">Curso Oficial:</label>
-                                <select id="sel-curso-banqueo" class="campo-select-pro" onchange="cargarSiguientePregunta()">
+                                <select id="sel-curso-banqueo" class="campo-select-pro" onchange="actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo')">
                                     <option value="Salud Pública">Salud Pública</option>
                                     <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
                                     <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
@@ -602,67 +677,212 @@
                                     <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
                                 </select>
                             </div>
-                            <button class="btn-p" style="margin: 0; padding: 12px;" onclick="cargarSiguientePregunta()">Actualizar Pregunta ➔</button>
+                            <div>
+                                <label style="font-weight: 600; font-size: 0.88em;">Tema Oficial:</label>
+                                <select id="sel-tema-banqueo" class="campo-select-pro">
+                                    <option value="General">Todo el curso (General)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-weight: 600; font-size: 0.88em;">Sesión de Preguntas:</label>
+                                <select id="sel-cantidad-preguntas-bd" class="campo-select-pro">
+                                    <option value="10">10 Preguntas</option>
+                                    <option value="25">25 Preguntas</option>
+                                    <option value="50">50 Preguntas</option>
+                                    <option value="100" selected>100 Preguntas por tema (Máx)</option>
+                                </select>
+                            </div>
+                            <button class="btn-p" style="margin: 0; padding: 12px;" onclick="cargarSiguientePregunta()">Aplicar Filtro ➔</button>
+                        </div>
+
+                        <div class="panel-control-ia">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                <div>
+                                    <strong style="color: #6f42c1;">✨ Generador Inteligente con IA (Exclusivo Premium)</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 2px;">Crea casos clínicos inéditos con Gemini IA.</p>
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.85em; font-weight: bold;">Cantidad IA:</label>
+                                    <select id="sel-cantidad-preguntas-ia" class="campo-select-pro" style="padding: 6px 30px 6px 10px;">
+                                        <option value="3">3 Casos</option>
+                                        <option value="5">5 Casos</option>
+                                        <option value="10" selected>10 Casos (Máx IA)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid var(--border-color); padding-top: 10px;">
+                                <div style="display: flex; gap: 12px; font-size: 0.9em;">
+                                    <label><input type="checkbox" id="chk-dif-basica" value="Básica"> Básica</label>
+                                    <label><input type="checkbox" id="chk-dif-intermedia" value="Intermedia" checked> Intermedia</label>
+                                    <label><input type="checkbox" id="chk-dif-avanzada" value="Avanzada" checked> Avanzada</label>
+                                </div>
+                                <button class="btn-ia-accion" id="btn-generar-preguntas-ia" onclick="generarPreguntasConIA()">
+                                    ⚡ Formular con IA (Solo Premium)
+                                </button>
+                            </div>
                         </div>
 
                         <div class="layout-simulador">
                             <div class="box-pregunta">
-                                <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                                    <span style="color: var(--primary); font-weight: bold; font-size: 0.88em;">MODO PRÁCTICA</span>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 18px; align-items: center;">
+                                    <span id="sim-info" style="color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.9em;">MODO PRÁCTICA</span>
+                                    <span id="contador-diario" style="font-size: 0.9em; font-weight: bold; color: var(--text-muted);"></span>
                                 </div>
-                                <div id="sim-enunciado" style="font-size: 1.15em; font-weight: 600; margin-bottom: 20px;">Cargando caso clínico...</div>
+                                <div id="sim-enunciado" style="font-size: 1.2em; font-weight: 600; margin-bottom: 22px; line-height: 1.5; color: var(--text-heading);">Cargando pregunta...</div>
                                 <div id="sim-opciones"></div>
                                 <div id="sim-fb" class="fb-box">
-                                    <strong id="fb-tit"></strong>
+                                    <strong id="fb-tit" style="font-size: 1.1em;"></strong>
                                     <p id="fb-txt" style="margin-top: 6px;"></p>
                                 </div>
-                                <button id="btn-sig" class="btn-p" style="display: none; margin-top: 20px;" onclick="cargarSiguientePregunta()">Siguiente Pregunta ➔</button>
+                                <button id="btn-sig" class="btn-p" style="display: none; margin-top: 25px;" onclick="cargarSiguientePregunta()">Siguiente Pregunta ➔</button>
                             </div>
 
                             <div class="mascota-coach-lateral">
-                                <div class="globo-dialogo">¡Analiza las alternativas con calma! ✨</div>
-                                <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 80px; height: 80px; margin: auto;"></div>
+                                <div class="globo-dialogo" id="coach-mensaje">¡Vamos adelante! Analiza las alternativas con calma. ✨</div>
+                                <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 85px; height: 85px; margin: auto;"></div>
+                                <strong style="display: block; font-size: 0.85em; color: var(--primary); margin-top: 6px;">Tu Compañero</strong>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- SUB 5: FLASHCARDS -->
-                <div id="sec-flashcards" class="contenido-cuerpo" style="display: none;">
-                    <div class="panel-banqueo-bd" style="margin-bottom: 15px;">
-                        <div>
-                            <label style="font-weight: 600; font-size: 0.88em;">Filtrar Curso:</label>
-                            <select id="sel-curso-flashcard" class="campo-select-pro" onchange="filtrarFlashcardsPorCurso()">
-                                <option value="Salud Pública">Salud Pública</option>
-                                <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
-                                <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
-                                <option value="Investigación">Investigación</option>
-                                <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
-                            </select>
+                    <!-- Modo 2: Simulacros Oficiales -->
+                    <div id="pantalla-simulacros-oficiales" style="display: none;">
+                        <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                        <h2 style="color: var(--text-heading); margin-bottom: 15px;">Simulacros Oficiales del Programa</h2>
+                        <div id="lista-simulacros-habilitados" class="grid-modalidades-banqueo"></div>
+                    </div>
+
+                    <!-- Modo 3: Arma tu Simulacro -->
+                    <div id="pantalla-arma-simulacro" style="display: none;">
+                        <button class="btn-p" style="width: auto; padding: 6px 14px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                        <div class="card-auth amplia" style="max-width: 650px; margin: auto;">
+                            <h2 style="color: #6f42c1; margin-bottom: 8px;">Configura tu Examen a Medida</h2>
+                            <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 20px;">Elige los bloques y el número de preguntas que deseas rendir.</p>
+
+                            <div class="campo">
+                                <label>Número de Preguntas del Examen:</label>
+                                <select id="cfg-sim-cantidad" class="campo-select-pro">
+                                    <option value="15">15 Preguntas (Rápido)</option>
+                                    <option value="30" selected>30 Preguntas (Máximo Plan Gratuito)</option>
+                                    <option value="50">50 Preguntas (Plan Premium)</option>
+                                    <option value="100">100 Preguntas (Examen Completo - Plan Premium)</option>
+                                </select>
+                            </div>
+
+                            <div class="campo">
+                                <label>Cursos a Incluir:</label>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px;">
+                                    <label><input type="checkbox" id="cfg-c-1" value="1" checked> Salud Pública</label>
+                                    <label><input type="checkbox" id="cfg-c-2" value="2" checked> Cuidado Integral</label>
+                                    <label><input type="checkbox" id="cfg-c-3" value="3" checked> Ética e Interculturalidad</label>
+                                    <label><input type="checkbox" id="cfg-c-4" value="4" checked> Investigación</label>
+                                    <label><input type="checkbox" id="cfg-c-5" value="5" checked> Gestión de Servicios</label>
+                                </div>
+                            </div>
+
+                            <button class="btn-p" style="background: #6f42c1; margin-top: 20px;" onclick="iniciarSimulacroArmado()">Comenzar Examen Personalizado ➔</button>
                         </div>
                     </div>
-                    <div id="contenedor-flashcards" class="grid-flashcards"></div>
                 </div>
 
-                <!-- SUB 6: FIJAS -->
+                <!-- SUB 5: FLASHCARDS (COMPLETO) -->
+                <div id="sec-flashcards" class="contenido-cuerpo" style="display: none;">
+                    <div id="box-flashcards-contenido">
+                        <div class="panel-banqueo-bd" style="margin-bottom: 15px;">
+                            <div>
+                                <label style="font-weight: 600; font-size: 0.88em;">Filtrar Curso:</label>
+                                <select id="sel-curso-flashcard" class="campo-select-pro" onchange="actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard'); filtrarFlashcardsPorCurso();">
+                                    <option value="Salud Pública">Salud Pública</option>
+                                    <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                    <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                    <option value="Investigación">Investigación</option>
+                                    <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label style="font-weight: 600; font-size: 0.88em;">Tema:</label>
+                                <select id="sel-tema-flashcard" class="campo-select-pro">
+                                    <option value="General">Todo el curso (General)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="panel-control-ia">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                <div>
+                                    <strong style="color: #6f42c1;">✨ Generador de Flashcards con IA</strong>
+                                    <p style="color: var(--text-muted); font-size: 0.85em; margin-top: 2px;">Crea tarjetas mnemotécnicas instantáneas (máx 10).</p>
+                                </div>
+                                <div style="display: flex; gap: 10px; align-items: center;">
+                                    <select id="sel-cantidad-flashcards-ia" class="campo-select-pro" style="padding: 6px 30px 6px 10px;">
+                                        <option value="4">4 Flashcards</option>
+                                        <option value="8">8 Flashcards</option>
+                                        <option value="10" selected>10 Flashcards</option>
+                                    </select>
+                                    <button class="btn-ia-accion" id="btn-generar-flashcards-ia" onclick="generarFlashcardsConIA()">
+                                        ✨ Formular con IA
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="contenedor-flashcards" class="grid-flashcards"></div>
+                    </div>
+                </div>
+
+                <!-- SUB 6: LAS FIJAS SERUMS (COMPLETO) -->
                 <div id="sec-fijas" class="contenido-cuerpo" style="display: none;">
-                    <h2 style="color: var(--text-heading); margin-bottom: 15px;">🔥 Las Fijas SERUMS</h2>
+                    <div style="text-align: center; margin-bottom: 10px;">
+                        <h1 style="color: var(--text-heading); font-size: 1.8em;">🔥 Las Fijas SERUMS</h1>
+                        <p style="color: var(--text-muted); font-size: 0.95em; margin-top: 4px;">Perlas clínicas y normativas de máxima rentabilidad para asegurar tu plaza:</p>
+                    </div>
+
+                    <div class="nav-pildoras-fijas">
+                        <button class="btn-pildora-fija activa" onclick="cambiarPildoraFija(this, 'todos')">🌟 Todas las Fijas</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '1')">Salud Pública</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '2')">Cuidado Integral</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '5')">Gestión de Servicios</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '4')">Investigación</button>
+                        <button class="btn-pildora-fija" onclick="cambiarPildoraFija(this, '3')">Ética e Interculturalidad</button>
+                    </div>
+
                     <div id="contenedor-fijas-cards" class="grid-modalidades-banqueo"></div>
                 </div>
 
-                <!-- SUB 7: ESTADÍSTICAS -->
+                <!-- SUB 7: ESTADÍSTICAS (COMPLETO) -->
                 <div id="sec-stats" class="contenido-cuerpo" style="display: none;">
-                    <h2 style="color: var(--text-heading); margin-bottom: 15px;">Diagnóstico de Rendimiento</h2>
-                    <div style="display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
-                        <div class="card-c" style="flex: 1; text-align: center;"><h3 id="st-total" style="font-size: 2em; color: var(--primary);">0</h3><p>Preguntas Resueltas</p></div>
-                        <div class="card-c" style="flex: 1; text-align: center; border-top-color: #28a745;"><h3 id="st-ok" style="font-size: 2em; color: #28a745;">0%</h3><p>Precisión</p></div>
+                    <h1 style="margin-bottom: 20px; color: var(--text-heading);">Diagnóstico de Rendimiento Clínico</h1>
+                    
+                    <div style="background: linear-gradient(135deg, #fff3cd, #ffeeba); border: 2px solid #ffeeba; border-radius: 16px; padding: 22px; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+                        <div>
+                            <h3 style="color: #856404; margin-bottom: 4px;">⚠️ Refuerzo Inteligente de Errores</h3>
+                            <p style="color: #664d03; font-size: 0.92em;">Tienes <strong id="txt-contador-fallos">0</strong> preguntas respondidas incorrectamente en tu historial.</p>
+                        </div>
+                        <button class="btn-p" style="width: auto; background: #d9381e; margin: 0; padding: 10px 18px;" onclick="banquearPreguntasFalladas()">
+                            🎯 Banquear Mis Preguntas Falladas ➔
+                        </button>
                     </div>
+
+                    <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
+                        <div class="card-c" style="flex: 1; min-width: 200px; text-align: center;">
+                            <h3 style="font-size: 2em; color: var(--primary);" id="st-total">0</h3>
+                            <p style="color: var(--text-muted); font-weight: bold;">Preguntas Respondidas</p>
+                        </div>
+                        <div class="card-c" style="flex: 1; min-width: 200px; text-align: center; border-top-color: #28a745;">
+                            <h3 style="font-size: 2em; color: #28a745;" id="st-ok">0%</h3>
+                            <p style="color: var(--text-muted); font-weight: bold;">Precisión Global</p>
+                        </div>
+                    </div>
+
+                    <h2 style="color: var(--text-heading); font-size: 1.25em; margin-bottom: 15px;">Rendimiento Desglosado por Curso Oficial</h2>
+                    <div id="contenedor-stats-por-curso"></div>
                 </div>
 
                 <!-- SUB 8: MI PERFIL PROFESIONAL -->
                 <div id="sec-perfil" class="contenido-cuerpo" style="display: none;">
                     <div class="card-auth amplia" style="margin: 0; max-width: 680px;">
                         <h2 style="color: var(--text-heading); margin-bottom: 12px;">👤 Mi Perfil Profesional</h2>
+                        <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 20px;">Actualiza tus datos para soporte y gestión de tu plaza.</p>
                         <form id="form-mi-perfil">
                             <div class="fila">
                                 <div class="campo"><label>Nombres</label><input type="text" id="p-nom" required></div>
@@ -678,20 +898,193 @@
                     </div>
                 </div>
 
-                <!-- SUB 9: PANEL DOCENTE -->
+                <!-- SUB 9: PANEL DOCENTE (TODAS LAS 8 SUB-PESTAÑAS RESTAURADAS) -->
                 <div id="sec-admin" class="contenido-cuerpo" style="display: none;">
-                    <div class="card-c" style="border-top-color: #a855f7;">
-                        <h2 style="color: #a855f7; margin-bottom: 15px;">👥 Alumnos y Membresías</h2>
-                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                            <button class="btn-p" style="width: auto; background: #25d366; margin: 0; padding: 8px 14px;" onclick="copiarTodosLosTelefonos()">📋 Copiar Teléfonos</button>
+                    <div style="background: var(--bg-card); padding: 30px; border-radius: 16px; box-shadow: var(--shadow-sm); border-top: 6px solid #6f42c1; border: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h1 style="color: #6f42c1; font-size: 1.6em;">Gestión Docente y Contenidos</h1>
+                            <span style="background: rgba(111,66,193,0.15); color: #6f42c1; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85em;">Modo Administrador</span>
                         </div>
-                        <div style="overflow-x: auto;">
+
+                        <div class="pestanas-admin">
+                            <button type="button" class="tab-btn-adm activa" onclick="verSubTabAdmin('p')">➕ Agregar Pregunta</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('fijas_adm')">🔥 Publicar La Fija</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('anuncios')">📢 Publicidad y Horarios</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('vaciador')">📋 Vaciador en Bloque</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Gestionar Simulacros</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Crear Flashcard</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('t')">📖 Publicar Tema</button>
+                            <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos y Membresías</button>
+                        </div>
+
+                        <!-- 1. Pregunta Manual -->
+                        <div id="subtab-adm-p" class="subtab-adm activa">
+                            <form id="form-adm-p">
+                                <div class="fila">
+                                    <div class="campo">
+                                        <label>Curso MINSA</label>
+                                        <select id="adm-p-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema')">
+                                            <option value="Salud Pública">Salud Pública</option>
+                                            <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                            <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                            <option value="Investigación">Investigación</option>
+                                            <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                        </select>
+                                    </div>
+                                    <div class="campo">
+                                        <label>Tema Específico</label>
+                                        <select id="adm-p-tema" class="campo-select-pro" required>
+                                            <option value="General">Seleccione el tema...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="campo">
+                                    <label>Dificultad</label>
+                                    <select id="adm-p-dif" class="campo-select-pro">
+                                        <option value="Basica">Básica</option>
+                                        <option value="Intermedia" selected>Intermedia</option>
+                                        <option value="Avanzada">Avanzada</option>
+                                    </select>
+                                </div>
+                                <div class="campo"><label>Enunciado del Caso Clínico</label><textarea id="adm-p-enunciado" rows="3" required placeholder="Escribe el caso clínico..."></textarea></div>
+                                <div class="fila">
+                                    <div class="campo"><label>Alternativa A</label><input type="text" id="adm-p-oa" required></div>
+                                    <div class="campo"><label>Alternativa B</label><input type="text" id="adm-p-ob" required></div>
+                                </div>
+                                <div class="fila">
+                                    <div class="campo"><label>Alternativa C</label><input type="text" id="adm-p-oc" required></div>
+                                    <div class="campo"><label>Alternativa D</label><input type="text" id="adm-p-od" required></div>
+                                </div>
+                                <div class="campo">
+                                    <label>Respuesta Correcta</label>
+                                    <select id="adm-p-correcta" class="campo-select-pro" required>
+                                        <option value="A">Opción A</option><option value="B">Opción B</option><option value="C">Opción C</option><option value="D">Opción D</option>
+                                    </select>
+                                </div>
+                                <div class="campo"><label>Justificación Clínica</label><textarea id="adm-p-justificacion" rows="3" required placeholder="Norma técnica y criterio médico..."></textarea></div>
+                                <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Pregunta en Base de Datos</button>
+                            </form>
+                        </div>
+
+                        <!-- 2. Publicador de Fijas -->
+                        <div id="subtab-adm-fijas_adm" class="subtab-adm">
+                            <form id="form-adm-fija">
+                                <div class="fila">
+                                    <div class="campo">
+                                        <label>Curso MINSA</label>
+                                        <select id="adm-fija-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema')">
+                                            <option value="Salud Pública">Salud Pública</option>
+                                            <option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option>
+                                            <option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option>
+                                            <option value="Investigación">Investigación</option>
+                                            <option value="Ética e Interculturalidad">Ética e Interculturalidad</option>
+                                        </select>
+                                    </div>
+                                    <div class="campo">
+                                        <label>Tema Asignado</label>
+                                        <select id="adm-fija-tema" class="campo-select-pro" required><option value="General">General</option></select>
+                                    </div>
+                                </div>
+                                <div class="campo"><label>Título de la Fija</label><input type="text" id="adm-fija-titulo" placeholder="Ej: Criterio de Hospitalización en Dengue" required></div>
+                                <div class="campo"><label>Contenido / Pepita Clínica del Examen</label><textarea id="adm-fija-contenido" rows="4" required></textarea></div>
+                                <button type="submit" class="btn-p" style="background: #ffc107; color: #856404;">🔥 Publicar La Fija en el Aula</button>
+                            </form>
+                        </div>
+
+                        <!-- 3. Anuncios y Horarios -->
+                        <div id="subtab-adm-anuncios" class="subtab-adm">
+                            <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                                <h4 style="color: var(--primary); margin-bottom: 8px;">🗓️ Fecha Oficial del Examen SERUMS</h4>
+                                <div style="display: flex; gap: 12px; align-items: center;">
+                                    <input type="date" id="adm-input-fecha-examen" style="max-width: 250px;">
+                                    <button type="button" class="btn-p" style="width: auto; margin: 0; padding: 10px 18px;" onclick="guardarFechaExamenOficial()">Guardar Fecha</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Vaciador en Bloque -->
+                        <div id="subtab-adm-vaciador" class="subtab-adm">
+                            <div class="campo"><label>Pega aquí las preguntas de tu Word:</label><textarea id="vaciador-texto-bruto" rows="8" placeholder="1. Paciente gestante que acude..."></textarea></div>
+                            <button type="button" class="btn-p" id="btn-procesar-vaciador" onclick="procesarTextoVaciadorConIA()">⚡ Procesar y Estructurar con IA</button>
+                            <div id="contenedor-revision-vaciador" style="margin-top: 25px; display: none;">
+                                <div id="lista-preguntas-vaciadas"></div>
+                                <button type="button" class="btn-p" style="background: #28a745; margin-top: 15px;" onclick="guardarPreguntasVaciadasEnBD()">✔ Guardar en Base de Datos</button>
+                            </div>
+                        </div>
+
+                        <!-- 5. Simulacros Admin -->
+                        <div id="subtab-adm-sims" class="subtab-adm">
+                            <form id="form-adm-sim">
+                                <div class="fila">
+                                    <div class="campo"><label>Título</label><input type="text" id="adm-sim-tit" required></div>
+                                    <div class="campo"><label>Duración (Minutos)</label><input type="number" id="adm-sim-dur" value="120" required></div>
+                                </div>
+                                <button type="submit" class="btn-p" style="background: #28a745;">Crear Simulacro</button>
+                            </form>
                             <table>
-                                <thead>
-                                    <tr><th>Alumno</th><th>Carrera</th><th>Teléfono</th><th>Plan</th><th>Acciones</th></tr>
-                                </thead>
-                                <tbody id="tabla-alumnos-adm-body"><tr><td colspan="5">Cargando...</td></tr></tbody>
+                                <thead><tr><th>Simulacro</th><th>Duración</th><th>Estado</th><th>Acción</th></tr></thead>
+                                <tbody id="tabla-simulacros-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
                             </table>
+                        </div>
+
+                        <!-- 6. Flashcard Admin -->
+                        <div id="subtab-adm-f" class="subtab-adm">
+                            <form id="form-adm-f">
+                                <div class="fila">
+                                    <div class="campo"><label>Curso</label><select id="adm-f-curso" class="campo-select-pro"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option><option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética e Interculturalidad</option></select></div>
+                                </div>
+                                <div class="campo"><label>Anverso</label><textarea id="adm-f-anverso" rows="2" required></textarea></div>
+                                <div class="campo"><label>Reverso</label><textarea id="adm-f-reverso" rows="2" required></textarea></div>
+                                <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Flashcard</button>
+                            </form>
+                        </div>
+
+                        <!-- 7. Tema Admin Completo con Creador de Tablas -->
+                        <div id="subtab-adm-t" class="subtab-adm">
+                            <form id="form-adm-t">
+                                <div class="fila">
+                                    <div class="campo"><label>Curso</label><select id="adm-t-curso" class="campo-select-pro"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option><option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética e Interculturalidad</option></select></div>
+                                    <div class="campo"><label>Código</label><input type="text" id="adm-t-codigo" required placeholder="Ej: 1.1"></div>
+                                </div>
+                                <div class="campo"><label>Título</label><input type="text" id="adm-t-titulo" required></div>
+                                <div class="campo"><label>1. Resumen Teórico</label><textarea id="adm-t-resumen" rows="6" required></textarea></div>
+                                
+                                <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 18px; border-radius: 10px; margin-bottom: 15px;">
+                                    <strong style="color: var(--primary); font-size: 0.95em;">📊 Creador de Tabla Comparativa:</strong>
+                                    <div class="fila" style="margin-top: 10px;">
+                                        <div class="campo"><label>Título Columna 1</label><input type="text" id="tbl-c1" placeholder="Condición Clínica"></div>
+                                        <div class="campo"><label>Título Columna 2</label><input type="text" id="tbl-c2" placeholder="Conducta MINSA"></div>
+                                    </div>
+                                    <div class="fila">
+                                        <div class="campo"><input type="text" id="tbl-f1-c1" placeholder="Fila 1: Leve"></div>
+                                        <div class="campo"><input type="text" id="tbl-f1-c2" placeholder="Fila 1: Ambulatorio"></div>
+                                    </div>
+                                    <div class="fila">
+                                        <div class="campo"><input type="text" id="tbl-f2-c1" placeholder="Fila 2: Grave"></div>
+                                        <div class="campo"><input type="text" id="tbl-f2-c2" placeholder="Fila 2: Referencia"></div>
+                                    </div>
+                                </div>
+
+                                <div class="campo" style="background: #fff8e1; border: 1px solid #ffe082; padding: 15px; border-radius: 10px;">
+                                    <label style="color: #b78103;">💡 Puntos Clave / Alertas:</label>
+                                    <textarea id="adm-t-alerta" rows="3" placeholder="Punto clave del examen..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-p" style="background: #6f42c1;">Publicar Tema</button>
+                            </form>
+                        </div>
+
+                        <!-- 8. Alumnos y Membresías (COMPLETO CON ACCIONES RESTAURADAS) -->
+                        <div id="subtab-adm-a" class="subtab-adm">
+                            <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                                <button class="btn-p" style="width: auto; background: #25d366; margin: 0; padding: 8px 14px;" onclick="copiarTodosLosTelefonos()">📋 Copiar Teléfonos</button>
+                            </div>
+                            <div style="overflow-x: auto;">
+                                <table>
+                                    <thead><tr><th>Alumno</th><th>DNI</th><th>Correo</th><th>Plan</th><th>Estado</th><th>Acciones</th></tr></thead>
+                                    <tbody id="tabla-alumnos-adm-body"><tr><td colspan="6">Cargando...</td></tr></tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -699,28 +1092,44 @@
         </div>
     </section>
 
+    <!-- MODAL PREMIUM ACTUALIZADO A 30,000 PREGUNTAS -->
+    <div id="modal-premium" class="modal-overlay">
+        <div class="modal-box">
+            <div style="font-size: 3em; margin-bottom: 10px;">⭐</div>
+            <h3>Acceso Ciclo Completo</h3>
+            <p style="margin: 10px 0 20px; color: var(--text-muted); line-height: 1.5;">
+                Obtén banqueo ilimitado a más de las <strong>30,000 preguntas</strong>, todas las fijas oficiales y generación con IA.
+            </p>
+            <a id="btn-enlace-whatsapp" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-ws">💬 Activar por WhatsApp</a>
+            <button class="btn-cerrar-modal" onclick="cerrarModales()">Volver al Tablero</button>
+        </div>
+    </div>
+
     <!-- MODAL ARMARIO MASCOTA -->
     <div id="modal-armario" class="modal-overlay">
         <div class="modal-box">
             <h3>Centro de Mascotas y Especies</h3>
-            <p style="margin: 10px 0; color: var(--text-muted);">Elige tu compañero de estudio:</p>
+            <p style="margin: 10px 0; color: var(--text-muted);">Elige tu compañero de estudio y personaliza su vestimenta:</p>
             <div class="grid-tienda">
                 <div class="item-tienda-card" onclick="cambiarAnimal('perrito')"><div class="item-icono">🐶</div>Perrito</div>
                 <div class="item-tienda-card" onclick="cambiarAnimal('gatito')"><div class="item-icono">🐱</div>Gatito</div>
                 <div class="item-tienda-card" onclick="cambiarAnimal('panda')"><div class="item-icono">🐼</div>Pandita</div>
                 <div class="item-tienda-card" onclick="cambiarAnimal('zorrito')"><div class="item-icono">🦊</div>Zorrito</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('fenix')"><div class="item-icono">🔥</div>Fénix</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('polar')"><div class="item-icono">🐻‍❄️</div>Oso Polar</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('grizzly')"><div class="item-icono">🐻</div>Grizzly</div>
             </div>
             <button class="btn-cerrar-modal" onclick="cerrarModales()">Cerrar</button>
         </div>
     </div>
 
-    <!-- MODAL PREMIUM -->
-    <div id="modal-premium" class="modal-overlay">
+    <!-- MODAL AVISO BONITO (REEMPLAZO DE ALERTAS NATIVAS) -->
+    <div id="modal-aviso-general" class="modal-overlay">
         <div class="modal-box">
-            <h3>⭐ Acceso Ciclo Completo</h3>
-            <p style="margin: 10px 0 20px; color: var(--text-muted);">Accede al banco de 10,000 preguntas y flashcards mnemotécnicas.</p>
-            <a id="btn-enlace-whatsapp" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-ws">💬 Activar por WhatsApp</a>
-            <button class="btn-cerrar-modal" onclick="cerrarModales()">Volver</button>
+            <div id="aviso-icono" style="font-size: 3em; margin-bottom: 10px;">💡</div>
+            <h3 id="aviso-titulo">Aviso</h3>
+            <p id="aviso-cuerpo" style="margin: 10px 0 20px; color: var(--text-muted);"></p>
+            <button class="btn-p" onclick="cerrarModales()">Entendido</button>
         </div>
     </div>
 
@@ -735,7 +1144,51 @@
         </div>
     </div>
 
+    <!-- BOTÓN WHATSAPP -->
+    <a id="btn-flotante-soporte" href="https://api.whatsapp.com/send?phone=51999999999" target="_blank" class="btn-flotante-ws" title="Consultas y Soporte">
+        <svg style="width: 26px; height: 26px; fill: white;" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+        <span>Soporte Académico</span>
+    </a>
+
     <script>
+        const TEMARIO_OFICIAL_MINSA = {
+            "Salud Pública": [
+                "1.1 Conceptos básicos de salud pública (FESP)", "1.2 Epidemiología (mediciones e indicadores)",
+                "1.3 Causalidad y Riesgo (Criterios Bradford Hill)", "1.4 Demografía en salud y transición epidemiológica",
+                "1.5 Historia natural de la enfermedad", "1.6 Etapas y niveles de prevención (Primaria a Cuaternaria)",
+                "1.7 Pruebas diagnósticas (Sensibilidad, Especificidad, VPP, VPN)", "1.8 Brotes, epidemias, endemias y pandemias",
+                "1.9 Vigilancia en salud pública y epidemiológica", "1.10 Prevención y Control de infecciones",
+                "1.11 Uso racional de medicamentos", "1.12 ASIS - Sala situacional de salud",
+                "1.13 Sistema de Vigilancia Epidemiológica (Notificación)", "2.1 Determinantes sociales de la salud",
+                "2.2 Determinantes ambientales y saneamiento básico", "2.4 Sectorización y ficha familiar",
+                "2.8 Sistemas de información y TICs (HIS, SIS, Historia clínica)", "2.12 Salud ocupacional en el trabajador de salud",
+                "2.13 Modelo de salud mental comunitaria", "3.1 Promoción de la salud (Estrategias y escenarios)",
+                "3.3 Bioseguridad y protección del personal", "3.4 Gestión del riesgo en emergencias y desastres"
+            ],
+            "Cuidado Integral de Salud": [
+                "1.1 Atención integral por curso de vida, familia y comunidad", "1.2 Atención centrada en la persona",
+                "1.3 Urgencias, emergencias y sistema de referencia", "1.4 Clave Roja, Azul y Amarilla (Emergencias obstétricas)",
+                "1.5 Riesgo obstétrico", "2.2 Paquete de cuidado integral del niño", "2.8 Prevención y control del Cáncer",
+                "2.10 Prevención y control de Tuberculosis (NTS MINSA)", "2.11 Esquema Nacional de Vacunación",
+                "2.13 Prevención y control de Anemia", "2.14 Manejo de ITS, VIH y Hepatitis", "2.22 Enfermedades metaxénicas (Dengue, Malaria)"
+            ],
+            "Gestión de Servicios de Salud": [
+                "1.1 Planeamiento Estratégico en Salud", "1.2 Análisis FODA", "2.1 Documentos de gestión: ROF y MOP",
+                "2.2 Categorización de establecimientos de salud (I-1 a III-2)", "2.4 Sistema REFCON", "2.6 Redes Integradas de Salud (RIS)",
+                "3.2 Control de stock e inventario de medicamentos (SISMED)", "4.1 Garantía de la calidad y seguridad del paciente"
+            ],
+            "Investigación": [
+                "1.1 Conceptos básicos de investigación científica", "1.3 Tipos de estudio (Descriptivo, Analítico, Experimental)",
+                "2.2 Procesamiento y análisis bioestadístico", "3.2 Aspectos éticos en investigación humana"
+            ],
+            "Ética e Interculturalidad": [
+                "1.1 Ética en la función pública y humanización", "1.3 Derechos y deberes de los usuarios (Ley General de Salud)",
+                "2.1 Comunicación y diálogo intercultural en salud", "2.4 Promoción del Parto Vertical", "2.6 Poblaciones vulnerables"
+            ]
+        };
+
         const MAPEO_CURSOS_ID = {
             "Salud Pública": 1,
             "Cuidado Integral de Salud": 2,
@@ -749,10 +1202,20 @@
         let perfilMascota = { animal: 'perrito', energia: 100, monedas: 50, nivel: 1 };
         let preguntaActual = null;
         let todasLasFlashcards = [];
+        let todasLasFijas = [];
+        let preguntasIaBuffer = [];
+        let preguntasFalladasBuffer = [];
         let listaAlumnosMemoria = [];
         let carruselLoginImagenes = [];
         let indexSlideLogin = 0;
         let timerCarruselLogin = null;
+
+        function mostrarAvisoModal(titulo, mensaje, icono = "💡") {
+            document.getElementById('aviso-titulo').innerText = titulo;
+            document.getElementById('aviso-cuerpo').innerText = mensaje;
+            document.getElementById('aviso-icono').innerText = icono;
+            document.getElementById('modal-aviso-general').style.display = 'flex';
+        }
 
         function alternarModoOscuro() {
             document.body.classList.toggle('dark-mode');
@@ -790,16 +1253,34 @@
             if (m) m.classList.add('activo');
 
             if (nom === 'dash') cargarCursosDashboard();
-            if (nom === 'flashcards') cargarFlashcardsDesdeBD();
-            if (nom === 'fijas') cargarFijas();
+            if (nom === 'flashcards') {
+                actualizarTemasEnSelector('sel-curso-flashcard', 'sel-tema-flashcard');
+                cargarFlashcardsDesdeBD();
+            }
+            if (nom === 'fijas') cargarLasFijasSERUMS();
+            if (nom === 'stats') cargarEstadisticas();
+            if (nom === 'temas') cargarTemasTeoricos();
             if (nom === 'admin') cargarAlumnosAdmin();
             if (nom === 'crono') renderizarCronograma();
+            if (nom === 'banqueo') volverASelectorModalidades();
         }
 
         function abrirModalPremium() { document.getElementById('modal-premium').style.display = 'flex'; }
         function abrirModalRecuperar() { document.getElementById('modal-recuperar').style.display = 'flex'; }
         function abrirArmarioMascota() { document.getElementById('modal-armario').style.display = 'flex'; }
         function cerrarModales() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); }
+
+        function actualizarTemasEnSelector(idCurso, idTema) {
+            const curso = document.getElementById(idCurso).value;
+            const selTema = document.getElementById(idTema);
+            if (!selTema) return;
+            selTema.innerHTML = '<option value="General">Todo el curso (General)</option>';
+            if (TEMARIO_OFICIAL_MINSA[curso]) {
+                TEMARIO_OFICIAL_MINSA[curso].forEach(t => {
+                    selTema.innerHTML += `<option value="${t}">${t}</option>`;
+                });
+            }
+        }
 
         async function iniciarConGoogle() {
             const sb = obtenerSupabase();
@@ -808,7 +1289,7 @@
                 provider: 'google',
                 options: { redirectTo: window.location.origin }
             });
-            if (error) alert(error.message);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
         }
 
         async function checkSesion() {
@@ -836,6 +1317,7 @@
         }
         window.addEventListener('DOMContentLoaded', checkSesion);
 
+        // LOGIN
         document.getElementById('f-login').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -866,6 +1348,7 @@
             }
         });
 
+        // REGISTRO
         document.getElementById('f-reg').addEventListener('submit', async (e) => {
             e.preventDefault();
             const sb = obtenerSupabase();
@@ -942,11 +1425,14 @@
             if (p.rol === 'admin') document.getElementById('m-admin').style.display = 'flex';
             else document.getElementById('m-admin').style.display = 'none';
 
-            document.getElementById('p-nom').value = p.nombres || '';
-            document.getElementById('p-ape').value = p.apellidos || '';
-            document.getElementById('p-col').value = p.colegiatura || '';
-            document.getElementById('p-tel').value = p.telefono || '';
-            document.getElementById('p-reg').value = p.region || '';
+            const pNom = document.getElementById('p-nom');
+            if (pNom) {
+                pNom.value = p.nombres || '';
+                document.getElementById('p-ape').value = p.apellidos || '';
+                document.getElementById('p-col').value = p.colegiatura || '';
+                document.getElementById('p-tel').value = p.telefono || '';
+                document.getElementById('p-reg').value = p.region || '';
+            }
 
             renderizarMascotaSVG();
         }
@@ -965,17 +1451,24 @@
             };
 
             const { error } = await sb.from('perfiles').update(payload).eq('id', user.id);
-            if (error) alert("Error al guardar: " + error.message);
-            else { alert("¡Perfil profesional actualizado!"); cargarPerfil(); }
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else { mostrarAvisoModal("¡Perfil Guardado!", "Tus datos profesionales se actualizaron.", "✔"); cargarPerfil(); }
         });
 
         function generarSVGMarkup(ancho = 90) {
+            const animal = perfilMascota.animal || 'perrito';
+            let colorBase = "#f2a65a";
+            let colorOrejas = "#c87834";
+            if (animal === 'gatito') { colorBase = "#a0a8b4"; colorOrejas = "#ffb6c1"; }
+            if (animal === 'panda') { colorBase = "#ffffff"; colorOrejas = "#2c3e50"; }
+            if (animal === 'zorrito') { colorBase = "#e65c00"; colorOrejas = "#3d1e03"; }
+
             return `
                 <svg viewBox="0 0 100 100" class="svg-mascota-render" style="width: ${ancho}px; height: ${ancho}px;">
-                    <ellipse cx="50" cy="70" rx="28" ry="24" fill="#f2a65a"/>
-                    <circle cx="28" cy="22" r="12" fill="#c87834"/>
-                    <circle cx="72" cy="22" r="12" fill="#c87834"/>
-                    <ellipse cx="50" cy="40" rx="26" ry="22" fill="#f2a65a"/>
+                    <ellipse cx="50" cy="70" rx="28" ry="24" fill="${colorBase}"/>
+                    <circle cx="28" cy="22" r="12" fill="${colorOrejas}"/>
+                    <circle cx="72" cy="22" r="12" fill="${colorOrejas}"/>
+                    <ellipse cx="50" cy="40" rx="26" ry="22" fill="${colorBase}"/>
                     <g class="anim-ojo-parpadeo">
                         <ellipse cx="40" cy="38" rx="4" ry="5.5" fill="#1a252f"/>
                         <circle cx="38.5" cy="36" r="1.5" fill="#ffffff"/>
@@ -999,15 +1492,16 @@
             perfilMascota.animal = animal;
             renderizarMascotaSVG();
             cerrarModales();
+            mostrarAvisoModal("¡Estilo Actualizado!", `Elegiste como compañero a: ${animal.toUpperCase()}`, "🐾");
         }
 
         async function alimentarMascota() {
-            if (perfilMascota.monedas < 10) { alert("Necesitas al menos 10 monedas."); return; }
+            if (perfilMascota.monedas < 10) { mostrarAvisoModal("Monedas Insuficientes", "Necesitas al menos 10 monedas.", "🪙"); return; }
             perfilMascota.monedas -= 10;
             perfilMascota.energia = 100;
             document.getElementById('m-monedas').innerText = perfilMascota.monedas;
             document.getElementById('m-energia-bar').style.width = '100%';
-            alert("¡Buen provecho! Tu mascota recuperó energía.");
+            mostrarAvisoModal("¡Buen Provecho!", "Tu compañero recuperó toda su energía.", "🍖");
         }
 
         async function cargarCursosDashboard() {
@@ -1033,13 +1527,21 @@
         function volverASelectorModalidades() {
             document.getElementById('vista-selector-modalidad').style.display = 'block';
             document.getElementById('pantalla-banqueo-curso').style.display = 'none';
+            document.getElementById('pantalla-simulacros-oficiales').style.display = 'none';
+            document.getElementById('pantalla-arma-simulacro').style.display = 'none';
         }
 
         function activarModalidadBanqueo(tipo) {
             document.getElementById('vista-selector-modalidad').style.display = 'none';
             if (tipo === 'curso') {
                 document.getElementById('pantalla-banqueo-curso').style.display = 'block';
+                actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo');
                 cargarSiguientePregunta();
+            } else if (tipo === 'simulacros_oficiales') {
+                document.getElementById('pantalla-simulacros-oficiales').style.display = 'block';
+                cargarSimulacrosOficialesEstudiante();
+            } else if (tipo === 'arma_tu_simulacro') {
+                document.getElementById('pantalla-arma-simulacro').style.display = 'block';
             }
         }
 
@@ -1047,6 +1549,18 @@
             const sb = obtenerSupabase();
             document.getElementById('sim-fb').style.display = 'none';
             document.getElementById('btn-sig').style.display = 'none';
+
+            if (preguntasFalladasBuffer.length > 0) {
+                preguntaActual = preguntasFalladasBuffer.shift();
+                mostrarPreguntaEnPantalla(preguntaActual, "🎯 REPASANDO PREGUNTA FALLADA");
+                return;
+            }
+
+            if (preguntasIaBuffer.length > 0) {
+                preguntaActual = preguntasIaBuffer.shift();
+                mostrarPreguntaEnPantalla(preguntaActual, "Generada con IA (ENCAPS MINSA)");
+                return;
+            }
 
             const cursoNombre = document.getElementById('sel-curso-banqueo').value;
             const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
@@ -1059,12 +1573,17 @@
             }
 
             preguntaActual = data[Math.floor(Math.random() * data.length)];
-            document.getElementById('sim-enunciado').innerText = preguntaActual.enunciado;
+            mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad || 'Intermedia'}`);
+        }
+
+        function mostrarPreguntaEnPantalla(p, sub) {
+            document.getElementById('sim-info').innerText = sub;
+            document.getElementById('sim-enunciado').innerText = p.enunciado;
             document.getElementById('sim-opciones').innerHTML = `
-                <button class="btn-op" onclick="responder('A')">A) ${preguntaActual.opcion_a}</button>
-                <button class="btn-op" onclick="responder('B')">B) ${preguntaActual.opcion_b}</button>
-                <button class="btn-op" onclick="responder('C')">C) ${preguntaActual.opcion_c}</button>
-                <button class="btn-op" onclick="responder('D')">D) ${preguntaActual.opcion_d}</button>
+                <button class="btn-op" onclick="responder('A')">A) ${p.opcion_a}</button>
+                <button class="btn-op" onclick="responder('B')">B) ${p.opcion_b}</button>
+                <button class="btn-op" onclick="responder('C')">C) ${p.opcion_c}</button>
+                <button class="btn-op" onclick="responder('D')">D) ${p.opcion_d}</button>
             `;
         }
 
@@ -1072,19 +1591,32 @@
             document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
             const esOk = (opt === preguntaActual.respuesta_correcta);
             const fb = document.getElementById('sim-fb');
+            const msgCoach = document.getElementById('coach-mensaje');
 
             if (esOk) {
                 fb.className = 'fb-box fb-ok';
                 document.getElementById('fb-tit').innerText = '✔ ¡Correcto!';
                 perfilMascota.monedas += 2;
                 document.getElementById('m-monedas').innerText = perfilMascota.monedas;
+                msgCoach.innerText = "¡Excelente razonamiento clínico! 🩺✨";
             } else {
                 fb.className = 'fb-box fb-err';
                 document.getElementById('fb-tit').innerText = '✖ Incorrecto';
+                msgCoach.innerText = "¡No te preocupes! Repasemos la justificación. 💪";
             }
             document.getElementById('fb-txt').innerText = preguntaActual.justificacion;
             fb.style.display = 'block';
             document.getElementById('btn-sig').style.display = 'block';
+
+            const sb = obtenerSupabase();
+            if (sb && user && preguntaActual.id) {
+                await sb.from('intentos_usuario').insert([{
+                    user_id: user.id,
+                    pregunta_id: preguntaActual.id,
+                    area_id: preguntaActual.area_id || 1,
+                    es_correcta: esOk
+                }]);
+            }
         }
 
         async function cargarFlashcardsDesdeBD() {
@@ -1092,7 +1624,10 @@
             const cont = document.getElementById('contenedor-flashcards');
             cont.innerHTML = 'Cargando flashcards...';
             const { data } = await sb.from('flashcards').select('*');
-            todasLasFlashcards = data || [];
+            todasLasFlashcards = data || [
+                { area_id: 1, anverso: "¿Sensibilidad depende de la prevalencia?", reverso: "No, es intrínseca a la prueba diagnóstica." },
+                { area_id: 2, anverso: "¿Conducta inicial en Hemorragia Posparto?", reverso: "Masaje uterino + Oxitocina 10-20 UI EV + Ácido Tranexámico." }
+            ];
             filtrarFlashcardsPorCurso();
         }
 
@@ -1103,7 +1638,7 @@
             const cont = document.getElementById('contenedor-flashcards');
             cont.innerHTML = '';
             if (filtradas.length === 0) {
-                cont.innerHTML = '<p style="color: var(--text-muted);">No hay flashcards para este curso.</p>';
+                cont.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">No hay flashcards para este curso.</p>';
                 return;
             }
             filtradas.forEach(f => {
@@ -1118,25 +1653,77 @@
             });
         }
 
-        async function cargarFijas() {
+        async function cargarLasFijasSERUMS() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('contenedor-fijas-cards');
-            cont.innerHTML = 'Cargando fijas...';
-            const { data } = await sb.from('fijas_serums').select('*');
-            if (!data || data.length === 0) {
-                cont.innerHTML = '<p style="color: var(--text-muted);">No hay fijas publicadas.</p>';
+            cont.innerHTML = 'Cargando perlas de alta rentabilidad...';
+            const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
+            todasLasFijas = data || [
+                { area_id: 1, tema: "1.7 Pruebas Diagnósticas", titulo: "Validez de Pruebas", contenido: "Sensibilidad y Especificidad no varían con la prevalencia; los VPP y VPN sí dependen de ella." },
+                { area_id: 2, tema: "2.22 Metaxénicas", titulo: "Dengue con Signos de Alarma", contenido: "Hospitalización obligatoria e hidratación EV a 10 ml/kg en la 1° hora." }
+            ];
+            renderizarFijasFiltradas('todos');
+        }
+
+        function cambiarPildoraFija(btn, filtro) {
+            document.querySelectorAll('.btn-pildora-fija').forEach(b => b.classList.remove('activa'));
+            btn.classList.add('activa');
+            renderizarFijasFiltradas(filtro);
+        }
+
+        function renderizarFijasFiltradas(filtro) {
+            const cont = document.getElementById('contenedor-fijas-cards');
+            cont.innerHTML = '';
+            const filtradas = (filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => f.area_id == filtro);
+            if (filtradas.length === 0) {
+                cont.innerHTML = '<p style="color: var(--text-muted); grid-column: 1/-1;">No hay fijas disponibles para este filtro.</p>';
                 return;
             }
-            cont.innerHTML = '';
-            data.forEach(f => {
+            filtradas.forEach(f => {
                 cont.innerHTML += `
                     <div class="card-modalidad" style="border-top-color: #ffc107;">
-                        <span style="font-size: 0.75em; color: #b78103; font-weight: bold;">🔥 LA FIJA</span>
+                        <span style="font-size: 0.75em; color: #b78103; font-weight: bold;">🔥 LA FIJA | ${f.tema || 'PUNTO CLAVE'}</span>
                         <h3 style="margin-top: 4px;">${f.titulo}</h3>
-                        <p>${f.contenido}</p>
+                        <p style="color: var(--text-main); line-height: 1.5;">${f.contenido}</p>
                     </div>
                 `;
             });
+        }
+
+        async function cargarEstadisticas() {
+            const sb = obtenerSupabase();
+            if (!user || !sb) return;
+            const { data } = await sb.from('intentos_usuario').select('*').eq('user_id', user.id);
+            if (!data || data.length === 0) {
+                document.getElementById('st-total').innerText = '0';
+                document.getElementById('st-ok').innerText = '0%';
+                document.getElementById('txt-contador-fallos').innerText = '0';
+                return;
+            }
+            const tot = data.length;
+            const ok = data.filter(i => i.es_correcta).length;
+            const errs = tot - ok;
+            document.getElementById('st-total').innerText = tot;
+            document.getElementById('st-ok').innerText = Math.round((ok / tot) * 100) + '%';
+            document.getElementById('txt-contador-fallos').innerText = errs;
+        }
+
+        async function banquearPreguntasFalladas() {
+            const sb = obtenerSupabase();
+            if (!sb || !user) return;
+            const { data: intentos } = await sb.from('intentos_usuario').select('pregunta_id').eq('user_id', user.id).eq('es_correcta', false);
+            if (!intentos || intentos.length === 0) {
+                mostrarAvisoModal("¡Excelente!", "No tienes preguntas falladas registradas.", "✨");
+                return;
+            }
+            const ids = [...new Set(intentos.map(i => i.pregunta_id))];
+            const { data: preguntas } = await sb.from('preguntas').select('*').in('id', ids);
+            if (preguntas && preguntas.length > 0) {
+                preguntasFalladasBuffer = [...preguntas];
+                subSec('banqueo');
+                activarModalidadBanqueo('curso');
+                cargarSiguientePregunta();
+            }
         }
 
         async function cargarTemasTeoricos() {
@@ -1162,27 +1749,38 @@
         async function cargarAlumnosAdmin() {
             const sb = obtenerSupabase();
             const tbody = document.getElementById('tabla-alumnos-adm-body');
-            tbody.innerHTML = '<tr><td colspan="5">Cargando...</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="6">Sincronizando alumnos...</td></tr>';
+            
+            // Trae todos los alumnos y asegura que los de Google también aparezcan
             const { data } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
             if (!data || data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5">No hay alumnos.</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="6">No hay alumnos registrados.</td></tr>';
                 return;
             }
             listaAlumnosMemoria = data;
             tbody.innerHTML = '';
             data.forEach(a => {
                 const esPrem = (a.plan === 'premium');
+                const estaBloq = (a.estado === 'bloqueado');
                 const tel = a.telefono || '';
                 tbody.innerHTML += `
                     <tr>
-                        <td><strong>${a.prefijo_trato || ''} ${a.nombres || ''} ${a.apellidos || ''}</strong><br><small>${a.correo}</small></td>
-                        <td>${a.carrera || 'Salud'}</td>
-                        <td>${tel ? `<a href="https://api.whatsapp.com/send?phone=51${tel}" target="_blank" style="color: #25d366; font-weight: bold; text-decoration: none;">💬 ${tel}</a>` : 'Sin tel'}</td>
+                        <td><strong>${a.prefijo_trato || ''} ${a.nombres || ''} ${a.apellidos || ''}</strong><br><small style="color: var(--text-muted);">${a.carrera || 'Ciencias de la Salud'}</small></td>
+                        <td>${a.dni || 'Sin DNI'}</td>
+                        <td>${a.correo}</td>
                         <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'GRATIS'}</span></td>
-                        <td>
-                            <button class="btn-p" style="width: auto; padding: 4px 8px; margin: 0; font-size: 0.8em; background: ${esPrem ? '#6c757d' : '#28a745'};" onclick="alternarPlanAdmin('${a.id}', '${esPrem ? 'gratuito' : 'premium'}')">
-                                ${esPrem ? 'Bajar' : 'Hacer Premium'}
-                            </button>
+                        <td><span class="badge ${estaBloq ? 'badge-bloq' : 'badge-prem'}">${estaBloq ? 'BLOQUEADO' : 'ACTIVO'}</span></td>
+                        <td style="display: flex; gap: 4px; flex-wrap: wrap;">
+                            ${esPrem 
+                                ? `<button class="btn-des" onclick="alternarPlanAdmin('${a.id}', 'gratuito')">Bajar a Gratis</button>`
+                                : `<button class="btn-act" onclick="alternarPlanAdmin('${a.id}', 'premium')">Activar Premium</button>`
+                            }
+                            ${estaBloq
+                                ? `<button class="btn-act" onclick="cambiarEstadoCuenta('${a.id}', 'activo')">Desbloquear</button>`
+                                : `<button class="btn-bloq" onclick="cambiarEstadoCuenta('${a.id}', 'bloqueado')">Bloquear</button>`
+                            }
+                            <button class="btn-clave" onclick="enviarClaveDesdeAdmin('${a.correo}')">Clave</button>
+                            ${tel ? `<a href="https://api.whatsapp.com/send?phone=51${tel}&text=Hola%20${encodeURIComponent(a.nombres)}" target="_blank" style="text-decoration:none;"><button class="btn-act" style="background:#25d366;">💬 WS</button></a>` : ''}
                         </td>
                     </tr>
                 `;
@@ -1195,20 +1793,54 @@
             cargarAlumnosAdmin();
         }
 
+        async function cambiarEstadoCuenta(userId, nuevoEstado) {
+            const sb = obtenerSupabase();
+            const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒");
+                cargarAlumnosAdmin();
+            }
+        }
+
+        async function enviarClaveDesdeAdmin(correoAlumno) {
+            const sb = obtenerSupabase();
+            try {
+                const { error } = await sb.auth.resetPasswordForEmail(correoAlumno, {
+                    redirectTo: window.location.origin
+                });
+                if (error) throw error;
+                mostrarAvisoModal("Enlace Generado", `Se envió el correo para restablecer contraseña a: ${correoAlumno}`, "📬");
+            } catch (err) {
+                mostrarAvisoModal("Error", err.message, "⚠️");
+            }
+        }
+
         function copiarTodosLosTelefonos() {
             const tels = listaAlumnosMemoria.map(a => a.telefono).filter(t => t && t.length >= 7);
-            if (tels.length === 0) { alert("No hay teléfonos."); return; }
+            if (tels.length === 0) { mostrarAvisoModal("Aviso", "No hay teléfonos registrados todavía.", "⚠️"); return; }
             navigator.clipboard.writeText(tels.join(', '));
-            alert(`¡${tels.length} números copiados!`);
+            mostrarAvisoModal("¡Copiado!", `Se copiaron ${tels.length} números al portapapeles.`, "📋");
+        }
+
+        function verSubTabAdmin(tipo) {
+            document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
+            document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
+            event.target.classList.add('activa');
+            document.getElementById('subtab-adm-' + tipo).classList.add('activa');
+            if (tipo === 'p') actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema');
+            if (tipo === 'fijas_adm') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema');
+            if (tipo === 'a') cargarAlumnosAdmin();
         }
 
         function renderizarCronograma() {
             document.getElementById('cuerpo-cronograma-contenedor').innerHTML = `
-                <div style="background: var(--bg-card-subtle); padding: 18px; border-radius: 12px; border: 1px solid var(--border-color);">
-                    <h4 style="margin-bottom: 8px;">Distribución Estratégica:</h4>
-                    <p>• <strong>Lunes a Viernes:</strong> Banqueo diario y estudio de normas técnicas MINSA.</p>
-                    <p>• <strong>Sábados:</strong> Simulacro oficial.</p>
-                    <p>• <strong>Domingos:</strong> Repaso de preguntas falladas y Fijas.</p>
+                <div style="background: var(--bg-card-subtle); padding: 18px; border-radius: 12px; border: 1px solid var(--border-color); line-height: 1.6;">
+                    <h4 style="margin-bottom: 8px; color: var(--primary);">Distribución Inteligente Recomendada:</h4>
+                    <p>• <strong>Lunes a Miércoles:</strong> Salud Pública y Cuidado Integral (60% del peso en el examen).</p>
+                    <p>• <strong>Jueves y Viernes:</strong> Gestión de Servicios, Investigación y Bioestadística.</p>
+                    <p>• <strong>Sábados:</strong> Simulacro Oficial programado con cronómetro de 120 minutos.</p>
+                    <p>• <strong>Domingos:</strong> Repaso de Fijas y Banqueo de Preguntas Falladas.</p>
                 </div>
             `;
         }
