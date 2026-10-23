@@ -65,7 +65,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; transition: background-color 0.2s ease, border-color 0.2s ease; }
         body { background-color: var(--bg-body); color: var(--text-main); }
-        .pantalla { display: none; min-height: 100vh; }
+        .pantalla { display: none; min-height: 100vh; width: 100%; }
         .pantalla.activa { display: flex; }
 
         .emblema-serums-pro {
@@ -92,7 +92,7 @@
         .contenedor-login-split {
             display: flex; max-width: 1100px; width: 100%; background: var(--bg-card);
             border-radius: 26px; box-shadow: 0 25px 70px rgba(0,0,0,0.45);
-            overflow: hidden; z-index: 1; min-height: 600px;
+            overflow: hidden; z-index: 10; min-height: 600px;
         }
         @media (max-width: 880px) {
             .contenedor-login-split { flex-direction: column; max-width: 500px; }
@@ -170,7 +170,7 @@
         .alerta-ok { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
         body.dark-mode .alerta-ok { background: #052e16; color: #86efac; border-color: #14532d; }
 
-        /* Layout Principal */
+        /* Layout */
         .layout { width: 100%; display: flex; height: 100vh; overflow: hidden; position: relative; }
         .sidebar { 
             width: 275px; background: var(--sidebar-bg); border-right: 1px solid rgba(255,255,255,0.08); 
@@ -583,7 +583,6 @@
                     <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
                 </ul>
 
-                <!-- BARRA DE REDES SOCIALES CONFIGURABLES -->
                 <div class="barra-redes-sidebar" id="barra-redes-sidebar">
                     <a id="link-red-discord" href="#" target="_blank" class="link-red-social" title="Comunidad Discord">💬</a>
                     <a id="link-red-instagram" href="#" target="_blank" class="link-red-social" title="Instagram">📸</a>
@@ -645,7 +644,7 @@
                     </div>
                 </div>
 
-                <!-- SUB 2: CRONOGRAMA DINÁMICO Y CALENDARIO ANUAL NAVEGABLE -->
+                <!-- SUB 2: CRONOGRAMA DINÁMICO Y CALENDARIO ANUAL -->
                 <div id="sec-crono" class="contenido-cuerpo" style="display: none;">
                     <div class="card-c" style="margin-bottom: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
@@ -656,7 +655,6 @@
                         </div>
                         <div id="cuerpo-cronograma-contenedor"></div>
                         
-                        <!-- Calendario con Navegación por Años y Meses -->
                         <div style="margin-top: 25px;">
                             <div class="header-calendario-navegacion">
                                 <button class="btn-p" style="width: auto; padding: 6px 14px; margin: 0;" onclick="cambiarMesCalendario(-1)">❮ Mes Anterior</button>
@@ -668,7 +666,7 @@
                     </div>
                 </div>
 
-                <!-- SUB 3: TEORÍA Y RESÚMENES (CON BOTONES/TARJETAS EN VEZ DE DESLIZABLES) -->
+                <!-- SUB 3: TEORÍA Y RESÚMENES -->
                 <div id="sec-temas" class="contenido-cuerpo" style="display: none;">
                     <h2 style="color: var(--text-heading); margin-bottom: 8px;">📖 Teoría y Resúmenes Estructurados</h2>
                     <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 20px;">Toca un curso para explorar sus temas y normas técnicas MINSA:</p>
@@ -680,7 +678,7 @@
                     </div>
                 </div>
 
-                <!-- SUB 4: BANCO DE PREGUNTAS (TODOS LOS MODOS RESTAURADOS) -->
+                <!-- SUB 4: BANCO DE PREGUNTAS -->
                 <div id="sec-banqueo" class="contenido-cuerpo" style="display: none;">
                     <div id="vista-selector-modalidad">
                         <h1 style="color: var(--text-heading); font-size: 1.5em; margin-bottom: 8px;">Centro de Entrenamiento y Banqueo</h1>
@@ -863,7 +861,7 @@
                     <div id="contenedor-fijas-cards" class="grid-modalidades-banqueo"></div>
                 </div>
 
-                <!-- SUB 7: ESTADÍSTICAS (CON DONUT CHART DE 5 EJES) -->
+                <!-- SUB 7: ESTADÍSTICAS -->
                 <div id="sec-stats" class="contenido-cuerpo" style="display: none;">
                     <h1 style="margin-bottom: 20px; color: var(--text-heading);">Diagnóstico de Rendimiento Clínico</h1>
                     
@@ -891,7 +889,6 @@
                         </div>
                     </div>
 
-                    <!-- Gráfico de Dona Gigante por los 5 Cursos -->
                     <div class="card-c" style="margin-bottom: 25px; border-top-color: #6f42c1;">
                         <h3 style="color: var(--text-heading); margin-bottom: 6px;">Distribución Analítica por los 5 Cursos Oficiales</h3>
                         <p style="color: var(--text-muted); font-size: 0.88em; margin-bottom: 18px;">Visualiza en qué áreas estás invirtiendo tu práctica y la concentración de aciertos y errores:</p>
@@ -925,7 +922,7 @@
                     </div>
                 </div>
 
-                <!-- SUB 9: PANEL DOCENTE (CONTROL TOTAL) -->
+                <!-- SUB 9: PANEL DOCENTE -->
                 <div id="sec-admin" class="contenido-cuerpo" style="display: none;">
                     <div style="background: var(--bg-card); padding: 30px; border-radius: 16px; box-shadow: var(--shadow-sm); border-top: 6px solid #6f42c1; border: 1px solid var(--border-color);">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
@@ -1018,7 +1015,7 @@
                             </form>
                         </div>
 
-                        <!-- 3. Anuncios y Redes Sociales -->
+                        <!-- 3. Anuncios y Horarios -->
                         <div id="subtab-adm-anuncios" class="subtab-adm">
                             <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
                                 <h4 style="color: var(--primary); margin-bottom: 8px;">🗓️ Fecha Oficial del Examen SERUMS</h4>
@@ -1132,7 +1129,7 @@
                     </div>
                 </div>
 
-                <!-- TUTOR CLÍNICO FLOTANTE (CON ICONO ROBOT) -->
+                <!-- BOTÓN FLOTANTE TUTOR IA -->
                 <div class="btn-flotante-ia" onclick="abrirModalTutorIA()" title="Consultar con Gemini Mentor">
                     <span style="font-size: 1.3em;">🤖</span>
                     <span>Tutor IA SERUMS</span>
@@ -1141,7 +1138,7 @@
         </div>
     </section>
 
-    <!-- MODAL TUTOR IA (ROBOT DE CONSULTA) -->
+    <!-- MODAL TUTOR IA -->
     <div id="modal-tutor-ia" class="modal-overlay">
         <div class="modal-box" style="max-width: 600px; text-align: left;">
             <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
@@ -1290,7 +1287,8 @@
     </a>
 
     <script>
-        // NAVEGACIÓN ANUAL Y MENSUAL DEL CALENDARIO
+        let fechaCalendarioNavegacion = new Date();
+
         function cambiarMesCalendario(delta) {
             fechaCalendarioNavegacion.setMonth(fechaCalendarioNavegacion.getMonth() + delta);
             renderizarCalendarioMensual();
@@ -1353,7 +1351,6 @@
             cont.innerHTML = html;
         }
 
-        // GRÁFICO CIRCULAR DE PASTEL (DONUT CHART) DE 5 EJES
         function renderizarGraficoDonutCursos(intentos) {
             const cont = document.getElementById('contenedor-grafico-cursos-pastel');
             const leyenda = document.getElementById('leyenda-grafico-cursos-pastel');
@@ -1414,7 +1411,6 @@
             leyenda.innerHTML = leyendaHTML;
         }
 
-        // CONSULTA AL TUTOR CLÍNICO CON IA
         async function preguntarTutorIA() {
             const prompt = document.getElementById('tutor-ia-prompt').value.trim();
             if (!prompt) {
@@ -1457,7 +1453,6 @@
             }
         }
 
-        // GESTIÓN DE ANUNCIOS DEL RECUADRO IZQUIERDO Y REDES SOCIALES
         async function agregarImagenCarrusel(tipo) {
             const file = document.getElementById('file-banner-login').files[0];
             if (!file) { mostrarAvisoModal("Atención", "Por favor selecciona una imagen primero.", "⚠️"); return; }
@@ -1544,7 +1539,6 @@
             if (cfg.facebook) document.getElementById('link-red-facebook').href = cfg.facebook;
         }
 
-        // CARGA Y SINCRONIZACIÓN AUTOMÁTICA EN PANEL DOCENTE (GOOGLE + TELÉFONOS)
         async function cargarAlumnosAdmin() {
             const sb = obtenerSupabase();
             const tbody = document.getElementById('tabla-alumnos-adm-body');
