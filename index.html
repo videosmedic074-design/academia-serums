@@ -1170,20 +1170,30 @@
         let preguntasIaBuffer = [];
         let preguntasFalladasBuffer = [];
         let listaAlumnosMemoria = [];
-        
-        // Calendario y Configuración Global
         let eventosCalendarioMemoria = {};
-        let fechaExamenGlobal = "2026-11-15";
-        let modalidadFechaGlobal = "oficial";
-        let fechaActualCalendario = new Date();
-
+        
         let carruselLoginImagenes = [];
         let indexSlideLogin = 0;
         let timerCarruselLogin = null;
         let carruselPopupImagenes = [];
         let indexSlidePopup = 0;
+        
+        let fechaExamenGlobal = "2026-11-15";
+        let modalidadFechaGlobal = "oficial";
+        let fechaActualCalendario = new Date();
 
-        // === 3. FUNCIONES UTILITARIAS Y MODALES ===
+        // === 3. PROTECCIÓN ANTIPIRATERÍA ===
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.key === 'F12' || 
+               (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S' || e.key === 'c' || e.key === 'C' || e.key === 'p' || e.key === 'P')) ||
+               (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c'))) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // === 4. FUNCIONES UTILITARIAS Y MODALES ===
         function toggleMenuRedes() {
             const box = document.getElementById('lista-redes-box');
             box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
@@ -1293,6 +1303,17 @@
             document.getElementById('adm-t-titulo').value = partes.slice(1).join(" ") || '';
         }
 
+        function insertarTablaEnEditor() {
+            const htmlTabla = `
+                <table style="width:100%; border-collapse:collapse; margin:15px 0;">
+                    <tr><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Condición / Criterio</th><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Conducta MINSA</th></tr>
+                    <tr><td style="border:1px solid #cbd5e1; padding:10px;">Leve / Ambulatorio</td><td style="border:1px solid #cbd5e1; padding:10px;">Manejo inicial en puesto I-1 o I-2</td></tr>
+                    <tr><td style="border:1px solid #cbd5e1; padding:10px;">Signos de Alarma</td><td style="border:1px solid #cbd5e1; padding:10px;">Referencia inmediata a nivel II o III</td></tr>
+                </table><br>
+            `;
+            document.execCommand('insertHTML', false, htmlTabla);
+        }
+
         function convertirUrlAEmbed(url) {
             if (!url) return '';
             url = url.trim();
@@ -1311,7 +1332,7 @@
             return url;
         }
 
-        // === 4. AUTENTICACIÓN Y SESIÓN ===
+        // === 5. AUTENTICACIÓN Y SESIÓN ===
         async function iniciarConGoogle() {
             const sb = obtenerSupabase();
             if (!sb) return;
@@ -1442,10 +1463,11 @@
             if (sb) await sb.auth.signOut();
             user = null;
             sessionStorage.removeItem('ps_bienvenida_mostrada');
+            sessionStorage.removeItem('ps_popup_anuncio_mostrado');
             ver('vista-login');
         }
 
-        // === 5. PERFIL DE USUARIO Y MASCOTA ===
+        // === 6. PERFIL DE USUARIO Y MASCOTA ===
         async function cargarPerfil() {
             const sb = obtenerSupabase();
             if (!user || !sb) return;
@@ -1556,7 +1578,7 @@
             }
         }
 
-        /* === 6. GENERACIÓN SVG DE MASCOTA CON ROPA Y COLORES EXACTOS === */
+        /* === 7. GENERACIÓN SVG DE MASCOTA CON ROPA Y COLORES EXACTOS === */
         function generarSVGMarkup(ancho = 90) {
             const animal = perfilMascota.animal || 'perrito';
             const cabeza = perfilMascota.cabeza || 'ninguno';
@@ -1585,6 +1607,7 @@
                 <ellipse cx="50" cy="70" rx="${esAdulto ? '18' : '16'}" ry="15" fill="${colorHocico}"/>
             `;
             
+            // Prendas
             if (cuerpo === 'mandil') {
                 svgCuerpo += `
                     <path d="M22 62 Q50 56 78 62 L74 90 Q50 94 26 90 Z" fill="#ffffff" stroke="#ced4da" stroke-width="2"/>
@@ -1679,9 +1702,7 @@
             perfilMascota.animal = animal;
             renderizarMascotaSVG();
             const sb = obtenerSupabase();
-            if (sb && user) {
-                await sb.from('perfil_mascota').update({ animal }).eq('user_id', user.id);
-            }
+            if (sb && user) await sb.from('perfil_mascota').update({ animal }).eq('user_id', user.id);
             mostrarAvisoModal("¡Estilo Actualizado!", `Elegiste como compañero a: ${animal.toUpperCase()}`, "🐾");
         }
 
@@ -1704,7 +1725,6 @@
                 mostrarAvisoModal("Monedas Insuficientes", `Necesitas al menos ${costo} monedas para este ítem.`, "🪙"); 
                 return; 
             }
-            
             perfilMascota.monedas -= costo;
             perfilMascota.energia = Math.min(100, perfilMascota.energia + energiaGanada);
             perfilMascota.nivel = Math.min(10, perfilMascota.nivel + (costo * 0.02));
@@ -1730,7 +1750,7 @@
             mostrarAvisoModal("¡Delicioso!", "Tu compañero recuperó energía y ganó experiencia.", "🍗");
         }
 
-        // === 7. GESTIÓN DE CURSOS Y BANQUEO ===
+        // === 8. GESTIÓN DE CURSOS Y BANQUEO ===
         async function cargarCursosDashboard() {
             const sb = obtenerSupabase();
             const cont = document.getElementById('grid-cursos-dashboard');
@@ -1815,7 +1835,6 @@
         }
 
         async function cargarSiguientePregunta() {
-            // Límite Plan Básico (25 diarias)
             if (perfilUsuario.plan !== 'premium' && perfilUsuario.preguntas_hoy >= 25) {
                 mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado', 'Has alcanzado el límite de 25 preguntas diarias de la cuenta básica. Pasa al Ciclo Completo para practicar sin límites.');
                 return;
@@ -1940,10 +1959,11 @@
             });
         }
 
-        // === 8. TEORÍA, FLASHCARDS Y FIJAS ===
+        // === 9. MÓDULOS DE TEORÍA, FLASHCARDS Y FIJAS ===
         
         async function cargarTemasTeoricos() {
             const sb = obtenerSupabase();
+            const cont = document.getElementById('lista-temas-contenedor');
             const { data: temas } = await sb.from('temas').select('*');
             temasTeoricosEnMemoria = temas || [];
         }
@@ -2029,6 +2049,8 @@
 
         async function cargarFlashcardsDesdeBD() {
             const sb = obtenerSupabase();
+            const cont = document.getElementById('contenedor-flashcards');
+            cont.innerHTML = 'Cargando flashcards...';
             const { data } = await sb.from('flashcards').select('*');
             todasLasFlashcards = data || [];
             filtrarFlashcardsBtn('1'); 
@@ -2066,6 +2088,8 @@
 
         async function cargarLasFijasSERUMS() {
             const sb = obtenerSupabase();
+            const cont = document.getElementById('contenedor-fijas-cards');
+            cont.innerHTML = 'Cargando perlas clínicas...';
             const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
             todasLasFijas = data || [];
             cambiarPildoraFija(null, 'todos');
@@ -2101,15 +2125,10 @@
             });
         }
 
-        async function generarPreguntasConIA() {
-            mostrarAvisoModal("Función IA", "La formulación de casos clínicos inéditos con Gemini está configurada. (Requiere conexión activa al Backend de Gemini).", "🤖");
-        }
+        async function generarPreguntasConIA() { mostrarAvisoModal("Función IA", "La formulación de casos clínicos inéditos con Gemini está configurada. (Requiere conexión activa al Backend de Gemini).", "🤖"); }
+        async function procesarTextoVaciadorConIA() { mostrarAvisoModal("Vaciador IA", "El módulo estructurador con Gemini está en línea. Pega tus preguntas para procesarlas.", "🤖"); }
 
-        async function procesarTextoVaciadorConIA() {
-            mostrarAvisoModal("Vaciador IA", "El módulo estructurador con Gemini está en línea. Pega tus preguntas para procesarlas.", "🤖");
-        }
-
-        // === 9. ESTADÍSTICAS Y RANKING SIMULADO ===
+        // === 10. ESTADÍSTICAS Y RANKING SIMULADO ===
         async function cargarEstadisticas() {
             const sb = obtenerSupabase();
             if (!user || !sb) return;
@@ -2142,7 +2161,6 @@
             txtOk.innerText = ptGlobal + '%';
             txtErr.innerText = errs;
             
-            // Actualizar Gráfico Circular
             pctVal.innerText = ptGlobal + '%';
             pctBox.style.setProperty('--pct', `${ptGlobal}%`);
 
@@ -2184,7 +2202,7 @@
             const lista = document.getElementById('lista-ranking-alumnos');
             if(!lista) return;
 
-            // Simulamos un ranking base nacional anónimo
+            // Ranking base nacional anónimo
             let competidores = [
                 { nombre: "Participante 892", pt: 96 },
                 { nombre: "Participante 412", pt: 92 },
@@ -2195,11 +2213,9 @@
                 { nombre: "Participante 119", pt: 58 }
             ];
 
-            // Inyectamos al usuario actual
             const miNombre = (perfilUsuario && perfilUsuario.nombres) ? perfilUsuario.nombres : "Tú";
             competidores.push({ nombre: miNombre, pt: miPrecisión, esMe: true });
 
-            // Ordenamos de mayor a menor precisión
             competidores.sort((a, b) => b.pt - a.pt);
 
             lista.innerHTML = '';
@@ -2246,7 +2262,7 @@
             }
         }
 
-        // === 10. CONFIGURACIONES GLOBALES (ANUNCIOS, REDES Y FECHAS) ===
+        // === 11. CONFIGURACIONES GLOBALES Y CALENDARIO ===
         async function cargarConfiguracionesGenerales() {
             const sb = obtenerSupabase();
             if (!sb) return;
@@ -2287,7 +2303,6 @@
                             document.getElementById('adm-link-msg').value = redes.msg || '';
                             document.getElementById('adm-link-dc').value = redes.dc || '';
                             
-                            // Botones de Soporte (Flotante y Cabecera)
                             const waUrl = redes.wa ? `https://api.whatsapp.com/send?phone=${redes.wa}` : `https://api.whatsapp.com/send?phone=51999999999`;
                             const btnWa = document.getElementById('btn-flotante-wa');
                             const btnWaHeader = document.getElementById('btn-header-wa');
@@ -2354,7 +2369,6 @@
             mostrarAvisoModal("Guardado", "Redes sociales actualizadas.", "🌐");
         }
 
-        // LÓGICA DEL CALENDARIO BLINDADA CONTRA ERRORES
         function cambiarMesCalendario(offset) {
             fechaActualCalendario.setMonth(fechaActualCalendario.getMonth() + offset);
             renderizarCalendarioCompleto();
@@ -2408,9 +2422,8 @@
                         else { textoEtiqueta = 'Teoría'; colorClase = "cal-color-salud"; }
                     }
 
-                    // Prevenir inyección de comillas en el onClick
+                    // Escapar comillas simples para no romper el onclick
                     const textoLimpio = textoEtiqueta.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-
                     const notaDia = `<div class="badge-cal-tema ${colorClase}">${textoEtiqueta}</div>`;
                     
                     htmlStr += `
@@ -2420,10 +2433,9 @@
                         </div>
                     `;
                 }
-                
                 cont.innerHTML = htmlStr;
             } catch (err) {
-                console.error("Error renderizando calendario:", err);
+                console.error("Error en calendario:", err);
             }
         }
 
@@ -2605,6 +2617,80 @@
             if (tipo === 'a') cargarAlumnosAdmin();
             if (tipo === 'anuncios') cargarConfiguracionesGenerales();
         }
+
+        /* GUARDAR TEMA EN LA BASE DE DATOS (CON EDITOR Y VIDEO) */
+        document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-t-curso').value;
+            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const contenidoHtml = document.getElementById('adm-t-editor').innerHTML;
+            const urlVideo = document.getElementById('adm-t-video').value.trim();
+
+            const payload = {
+                area_id: areaId,
+                codigo: document.getElementById('adm-t-codigo').value.trim(),
+                titulo: document.getElementById('adm-t-titulo').value.trim(),
+                resumen_teorico: contenidoHtml,
+                url_video: urlVideo
+            };
+
+            const { error } = await sb.from('temas').insert([payload]);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("¡Tema Publicado!", "El tema con formato y video se guardó correctamente.", "✔");
+                document.getElementById('form-adm-t').reset();
+                document.getElementById('adm-t-editor').innerHTML = '';
+            }
+        });
+        
+        /* GUARDAR PREGUNTA EN LA BASE DE DATOS */
+        document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-p-curso').value;
+            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+
+            const payload = {
+                area_id: areaId,
+                dificultad: document.getElementById('adm-p-dif').value,
+                enunciado: document.getElementById('adm-p-enunciado').value.trim(),
+                opcion_a: document.getElementById('adm-p-oa').value.trim(),
+                opcion_b: document.getElementById('adm-p-ob').value.trim(),
+                opcion_c: document.getElementById('adm-p-oc').value.trim(),
+                opcion_d: document.getElementById('adm-p-od').value.trim(),
+                respuesta_correcta: document.getElementById('adm-p-correcta').value,
+                justificacion: document.getElementById('adm-p-justificacion').value.trim()
+            };
+
+            const { error } = await sb.from('preguntas').insert([payload]);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔");
+                document.getElementById('form-adm-p').reset();
+            }
+        });
+
+        /* GUARDAR FLASHCARD EN LA BASE DE DATOS */
+        document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-f-curso').value;
+            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+
+            const payload = {
+                area_id: areaId,
+                anverso: document.getElementById('adm-f-anverso').value.trim(),
+                reverso: document.getElementById('adm-f-reverso').value.trim()
+            };
+
+            const { error } = await sb.from('flashcards').insert([payload]);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+            else {
+                mostrarAvisoModal("¡Guardado!", "Flashcard creada correctamente.", "✔");
+                document.getElementById('form-adm-f').reset();
+            }
+        });
 
         /* === BANNERS Y CARRUSELES DE ANUNCIOS === */
         function renderizarCarruselLogin() {
