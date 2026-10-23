@@ -1110,10 +1110,6 @@
         let preguntasFalladasBuffer = [];
         let listaAlumnosMemoria = [];
         
-        // Controladores para que Saludo y Pop-up salgan SIEMPRE al recargar
-        let bienvenidaMascotaMostrada = false;
-        let popupAnuncioMostrado = false;
-        
         // Memoria del Administrador
         let eventosCalendarioMemoria = {};
         let fechaExamenGlobal = "2026-11-15";
@@ -1124,24 +1120,40 @@
         let timerCarruselLogin = null;
         let carruselPopupImagenes = [];
         let indexSlidePopup = 0;
+        let bienvenidaMascotaMostradaTurno = false;
 
-        // === INYECCIÓN DE POPUP FALTANTE ===
-        // Construimos el HTML del popup de anuncios dinámicamente si no existe
-        if (!document.getElementById('modal-popup-anuncio')) {
-            const popupHTML = `
-            <div id="modal-popup-anuncio" class="modal-overlay">
-                <div class="modal-box" style="max-width: 650px; padding: 25px; border-top: 6px solid var(--primary);">
-                    <button class="btn-cerrar-x" onclick="document.getElementById('modal-popup-anuncio').style.display='none'">×</button>
-                    <div class="carrusel-contenedor" style="min-height: 400px; display:flex; justify-content:center; align-items:center;">
-                        <button class="btn-carrusel-nav btn-carrusel-prev" onclick="cambiarSlidePopup(-1)">❮</button>
-                        <div id="slides-popup-contenedor" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;"></div>
-                        <button class="btn-carrusel-nav btn-carrusel-next" onclick="cambiarSlidePopup(1)">❯</button>
+        // === INYECCIÓN BLINDADA DE MODALES (Evita que se rompan por falta de HTML) ===
+        document.addEventListener("DOMContentLoaded", () => {
+            const body = document.body;
+            
+            // Pop-up Anuncios
+            if (!document.getElementById('modal-popup-anuncio')) {
+                body.insertAdjacentHTML('beforeend', `
+                <div id="modal-popup-anuncio" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
+                    <div class="modal-box" style="background:var(--bg-card); padding:25px; border-radius:20px; border-top:6px solid var(--primary); text-align:center; max-width:650px; width:92%; position:relative;">
+                        <button style="position:absolute; top:10px; right:15px; font-size:2em; background:none; border:none; color:var(--text-muted); cursor:pointer;" onclick="document.getElementById('modal-popup-anuncio').style.display='none'">×</button>
+                        <div class="carrusel-contenedor" style="min-height: 400px; display:flex; justify-content:center; align-items:center; position:relative;">
+                            <button class="btn-carrusel-nav" style="position:absolute; left:10px; z-index:10; background:rgba(0,0,0,0.5); color:white; border:none; padding:10px 15px; border-radius:50%; cursor:pointer;" onclick="cambiarSlidePopup(-1)">❮</button>
+                            <div id="slides-popup-contenedor" style="width:100%; height:100%; display:flex; justify-content:center; align-items:center;"></div>
+                            <button class="btn-carrusel-nav" style="position:absolute; right:10px; z-index:10; background:rgba(0,0,0,0.5); color:white; border:none; padding:10px 15px; border-radius:50%; cursor:pointer;" onclick="cambiarSlidePopup(1)">❯</button>
+                        </div>
+                        <button class="btn-p" style="margin-top:20px; font-size:1.1em;" onclick="document.getElementById('modal-popup-anuncio').style.display='none'">Continuar al Aula ➔</button>
                     </div>
-                    <button class="btn-p" style="margin-top: 20px; font-size: 1.1em;" onclick="document.getElementById('modal-popup-anuncio').style.display='none'">Continuar al Aula ➔</button>
-                </div>
-            </div>`;
-            document.body.insertAdjacentHTML('beforeend', popupHTML);
-        }
+                </div>`);
+            }
+
+            // Pop-up Bienvenida Mascota
+            if (!document.getElementById('modal-bienvenida-mascota')) {
+                body.insertAdjacentHTML('beforeend', `
+                <div id="modal-bienvenida-mascota" class="modal-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.75); z-index:9999; justify-content:center; align-items:center;">
+                    <div class="modal-box" style="background:var(--bg-card); padding:30px; border-radius:20px; border-top:6px solid var(--primary); text-align:center; max-width:420px; width:92%;">
+                        <div class="globo-dialogo" id="txt-bienvenida-mascota" style="font-size:1.1em; margin-bottom:20px; padding:15px; border-radius:12px; background:rgba(0,86,179,0.08); color:var(--primary); font-weight:bold;">¡Bienvenido de nuevo!</div>
+                        <div class="avatar-canvas-box" id="avatar-canvas-bienvenida" style="width:140px; height:140px; margin:0 auto 20px;"></div>
+                        <button class="btn-p" style="padding:12px; font-size:1.1em;" onclick="document.getElementById('modal-bienvenida-mascota').style.display='none'">¡Vamos a darle! ➔</button>
+                    </div>
+                </div>`);
+            }
+        });
 
         // === 3. FUNCIONES UTILITARIAS Y MODALES ===
         function toggleMenuRedes() {
@@ -1222,9 +1234,18 @@
 
         function abrirModalPremium() { document.getElementById('modal-premium').style.display = 'flex'; }
         function abrirModalRecuperar() { document.getElementById('modal-recuperar').style.display = 'flex'; }
-        function abrirArmarioMascota() { document.getElementById('modal-armario').style.display = 'flex'; }
-        function abrirModalAlimentar() { document.getElementById('modal-alimentar').style.display = 'flex'; }
-        function cerrarModales() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); }
+        
+        function abrirArmarioMascota() { 
+            const m = document.getElementById('modal-armario');
+            if (m) m.style.display = 'flex';
+        }
+        function abrirModalAlimentar() { 
+            const m = document.getElementById('modal-alimentar');
+            if (m) m.style.display = 'flex';
+        }
+        function cerrarModales() { 
+            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); 
+        }
 
         function actualizarTemasEnSelector(idCurso, idTema) {
             const curso = document.getElementById(idCurso).value;
@@ -1282,6 +1303,7 @@
                         ver('vista-app');
                         subSec('dash');
                         mostrarBienvenidaMascota();
+                        lanzarPopupAnuncioSiExiste();
                     }
                     cargarConfiguracionesGenerales();
                 }
@@ -1295,6 +1317,7 @@
                     ver('vista-app');
                     subSec('dash');
                     mostrarBienvenidaMascota();
+                    lanzarPopupAnuncioSiExiste();
                 }
                 cargarConfiguracionesGenerales();
             } else {
@@ -1320,6 +1343,7 @@
                 ver('vista-app');
                 subSec('dash');
                 mostrarBienvenidaMascota();
+                lanzarPopupAnuncioSiExiste();
                 cargarConfiguracionesGenerales();
             } catch (err) {
                 errDiv.innerText = err.message || "Credenciales no válidas.";
@@ -1367,6 +1391,7 @@
             const sb = obtenerSupabase();
             if (sb) await sb.auth.signOut();
             user = null;
+            bienvenidaMascotaMostradaTurno = false;
             ver('vista-login');
         }
 
@@ -1416,12 +1441,10 @@
             if (document.getElementById('p-uni')) document.getElementById('p-uni').value = p.universidad || '';
             if (document.getElementById('p-esc')) document.getElementById('p-esc').value = p.escuela_profesional || '';
 
-            // CARGA DE MASCOTA CON AUTO-CREACIÓN SI ES NUEVO ALUMNO
             const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
             if (m) {
                 perfilMascota = { animal: m.animal || 'perrito', cabeza: m.accesorio_cabeza || 'ninguno', cuerpo: m.accesorio_cuerpo || 'ninguno', monedas: m.monedas || 50, energia: m.energia || 100, nivel: m.nivel || 1.0 };
             } else {
-                // Si no existe en BD, lo insertamos
                 await sb.from('perfil_mascota').insert([{ user_id: user.id, animal: 'perrito', energia: 100, monedas: 50, nivel: 1.0 }]);
                 perfilMascota = { animal: 'perrito', energia: 100, monedas: 50, nivel: 1.0, cabeza: 'ninguno', cuerpo: 'ninguno' };
             }
@@ -1456,19 +1479,23 @@
         });
 
         function mostrarBienvenidaMascota() {
-            if (!bienvenidaMascotaMostrada && perfilUsuario) {
-                const frase = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
-                document.getElementById('txt-bienvenida-mascota').innerText = frase.replace('{nombre}', perfilUsuario.nombres || 'Colega');
-                const canvasBienvenida = document.getElementById('avatar-canvas-bienvenida');
-                
-                // Aplicamos animación dinámica de salto y dibujamos SVG
-                if(canvasBienvenida) {
-                    canvasBienvenida.innerHTML = generarSVGMarkup(140);
-                    const svgAnim = canvasBienvenida.querySelector('svg');
-                    if (svgAnim) svgAnim.style.animation = "respirarMascota 1s infinite alternate cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+            if (!bienvenidaMascotaMostradaTurno && perfilUsuario) {
+                const modalBienvenida = document.getElementById('modal-bienvenida-mascota');
+                if(modalBienvenida) {
+                    const frase = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
+                    document.getElementById('txt-bienvenida-mascota').innerText = frase.replace('{nombre}', perfilUsuario.nombres || 'Colega');
+                    
+                    const canvasBienvenida = document.getElementById('avatar-canvas-bienvenida');
+                    if (canvasBienvenida) {
+                        canvasBienvenida.innerHTML = generarSVGMarkup(140);
+                        const svgAnim = canvasBienvenida.querySelector('svg');
+                        if (svgAnim) {
+                            svgAnim.style.animation = "respirarMascota 1s infinite alternate cubic-bezier(0.68, -0.55, 0.265, 1.55)";
+                        }
+                    }
+                    modalBienvenida.style.display = 'flex';
+                    bienvenidaMascotaMostradaTurno = true;
                 }
-                document.getElementById('modal-bienvenida-mascota').style.display = 'flex';
-                bienvenidaMascotaMostrada = true; // Se reinicia solo al recargar la página entera
             }
         }
 
@@ -1549,9 +1576,7 @@
             perfilMascota.animal = animal;
             renderizarMascotaSVG();
             const sb = obtenerSupabase();
-            if (sb && user) {
-                await sb.from('perfil_mascota').update({ animal }).eq('user_id', user.id);
-            }
+            if (sb && user) await sb.from('perfil_mascota').update({ animal }).eq('user_id', user.id);
             mostrarAvisoModal("¡Estilo Actualizado!", `Elegiste como compañero a: ${animal.toUpperCase()}`, "🐾");
         }
 
@@ -1570,38 +1595,33 @@
         }
 
         async function comprarAlimento(costo, energiaGanada) {
-            try {
-                if (perfilMascota.monedas < costo) { 
-                    mostrarAvisoModal("Monedas Insuficientes", `Necesitas al menos ${costo} monedas para este ítem.`, "🪙"); 
-                    return; 
-                }
-                
-                perfilMascota.monedas -= costo;
-                perfilMascota.energia = Math.min(100, perfilMascota.energia + energiaGanada);
-                perfilMascota.nivel = Math.min(10, perfilMascota.nivel + (costo * 0.02));
-
-                document.getElementById('m-monedas').innerText = perfilMascota.monedas;
-                document.getElementById('m-energia-bar').style.width = `${perfilMascota.energia}%`;
-                
-                let etapa = "Bebé";
-                if (perfilMascota.nivel >= 4 && perfilMascota.nivel < 8) etapa = "Joven";
-                if (perfilMascota.nivel >= 8) etapa = "Adulto Fuerte";
-                document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${etapa})`;
-                
-                renderizarMascotaSVG();
-
-                const sb = obtenerSupabase();
-                if (sb && user) {
-                    await sb.from('perfil_mascota').update({ 
-                        monedas: perfilMascota.monedas, 
-                        energia: perfilMascota.energia,
-                        nivel: perfilMascota.nivel
-                    }).eq('user_id', user.id);
-                }
-                mostrarAvisoModal("¡Delicioso!", "Tu compañero recuperó energía y ganó experiencia.", "🍗");
-            } catch (err) {
-                mostrarAvisoModal("Error", "No se pudo alimentar al compañero. Recarga la página.", "⚠️");
+            if (perfilMascota.monedas < costo) { 
+                mostrarAvisoModal("Monedas Insuficientes", `Necesitas al menos ${costo} monedas para este ítem.`, "🪙"); 
+                return; 
             }
+            perfilMascota.monedas -= costo;
+            perfilMascota.energia = Math.min(100, perfilMascota.energia + energiaGanada);
+            perfilMascota.nivel = Math.min(10, perfilMascota.nivel + (costo * 0.02));
+
+            document.getElementById('m-monedas').innerText = perfilMascota.monedas;
+            document.getElementById('m-energia-bar').style.width = `${perfilMascota.energia}%`;
+            
+            let etapa = "Bebé";
+            if (perfilMascota.nivel >= 4 && perfilMascota.nivel < 8) etapa = "Joven";
+            if (perfilMascota.nivel >= 8) etapa = "Adulto Fuerte";
+            document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${etapa})`;
+            
+            renderizarMascotaSVG();
+
+            const sb = obtenerSupabase();
+            if (sb && user) {
+                await sb.from('perfil_mascota').update({ 
+                    monedas: perfilMascota.monedas, 
+                    energia: perfilMascota.energia,
+                    nivel: perfilMascota.nivel
+                }).eq('user_id', user.id);
+            }
+            mostrarAvisoModal("¡Delicioso!", "Tu compañero recuperó energía y ganó experiencia.", "🍗");
         }
 
         // === 7. GESTIÓN DE CURSOS Y BANQUEO ===
@@ -1685,6 +1705,7 @@
                 mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado', 'Has alcanzado el límite de 25 preguntas diarias de la cuenta básica. Pasa al Ciclo Completo para practicar sin límites.');
                 return;
             }
+
             const sb = obtenerSupabase();
             document.getElementById('sim-fb').style.display = 'none'; document.getElementById('btn-sig').style.display = 'none';
             document.getElementById('contador-diario').innerText = (perfilUsuario.plan === 'premium') ? `Ilimitado (Premium)` : `Hoy: ${perfilUsuario.preguntas_hoy || 0} / 25`;
@@ -1698,11 +1719,12 @@
 
             const cursoNombre = document.getElementById('sel-curso-banqueo').value;
             const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+
             const { data } = await sb.from('preguntas').select('*').eq('area_id', areaId);
-            
             if (!data || data.length === 0) {
                 document.getElementById('sim-enunciado').innerText = 'Aún no hay preguntas en este curso.'; document.getElementById('sim-opciones').innerHTML = ''; return;
             }
+
             preguntaActual = data[Math.floor(Math.random() * data.length)];
             mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad || 'Intermedia'}`);
         }
@@ -1721,7 +1743,8 @@
         async function responder(opt) {
             document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
             const esOk = (opt === preguntaActual.respuesta_correcta);
-            const fb = document.getElementById('sim-fb'); const msgCoach = document.getElementById('coach-mensaje');
+            const fb = document.getElementById('sim-fb');
+            const msgCoach = document.getElementById('coach-mensaje');
 
             if (esOk) {
                 fb.className = 'fb-box fb-ok'; document.getElementById('fb-tit').innerText = '✔ ¡Correcto!';
@@ -1734,11 +1757,12 @@
                 msgCoach.innerText = frasesErr[Math.floor(Math.random() * frasesErr.length)];
             }
             
-            document.getElementById('fb-txt').innerText = preguntaActual.justificacion; fb.style.display = 'block'; document.getElementById('btn-sig').style.display = 'block';
+            document.getElementById('fb-txt').innerText = preguntaActual.justificacion;
+            fb.style.display = 'block'; document.getElementById('btn-sig').style.display = 'block';
 
             const sb = obtenerSupabase();
             if (sb && user) {
-                if (preguntaActual.id) await sb.from('intentos_usuario').insert([{ user_id: user.id, pregunta_id: preguntaActual.id, area_id: preguntaActual.area_id || 1, es_correcta: esOk }]);
+                if (preguntaActual.id) { await sb.from('intentos_usuario').insert([{ user_id: user.id, pregunta_id: preguntaActual.id, area_id: preguntaActual.area_id || 1, es_correcta: esOk }]); }
                 if (perfilUsuario.plan !== 'premium') {
                     perfilUsuario.preguntas_hoy = (perfilUsuario.preguntas_hoy || 0) + 1;
                     await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id);
@@ -1784,7 +1808,6 @@
 
         function filtrarTeoria(areaIdStr) {
             const cont = document.getElementById('lista-temas-contenedor'); cont.innerHTML = '';
-            
             document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
             const tarjetas = document.querySelectorAll('#tabs-teoria .card-c');
             tarjetas.forEach(tarjeta => { if (tarjeta.getAttribute('onclick').includes(`('${areaIdStr}')`)) tarjeta.classList.add('activa'); });
@@ -1808,7 +1831,6 @@
             temasFiltrados.forEach(t => {
                 const nombreCursoTema = mapaAreasInverso[t.area_id] || "Academia";
                 const embedUrl = convertirUrlAEmbed(t.url_video);
-                
                 cont.innerHTML += `
                     <div class="card-c" style="margin-bottom: 25px; padding: 30px; text-align: left;">
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
@@ -1824,7 +1846,6 @@
                     </div>
                 `;
             });
-
             if (perfilUsuario.plan !== 'premium') {
                 cont.innerHTML += `
                     <div style="background: rgba(0,86,179,0.05); padding: 25px; border-radius: 16px; text-align: center; margin-top: 30px; border: 2px dashed var(--primary);">
@@ -1851,7 +1872,6 @@
             const cont = document.getElementById('contenedor-flashcards'); cont.innerHTML = '';
             
             if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay flashcards publicadas para este curso.</p>'; return; }
-
             filtradas.forEach(f => {
                 cont.innerHTML += `
                     <div class="card-flip" onclick="this.classList.toggle('volteada')">
@@ -1877,7 +1897,6 @@
             const filtradas = (filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => f.area_id == filtro);
             
             if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay fijas disponibles para este filtro.</p>'; return; }
-
             filtradas.forEach(f => {
                 cont.innerHTML += `
                     <div class="card-modalidad" style="border-top-color: #ffd700; text-align: left;">
@@ -1976,20 +1995,7 @@
             if (preguntas && preguntas.length > 0) { preguntasFalladasBuffer = [...preguntas]; subSec('banqueo'); activarModalidadBanqueo('curso'); cargarSiguientePregunta(); }
         }
 
-        // === 10. MOTOR DE CONFIGURACIONES GLOBALES (BLINDADO) ===
-        // Función general segura para no fallar el upsert por falta de Primary Key
-        async function guardarConfiguracionBase(clave, valorStr) {
-            const sb = obtenerSupabase();
-            try {
-                const { data } = await sb.from('configuracion_academia').select('clave').eq('clave', clave);
-                if (data && data.length > 0) {
-                    await sb.from('configuracion_academia').update({ valor: valorStr }).eq('clave', clave);
-                } else {
-                    await sb.from('configuracion_academia').insert([{ clave: clave, valor: valorStr }]);
-                }
-            } catch(e) { console.error("Error guardando " + clave, e); }
-        }
-
+        // === 10. MOTOR DE CONFIGURACIONES GLOBALES Y CALENDARIO (BLINDADO) ===
         async function cargarConfiguracionesGenerales() {
             const sb = obtenerSupabase();
             if (!sb) return;
@@ -2051,10 +2057,6 @@
             renderizarCalendarioCompleto();
             renderizarCarruselLogin();
             renderizarListasAdminAnuncios();
-
-            if (user && !popupAnuncioMostrado) {
-                lanzarPopupAnuncioSiExiste();
-            }
         }
 
         async function guardarConfiguracionFechaExamen() {
@@ -2063,9 +2065,11 @@
             const textoCrono = document.getElementById('adm-texto-metodologia').value.trim();
             if (!fecha) { mostrarAvisoModal("Fecha requerida", "Por favor ingresa una fecha válida.", "⚠️"); return; }
             
-            await guardarConfiguracionBase('fecha_examen_serums', fecha);
-            await guardarConfiguracionBase('modalidad_fecha_serums', modalidad);
-            await guardarConfiguracionBase('texto_metodologia', textoCrono);
+            const sb = obtenerSupabase();
+            // Upsert explícito
+            await sb.from('configuracion_academia').upsert({ clave: 'fecha_examen_serums', valor: fecha });
+            await sb.from('configuracion_academia').upsert({ clave: 'modalidad_fecha_serums', valor: modalidad });
+            await sb.from('configuracion_academia').upsert({ clave: 'texto_metodologia', valor: textoCrono });
 
             fechaExamenGlobal = fecha;
             modalidadFechaGlobal = modalidad;
@@ -2075,17 +2079,16 @@
 
         async function guardarRedesSociales() {
             const redes = {
-                wa: document.getElementById('adm-link-wa').value.trim(),
-                fb: document.getElementById('adm-link-fb').value.trim(),
-                msg: document.getElementById('adm-link-msg').value.trim(),
-                dc: document.getElementById('adm-link-dc').value.trim()
+                wa: document.getElementById('adm-link-wa').value.trim(), fb: document.getElementById('adm-link-fb').value.trim(),
+                msg: document.getElementById('adm-link-msg').value.trim(), dc: document.getElementById('adm-link-dc').value.trim()
             };
-            await guardarConfiguracionBase('redes_sociales', JSON.stringify(redes));
+            const sb = obtenerSupabase();
+            await sb.from('configuracion_academia').upsert({ clave: 'redes_sociales', valor: JSON.stringify(redes) });
             cargarConfiguracionesGenerales();
             mostrarAvisoModal("Guardado", "Redes sociales actualizadas.", "🌐");
         }
 
-        // LÓGICA DEL CALENDARIO BLINDADA
+        // === CALENDARIO LÓGICA BLINDADA ===
         function cambiarMesCalendario(offset) {
             fechaActualCalendario.setMonth(fechaActualCalendario.getMonth() + offset);
             renderizarCalendarioCompleto();
@@ -2139,7 +2142,6 @@
                         else { textoEtiqueta = 'Teoría'; colorClase = "cal-color-salud"; }
                     }
 
-                    // Prevenir inyección de comillas en el onClick (escape seguro)
                     const textoLimpio = textoEtiqueta.replace(/'/g, "\\'").replace(/"/g, "&quot;");
                     const notaDia = `<div class="badge-cal-tema ${colorClase}">${textoEtiqueta}</div>`;
                     
@@ -2171,7 +2173,8 @@
             if (!eventosCalendarioMemoria) eventosCalendarioMemoria = {};
             eventosCalendarioMemoria[fecha] = texto;
             
-            await guardarConfiguracionBase('calendario_notas', JSON.stringify(eventosCalendarioMemoria));
+            const sb = obtenerSupabase();
+            await sb.from('configuracion_academia').upsert({ clave: 'calendario_notas', valor: JSON.stringify(eventosCalendarioMemoria) });
             
             document.getElementById('adm-cal-texto').value = '';
             renderizarCalendarioCompleto();
@@ -2189,16 +2192,12 @@
 
             if (!banner) return;
 
-            const hoy = new Date();
-            const examen = new Date(fechaExamenGlobal);
-            const diff = examen - hoy;
-            const dias = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
-
+            const hoy = new Date(); const examen = new Date(fechaExamenGlobal);
+            const diff = examen - hoy; const dias = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
             badge.innerText = `${dias} DÍAS`;
 
             if (modalidadFechaGlobal === 'probable') {
-                banner.className = 'banner-countdown-dias modo-probable';
-                icono.innerText = '🗓️';
+                banner.className = 'banner-countdown-dias modo-probable'; icono.innerText = '🗓️';
                 titulo.innerText = 'Fecha Probable / Estimada del Examen';
                 txtDias.innerText = `Estimado para el ${fechaExamenGlobal}. Estudia con calma, priorizando comprensión.`;
                 
@@ -2215,8 +2214,7 @@
                     `;
                 }
             } else {
-                banner.className = 'banner-countdown-dias';
-                icono.innerText = '🎯';
+                banner.className = 'banner-countdown-dias'; icono.innerText = '🎯';
                 titulo.innerText = 'Fecha Oficial del Examen SERUMS';
                 txtDias.innerText = `Examen confirmado para el ${fechaExamenGlobal}. ¡Cada día cuenta para asegurar tu plaza!`;
                 
@@ -2248,25 +2246,17 @@
             }
         }
 
-        // === 12. FUNCIONES DEL PANEL DOCENTE ===
+        // === 11. FUNCIONES DEL PANEL DOCENTE ===
         async function cargarAlumnosAdmin() {
-            const sb = obtenerSupabase();
-            const tbody = document.getElementById('tabla-alumnos-adm-body');
+            const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-alumnos-adm-body');
             tbody.innerHTML = '<tr><td colspan="5">Sincronizando alumnos...</td></tr>';
             
             const { data } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
-            if (!data || data.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="5">No hay alumnos registrados.</td></tr>';
-                return;
-            }
-            listaAlumnosMemoria = data;
-            tbody.innerHTML = '';
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="5">No hay alumnos registrados.</td></tr>'; return; }
+            listaAlumnosMemoria = data; tbody.innerHTML = '';
             
             data.forEach(a => {
-                const esPrem = (a.plan === 'premium');
-                const estaBloq = (a.estado === 'bloqueado');
-                const tel = a.telefono || '';
-                
+                const esPrem = (a.plan === 'premium'); const estaBloq = (a.estado === 'bloqueado'); const tel = a.telefono || '';
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${a.nombres || ''} ${a.apellidos || ''}</strong><br><small style="color: var(--text-muted);">${a.correo}</small></td>
@@ -2274,59 +2264,36 @@
                         <td>${tel ? `<a href="https://api.whatsapp.com/send?phone=51${tel}&text=Hola%20${encodeURIComponent(a.nombres)}" target="_blank" style="color:#28a745; text-decoration:none; font-weight:bold;">💬 ${tel}</a>` : 'N/A'}</td>
                         <td><span class="badge ${esPrem ? 'badge-prem' : 'badge-free'}">${esPrem ? 'PREMIUM' : 'BÁSICO'}</span><br><span style="font-size: 0.8em; color: ${estaBloq ? 'red' : 'green'}; font-weight: bold; margin-top:4px; display:inline-block;">${estaBloq ? 'BLOQUEADO' : 'ACTIVO'}</span></td>
                         <td style="display:flex; gap:6px; flex-wrap:wrap;">
-                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${esPrem ? '#6c757d' : '#28a745'}" onclick="alternarPlanAdmin('${a.id}', '${esPrem ? 'gratuito' : 'premium'}')">
-                                ${esPrem ? '⬇️ Hacer Básico' : '⬆️ Hacer Premium'}
-                            </button>
-                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${estaBloq ? '#28a745' : '#dc3545'}" onclick="cambiarEstadoCuenta('${a.id}', '${estaBloq ? 'activo' : 'bloqueado'}')">
-                                ${estaBloq ? '🔓 Desbloquear' : '🔒 Bloquear'}
-                            </button>
-                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="enviarClaveDesdeAdmin('${a.correo}')">
-                                🔑 Reset Clave
-                            </button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${esPrem ? '#6c757d' : '#28a745'}" onclick="alternarPlanAdmin('${a.id}', '${esPrem ? 'gratuito' : 'premium'}')">${esPrem ? '⬇️ Hacer Básico' : '⬆️ Hacer Premium'}</button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${estaBloq ? '#28a745' : '#dc3545'}" onclick="cambiarEstadoCuenta('${a.id}', '${estaBloq ? 'activo' : 'bloqueado'}')">${estaBloq ? '🔓 Desbloquear' : '🔒 Bloquear'}</button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="enviarClaveDesdeAdmin('${a.correo}')">🔑 Reset Clave</button>
                         </td>
                     </tr>
                 `;
             });
         }
 
-        async function alternarPlanAdmin(id, plan) {
-            const sb = obtenerSupabase();
-            await sb.from('perfiles').update({ plan }).eq('id', id);
-            cargarAlumnosAdmin();
-        }
-
+        async function alternarPlanAdmin(id, plan) { const sb = obtenerSupabase(); await sb.from('perfiles').update({ plan }).eq('id', id); cargarAlumnosAdmin(); }
         async function cambiarEstadoCuenta(userId, nuevoEstado) {
-            const sb = obtenerSupabase();
-            const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
-            else {
-                mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒");
-                cargarAlumnosAdmin();
-            }
+            const sb = obtenerSupabase(); const { error } = await sb.from('perfiles').update({ estado: nuevoEstado }).eq('id', userId);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒"); cargarAlumnosAdmin(); }
         }
-
         async function enviarClaveDesdeAdmin(correoAlumno) {
             try {
                 const { error } = await obtenerSupabase().auth.resetPasswordForEmail(correoAlumno, { redirectTo: window.location.origin });
-                if (error) throw error;
-                mostrarAvisoModal("Enlace Enviado", `Se envió el correo oficial de recuperación a: ${correoAlumno}`, "📬");
-            } catch (err) {
-                mostrarAvisoModal("Error", err.message, "⚠️");
-            }
+                if (error) throw error; mostrarAvisoModal("Enlace Enviado", `Se envió el correo oficial de recuperación a: ${correoAlumno}`, "📬");
+            } catch (err) { mostrarAvisoModal("Error", err.message, "⚠️"); }
         }
-
         function copiarTodosLosTelefonos() {
             const tels = listaAlumnosMemoria.map(a => a.telefono).filter(t => t && t.length >= 7);
             if (tels.length === 0) { mostrarAvisoModal("Aviso", "No hay teléfonos registrados todavía.", "⚠️"); return; }
-            navigator.clipboard.writeText(tels.join(', '));
-            mostrarAvisoModal("¡Copiado!", `Se copiaron ${tels.length} números listos para pegar en WhatsApp.`, "📋");
+            navigator.clipboard.writeText(tels.join(', ')); mostrarAvisoModal("¡Copiado!", `Se copiaron ${tels.length} números listos para pegar en WhatsApp.`, "📋");
         }
         
         function verSubTabAdmin(tipo) {
             document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
             document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
-            event.target.classList.add('activa');
-            document.getElementById('subtab-adm-' + tipo).classList.add('activa');
+            event.target.classList.add('activa'); document.getElementById('subtab-adm-' + tipo).classList.add('activa');
             
             if (tipo === 'p') actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema');
             if (tipo === 't') actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select');
@@ -2335,218 +2302,112 @@
             if (tipo === 'anuncios') cargarConfiguracionesGenerales();
         }
 
-        /* GUARDAR TEMA EN LA BASE DE DATOS (CON EDITOR Y VIDEO) */
         document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sb = obtenerSupabase();
-            const cursoNombre = document.getElementById('adm-t-curso').value;
-            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-            const contenidoHtml = document.getElementById('adm-t-editor').innerHTML;
-            const urlVideo = document.getElementById('adm-t-video').value.trim();
-
-            const payload = {
-                area_id: areaId,
-                codigo: document.getElementById('adm-t-codigo').value.trim(),
-                titulo: document.getElementById('adm-t-titulo').value.trim(),
-                resumen_teorico: contenidoHtml,
-                url_video: urlVideo
-            };
-
+            e.preventDefault(); const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-t-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const payload = { area_id: areaId, codigo: document.getElementById('adm-t-codigo').value.trim(), titulo: document.getElementById('adm-t-titulo').value.trim(), resumen_teorico: document.getElementById('adm-t-editor').innerHTML, url_video: document.getElementById('adm-t-video').value.trim() };
             const { error } = await sb.from('temas').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
-            else {
-                mostrarAvisoModal("¡Tema Publicado!", "El tema con formato y video se guardó correctamente.", "✔");
-                document.getElementById('form-adm-t').reset();
-                document.getElementById('adm-t-editor').innerHTML = '';
-            }
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Tema Publicado!", "El tema se guardó correctamente.", "✔"); document.getElementById('form-adm-t').reset(); document.getElementById('adm-t-editor').innerHTML = ''; }
         });
         
-        /* GUARDAR PREGUNTA EN LA BASE DE DATOS */
         document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sb = obtenerSupabase();
-            const cursoNombre = document.getElementById('adm-p-curso').value;
-            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-
-            const payload = {
-                area_id: areaId,
-                dificultad: document.getElementById('adm-p-dif').value,
-                enunciado: document.getElementById('adm-p-enunciado').value.trim(),
-                opcion_a: document.getElementById('adm-p-oa').value.trim(),
-                opcion_b: document.getElementById('adm-p-ob').value.trim(),
-                opcion_c: document.getElementById('adm-p-oc').value.trim(),
-                opcion_d: document.getElementById('adm-p-od').value.trim(),
-                respuesta_correcta: document.getElementById('adm-p-correcta').value,
-                justificacion: document.getElementById('adm-p-justificacion').value.trim()
-            };
-
+            e.preventDefault(); const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-p-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const payload = { area_id: areaId, dificultad: document.getElementById('adm-p-dif').value, enunciado: document.getElementById('adm-p-enunciado').value.trim(), opcion_a: document.getElementById('adm-p-oa').value.trim(), opcion_b: document.getElementById('adm-p-ob').value.trim(), opcion_c: document.getElementById('adm-p-oc').value.trim(), opcion_d: document.getElementById('adm-p-od').value.trim(), respuesta_correcta: document.getElementById('adm-p-correcta').value, justificacion: document.getElementById('adm-p-justificacion').value.trim() };
             const { error } = await sb.from('preguntas').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
-            else {
-                mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔");
-                document.getElementById('form-adm-p').reset();
-            }
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔"); document.getElementById('form-adm-p').reset(); }
         });
 
-        /* GUARDAR FLASHCARD EN LA BASE DE DATOS */
         document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sb = obtenerSupabase();
-            const cursoNombre = document.getElementById('adm-f-curso').value;
-            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-
-            const payload = {
-                area_id: areaId,
-                anverso: document.getElementById('adm-f-anverso').value.trim(),
-                reverso: document.getElementById('adm-f-reverso').value.trim()
-            };
-
+            e.preventDefault(); const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-f-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const payload = { area_id: areaId, anverso: document.getElementById('adm-f-anverso').value.trim(), reverso: document.getElementById('adm-f-reverso').value.trim() };
             const { error } = await sb.from('flashcards').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
-            else {
-                mostrarAvisoModal("¡Guardado!", "Flashcard creada correctamente.", "✔");
-                document.getElementById('form-adm-f').reset();
-            }
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "Flashcard creada correctamente.", "✔"); document.getElementById('form-adm-f').reset(); }
         });
 
-        /* GUARDAR LA FIJA EN LA BASE DE DATOS */
         document.getElementById('form-adm-fija').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const sb = obtenerSupabase();
-            const cursoNombre = document.getElementById('adm-fija-curso').value;
-            const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-
-            const payload = {
-                area_id: areaId,
-                tema: document.getElementById('adm-fija-tema').value,
-                titulo: document.getElementById('adm-fija-titulo').value.trim(),
-                contenido: document.getElementById('adm-fija-contenido').value.trim()
-            };
-
+            e.preventDefault(); const sb = obtenerSupabase();
+            const cursoNombre = document.getElementById('adm-fija-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const payload = { area_id: areaId, tema: document.getElementById('adm-fija-tema').value, titulo: document.getElementById('adm-fija-titulo').value.trim(), contenido: document.getElementById('adm-fija-contenido').value.trim() };
             const { error } = await sb.from('fijas_serums').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️");
-            else {
-                mostrarAvisoModal("¡Guardado!", "La Fija fue publicada con éxito.", "🔥");
-                document.getElementById('form-adm-fija').reset();
-            }
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "La Fija fue publicada con éxito.", "🔥"); document.getElementById('form-adm-fija').reset(); }
         });
 
-        /* === BANNERS Y CARRUSELES DE ANUNCIOS === */
+        /* === BANNERS Y POPUPS ANUNCIOS === */
         function renderizarCarruselLogin() {
-            const cont = document.getElementById('slides-login-contenedor');
-            const placeholder = document.getElementById('banner-login-placeholder');
+            const cont = document.getElementById('slides-login-contenedor'); const placeholder = document.getElementById('banner-login-placeholder');
             if (!cont) return;
-
-            if (carruselLoginImagenes.length === 0) {
-                if (placeholder) placeholder.style.display = 'block';
-                return;
-            }
-
+            if (carruselLoginImagenes.length === 0) { if (placeholder) placeholder.style.display = 'block'; return; }
             if (placeholder) placeholder.style.display = 'none';
             cont.innerHTML = '';
-            carruselLoginImagenes.forEach((url, i) => {
-                cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-login-${i}">`;
-            });
+            carruselLoginImagenes.forEach((url, i) => { cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-login-${i}">`; });
             indexSlideLogin = 0;
-
             if (timerCarruselLogin) clearInterval(timerCarruselLogin);
-            if (carruselLoginImagenes.length > 1) {
-                timerCarruselLogin = setInterval(() => { cambiarSlideLogin(1); }, 5000);
-            }
+            if (carruselLoginImagenes.length > 1) { timerCarruselLogin = setInterval(() => { cambiarSlideLogin(1); }, 5000); }
         }
 
         function cambiarSlideLogin(dir) {
             if (carruselLoginImagenes.length <= 1) return;
-            const actual = document.getElementById(`slide-login-${indexSlideLogin}`);
-            if (actual) actual.classList.remove('activa');
+            const actual = document.getElementById(`slide-login-${indexSlideLogin}`); if (actual) actual.classList.remove('activa');
             indexSlideLogin = (indexSlideLogin + dir + carruselLoginImagenes.length) % carruselLoginImagenes.length;
-            const nuevo = document.getElementById(`slide-login-${indexSlideLogin}`);
-            if (nuevo) nuevo.classList.add('activa');
+            const nuevo = document.getElementById(`slide-login-${indexSlideLogin}`); if (nuevo) nuevo.classList.add('activa');
         }
 
         function lanzarPopupAnuncioSiExiste() {
             if (carruselPopupImagenes.length === 0) return;
-            const cont = document.getElementById('slides-popup-contenedor');
-            if(!cont) return;
-            
+            const cont = document.getElementById('slides-popup-contenedor'); if(!cont) return;
             cont.innerHTML = '';
-            carruselPopupImagenes.forEach((url, i) => {
-                cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-popup-${i}" style="max-height: 420px; width: 100%; object-fit: contain; border-radius: 12px;">`;
-            });
-            indexSlidePopup = 0;
-            document.getElementById('modal-popup-anuncio').style.display = 'flex';
-            popupAnuncioMostrado = true;
+            carruselPopupImagenes.forEach((url, i) => { cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-popup-${i}" style="max-height: 420px; width: 100%; object-fit: contain; border-radius: 12px;">`; });
+            indexSlidePopup = 0; document.getElementById('modal-popup-anuncio').style.display = 'flex';
         }
 
         function cambiarSlidePopup(dir) {
             if (carruselPopupImagenes.length <= 1) return;
-            const actual = document.getElementById(`slide-popup-${indexSlidePopup}`);
-            if (actual) actual.classList.remove('activa');
+            const actual = document.getElementById(`slide-popup-${indexSlidePopup}`); if (actual) actual.classList.remove('activa');
             indexSlidePopup = (indexSlidePopup + dir + carruselPopupImagenes.length) % carruselPopupImagenes.length;
-            const nuevo = document.getElementById(`slide-popup-${indexSlidePopup}`);
-            if (nuevo) nuevo.classList.add('activa');
+            const nuevo = document.getElementById(`slide-popup-${indexSlidePopup}`); if (nuevo) nuevo.classList.add('activa');
         }
 
         async function agregarImagenCarrusel(tipo) {
             const inputId = (tipo === 'banner_login') ? 'file-banner-login' : 'file-popup-anuncio';
             const file = document.getElementById(inputId).files[0];
             if (!file) { mostrarAvisoModal("Selecciona Imagen", "Por favor elige un archivo.", "⚠️"); return; }
-
             const reader = new FileReader();
             reader.onload = async function(evt) {
-                const b64 = evt.target.result;
+                const b64 = evt.target.result; const sb = obtenerSupabase();
                 if (tipo === 'banner_login') {
-                    carruselLoginImagenes.push(b64);
-                    await guardarConfiguracionBase('banner_login_lista', JSON.stringify(carruselLoginImagenes));
+                    carruselLoginImagenes.push(b64); await sb.from('configuracion_academia').upsert({ clave: 'banner_login_lista', valor: JSON.stringify(carruselLoginImagenes) });
                     renderizarCarruselLogin();
                 } else {
-                    carruselPopupImagenes.push(b64);
-                    await guardarConfiguracionBase('popup_anuncio_lista', JSON.stringify(carruselPopupImagenes));
+                    carruselPopupImagenes.push(b64); await sb.from('configuracion_academia').upsert({ clave: 'popup_anuncio_lista', valor: JSON.stringify(carruselPopupImagenes) });
                 }
-                renderizarListasAdminAnuncios();
-                document.getElementById(inputId).value = '';
+                renderizarListasAdminAnuncios(); document.getElementById(inputId).value = '';
                 mostrarAvisoModal("¡Imagen Añadida!", "El carrusel ha sido actualizado correctamente.", "✔");
             };
             reader.readAsDataURL(file);
         }
 
         async function eliminarImagenCarrusel(tipo, index) {
+            const sb = obtenerSupabase();
             if (tipo === 'banner_login') {
-                carruselLoginImagenes.splice(index, 1);
-                await guardarConfiguracionBase('banner_login_lista', JSON.stringify(carruselLoginImagenes));
+                carruselLoginImagenes.splice(index, 1); await sb.from('configuracion_academia').upsert({ clave: 'banner_login_lista', valor: JSON.stringify(carruselLoginImagenes) });
                 renderizarCarruselLogin();
             } else {
-                carruselPopupImagenes.splice(index, 1);
-                await guardarConfiguracionBase('popup_anuncio_lista', JSON.stringify(carruselPopupImagenes));
+                carruselPopupImagenes.splice(index, 1); await sb.from('configuracion_academia').upsert({ clave: 'popup_anuncio_lista', valor: JSON.stringify(carruselPopupImagenes) });
             }
-            renderizarListasAdminAnuncios();
-            mostrarAvisoModal("Imagen Eliminada", "La imagen se borró de la base de datos.", "🗑️");
+            renderizarListasAdminAnuncios(); mostrarAvisoModal("Imagen Eliminada", "La imagen se borró de la base de datos.", "🗑️");
         }
 
         function renderizarListasAdminAnuncios() {
-            const contLogin = document.getElementById('lista-anuncios-login-adm');
-            const contPopup = document.getElementById('lista-anuncios-popup-adm');
+            const contLogin = document.getElementById('lista-anuncios-login-adm'); const contPopup = document.getElementById('lista-anuncios-popup-adm');
             if (contLogin) {
                 contLogin.innerHTML = '';
-                carruselLoginImagenes.forEach((url, idx) => {
-                    contLogin.innerHTML += `
-                        <div style="position: relative; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: 120px; height: 80px;">
-                            <img src="${url}" style="width: 100%; height: 100%; object-fit: cover;">
-                            <button type="button" onclick="eliminarImagenCarrusel('banner_login', ${idx})" style="position: absolute; top: 2px; right: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">✕</button>
-                        </div>
-                    `;
-                });
+                carruselLoginImagenes.forEach((url, idx) => { contLogin.innerHTML += `<div style="position: relative; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: 120px; height: 80px;"><img src="${url}" style="width: 100%; height: 100%; object-fit: cover;"><button type="button" onclick="eliminarImagenCarrusel('banner_login', ${idx})" style="position: absolute; top: 2px; right: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">✕</button></div>`; });
             }
             if (contPopup) {
                 contPopup.innerHTML = '';
-                carruselPopupImagenes.forEach((url, idx) => {
-                    contPopup.innerHTML += `
-                        <div style="position: relative; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: 120px; height: 80px;">
-                            <img src="${url}" style="width: 100%; height: 100%; object-fit: cover;">
-                            <button type="button" onclick="eliminarImagenCarrusel('popup_anuncio', ${idx})" style="position: absolute; top: 2px; right: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">✕</button>
-                        </div>
-                    `;
-                });
+                carruselPopupImagenes.forEach((url, idx) => { contPopup.innerHTML += `<div style="position: relative; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: 120px; height: 80px;"><img src="${url}" style="width: 100%; height: 100%; object-fit: cover;"><button type="button" onclick="eliminarImagenCarrusel('popup_anuncio', ${idx})" style="position: absolute; top: 2px; right: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">✕</button></div>`; });
             }
         }
     </script>
