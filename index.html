@@ -966,8 +966,113 @@
             </main>
         </div>
     </section>
-    </script>
-</body>
+
+    <!-- === MODALES FALTANTES (MASCOTA, AVISOS, ETC) === -->
+    <div id="modal-aviso-general" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
+        <div class="modal-box">
+            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
+            <div id="aviso-icono" style="font-size: 3.5em; margin-bottom: 15px;">💡</div>
+            <h2 id="aviso-titulo" style="color: var(--text-heading); margin-bottom: 15px; font-size: 1.5em;"></h2>
+            <p id="aviso-cuerpo" style="color: var(--text-muted); font-size: 1.1em; line-height: 1.6; margin-bottom: 25px;"></p>
+            <button class="btn-p" onclick="cerrarModales()">Entendido</button>
+        </div>
+    </div>
+
+    <div id="modal-premium" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
+        <div class="modal-box">
+            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
+            <div style="font-size: 3.5em; margin-bottom: 15px;">⭐</div>
+            <h2 style="color: var(--text-heading); margin-bottom: 15px;">Ciclo Completo Premium</h2>
+            <p style="color: var(--text-muted); font-size: 1.1em; margin-bottom: 25px;">Desbloquea simulacros ilimitados, flashcards, videoclases y Las Fijas SERUMS.</p>
+            <button class="btn-p" onclick="cerrarModales()">Entendido</button>
+        </div>
+    </div>
+
+    <div id="modal-recuperar" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
+        <div class="modal-box">
+            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
+            <h2 style="color: var(--text-heading); margin-bottom: 15px;">Recuperar Contraseña</h2>
+            <div class="campo"><input type="email" id="rec-email" placeholder="Tu correo electrónico"></div>
+            <button class="btn-p" onclick="cerrarModales()">Enviar Enlace de Recuperación</button>
+        </div>
+    </div>
+
+    <div id="modal-bienvenida-mascota" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
+        <div class="modal-box" style="background: linear-gradient(135deg, #0056b3, #0098b8); color: white; border: none;">
+            <button class="btn-cerrar-x" style="color: white;" onclick="cerrarModales()">×</button>
+            <h2 style="margin-bottom: 20px; font-size: 1.8em;">¡Bienvenido a tu Sesión!</h2>
+            <div id="avatar-canvas-bienvenida" style="display: flex; justify-content: center; margin-bottom: 20px;"></div>
+            <p id="txt-bienvenida-mascota" style="font-size: 1.2em; font-weight: 600; margin-bottom: 30px; line-height: 1.5;"></p>
+            <button class="btn-p" style="background: #ffd700; color: #002b5c; font-size: 1.1em;" onclick="cerrarModales()">¡A Estudiar! ➔</button>
+        </div>
+    </div>
+
+    <div id="modal-armario" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
+        <div class="modal-box">
+            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
+            <h2 style="color: var(--text-heading); margin-bottom: 20px;">👗 Armario de tu Compañero</h2>
+            
+            <h3 style="text-align: left; margin-top: 15px; color: var(--primary);">Compañero Base</h3>
+            <div class="grid-tienda">
+                <div class="item-tienda-card" onclick="cambiarAnimal('perrito')"><div class="item-icono">🐶</div>Perrito</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('gatito')"><div class="item-icono">🐱</div>Gatito</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('panda')"><div class="item-icono">🐼</div>Panda</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('zorrito')"><div class="item-icono">🦊</div>Zorrito</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('fenix')"><div class="item-icono">🦅</div>Fénix</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('polar')"><div class="item-icono">🐻‍❄️</div>Polar</div>
+                <div class="item-tienda-card" onclick="cambiarAnimal('grizzly')"><div class="item-icono">🐻</div>Grizzly</div>
+            </div>
+
+            <h3 style="text-align: left; margin-top: 20px; color: var(--primary);">Accesorios (Cabeza)</h3>
+            <div class="grid-tienda">
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'ninguno')"><div class="item-icono">❌</div>Nada</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'gorro')"><div class="item-icono">🧢</div>Gorro</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'birrete')"><div class="item-icono">🎓</div>Birrete</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'esteto')"><div class="item-icono">🩺</div>Esteto</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'lentes')"><div class="item-icono">👓</div>Lentes</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'frontoluz')"><div class="item-icono">🔦</div>Frontoluz</div>
+            </div>
+
+            <h3 style="text-align: left; margin-top: 20px; color: var(--primary);">Ropa (Cuerpo)</h3>
+            <div class="grid-tienda">
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'ninguno')"><div class="item-icono">❌</div>Nada</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'mandil')"><div class="item-icono">🥼</div>Mandil</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'scrub')"><div class="item-icono">👕</div>Scrub</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'corbata')"><div class="item-icono">👔</div>Corbata</div>
+                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'chaleco')"><div class="item-icono">🦺</div>Chaleco</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-alimentar" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
+        <div class="modal-box">
+            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
+            <h2 style="color: var(--text-heading); margin-bottom: 15px;">🍖 Tienda de Alimentos</h2>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Compra comida con las monedas que ganas banqueando para subir el nivel y la energía de tu compañero.</p>
+            
+            <div class="grid-tienda">
+                <div class="item-tienda-card" onclick="comprarAlimento(10, 15)">
+                    <div class="item-icono">🍎</div><div>Manzana</div>
+                    <div style="color: #f59e0b; margin-top: 8px;">🪙 10</div>
+                    <div style="color: #28a745; font-size: 0.85em; font-weight: bold;">+15 Energía</div>
+                </div>
+                <div class="item-tienda-card" onclick="comprarAlimento(25, 40)">
+                    <div class="item-icono">🍖</div><div>Carne</div>
+                    <div style="color: #f59e0b; margin-top: 8px;">🪙 25</div>
+                    <div style="color: #28a745; font-size: 0.85em; font-weight: bold;">+40 Energía</div>
+                </div>
+                <div class="item-tienda-card" onclick="comprarAlimento(50, 100)">
+                    <div class="item-icono">🍱</div><div>Bento Especial</div>
+                    <div style="color: #f59e0b; margin-top: 8px;">🪙 50</div>
+                    <div style="color: #28a745; font-size: 0.85em; font-weight: bold;">+100 Energía</div>
+                </div>
+                <div class="item-tienda-card" onclick="comprarAlimento(100, 100)">
+                    <div class="item-icono">☕</div><div>Café del Doc</div>
+                    <div style="color: #f59e0b; margin-top: 8px;">🪙 100</div>
+                    <div style="color: #28a745; font-size: 0.85em; font-weight: bold;">+Exp Extra</div>
+                </div>
+            </div>
+        </div>
 <script>
         // === 1. DATOS OFICIALES Y FRASES MOTIVACIONALES ===
         const FRASES_MOTIVACIONALES = [
@@ -1808,4 +1913,4 @@
     </script>
 </body>
 </html>
-</html>
+    </div>
