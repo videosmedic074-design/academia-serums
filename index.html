@@ -790,17 +790,18 @@
                             
                             <div class="pestanas-admin">
                                 <button type="button" class="tab-btn-adm activa" onclick="verSubTabAdmin('p')">➕ Pregunta</button>
+                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('t')">📖 Tema</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('fijas_adm')">🔥 La Fija</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('anuncios')">📢 Publicidad y Horarios</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('vaciador')">📋 Vaciador</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Simulacros</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Flashcard</button>
-                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('t')">📖 Tema</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos</button>
                             </div>
 
                             <div id="subtab-adm-p" class="subtab-adm activa">
                                 <form id="form-adm-p" class="admin-form-box">
+                                    <input type="hidden" id="adm-p-id">
                                     <div class="fila">
                                         <div class="campo"><label>Curso</label><select id="adm-p-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema')"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral</option><option value="Gestión de Servicios de Salud">Gestión de Servicios</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética</option></select></div>
                                         <div class="campo"><label>Tema</label><select id="adm-p-tema" class="campo-select-pro" required><option value="General">Seleccione el tema...</option></select></div>
@@ -817,8 +818,62 @@
                                     </div>
                                     <div class="campo"><label>Correcta</label><select id="adm-p-correcta" class="campo-select-pro" required><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
                                     <div class="campo"><label>Justificación</label><textarea id="adm-p-justificacion" rows="2" required></textarea></div>
-                                    <button type="submit" class="btn-p" style="background: #6f42c1;">Guardar Pregunta</button>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button type="submit" class="btn-p" style="background: #6f42c1;" id="btn-submit-pregunta">Guardar Pregunta</button>
+                                        <button type="button" class="btn-p" style="background: #6c757d; display: none;" id="btn-cancel-pregunta" onclick="cancelarEdicionPregunta()">Cancelar Edición</button>
+                                    </div>
                                 </form>
+                                <div class="admin-form-box" style="margin-top: 20px;">
+                                    <h3 style="color: var(--primary); margin-bottom: 15px;">Preguntas Registradas</h3>
+                                    <div style="overflow-x: auto;">
+                                        <table class="base-table">
+                                            <thead><tr><th>Enunciado</th><th>Curso</th><th>Dificultad</th><th>Acciones</th></tr></thead>
+                                            <tbody id="tabla-preguntas-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="subtab-adm-t" class="subtab-adm">
+                                <form id="form-adm-t" class="admin-form-box">
+                                    <input type="hidden" id="adm-t-id">
+                                    <div class="fila">
+                                        <div class="campo"><label>Curso</label><select id="adm-t-curso" class="campo-select-pro" onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option><option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética e Interculturalidad</option></select></div>
+                                        <div class="campo"><label>Tema del Temario Oficial</label><select id="adm-t-tema-select" class="campo-select-pro" onchange="autoCompletarCodigoTitulo()"><option value="">Seleccione el tema...</option></select></div>
+                                    </div>
+                                    <div class="fila">
+                                        <div class="campo"><label>Código Oficial</label><input type="text" id="adm-t-codigo" required placeholder="Ej: 1.1"></div>
+                                        <div class="campo"><label>Título del Resumen</label><input type="text" id="adm-t-titulo" required></div>
+                                    </div>
+                                    <div class="campo">
+                                        <label>Enlace de Video (Opcional - YouTube, Drive o Vimeo):</label>
+                                        <input type="text" id="adm-t-video" placeholder="https://... (Deja en blanco si el tema es solo lectura)">
+                                    </div>
+                                    <div class="campo">
+                                        <label>Contenido Teórico (Editor de Texto - Soporta copiar/pegar de Word y Tablas):</label>
+                                        <div class="toolbar-word">
+                                            <button type="button" class="btn-tool" onclick="document.execCommand('bold', false, null)"><b>B</b></button>
+                                            <button type="button" class="btn-tool" onclick="document.execCommand('italic', false, null)"><i>I</i></button>
+                                            <button type="button" class="btn-tool" onclick="document.execCommand('underline', false, null)"><u>U</u></button>
+                                            <button type="button" class="btn-tool" onclick="document.execCommand('insertUnorderedList', false, null)">• Lista</button>
+                                            <button type="button" class="btn-tool" onclick="insertarTablaEnEditor()">📊 Insertar Tabla</button>
+                                        </div>
+                                        <div id="adm-t-editor" class="editor-word" contenteditable="true" placeholder="Redacta o pega aquí el resumen teórico..."></div>
+                                    </div>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button type="submit" class="btn-p" style="background: #6f42c1; padding: 16px; font-size: 1.1em;" id="btn-submit-tema">Publicar Tema Completo</button>
+                                        <button type="button" class="btn-p" style="background: #6c757d; padding: 16px; font-size: 1.1em; display: none;" id="btn-cancel-tema" onclick="cancelarEdicionTema()">Cancelar Edición</button>
+                                    </div>
+                                </form>
+                                <div class="admin-form-box" style="margin-top: 20px;">
+                                    <h3 style="color: var(--primary); margin-bottom: 15px;">Temas Registrados</h3>
+                                    <div style="overflow-x: auto;">
+                                        <table class="base-table">
+                                            <thead><tr><th>Código</th><th>Título</th><th>Curso</th><th>Acciones</th></tr></thead>
+                                            <tbody id="tabla-temas-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
 
                             <div id="subtab-adm-fijas_adm" class="subtab-adm">
@@ -904,35 +959,6 @@
                                     <div class="campo"><label>Anverso (Pregunta)</label><textarea id="adm-f-anverso" rows="3" required></textarea></div>
                                     <div class="campo"><label>Reverso (Respuesta / Criterio)</label><textarea id="adm-f-reverso" rows="3" required></textarea></div>
                                     <button type="submit" class="btn-p" style="background: #6f42c1; padding: 16px; font-size: 1.1em;">Guardar Flashcard</button>
-                                </form>
-                            </div>
-
-                            <div id="subtab-adm-t" class="subtab-adm">
-                                <form id="form-adm-t" class="admin-form-box">
-                                    <div class="fila">
-                                        <div class="campo"><label>Curso</label><select id="adm-t-curso" class="campo-select-pro" onchange="actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select')"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option><option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética e Interculturalidad</option></select></div>
-                                        <div class="campo"><label>Tema del Temario Oficial</label><select id="adm-t-tema-select" class="campo-select-pro" onchange="autoCompletarCodigoTitulo()"><option value="">Seleccione el tema...</option></select></div>
-                                    </div>
-                                    <div class="fila">
-                                        <div class="campo"><label>Código Oficial</label><input type="text" id="adm-t-codigo" required placeholder="Ej: 1.1"></div>
-                                        <div class="campo"><label>Título del Resumen</label><input type="text" id="adm-t-titulo" required></div>
-                                    </div>
-                                    <div class="campo">
-                                        <label>Enlace de Video (Opcional - YouTube, Drive o Vimeo):</label>
-                                        <input type="url" id="adm-t-video" placeholder="https://... (Deja en blanco si el tema es solo lectura)">
-                                    </div>
-                                    <div class="campo">
-                                        <label>Contenido Teórico (Editor de Texto - Soporta copiar/pegar de Word y Tablas):</label>
-                                        <div class="toolbar-word">
-                                            <button type="button" class="btn-tool" onclick="document.execCommand('bold', false, null)"><b>B</b></button>
-                                            <button type="button" class="btn-tool" onclick="document.execCommand('italic', false, null)"><i>I</i></button>
-                                            <button type="button" class="btn-tool" onclick="document.execCommand('underline', false, null)"><u>U</u></button>
-                                            <button type="button" class="btn-tool" onclick="document.execCommand('insertUnorderedList', false, null)">• Lista</button>
-                                            <button type="button" class="btn-tool" onclick="insertarTablaEnEditor()">📊 Insertar Tabla</button>
-                                        </div>
-                                        <div id="adm-t-editor" class="editor-word" contenteditable="true" placeholder="Redacta o pega aquí el resumen teórico..."></div>
-                                    </div>
-                                    <button type="submit" class="btn-p" style="background: #6f42c1; padding: 16px; font-size: 1.1em;">Publicar Tema Completo</button>
                                 </form>
                             </div>
 
@@ -1073,6 +1099,7 @@
                 </div>
             </div>
         </div>
+    </div>
 <script>
         // === 1. DATOS OFICIALES Y FRASES MOTIVACIONALES ===
         const FRASES_MOTIVACIONALES = [
@@ -1097,6 +1124,7 @@
         };
 
         const MAPEO_CURSOS_ID = { "Salud Pública": 1, "Cuidado Integral de Salud": 2, "Gestión de Servicios de Salud": 5, "Investigación": 4, "Ética e Interculturalidad": 3 };
+        const MAPEO_ID_CURSOS = { 1: "Salud Pública", 2: "Cuidado Integral de Salud", 5: "Gestión de Servicios de Salud", 4: "Investigación", 3: "Ética e Interculturalidad" };
 
         // === 2. VARIABLES GLOBALES Y ESTADO ===
         let user = null;
@@ -1107,6 +1135,8 @@
         let todasLasFlashcards = [];
         let todasLasFijas = [];
         let temasTeoricosEnMemoria = [];
+        let listaTemasAdminMemoria = [];
+        let listaPreguntasAdminMemoria = [];
         let preguntasIaBuffer = [];
         let preguntasFalladasBuffer = [];
         let listaAlumnosMemoria = [];
@@ -1519,7 +1549,6 @@
             document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
             document.querySelectorAll('#tabs-teoria .card-c').forEach(tarjeta => { if (tarjeta.getAttribute('onclick').includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } });
 
-            const mapaAreasInverso = { 1: "Salud Pública", 2: "Cuidado Integral", 3: "Ética e Interculturalidad", 4: "Investigación", 5: "Gestión de Servicios" };
             let temasFiltrados = temasTeoricosEnMemoria; if (areaIdStr !== 'todos') { temasFiltrados = temasTeoricosEnMemoria.filter(t => t.area_id == areaIdStr); }
 
             if (perfilUsuario.plan !== 'premium') {
@@ -1530,7 +1559,7 @@
             if (temasFiltrados.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em;">No hay temas publicados para este curso aún.</p>'; return; }
 
             temasFiltrados.forEach(t => {
-                const nombreCursoTema = mapaAreasInverso[t.area_id] || "Academia"; const embedUrl = convertirUrlAEmbed(t.url_video);
+                const nombreCursoTema = MAPEO_ID_CURSOS[t.area_id] || "Academia"; const embedUrl = convertirUrlAEmbed(t.url_video);
                 cont.innerHTML += `<div class="card-c" style="margin-bottom: 25px; padding: 30px; text-align: left;"><div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;"><span style="font-size: 0.95em; color: var(--primary); font-weight: 800; text-transform: uppercase;">${nombreCursoTema}</span><span style="color: #28a745; font-weight: bold; font-size: 0.95em;">✔ Disponible</span></div><h3 style="color: var(--text-heading); margin-top: 15px; font-size: 1.5em;">${t.codigo} - ${t.titulo}</h3><div class="teoria-render" style="margin-top: 15px; font-size: 1.05em; line-height: 1.7; color: var(--text-main);">${t.resumen_teorico || ''}</div>${embedUrl ? `<div class="video-box-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>` : ''}<div style="margin-top: 25px; text-align: right; border-top: 1px dashed var(--border-color); padding-top: 20px;"><button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo}')">🎯 Practicar Banqueo de este Tema ➔</button></div></div>`;
             });
 
@@ -1655,20 +1684,6 @@
                     if (item.clave === 'banner_login_lista' && item.valor) { try { carruselLoginImagenes = JSON.parse(item.valor) || []; } catch(e){} }
                     if (item.clave === 'popup_anuncio_lista' && item.valor) { try { carruselPopupImagenes = JSON.parse(item.valor) || []; } catch(e){} }
                     
-                    if (item.clave === 'redes_sociales' && item.valor) {
-                        try {
-                            const redes = JSON.parse(item.valor);
-                            document.getElementById('adm-link-wa').value = redes.wa || ''; document.getElementById('adm-link-fb').value = redes.fb || ''; document.getElementById('adm-link-msg').value = redes.msg || ''; document.getElementById('adm-link-dc').value = redes.dc || '';
-                            
-                            const waUrl = redes.wa ? `https://api.whatsapp.com/send?phone=${redes.wa}` : `https://api.whatsapp.com/send?phone=51999999999`;
-                            const btnWa = document.getElementById('btn-flotante-wa'); const btnWaHeader = document.getElementById('btn-header-wa');
-                            if(btnWa) btnWa.href = waUrl; if(btnWaHeader) btnWaHeader.href = waUrl;
-                            
-                            const btnFb = document.getElementById('btn-flotante-fb'); if(btnFb) { btnFb.href = redes.fb || '#'; btnFb.style.display = redes.fb ? 'flex' : 'none'; }
-                            const btnMsg = document.getElementById('btn-flotante-msg'); if(btnMsg) { btnMsg.href = redes.msg || '#'; btnMsg.style.display = redes.msg ? 'flex' : 'none'; }
-                            const btnDc = document.getElementById('btn-flotante-dc'); if(btnDc) { btnDc.href = redes.dc || '#'; btnDc.style.display = redes.dc ? 'flex' : 'none'; }
-                        } catch(e){}
-                    }
                 });
             }
 
@@ -1690,12 +1705,6 @@
 
             fechaExamenGlobal = fecha; modalidadFechaGlobal = modalidad; actualizarBannerYMetodologiaSegunModalidad();
             mostrarAvisoModal("¡Guardado!", "Se actualizó la fecha y la metodología del cronograma.", "🗓️");
-        }
-
-        window.guardarRedesSociales = async function() {
-            const redes = { wa: document.getElementById('adm-link-wa').value.trim(), fb: document.getElementById('adm-link-fb').value.trim(), msg: document.getElementById('adm-link-msg').value.trim(), dc: document.getElementById('adm-link-dc').value.trim() };
-            await guardarConfiguracionBase('redes_sociales', JSON.stringify(redes)); cargarConfiguracionesGenerales();
-            mostrarAvisoModal("Guardado", "Redes sociales actualizadas.", "🌐");
         }
 
         window.cambiarMesCalendario = function(offset) {
@@ -1774,7 +1783,7 @@
             }
         }
 
-        // === 11. FUNCIONES DEL PANEL DOCENTE ===
+        // === 11. FUNCIONES DEL PANEL DOCENTE Y EDICIÓN CRUD ===
         window.cargarAlumnosAdmin = async function() {
             const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-alumnos-adm-body'); tbody.innerHTML = '<tr><td colspan="5">Sincronizando alumnos...</td></tr>';
             const { data } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
@@ -1793,35 +1802,135 @@
             if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("Seguridad", `La cuenta ha sido ${nuevoEstado === 'bloqueado' ? 'suspendida' : 'reactivada'}.`, "🔒"); cargarAlumnosAdmin(); }
         }
         window.enviarClaveDesdeAdmin = async function(correoAlumno) {
-            try { const { error } = await obtenerSupabase().auth.resetPasswordForEmail(correoAlumno, { redirectTo: window.location.origin }); if (error) throw error; mostrarAvisoModal("Enlace Enviado", `Se envió el correo oficial de recuperación a: ${correoAlumno}`, "📬"); } catch (err) { mostrarAvisoModal("Error", err.message, "⚠️"); }
+            try { const { error } = await obtenerSupabase().auth.resetPasswordForEmail(correoAlumno, { redirectTo: window.location.origin }); if (error) throw error; mostrarAvisoModal("Enlace Enviado", `Se envió el correo oficial a: ${correoAlumno}`, "📬"); } catch (err) { mostrarAvisoModal("Error", err.message, "⚠️"); }
         }
         window.copiarTodosLosTelefonos = function() {
             const tels = listaAlumnosMemoria.map(a => a.telefono).filter(t => t && t.length >= 7);
             if (tels.length === 0) { mostrarAvisoModal("Aviso", "No hay teléfonos registrados todavía.", "⚠️"); return; }
-            navigator.clipboard.writeText(tels.join(', ')); mostrarAvisoModal("¡Copiado!", `Se copiaron ${tels.length} números listos para pegar en WhatsApp.`, "📋");
+            navigator.clipboard.writeText(tels.join(', ')); mostrarAvisoModal("¡Copiado!", `Se copiaron ${tels.length} números listos.`, "📋");
         }
         
         window.verSubTabAdmin = function(tipo) {
             document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa')); document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
             event.target.classList.add('activa'); document.getElementById('subtab-adm-' + tipo).classList.add('activa');
-            if (tipo === 'p') actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema'); if (tipo === 't') actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select'); if (tipo === 'fijas_adm') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); if (tipo === 'a') cargarAlumnosAdmin(); if (tipo === 'anuncios') cargarConfiguracionesGenerales();
+            if (tipo === 'p') { actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema'); cargarListaPreguntasAdmin(); } 
+            if (tipo === 't') { actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select'); cargarListaTemasAdmin(); } 
+            if (tipo === 'fijas_adm') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); 
+            if (tipo === 'a') cargarAlumnosAdmin(); 
+            if (tipo === 'anuncios') cargarConfiguracionesGenerales();
         }
 
-        // GUARDAR EVENTOS (TEMAS, PREGUNTAS, FLASHCARDS, FIJAS)
+        // CARGAR Y GESTIONAR TEMAS EN ADMIN
+        window.cargarListaTemasAdmin = async function() {
+            const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-temas-adm-body'); tbody.innerHTML = '<tr><td colspan="4">Cargando temas...</td></tr>';
+            const { data } = await sb.from('temas').select('*').order('id', { ascending: false });
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay temas registrados.</td></tr>'; return; }
+            listaTemasAdminMemoria = data; tbody.innerHTML = '';
+            data.forEach(t => {
+                const nombreCurso = MAPEO_ID_CURSOS[t.area_id] || 'Desconocido';
+                tbody.innerHTML += `<tr><td><strong>${t.codigo}</strong></td><td>${t.titulo}</td><td>${nombreCurso}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionTema('${t.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarTema('${t.id}')">🗑️ Borrar</button></td></tr>`;
+            });
+        }
+
+        window.prepararEdicionTema = function(id) {
+            const tema = listaTemasAdminMemoria.find(t => t.id == id); if (!tema) return;
+            document.getElementById('adm-t-id').value = tema.id;
+            document.getElementById('adm-t-curso').value = MAPEO_ID_CURSOS[tema.area_id];
+            actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select');
+            document.getElementById('adm-t-codigo').value = tema.codigo;
+            document.getElementById('adm-t-titulo').value = tema.titulo;
+            document.getElementById('adm-t-video').value = tema.url_video || '';
+            document.getElementById('adm-t-editor').innerHTML = tema.resumen_teorico || '';
+            
+            document.getElementById('btn-submit-tema').innerText = "Guardar Cambios";
+            document.getElementById('btn-cancel-tema').style.display = "inline-block";
+            mostrarAvisoModal("Modo Edición", `Editando el tema: ${tema.titulo}`, "✏️");
+        }
+
+        window.cancelarEdicionTema = function() {
+            document.getElementById('form-adm-t').reset();
+            document.getElementById('adm-t-id').value = "";
+            document.getElementById('adm-t-editor').innerHTML = "";
+            document.getElementById('btn-submit-tema').innerText = "Publicar Tema Completo";
+            document.getElementById('btn-cancel-tema').style.display = "none";
+        }
+
+        window.eliminarTema = async function(id) {
+            if(!confirm("¿Estás seguro de que deseas eliminar este tema de forma permanente?")) return;
+            const sb = obtenerSupabase(); const { error } = await sb.from('temas').delete().eq('id', id);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { cargarListaTemasAdmin(); cargarTemasTeoricos(); }
+        }
+
         document.getElementById('form-adm-t').addEventListener('submit', async (e) => {
-            e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-t-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            e.preventDefault(); const sb = obtenerSupabase(); 
+            const editId = document.getElementById('adm-t-id').value;
+            const cursoNombre = document.getElementById('adm-t-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
             const payload = { area_id: areaId, codigo: document.getElementById('adm-t-codigo').value.trim(), titulo: document.getElementById('adm-t-titulo').value.trim(), resumen_teorico: document.getElementById('adm-t-editor').innerHTML, url_video: document.getElementById('adm-t-video').value.trim() };
-            const { error } = await sb.from('temas').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Tema Publicado!", "El tema con formato y video se guardó correctamente.", "✔"); document.getElementById('form-adm-t').reset(); document.getElementById('adm-t-editor').innerHTML = ''; }
-        });
-        
-        document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
-            e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-p-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-            const payload = { area_id: areaId, dificultad: document.getElementById('adm-p-dif').value, enunciado: document.getElementById('adm-p-enunciado').value.trim(), opcion_a: document.getElementById('adm-p-oa').value.trim(), opcion_b: document.getElementById('adm-p-ob').value.trim(), opcion_c: document.getElementById('adm-p-oc').value.trim(), opcion_d: document.getElementById('adm-p-od').value.trim(), respuesta_correcta: document.getElementById('adm-p-correcta').value, justificacion: document.getElementById('adm-p-justificacion').value.trim() };
-            const { error } = await sb.from('preguntas').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "Pregunta añadida al banco con éxito.", "✔"); document.getElementById('form-adm-p').reset(); }
+            
+            let errorMsg = null;
+            if (editId) { const { error } = await sb.from('temas').update(payload).eq('id', editId); errorMsg = error; }
+            else { const { error } = await sb.from('temas').insert([payload]); errorMsg = error; }
+            
+            if (errorMsg) mostrarAvisoModal("Error de Base de Datos", errorMsg.message, "⚠️"); 
+            else { mostrarAvisoModal("¡Éxito!", editId ? "El tema se ha actualizado correctamente." : "El tema se guardó correctamente.", "✔"); cancelarEdicionTema(); cargarListaTemasAdmin(); cargarTemasTeoricos(); }
         });
 
+        // CARGAR Y GESTIONAR PREGUNTAS EN ADMIN
+        window.cargarListaPreguntasAdmin = async function() {
+            const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-preguntas-adm-body'); tbody.innerHTML = '<tr><td colspan="4">Cargando preguntas...</td></tr>';
+            const { data } = await sb.from('preguntas').select('id, area_id, enunciado, dificultad').order('id', { ascending: false }).limit(50);
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay preguntas registradas.</td></tr>'; return; }
+            listaPreguntasAdminMemoria = data; tbody.innerHTML = '';
+            data.forEach(p => {
+                const nombreCurso = MAPEO_ID_CURSOS[p.area_id] || 'Desconocido';
+                const enunCorto = p.enunciado.length > 50 ? p.enunciado.substring(0, 50) + "..." : p.enunciado;
+                tbody.innerHTML += `<tr><td>${enunCorto}</td><td>${nombreCurso}</td><td>${p.dificultad}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionPregunta('${p.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarPregunta('${p.id}')">🗑️ Borrar</button></td></tr>`;
+            });
+        }
+
+        window.prepararEdicionPregunta = async function(id) {
+            const sb = obtenerSupabase(); const { data: p } = await sb.from('preguntas').select('*').eq('id', id).single();
+            if (!p) return;
+            document.getElementById('adm-p-id').value = p.id;
+            document.getElementById('adm-p-curso').value = MAPEO_ID_CURSOS[p.area_id];
+            actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema');
+            document.getElementById('adm-p-dif').value = p.dificultad || 'Intermedia';
+            document.getElementById('adm-p-enunciado').value = p.enunciado;
+            document.getElementById('adm-p-oa').value = p.opcion_a; document.getElementById('adm-p-ob').value = p.opcion_b;
+            document.getElementById('adm-p-oc').value = p.opcion_c; document.getElementById('adm-p-od').value = p.opcion_d;
+            document.getElementById('adm-p-correcta').value = p.respuesta_correcta;
+            document.getElementById('adm-p-justificacion').value = p.justificacion;
+
+            document.getElementById('btn-submit-pregunta').innerText = "Guardar Cambios";
+            document.getElementById('btn-cancel-pregunta').style.display = "inline-block";
+            mostrarAvisoModal("Modo Edición", "Editando pregunta seleccionada.", "✏️");
+        }
+
+        window.cancelarEdicionPregunta = function() {
+            document.getElementById('form-adm-p').reset(); document.getElementById('adm-p-id').value = "";
+            document.getElementById('btn-submit-pregunta').innerText = "Guardar Pregunta"; document.getElementById('btn-cancel-pregunta').style.display = "none";
+        }
+
+        window.eliminarPregunta = async function(id) {
+            if(!confirm("¿Estás seguro de que deseas eliminar esta pregunta?")) return;
+            const sb = obtenerSupabase(); const { error } = await sb.from('preguntas').delete().eq('id', id);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else cargarListaPreguntasAdmin();
+        }
+
+        document.getElementById('form-adm-p').addEventListener('submit', async (e) => {
+            e.preventDefault(); const sb = obtenerSupabase(); 
+            const editId = document.getElementById('adm-p-id').value;
+            const cursoNombre = document.getElementById('adm-p-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const payload = { area_id: areaId, dificultad: document.getElementById('adm-p-dif').value, enunciado: document.getElementById('adm-p-enunciado').value.trim(), opcion_a: document.getElementById('adm-p-oa').value.trim(), opcion_b: document.getElementById('adm-p-ob').value.trim(), opcion_c: document.getElementById('adm-p-oc').value.trim(), opcion_d: document.getElementById('adm-p-od').value.trim(), respuesta_correcta: document.getElementById('adm-p-correcta').value, justificacion: document.getElementById('adm-p-justificacion').value.trim() };
+            
+            let errorMsg = null;
+            if (editId) { const { error } = await sb.from('preguntas').update(payload).eq('id', editId); errorMsg = error; }
+            else { const { error } = await sb.from('preguntas').insert([payload]); errorMsg = error; }
+            
+            if (errorMsg) mostrarAvisoModal("Error", errorMsg.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", editId ? "Pregunta actualizada." : "Pregunta añadida al banco con éxito.", "✔"); cancelarEdicionPregunta(); cargarListaPreguntasAdmin(); }
+        });
+
+        // GUARDAR EVENTOS DE FLASHCARDS Y FIJAS (Siguen siendo INSERT simples)
         document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
             e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-f-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
             const payload = { area_id: areaId, anverso: document.getElementById('adm-f-anverso').value.trim(), reverso: document.getElementById('adm-f-reverso').value.trim() };
@@ -1913,4 +2022,3 @@
     </script>
 </body>
 </html>
-    </div>
