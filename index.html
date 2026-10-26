@@ -324,8 +324,7 @@
     </style>
 </head>
 <body>
-
-    <!-- 1. LOGIN -->
+<!-- 1. LOGIN -->
     <section id="vista-login" class="pantalla activa">
         <div class="fondo-auth-premium">
             <div class="contenedor-login-split">
@@ -878,18 +877,44 @@
 
                             <div id="subtab-adm-fijas_adm" class="subtab-adm">
                                 <form id="form-adm-fija" class="admin-form-box">
+                                    <input type="hidden" id="adm-fija-id">
                                     <div class="fila">
                                         <div class="campo"><label>Curso</label><select id="adm-fija-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema')"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral</option><option value="Gestión de Servicios de Salud">Gestión de Servicios</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética</option></select></div>
                                         <div class="campo"><label>Tema</label><select id="adm-fija-tema" class="campo-select-pro" required><option value="General">General</option></select></div>
                                     </div>
                                     <div class="campo"><label>Título</label><input type="text" id="adm-fija-titulo" required></div>
                                     <div class="campo"><label>Contenido</label><textarea id="adm-fija-contenido" rows="3" required></textarea></div>
-                                    <button type="submit" class="btn-p" style="background: #ffc107; color: #856404;">🔥 Publicar La Fija</button>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button type="submit" class="btn-p" style="background: #ffc107; color: #856404;" id="btn-submit-fija">🔥 Publicar La Fija</button>
+                                        <button type="button" class="btn-p" style="background: #6c757d; display: none;" id="btn-cancel-fija" onclick="cancelarEdicionFija()">Cancelar Edición</button>
+                                    </div>
                                 </form>
+                                <div class="admin-form-box" style="margin-top: 20px;">
+                                    <h3 style="color: var(--primary); margin-bottom: 15px;">Fijas Registradas</h3>
+                                    <div style="overflow-x: auto;">
+                                        <table class="base-table">
+                                            <thead><tr><th>Tema</th><th>Título</th><th>Acciones</th></tr></thead>
+                                            <tbody id="tabla-fijas-adm-body"><tr><td colspan="3">Cargando...</td></tr></tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Configuración Redes y Cronograma Editable -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
+                                <div class="admin-form-box">
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🎨 Logo de la Academia</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube una imagen (PNG o JPG) para reemplazar el logo por defecto en toda la plataforma.</p>
+                                    <div class="fila">
+                                        <div class="campo">
+                                            <input type="file" id="file-logo-custom" accept="image/*">
+                                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                                <button type="button" class="btn-tool" onclick="guardarLogoCustom()">Subir y Aplicar Logo</button>
+                                                <button type="button" class="btn-tool" style="background: #dc3545; color: white;" onclick="restaurarLogoDefault()">Restaurar Default</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="admin-form-box">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📢 Banners Publicitarios</h3>
                                     <div class="fila">
@@ -932,7 +957,7 @@
                             <div id="subtab-adm-vaciador" class="subtab-adm">
                                 <div class="admin-form-box">
                                     <div class="campo"><label>Pega aquí las preguntas de tu Word:</label><textarea id="vaciador-texto-bruto" rows="10" placeholder="1. Paciente gestante que acude..."></textarea></div>
-                                    <button type="button" class="btn-p" id="btn-procesar-vaciador" style="font-size: 1.1em; padding: 16px;" onclick="procesarTextoVaciadorConIA()">⚡ Procesar y Estructurar con IA</button>
+                                    <button type="button" class="btn-p" id="btn-procesar-vaciador" style="font-size: 1.1em; padding: 16px;" onclick="procesarTextoVaciadorConIA()">⚡ Procesar y Estructurar al Formulario</button>
                                 </div>
                             </div>
 
@@ -944,22 +969,38 @@
                                     </div>
                                     <button type="submit" class="btn-p" style="background: #28a745; padding: 14px; font-size: 1.05em;">Crear Simulacro</button>
                                 </form>
-                                <table class="base-table" style="margin-top: 30px;">
-                                    <thead><tr><th>Simulacro</th><th>Duración</th><th>Estado</th><th>Acción</th></tr></thead>
-                                    <tbody id="tabla-simulacros-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
-                                </table>
+                                <div class="admin-form-box" style="margin-top: 20px;">
+                                    <h3 style="color: var(--primary); margin-bottom: 15px;">Simulacros Oficiales</h3>
+                                    <table class="base-table">
+                                        <thead><tr><th>Simulacro</th><th>Duración</th><th>Estado</th><th>Acciones</th></tr></thead>
+                                        <tbody id="tabla-simulacros-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
+                                    </table>
+                                </div>
                             </div>
 
                             <div id="subtab-adm-f" class="subtab-adm">
                                 <form id="form-adm-f" class="admin-form-box">
+                                    <input type="hidden" id="adm-f-id">
                                     <div class="fila">
                                         <div class="campo"><label>Curso MINSA</label><select id="adm-f-curso" class="campo-select-pro" required onchange="actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema')"><option value="Salud Pública">Salud Pública</option><option value="Cuidado Integral de Salud">Cuidado Integral de Salud</option><option value="Gestión de Servicios de Salud">Gestión de Servicios de Salud</option><option value="Investigación">Investigación</option><option value="Ética e Interculturalidad">Ética e Interculturalidad</option></select></div>
                                         <div class="campo"><label>Tema Específico</label><select id="adm-f-tema" class="campo-select-pro" required><option value="General">Seleccione el tema...</option></select></div>
                                     </div>
                                     <div class="campo"><label>Anverso (Pregunta)</label><textarea id="adm-f-anverso" rows="3" required></textarea></div>
                                     <div class="campo"><label>Reverso (Respuesta / Criterio)</label><textarea id="adm-f-reverso" rows="3" required></textarea></div>
-                                    <button type="submit" class="btn-p" style="background: #6f42c1; padding: 16px; font-size: 1.1em;">Guardar Flashcard</button>
+                                    <div style="display: flex; gap: 10px;">
+                                        <button type="submit" class="btn-p" style="background: #6f42c1; padding: 16px; font-size: 1.1em;" id="btn-submit-flashcard">Guardar Flashcard</button>
+                                        <button type="button" class="btn-p" style="background: #6c757d; padding: 16px; font-size: 1.1em; display: none;" id="btn-cancel-flashcard" onclick="cancelarEdicionFlashcard()">Cancelar Edición</button>
+                                    </div>
                                 </form>
+                                <div class="admin-form-box" style="margin-top: 20px;">
+                                    <h3 style="color: var(--primary); margin-bottom: 15px;">Flashcards Registradas</h3>
+                                    <div style="overflow-x: auto;">
+                                        <table class="base-table">
+                                            <thead><tr><th>Anverso</th><th>Curso</th><th>Acciones</th></tr></thead>
+                                            <tbody id="tabla-flashcards-adm-body"><tr><td colspan="3">Cargando...</td></tr></tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
 
                             <div id="subtab-adm-a" class="subtab-adm">
@@ -1100,6 +1141,8 @@
             </div>
         </div>
     </div>
+</body>
+</html>
 <script>
         // === 1. DATOS OFICIALES Y FRASES MOTIVACIONALES ===
         const FRASES_MOTIVACIONALES = [
@@ -1137,6 +1180,8 @@
         let temasTeoricosEnMemoria = [];
         let listaTemasAdminMemoria = [];
         let listaPreguntasAdminMemoria = [];
+        let listaFijasAdminMemoria = [];
+        let listaFlashcardsAdminMemoria = [];
         let preguntasIaBuffer = [];
         let preguntasFalladasBuffer = [];
         let listaAlumnosMemoria = [];
@@ -1176,11 +1221,6 @@
         });
 
         // === 3. FUNCIONES UTILITARIAS Y MODALES ===
-        window.toggleMenuRedes = function() {
-            const box = document.getElementById('lista-redes-box');
-            box.style.display = (box.style.display === 'flex') ? 'none' : 'flex';
-        }
-
         window.mostrarAvisoModal = function(titulo, mensaje, icono = "💡") {
             document.getElementById('aviso-titulo').innerText = titulo;
             document.getElementById('aviso-cuerpo').innerText = mensaje;
@@ -1541,7 +1581,21 @@
         // === 8. TEORÍA, FLASHCARDS Y FIJAS ===
         window.cargarTemasTeoricos = async function() {
             const sb = obtenerSupabase(); const cont = document.getElementById('lista-temas-contenedor');
-            const { data: temas } = await sb.from('temas').select('*'); temasTeoricosEnMemoria = temas || [];
+            // ORDEN ASCENDENTE (Primero que subiste = Arriba)
+            const { data: temas } = await sb.from('temas').select('*').order('id', { ascending: true }); 
+            temasTeoricosEnMemoria = temas || [];
+        }
+
+        window.toggleTemaAcordeon = function(idCuerpo, idIcono) {
+            const cuerpo = document.getElementById(idCuerpo);
+            const icono = document.getElementById(idIcono);
+            if(cuerpo.style.display === 'none') {
+                cuerpo.style.display = 'block';
+                icono.innerText = '🔼';
+            } else {
+                cuerpo.style.display = 'none';
+                icono.innerText = '🔽';
+            }
         }
 
         window.filtrarTeoria = function(areaIdStr) {
@@ -1560,7 +1614,25 @@
 
             temasFiltrados.forEach(t => {
                 const nombreCursoTema = MAPEO_ID_CURSOS[t.area_id] || "Academia"; const embedUrl = convertirUrlAEmbed(t.url_video);
-                cont.innerHTML += `<div class="card-c" style="margin-bottom: 25px; padding: 30px; text-align: left;"><div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;"><span style="font-size: 0.95em; color: var(--primary); font-weight: 800; text-transform: uppercase;">${nombreCursoTema}</span><span style="color: #28a745; font-weight: bold; font-size: 0.95em;">✔ Disponible</span></div><h3 style="color: var(--text-heading); margin-top: 15px; font-size: 1.5em;">${t.codigo} - ${t.titulo}</h3><div class="teoria-render" style="margin-top: 15px; font-size: 1.05em; line-height: 1.7; color: var(--text-main);">${t.resumen_teorico || ''}</div>${embedUrl ? `<div class="video-box-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>` : ''}<div style="margin-top: 25px; text-align: right; border-top: 1px dashed var(--border-color); padding-top: 20px;"><button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo}')">🎯 Practicar Banqueo de este Tema ➔</button></div></div>`;
+                // MODIFICACIÓN: Acordeón para no saturar la pantalla.
+                cont.innerHTML += `
+                <div class="card-c" style="margin-bottom: 15px; padding: 20px; text-align: left;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleTemaAcordeon('cuerpo-tema-${t.id}', 'icono-tema-${t.id}')">
+                        <div style="flex: 1;">
+                            <span style="font-size: 0.85em; color: var(--primary); font-weight: 800; text-transform: uppercase; display:block; margin-bottom:5px;">${nombreCursoTema}</span>
+                            <h3 style="color: var(--text-heading); font-size: 1.3em; margin:0;">${t.codigo} - ${t.titulo}</h3>
+                        </div>
+                        <span id="icono-tema-${t.id}" style="font-size:1.5em; color:var(--text-muted); margin-left:15px;">🔽</span>
+                    </div>
+                    
+                    <div id="cuerpo-tema-${t.id}" style="display: none; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                        <div class="teoria-render" style="font-size: 1.05em; line-height: 1.7; color: var(--text-main);">${t.resumen_teorico || ''}</div>
+                        ${embedUrl ? `<div class="video-box-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>` : ''}
+                        <div style="margin-top: 25px; text-align: right;">
+                            <button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo}')">🎯 Practicar Banqueo de este Tema ➔</button>
+                        </div>
+                    </div>
+                </div>`;
             });
 
             if (perfilUsuario.plan !== 'premium') {
@@ -1585,7 +1657,9 @@
 
         window.cargarLasFijasSERUMS = async function() {
             const sb = obtenerSupabase(); const cont = document.getElementById('contenedor-fijas-cards'); cont.innerHTML = 'Cargando perlas clínicas...';
-            const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false }); todasLasFijas = data || []; cambiarPildoraFija(null, 'todos');
+            // ORDEN ASCENDENTE PARA LAS FIJAS (Primera = Arriba)
+            const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: true }); 
+            todasLasFijas = data || []; cambiarPildoraFija(null, 'todos');
         }
 
         window.cambiarPildoraFija = function(btn, filtro) {
@@ -1599,8 +1673,24 @@
             filtradas.forEach(f => { cont.innerHTML += `<div class="card-modalidad" style="border-top-color: #ffd700; text-align: left;"><span style="font-size: 0.85em; color: #b78103; font-weight: bold; display: block; margin-bottom: 6px;">🔥 LA FIJA | ${f.tema || 'PUNTO CLAVE'}</span><h3 style="margin-top: 5px; font-size: 1.35em;">${f.titulo}</h3><p style="color: var(--text-main); font-size: 1.05em; line-height: 1.6; margin-top: 10px;">${f.contenido}</p></div>`; });
         }
 
-        window.generarPreguntasConIA = async function() { mostrarAvisoModal("Función IA", "La formulación de casos clínicos inéditos con Gemini está configurada. (Requiere conexión activa al Backend de Gemini).", "🤖"); }
-        window.procesarTextoVaciadorConIA = async function() { mostrarAvisoModal("Vaciador IA", "El módulo estructurador con Gemini está en línea. Pega tus preguntas para procesarlas.", "🤖"); }
+        // VACIADOR IA SIMPLIFICADO: Extrae la pregunta del texto al formulario para ser editada y guardada sin riesgo de fallo
+        window.procesarTextoVaciadorConIA = function() {
+            const txt = document.getElementById('vaciador-texto-bruto').value.trim();
+            if(!txt) { mostrarAvisoModal("Vaciador", "Por favor, pega el texto de tu documento Word primero.", "⚠️"); return; }
+            
+            const lineas = txt.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+            
+            // Llena el formulario de preguntas con lo primero que encuentra para que el docente lo revise
+            document.getElementById('adm-p-enunciado').value = lineas[0] || '';
+            document.getElementById('adm-p-oa').value = lineas[1] || '';
+            document.getElementById('adm-p-ob').value = lineas[2] || '';
+            document.getElementById('adm-p-oc').value = lineas[3] || '';
+            document.getElementById('adm-p-od').value = lineas[4] || '';
+            
+            verSubTabAdmin('p'); // Te dirige a la ventana de preguntas
+            mostrarAvisoModal("Vaciador", "Se han trasladado las primeras líneas al formulario. Revisa los datos y guárdalos. Sin una API externa de pago, la IA completa no está disponible en la web.", "🤖");
+            document.getElementById('vaciador-texto-bruto').value = '';
+        }
 
         // === 9. ESTADÍSTICAS Y RANKING SIMULADO ===
         window.cargarEstadisticas = async function() {
@@ -1659,7 +1749,7 @@
             if (preguntas && preguntas.length > 0) { preguntasFalladasBuffer = [...preguntas]; subSec('banqueo'); activarModalidadBanqueo('curso'); cargarSiguientePregunta(); }
         }
 
-        // === 10. MOTOR DE CONFIGURACIONES GLOBALES Y CALENDARIO (BLINDADO) ===
+        // === 10. MOTOR DE CONFIGURACIONES GLOBALES Y CALENDARIO ===
         window.guardarConfiguracionBase = async function(clave, valorStr) {
             const sb = obtenerSupabase();
             try {
@@ -1683,7 +1773,7 @@
                     if (item.clave === 'texto_metodologia' && item.valor) { const admTxt = document.getElementById('adm-texto-metodologia'); if (admTxt) admTxt.value = item.valor; }
                     if (item.clave === 'banner_login_lista' && item.valor) { try { carruselLoginImagenes = JSON.parse(item.valor) || []; } catch(e){} }
                     if (item.clave === 'popup_anuncio_lista' && item.valor) { try { carruselPopupImagenes = JSON.parse(item.valor) || []; } catch(e){} }
-                    
+                    if (item.clave === 'logo_academia' && item.valor) { aplicarLogoCustom(item.valor); }
                 });
             }
 
@@ -1693,6 +1783,33 @@
             actualizarBannerYMetodologiaSegunModalidad(); renderizarCalendarioCompleto(); renderizarCarruselLogin(); renderizarListasAdminAnuncios();
 
             if (user && !popupAnuncioMostrado) { lanzarPopupAnuncioSiExiste(); }
+        }
+
+        // FUNCIONES DE LOGO PERSONALIZADO
+        window.guardarLogoCustom = function() {
+            const file = document.getElementById('file-logo-custom').files[0];
+            if(!file) return mostrarAvisoModal("Aviso", "Selecciona una imagen de tu computadora.", "⚠️");
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                const b64 = e.target.result;
+                await guardarConfiguracionBase('logo_academia', b64);
+                aplicarLogoCustom(b64);
+                mostrarAvisoModal("Logo Actualizado", "El logo se cambió exitosamente a nivel global.", "🎨");
+            };
+            reader.readAsDataURL(file);
+        }
+
+        window.restaurarLogoDefault = async function() {
+            await guardarConfiguracionBase('logo_academia', '');
+            location.reload(); // Recarga para volver al SVG por defecto
+        }
+
+        window.aplicarLogoCustom = function(b64) {
+            if(!b64) return;
+            document.querySelectorAll('.emblema-serums-pro').forEach(el => {
+                el.style.background = 'transparent'; el.style.border = 'none'; el.style.boxShadow = 'none';
+                el.innerHTML = `<img src="${b64}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">`;
+            });
         }
 
         window.guardarConfiguracionFechaExamen = async function() {
@@ -1813,14 +1930,18 @@
         window.verSubTabAdmin = function(tipo) {
             document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa')); document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
             event.target.classList.add('activa'); document.getElementById('subtab-adm-' + tipo).classList.add('activa');
+            
+            // SE CARGAN LAS LISTAS DINÁMICAMENTE AL DAR CLIC EN LA PESTAÑA
             if (tipo === 'p') { actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema'); cargarListaPreguntasAdmin(); } 
             if (tipo === 't') { actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select'); cargarListaTemasAdmin(); } 
-            if (tipo === 'fijas_adm') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); 
+            if (tipo === 'fijas_adm') { actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); cargarListaFijasAdmin(); } 
+            if (tipo === 'f') { actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema'); cargarListaFlashcardsAdmin(); }
+            if (tipo === 'sims') { cargarListaSimulacrosAdmin(); }
             if (tipo === 'a') cargarAlumnosAdmin(); 
             if (tipo === 'anuncios') cargarConfiguracionesGenerales();
         }
 
-        // CARGAR Y GESTIONAR TEMAS EN ADMIN
+        // --- CRUD DE TEMAS ---
         window.cargarListaTemasAdmin = async function() {
             const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-temas-adm-body'); tbody.innerHTML = '<tr><td colspan="4">Cargando temas...</td></tr>';
             const { data } = await sb.from('temas').select('*').order('id', { ascending: false });
@@ -1871,11 +1992,11 @@
             if (editId) { const { error } = await sb.from('temas').update(payload).eq('id', editId); errorMsg = error; }
             else { const { error } = await sb.from('temas').insert([payload]); errorMsg = error; }
             
-            if (errorMsg) mostrarAvisoModal("Error de Base de Datos", errorMsg.message, "⚠️"); 
-            else { mostrarAvisoModal("¡Éxito!", editId ? "El tema se ha actualizado correctamente." : "El tema se guardó correctamente.", "✔"); cancelarEdicionTema(); cargarListaTemasAdmin(); cargarTemasTeoricos(); }
+            if (errorMsg) mostrarAvisoModal("Error", errorMsg.message, "⚠️"); 
+            else { mostrarAvisoModal("¡Éxito!", editId ? "El tema se ha actualizado." : "El tema se guardó correctamente.", "✔"); cancelarEdicionTema(); cargarListaTemasAdmin(); cargarTemasTeoricos(); }
         });
 
-        // CARGAR Y GESTIONAR PREGUNTAS EN ADMIN
+        // --- CRUD DE PREGUNTAS ---
         window.cargarListaPreguntasAdmin = async function() {
             const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-preguntas-adm-body'); tbody.innerHTML = '<tr><td colspan="4">Cargando preguntas...</td></tr>';
             const { data } = await sb.from('preguntas').select('id, area_id, enunciado, dificultad').order('id', { ascending: false }).limit(50);
@@ -1912,7 +2033,7 @@
         }
 
         window.eliminarPregunta = async function(id) {
-            if(!confirm("¿Estás seguro de que deseas eliminar esta pregunta?")) return;
+            if(!confirm("¿Estás seguro de eliminar esta pregunta?")) return;
             const sb = obtenerSupabase(); const { error } = await sb.from('preguntas').delete().eq('id', id);
             if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else cargarListaPreguntasAdmin();
         }
@@ -1930,19 +2051,139 @@
             if (errorMsg) mostrarAvisoModal("Error", errorMsg.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", editId ? "Pregunta actualizada." : "Pregunta añadida al banco con éxito.", "✔"); cancelarEdicionPregunta(); cargarListaPreguntasAdmin(); }
         });
 
-        // GUARDAR EVENTOS DE FLASHCARDS Y FIJAS (Siguen siendo INSERT simples)
-        document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
-            e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-f-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-            const payload = { area_id: areaId, anverso: document.getElementById('adm-f-anverso').value.trim(), reverso: document.getElementById('adm-f-reverso').value.trim() };
-            const { error } = await sb.from('flashcards').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "Flashcard creada correctamente.", "✔"); document.getElementById('form-adm-f').reset(); }
-        });
+        // --- CRUD DE LAS FIJAS ---
+        window.cargarListaFijasAdmin = async function() {
+            const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-fijas-adm-body'); tbody.innerHTML = '<tr><td colspan="3">Cargando fijas...</td></tr>';
+            const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay fijas registradas.</td></tr>'; return; }
+            listaFijasAdminMemoria = data; tbody.innerHTML = '';
+            data.forEach(f => {
+                tbody.innerHTML += `<tr><td>${f.tema}</td><td>${f.titulo}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionFija('${f.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarFija('${f.id}')">🗑️ Borrar</button></td></tr>`;
+            });
+        }
+
+        window.prepararEdicionFija = function(id) {
+            const f = listaFijasAdminMemoria.find(x => x.id == id); if (!f) return;
+            document.getElementById('adm-fija-id').value = f.id;
+            document.getElementById('adm-fija-curso').value = MAPEO_ID_CURSOS[f.area_id];
+            actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema');
+            document.getElementById('adm-fija-tema').value = f.tema;
+            document.getElementById('adm-fija-titulo').value = f.titulo;
+            document.getElementById('adm-fija-contenido').value = f.contenido;
+            
+            document.getElementById('btn-submit-fija').innerText = "Guardar Cambios";
+            document.getElementById('btn-cancel-fija').style.display = "inline-block";
+            mostrarAvisoModal("Modo Edición", "Editando La Fija seleccionada.", "✏️");
+        }
+
+        window.cancelarEdicionFija = function() {
+            document.getElementById('form-adm-fija').reset(); document.getElementById('adm-fija-id').value = "";
+            document.getElementById('btn-submit-fija').innerText = "🔥 Publicar La Fija"; document.getElementById('btn-cancel-fija').style.display = "none";
+        }
+
+        window.eliminarFija = async function(id) {
+            if(!confirm("¿Borrar esta Fija?")) return;
+            const sb = obtenerSupabase(); const { error } = await sb.from('fijas_serums').delete().eq('id', id);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else cargarListaFijasAdmin();
+        }
 
         document.getElementById('form-adm-fija').addEventListener('submit', async (e) => {
-            e.preventDefault(); const sb = obtenerSupabase(); const cursoNombre = document.getElementById('adm-fija-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            e.preventDefault(); const sb = obtenerSupabase(); 
+            const editId = document.getElementById('adm-fija-id').value;
+            const cursoNombre = document.getElementById('adm-fija-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
             const payload = { area_id: areaId, tema: document.getElementById('adm-fija-tema').value, titulo: document.getElementById('adm-fija-titulo').value.trim(), contenido: document.getElementById('adm-fija-contenido').value.trim() };
-            const { error } = await sb.from('fijas_serums').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "La Fija fue publicada con éxito.", "🔥"); document.getElementById('form-adm-fija').reset(); }
+            
+            let errorMsg = null;
+            if (editId) { const { error } = await sb.from('fijas_serums').update(payload).eq('id', editId); errorMsg = error; }
+            else { const { error } = await sb.from('fijas_serums').insert([payload]); errorMsg = error; }
+            
+            if (errorMsg) mostrarAvisoModal("Error", errorMsg.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", editId ? "Fija actualizada." : "Fija publicada con éxito.", "🔥"); cancelarEdicionFija(); cargarListaFijasAdmin(); }
+        });
+
+        // --- CRUD DE FLASHCARDS ---
+        window.cargarListaFlashcardsAdmin = async function() {
+            const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-flashcards-adm-body'); tbody.innerHTML = '<tr><td colspan="3">Cargando flashcards...</td></tr>';
+            const { data } = await sb.from('flashcards').select('*').order('id', { ascending: false });
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay flashcards registradas.</td></tr>'; return; }
+            listaFlashcardsAdminMemoria = data; tbody.innerHTML = '';
+            data.forEach(f => {
+                const anversoCorto = f.anverso.length > 50 ? f.anverso.substring(0, 50) + "..." : f.anverso;
+                tbody.innerHTML += `<tr><td>${anversoCorto}</td><td>${MAPEO_ID_CURSOS[f.area_id]}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionFlashcard('${f.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarFlashcard('${f.id}')">🗑️ Borrar</button></td></tr>`;
+            });
+        }
+
+        window.prepararEdicionFlashcard = function(id) {
+            const f = listaFlashcardsAdminMemoria.find(x => x.id == id); if (!f) return;
+            document.getElementById('adm-f-id').value = f.id;
+            document.getElementById('adm-f-curso').value = MAPEO_ID_CURSOS[f.area_id];
+            actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema');
+            document.getElementById('adm-f-anverso').value = f.anverso;
+            document.getElementById('adm-f-reverso').value = f.reverso;
+            
+            document.getElementById('btn-submit-flashcard').innerText = "Guardar Cambios";
+            document.getElementById('btn-cancel-flashcard').style.display = "inline-block";
+            mostrarAvisoModal("Modo Edición", "Editando Flashcard.", "✏️");
+        }
+
+        window.cancelarEdicionFlashcard = function() {
+            document.getElementById('form-adm-f').reset(); document.getElementById('adm-f-id').value = "";
+            document.getElementById('btn-submit-flashcard').innerText = "Guardar Flashcard"; document.getElementById('btn-cancel-flashcard').style.display = "none";
+        }
+
+        window.eliminarFlashcard = async function(id) {
+            if(!confirm("¿Borrar esta Flashcard?")) return;
+            const sb = obtenerSupabase(); const { error } = await sb.from('flashcards').delete().eq('id', id);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else cargarListaFlashcardsAdmin();
+        }
+
+        document.getElementById('form-adm-f').addEventListener('submit', async (e) => {
+            e.preventDefault(); const sb = obtenerSupabase(); 
+            const editId = document.getElementById('adm-f-id').value;
+            const cursoNombre = document.getElementById('adm-f-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+            const payload = { area_id: areaId, anverso: document.getElementById('adm-f-anverso').value.trim(), reverso: document.getElementById('adm-f-reverso').value.trim() };
+            
+            let errorMsg = null;
+            if (editId) { const { error } = await sb.from('flashcards').update(payload).eq('id', editId); errorMsg = error; }
+            else { const { error } = await sb.from('flashcards').insert([payload]); errorMsg = error; }
+            
+            if (errorMsg) mostrarAvisoModal("Error", errorMsg.message, "⚠️"); else { mostrarAvisoModal("¡Guardado!", "Flashcard guardada correctamente.", "✔"); cancelarEdicionFlashcard(); cargarListaFlashcardsAdmin(); }
+        });
+
+        // --- CRUD DE SIMULACROS ---
+        window.cargarListaSimulacrosAdmin = async function() {
+            const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-simulacros-adm-body');
+            const { data } = await sb.from('simulacros').select('*').order('id', { ascending: false });
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay simulacros creados.</td></tr>'; return; }
+            tbody.innerHTML = '';
+            data.forEach(s => {
+                tbody.innerHTML += `<tr>
+                    <td><strong>${s.titulo}</strong></td>
+                    <td>${s.duracion_minutos} min</td>
+                    <td><span style="color:${s.habilitado ? '#28a745' : '#dc3545'}; font-weight:bold;">${s.habilitado ? 'Activo' : 'Inactivo'}</span></td>
+                    <td style="display:flex; gap:6px;">
+                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${s.habilitado ? '#6c757d' : '#28a745'};" onclick="cambiarEstadoSimulacro('${s.id}', ${!s.habilitado})">${s.habilitado ? 'Ocultar' : 'Activar'}</button>
+                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarSimulacro('${s.id}')">Borrar</button>
+                    </td>
+                </tr>`;
+            });
+        }
+
+        window.cambiarEstadoSimulacro = async function(id, nuevoEstado) {
+            const sb = obtenerSupabase(); const { error } = await sb.from('simulacros').update({ habilitado: nuevoEstado }).eq('id', id);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("Actualizado", `El simulacro ahora está ${nuevoEstado ? 'Visible' : 'Oculto'} para los alumnos.`, "📋"); cargarListaSimulacrosAdmin(); }
+        }
+
+        window.eliminarSimulacro = async function(id) {
+            if(!confirm("¿Borrar definitivamente este simulacro?")) return;
+            const sb = obtenerSupabase(); const { error } = await sb.from('simulacros').delete().eq('id', id);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else cargarListaSimulacrosAdmin();
+        }
+
+        document.getElementById('form-adm-sim').addEventListener('submit', async (e) => {
+            e.preventDefault(); const sb = obtenerSupabase();
+            const payload = { titulo: document.getElementById('adm-sim-tit').value.trim(), duracion_minutos: document.getElementById('adm-sim-dur').value, habilitado: true };
+            const { error } = await sb.from('simulacros').insert([payload]);
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Creado!", "Simulacro oficial registrado.", "📝"); document.getElementById('form-adm-sim').reset(); cargarListaSimulacrosAdmin(); }
         });
 
         /* === BANNERS Y POPUPS ANUNCIOS === */
