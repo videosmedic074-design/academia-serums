@@ -1404,15 +1404,29 @@
             bienvenidaMascotaMostradaTurno = false; popupAnuncioMostrado = false; ver('vista-login');
         }
 
-        // === 5. PERFIL DE USUARIO Y MASCOTA ===
+        // === 5. PERFIL DE USUARIO Y MASCOTA (CON CORRECCIÓN GOOGLE OAUTH) ===
         async function cargarPerfil() {
             const sb = obtenerSupabase(); if (!user || !sb) return;
 
             let { data: p } = await sb.from('perfiles').select('*').eq('id', user.id).single();
             if (!p) {
+                // AQUÍ ESTÁ EL ARREGLO PARA GOOGLE OAUTH: Se envían datos comodín para evitar que Supabase bloquee la fila
                 const nombreGoogle = user.user_metadata?.full_name || user.email.split('@')[0];
-                await sb.from('perfiles').upsert({ id: user.id, nombres: nombreGoogle, apellidos: '', correo: user.email, rol: 'estudiante', plan: 'gratuito', estado: 'activo', preguntas_hoy: 0 });
-                p = { nombres: nombreGoogle, apellidos: '', rol: 'estudiante', plan: 'gratuito', prefijo_trato: 'Dr.', estado: 'activo', preguntas_hoy: 0 };
+                await sb.from('perfiles').upsert({ 
+                    id: user.id, 
+                    nombres: nombreGoogle, 
+                    apellidos: '', 
+                    correo: user.email, 
+                    rol: 'estudiante', 
+                    plan: 'gratuito', 
+                    estado: 'activo', 
+                    preguntas_hoy: 0,
+                    dni: '00000000',
+                    carrera: 'No especificada',
+                    prefijo_trato: 'Colega',
+                    fecha_nacimiento: '2000-01-01'
+                });
+                p = { nombres: nombreGoogle, apellidos: '', rol: 'estudiante', plan: 'gratuito', prefijo_trato: 'Colega', estado: 'activo', preguntas_hoy: 0, dni: '00000000', carrera: 'No especificada' };
             }
 
             perfilUsuario = p;
@@ -1764,7 +1778,6 @@
             const lineas = txt.split('\n').map(l => l.trim()).filter(l => l.length > 0);
             simulacroBorrador100 = [];
             
-            // Simulación básica de separación masiva (Toma de 5 en 5 líneas)
             for(let i=0; i < lineas.length; i+=5) {
                 if(lineas[i]) {
                     simulacroBorrador100.push({ enunciado: lineas[i], clave: lineas[i+1] || 'A' });
@@ -2271,7 +2284,7 @@
             e.preventDefault(); const sb = obtenerSupabase();
             const payload = { titulo: document.getElementById('adm-sim-tit').value.trim(), duracion_minutos: document.getElementById('adm-sim-dur').value, habilitado: true };
             const { error } = await sb.from('simulacros').insert([payload]);
-            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Creado!", "Simulacro oficial registrado.", "📝"); document.getElementById('form-adm-sim').reset(); cargarListaSimulacrosAdmin(); }
+            if (error) mostrarAvisoModal("Error", error.message, "⚠️"); else { mostrarAvisoModal("¡Creado!", "Simulacro oficial registrado.", "📝"); document.getElementById('form-adm-sim').reset(); document.getElementById('tabla-draft-simulacro-container').style.display='none'; cargarListaSimulacrosAdmin(); }
         });
 
         /* === BANNERS Y POPUPS ANUNCIOS === */
@@ -2349,5 +2362,3 @@
             }
         }
     </script>
-</body>
-</html>
