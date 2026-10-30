@@ -162,10 +162,10 @@
 
         .widget-mascota-lateral { background: linear-gradient(135deg, #0056b3, #008080); color: white; padding: 25px 20px; border-radius: 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center; }
         body.dark-mode .widget-mascota-lateral { background: linear-gradient(135deg, #1e3a8a, #0f766e); }
-        .avatar-canvas-box { position: relative; width: 120px; height: 120px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; cursor: pointer; }
+        .avatar-canvas-box { position: relative; width: 125px; height: 125px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; cursor: pointer; overflow: hidden; }
         
-        @keyframes respirarPanda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px) scale(1.02); } }
-        .panda-animado { animation: respirarPanda 2.8s infinite ease-in-out; }
+        @keyframes respirarPanda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px) scale(1.02); } }
+        .panda-animado { animation: respirarPanda 3s infinite ease-in-out; }
 
         .campo-select-pro { appearance: none; background-color: var(--input-bg); background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding: 12px 35px 12px 14px !important; cursor: pointer; color: var(--text-main); font-weight: 500; border: 1px solid var(--border-color); border-radius: 10px; box-shadow: var(--shadow-sm); font-size: 0.95em; }
         .campo-select-pro:hover { border-color: var(--primary); }
@@ -195,7 +195,6 @@
         .card-modalidad { background: var(--bg-card); padding: 22px; border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-top: 5px solid var(--primary); cursor: pointer; transition: 0.25s; text-align: center; }
         .card-modalidad:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
         
-        /* Flashcards 3D y SRS */
         .grid-flashcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 20px; }
         .card-flip { background-color: transparent; height: 190px; perspective: 1000px; cursor: pointer; position: relative; }
         .card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.5s; transform-style: preserve-3d; }
@@ -213,12 +212,10 @@
         .item-tienda-card:hover { border-color: var(--primary); background: rgba(0,86,179,0.06); transform: translateY(-2px); }
         .item-icono { font-size: 2.2em; margin-bottom: 5px; }
 
-        /* Tienda Virtual de la Academia */
         .grid-tienda-academia { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; margin-top: 25px; }
         .card-producto { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; text-align: center; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between; }
         .card-producto:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
 
-        /* Panel Docente y Tablas */
         .pestanas-admin { display: flex; gap: 8px; margin-bottom: 25px; border-bottom: 2px solid var(--border-color); flex-wrap: wrap; }
         .tab-btn-adm { padding: 10px 16px; cursor: pointer; font-weight: 600; color: var(--text-muted); border: none; background: none; font-size: 0.95em; border-bottom: 3px solid transparent; }
         .tab-btn-adm.activa { color: #a855f7; border-bottom-color: #a855f7; }
@@ -234,7 +231,6 @@
         .badge-clinico { background: #fde68a; color: #b45309; }
         .badge-elite { background: #bbf7d0; color: #15803d; }
 
-        /* Estilos Semáforo Anti-Copia */
         .seccion-anticopia { -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; user-select: none !important; }
         .semaforo-card { background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border-color); margin-bottom: 16px; overflow: hidden; }
         .semaforo-header { padding: 14px 18px; font-weight: 700; color: white; display: flex; justify-content: space-between; align-items: center; }
@@ -245,18 +241,16 @@
         .semaforo-lista li { border-bottom: 1px dashed var(--border-color); padding: 6px 0; }
         .semaforo-lista li:last-child { border-bottom: none; }
         
-        /* Modales */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 9999; }
         .modal-box { background: var(--bg-card); border-radius: 20px; padding: 30px; max-width: 540px; width: 92%; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.4); position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color); color: var(--text-main); }
         .btn-cerrar-x { position: absolute; top: 12px; right: 18px; background: none; border: none; font-size: 1.6em; cursor: pointer; color: var(--text-muted); font-weight: bold; }
         
-        /* Botones Flotantes */
+        /* BOTONES FLOTANTES: VISIBLES POR DEFECTO */
         .flotante-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 9998; }
-        .btn-flotante { width: 55px; height: 55px; border-radius: 50%; color: white; display: none; align-items: center; justify-content: center; font-size: 1.6em; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: 0.3s; text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
+        .btn-flotante { width: 55px; height: 55px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.6em; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: 0.3s; text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
         .btn-flotante:hover { transform: scale(1.1); }
         .btn-wa { background: #25d366; } .btn-dc { background: #5865F2; } .btn-fb { background: #1877F2; }
         
-        /* Pomodoro */
         .pomodoro-box { background: var(--bg-card-subtle); border: 2px solid #e83e8c; border-radius: 12px; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
         .pomo-time { font-size: 1.6em; font-weight: 900; color: #e83e8c; font-family: monospace; }
         .pomo-btns button { background: #e83e8c; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.9em; margin-left: 5px; }
@@ -657,7 +651,7 @@
                             </div>
                         </div>
 
-                        <!-- 5. GESTIÓN DE SERVICIOS -->
+                        <!-- 5. GESTIÓN DE SERVICIOS DE SALUD -->
                         <div class="semaforo-card">
                             <div class="semaforo-header semaforo-verde">
                                 <span>🏥 ÁREA: GESTIÓN DE SERVICIOS DE SALUD (Peso 15%)</span>
@@ -709,31 +703,31 @@
                                 <div>
                                     <span style="font-size: 2.8em; display: block; margin-bottom: 10px;">🎯</span>
                                     <h3 style="font-size: 1.3em; margin-bottom: 8px;">Plan Banqueo</h3>
-                                    <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Ideal si solo necesitas entrenar con preguntas ilimitadas y simulador adaptativo.</p>
-                                    <h4 style="font-size: 1.8em; color: #0284c7; margin-bottom: 15px;">S/ 49.00</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Banco de preguntas ilimitado + Modo Rescate con errores frecuentes.</p>
+                                    <h4 style="font-size: 1.8em; color: #0284c7; margin-bottom: 15px;" id="precio-display-banqueo">S/ 49.00</h4>
                                 </div>
-                                <button class="btn-p" style="background: #0284c7;" onclick="contactarWhatsAppCompra('Plan Banqueo', 49)">Comprar por WhatsApp ➔</button>
+                                <button class="btn-p" style="background: #0284c7;" onclick="contactarWhatsAppCompra('Plan Banqueo')">Comprar por WhatsApp ➔</button>
                             </div>
 
                             <div class="card-producto" style="border-top: 5px solid #b45309;">
                                 <div>
                                     <span style="font-size: 2.8em; display: block; margin-bottom: 10px;">🩺</span>
                                     <h3 style="font-size: 1.3em; margin-bottom: 8px;">Plan Clínico</h3>
-                                    <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Incluye Banqueo Ilimitado + Las Fijas SERUMS + Flashcards inteligentes con SRS.</p>
-                                    <h4 style="font-size: 1.8em; color: #b45309; margin-bottom: 15px;">S/ 89.00</h4>
+                                    <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Banqueo Ilimitado + Las Fijas SERUMS + Flashcards inteligentes con SRS.</p>
+                                    <h4 style="font-size: 1.8em; color: #b45309; margin-bottom: 15px;" id="precio-display-clinico">S/ 89.00</h4>
                                 </div>
-                                <button class="btn-p" style="background: #b45309;" onclick="contactarWhatsAppCompra('Plan Clínico', 89)">Comprar por WhatsApp ➔</button>
+                                <button class="btn-p" style="background: #b45309;" onclick="contactarWhatsAppCompra('Plan Clínico')">Comprar por WhatsApp ➔</button>
                             </div>
 
                             <div class="card-producto" style="border-top: 5px solid #15803d; position: relative;">
-                                <span style="position: absolute; top: -12px; right: 20px; background: #ffd700; color: #002b5c; font-size: 0.75em; font-weight: 900; padding: 4px 12px; border-radius: 12px;">MÁS POPULAR</span>
+                                <span style="position: absolute; top: -12px; right: 20px; background: #ffd700; color: #002b5c; font-size: 0.75em; font-weight: 900; padding: 4px 12px; border-radius: 12px;">MÁS COMPLETO</span>
                                 <div>
                                     <span style="font-size: 2.8em; display: block; margin-bottom: 10px;">⭐</span>
-                                    <h3 style="font-size: 1.3em; margin-bottom: 8px;">Plan Élite / Ciclo Completo</h3>
-                                    <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Acceso TOTAL: Todo el Temario, Videoclases, Simulacros de 100 preguntas y PDF descargables.</p>
-                                    <h4 style="font-size: 1.8em; color: #15803d; margin-bottom: 15px;">S/ 139.00</h4>
+                                    <h3 style="font-size: 1.3em; margin-bottom: 8px;">Plan Élite (Ciclo Completo)</h3>
+                                    <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Acceso TOTAL: Todo el Temario, Videoclases, Simulacros 100 Pts y PDFs descargables.</p>
+                                    <h4 style="font-size: 1.8em; color: #15803d; margin-bottom: 15px;" id="precio-display-elite">S/ 139.00</h4>
                                 </div>
-                                <button class="btn-p" style="background: #15803d;" onclick="contactarWhatsAppCompra('Plan Élite (Ciclo Completo)', 139)">Comprar por WhatsApp ➔</button>
+                                <button class="btn-p" style="background: #15803d;" onclick="contactarWhatsAppCompra('Plan Élite (Ciclo Completo)')">Comprar por WhatsApp ➔</button>
                             </div>
                         </div>
                     </div>
@@ -1027,6 +1021,7 @@
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Simulacros</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Flashcard</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('codigos')">🎟️ Códigos y Cupones</button>
+                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('precios')">💲 Precios Tienda</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('anuncios')">📢 Configuración General</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos y Planes</button>
                             </div>
@@ -1233,6 +1228,7 @@
                                                 <option value="tiempo_24h">Pase Temporal (24 Horas)</option>
                                                 <option value="tiempo_7d">Pase Temporal (7 Días)</option>
                                                 <option value="descuento">Cupón de Descuento (%)</option>
+                                                <option value="corporativo">Código Corporativo (Empresa/Institución)</option>
                                             </select>
                                         </div>
                                         <div class="campo" id="caja-porcentaje-desc" style="display: none;">
@@ -1251,7 +1247,7 @@
                                             <input type="text" id="adm-cod-texto" placeholder="Ej: SERUMS2026 o PROMO24">
                                         </div>
                                         <div class="campo">
-                                            <label>Plan que Desbloquea (si es temporal):</label>
+                                            <label>Plan que Desbloquea (si es temporal o corporativo):</label>
                                             <select id="adm-cod-plan" class="campo-select-pro">
                                                 <option value="elite">Plan Élite (Completo)</option>
                                                 <option value="clinico">Plan Clínico</option>
@@ -1274,8 +1270,47 @@
                                 </div>
                             </div>
 
+                            <!-- PESTAÑA: CONFIGURAR PRECIOS TIENDA -->
+                            <div id="subtab-adm-precios" class="subtab-adm">
+                                <div class="admin-form-box">
+                                    <h3 style="color: var(--primary); font-size: 1.2em; margin-bottom: 10px;">💲 Precios de la Tienda</h3>
+                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Modifica los precios en soles de cada plan cuando desees lanzar promociones o subir tarifas:</p>
+                                    
+                                    <div class="fila">
+                                        <div class="campo">
+                                            <label>Precio Plan Banqueo (S/):</label>
+                                            <input type="number" id="adm-precio-banqueo" value="49">
+                                        </div>
+                                        <div class="campo">
+                                            <label>Precio Plan Clínico (S/):</label>
+                                            <input type="number" id="adm-precio-clinico" value="89">
+                                        </div>
+                                    </div>
+                                    <div class="fila">
+                                        <div class="campo">
+                                            <label>Precio Plan Élite (S/):</label>
+                                            <input type="number" id="adm-precio-elite" value="139">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-p" style="width: auto; padding: 12px 24px; background: #28a745;" onclick="guardarPreciosTienda()">Guardar Nuevos Precios</button>
+                                </div>
+                            </div>
+
                             <!-- PESTAÑA: CONFIGURACIÓN GENERAL -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
+                                <div class="admin-form-box">
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Subir Imagen Oficial del Dr. Pandy (Render 3D)</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu ilustración o render 3D en PNG (fondo transparente). Sustituirá al dibujo actual de la mascota en toda la academia.</p>
+                                    <div class="fila">
+                                        <div class="campo">
+                                            <input type="file" id="file-pandy-custom" accept="image/*">
+                                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                                <button type="button" class="btn-tool" onclick="guardarPandaCustom()">Aplicar Imagen del Panda</button>
+                                                <button type="button" class="btn-tool" style="background: #dc3545; color: white;" onclick="restaurarPandaDefault()">Restaurar Original</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="admin-form-box">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🎨 Logo de la Academia</h3>
                                     <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu logotipo (PNG o JPG). Se redimensionará con mayor tamaño y nitidez en toda el aula.</p>
@@ -1293,7 +1328,7 @@
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">💬 Enlaces de Soporte y Redes Sociales</h3>
                                     <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Ingresa el enlace directo. Si dejas el campo vacío, el botón flotante se ocultará automáticamente.</p>
                                     <div class="fila">
-                                        <div class="campo"><label>Link o Número de WhatsApp (Ej: https://wa.me/51999999999)</label><input type="url" id="adm-link-wa" placeholder="https://wa.me/..."></div>
+                                        <div class="campo"><label>Link o Número de WhatsApp (Ej: https://wa.me/51999999999)</label><input type="url" id="adm-link-wa" placeholder="https://wa.me/51999999999" value="https://wa.me/51999999999"></div>
                                         <div class="campo"><label>Link de Discord</label><input type="url" id="adm-link-dc" placeholder="https://discord.gg/..."></div>
                                     </div>
                                     <div class="campo"><label>Link de Facebook</label><input type="url" id="adm-link-fb" placeholder="https://facebook.com/..."></div>
@@ -1381,14 +1416,14 @@
         </div>
     </section>
 
-    <!-- === BOTONES FLOTANTES DE REDES SOCIALES === -->
+    <!-- BOTONES FLOTANTES DE REDES SOCIALES -->
     <div class="flotante-container">
         <a href="#" id="btn-flotante-fb" class="btn-flotante btn-fb" target="_blank" title="Comunidad Facebook">f</a>
         <a href="#" id="btn-flotante-dc" class="btn-flotante btn-dc" target="_blank" title="Servidor Discord">d</a>
-        <a href="#" id="btn-flotante-wa" class="btn-flotante btn-wa" target="_blank" title="Atención por WhatsApp">💬</a>
+        <a href="https://wa.me/51999999999" id="btn-flotante-wa" class="btn-flotante btn-wa" target="_blank" title="Atención por WhatsApp">💬</a>
     </div>
 
-    <!-- === MODALES DE LA PLATAFORMA === -->
+    <!-- MODALES DE LA PLATAFORMA -->
     <div id="modal-aviso-general" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
         <div class="modal-box">
             <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
@@ -1413,7 +1448,7 @@
                         <strong style="color: #0284c7; font-size: 1.15em;">🎯 Plan Banqueo</strong>
                         <p style="font-size: 0.85em; color: var(--text-muted);">Banco de preguntas ilimitado + Modo Rescate.</p>
                     </div>
-                    <button class="btn-p" style="width: auto; padding: 8px 16px; background: #0284c7;" onclick="contactarWhatsAppCompra('Plan Banqueo', 49)">S/ 49</button>
+                    <button class="btn-p" style="width: auto; padding: 8px 16px; background: #0284c7;" id="btn-precio-modal-banqueo" onclick="contactarWhatsAppCompra('Plan Banqueo')">S/ 49</button>
                 </div>
 
                 <div style="background: var(--bg-card-subtle); border: 2px solid #fde68a; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
@@ -1421,7 +1456,7 @@
                         <strong style="color: #b45309; font-size: 1.15em;">🩺 Plan Clínico</strong>
                         <p style="font-size: 0.85em; color: var(--text-muted);">Banqueo Ilimitado + Las Fijas SERUMS + Flashcards SRS.</p>
                     </div>
-                    <button class="btn-p" style="width: auto; padding: 8px 16px; background: #b45309;" onclick="contactarWhatsAppCompra('Plan Clínico', 89)">S/ 89</button>
+                    <button class="btn-p" style="width: auto; padding: 8px 16px; background: #b45309;" id="btn-precio-modal-clinico" onclick="contactarWhatsAppCompra('Plan Clínico')">S/ 89</button>
                 </div>
 
                 <div style="background: var(--bg-card-subtle); border: 2px solid #bbf7d0; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center;">
@@ -1429,7 +1464,7 @@
                         <strong style="color: #15803d; font-size: 1.15em;">⭐ Plan Élite (Ciclo Completo)</strong>
                         <p style="font-size: 0.85em; color: var(--text-muted);">Todo desbloqueado: Temas, Videos, Simulacros 100 Pts y PDFs.</p>
                     </div>
-                    <button class="btn-p" style="width: auto; padding: 8px 16px; background: #15803d;" onclick="contactarWhatsAppCompra('Plan Élite (Ciclo Completo)', 139)">S/ 139</button>
+                    <button class="btn-p" style="width: auto; padding: 8px 16px; background: #15803d;" id="btn-precio-modal-elite" onclick="contactarWhatsAppCompra('Plan Élite (Ciclo Completo)')">S/ 139</button>
                 </div>
             </div>
             
@@ -1443,9 +1478,9 @@
             <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
             <div style="font-size: 3em; margin-bottom: 10px;">🎟️</div>
             <h2 style="color: var(--text-heading); margin-bottom: 10px;">Canjear Código o Cupón</h2>
-            <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Ingresa tu código de prueba temporal (24h/7d) o cupón corporativo de descuento:</p>
-            <div class="campo"><input type="text" id="input-canje-codigo" placeholder="Ej: PROMO24 o BIENVENIDA" style="text-transform: uppercase; font-weight: bold; text-align: center; font-size: 1.1em;"></div>
-            <button class="btn-p" style="background: #6f42c1; font-size: 1.05em; padding: 14px;" onclick="procesarCanjeCodigo()">Aplicar Código ➔</button>
+            <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Ingresa tu código de prueba temporal, cupón de descuento o código corporativo:</p>
+            <div class="campo"><input type="text" id="input-canje-codigo" placeholder="Ej: PROMO24, CLINICA25 o CORPO2026" style="text-transform: uppercase; font-weight: bold; text-align: center; font-size: 1.1em;"></div>
+            <button class="btn-p" style="background: #6f42c1; font-size: 1.05em; padding: 14px;" onclick="procesarCanjeCodigo()">Validar y Aplicar ➔</button>
         </div>
     </div>
 
@@ -1543,11 +1578,8 @@
             </div>
         </div>
     </div>
-
-</body>
-</html>
 <script>
-    // === 1. FRASES MOTIVACIONALES Y CONFIGURACIÓN ===
+    // === 1. CONFIGURACIÓN BASE Y METADATOS ===
     const FRASES_MOTIVACIONALES = [
         "¡Qué alegría verte de nuevo, {nombre}! Hoy sumaremos puntos decisivos.",
         "¡Paso a paso, {nombre}! La constancia en el banqueo asegura tu plaza.",
@@ -1576,7 +1608,11 @@
     let user = null;
     let perfilUsuario = null;
     let perfilMascota = { energia: 100, monedas: 50, nivel: 1.0, cabeza: 'ninguno', cuerpo: 'ninguno' };
+    let pandyImagenCustom = "";
     
+    let preciosPlanes = { banqueo: 49, clinico: 89, elite: 139 };
+    let whatsappLinkGlobal = "https://wa.me/51999999999";
+
     let preguntaActual = null;
     let todasLasFlashcards = [];
     let todasLasFijas = [];
@@ -1595,7 +1631,6 @@
     let fechaExamenGlobal = "2026-11-15";
     let modalidadFechaGlobal = "oficial";
     let fechaActualCalendario = new Date();
-    let textoTerminosMemoria = "";
     
     let carruselLoginImagenes = [];
     let indexSlideLogin = 0;
@@ -1610,24 +1645,27 @@
     let pomoTimer = null;
     let pomoEnMarcha = false;
 
-    // === 3. UTILIDADES Y MODALES ===
-    window.mostrarAvisoModal = function(titulo, mensaje, icono = "💡") {
-        document.getElementById('aviso-titulo').innerText = titulo;
-        document.getElementById('aviso-cuerpo').innerText = mensaje;
-        document.getElementById('aviso-icono').innerText = icono;
-        document.getElementById('modal-aviso-general').style.display = 'flex';
-    };
-
-    window.alternarModoOscuro = function() {
-        document.body.classList.toggle('dark-mode');
-        const esOscuro = document.body.classList.contains('dark-mode');
-        localStorage.setItem('ps_tema', esOscuro ? 'dark' : 'light');
-        document.getElementById('icono-tema').innerText = esOscuro ? '☀️' : '🌙';
-    };
-
-    window.ver = function(id) {
-        document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-        document.getElementById(id).classList.add('activa');
+    // === 3. NAVEGACIÓN Y PESTAÑAS (CORRECCIÓN CRÍTICA PANEL DOCENTE) ===
+    window.verSubTabAdmin = function(tipo) {
+        document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
+        document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
+        
+        if (event && event.target && event.target.classList.contains('tab-btn-adm')) {
+            event.target.classList.add('activa');
+        }
+        
+        const subTab = document.getElementById('subtab-adm-' + tipo);
+        if (subTab) subTab.classList.add('activa');
+        
+        if (tipo === 'p') { actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema'); cargarListaPreguntasAdmin(); } 
+        if (tipo === 't') { actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select'); cargarListaTemasAdmin(); } 
+        if (tipo === 'fijas_adm') { actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); cargarListaFijasAdmin(); } 
+        if (tipo === 'f') { actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema'); cargarListaFlashcardsAdmin(); }
+        if (tipo === 'sims') { cargarListaSimulacrosAdmin(); }
+        if (tipo === 'codigos') { cargarListaCodigosAdmin(); }
+        if (tipo === 'precios') { cargarPreciosEnFormulario(); }
+        if (tipo === 'a') { cargarAlumnosAdmin(); } 
+        if (tipo === 'anuncios') { cargarConfiguracionesGenerales(); }
     };
 
     window.subSec = function(nom) {
@@ -1645,14 +1683,14 @@
         if (nom === 'dash') cargarCursosDashboard();
         if (nom === 'flashcards') {
             if (!tieneAccesoA('flashcards')) {
-                mostrarBloqueoFree('sec-flashcards', '🗂️ Módulo de Flashcards', 'Las flashcards inteligentes con repetición espaciada están reservadas para el Plan Clínico y Plan Élite.');
+                mostrarBloqueoFree('sec-flashcards', '🗂️ Módulo de Flashcards', 'Las flashcards inteligentes con SRS son exclusivas del Plan Clínico y Plan Élite.');
                 return;
             }
             cargarFlashcardsDesdeBD();
         }
         if (nom === 'fijas') {
             if (!tieneAccesoA('fijas')) {
-                mostrarBloqueoFree('sec-fijas', '🔥 Las Fijas SERUMS', 'Las perlas clínicas oficiales están reservadas para el Plan Clínico y Plan Élite.');
+                mostrarBloqueoFree('sec-fijas', '🔥 Las Fijas SERUMS', 'Las perlas clínicas de alta recurrencia son exclusivas del Plan Clínico y Plan Élite.');
                 return;
             }
             cargarLasFijasSERUMS();
@@ -1662,21 +1700,22 @@
             cargarTemasTeoricos();
             document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
             const firstCard = document.querySelector('#tabs-teoria .card-c');
-            if(firstCard) firstCard.classList.add('activa');
+            if (firstCard) firstCard.classList.add('activa');
         }
-        if (nom === 'admin') cargarAlumnosAdmin();
+        if (nom === 'admin') {
+            cargarAlumnosAdmin();
+            verSubTabAdmin('p');
+        }
         if (nom === 'crono') renderizarCalendarioCompleto();
         if (nom === 'banqueo') volverASelectorModalidades();
     };
 
-    // Control de Permisos por Plan
     window.tieneAccesoA = function(modulo) {
         if (!perfilUsuario) return false;
         const plan = perfilUsuario.plan || 'gratuito';
         if (plan === 'elite' || plan === 'premium') return true;
         if (modulo === 'banqueo') return plan === 'banqueo' || plan === 'clinico';
         if (modulo === 'fijas' || modulo === 'flashcards') return plan === 'clinico';
-        if (modulo === 'temas_completos' || modulo === 'simulacros_completos') return false;
         return false;
     };
 
@@ -1689,11 +1728,18 @@
                 <p style="color: var(--text-muted); font-size: 1.1em; line-height: 1.6; margin-bottom: 30px;">${texto}</p>
                 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
                     <button class="btn-p" style="width: auto; padding: 14px 26px; font-size: 1em;" onclick="abrirModalPlanes()">Ver Planes de Estudio ➔</button>
-                    <button class="btn-tool" style="padding: 14px 22px; font-size: 1em;" onclick="abrirModalCanjearCodigo()">Tengo un Código 🎟️</button>
+                    <button class="btn-tool" style="padding: 14px 22px; font-size: 1em;" onclick="abrirModalCanjearCodigo()">Tengo un Código / Cupón 🎟️</button>
                 </div>
             </div>`;
     };
 
+    // Modales y Visibilidad
+    window.mostrarAvisoModal = function(titulo, mensaje, icono = "💡") {
+        document.getElementById('aviso-titulo').innerText = titulo;
+        document.getElementById('aviso-cuerpo').innerText = mensaje;
+        document.getElementById('aviso-icono').innerText = icono;
+        document.getElementById('modal-aviso-general').style.display = 'flex';
+    };
     window.abrirModalPlanes = function() { document.getElementById('modal-planes-compra').style.display = 'flex'; };
     window.abrirModalCanjearCodigo = function() { document.getElementById('modal-canjear-codigo').style.display = 'flex'; };
     window.abrirModalTerminos = function() { document.getElementById('modal-terminos').style.display = 'flex'; };
@@ -1702,27 +1748,16 @@
     window.abrirModalAlimentar = function() { document.getElementById('modal-alimentar').style.display = 'flex'; };
     window.cerrarModales = function() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); };
 
-    window.actualizarTemasEnSelector = function(idCurso, idTema) {
-        const curso = document.getElementById(idCurso).value; const selTema = document.getElementById(idTema);
-        if (!selTema) return; selTema.innerHTML = '<option value="General">Todo el curso (General)</option>';
-        if (TEMARIO_OFICIAL_MINSA[curso]) { TEMARIO_OFICIAL_MINSA[curso].forEach(t => { selTema.innerHTML += `<option value="${t}">${t}</option>`; }); }
+    window.alternarModoOscuro = function() {
+        document.body.classList.toggle('dark-mode');
+        const esOscuro = document.body.classList.contains('dark-mode');
+        localStorage.setItem('ps_tema', esOscuro ? 'dark' : 'light');
+        document.getElementById('icono-tema').innerText = esOscuro ? '☀️' : '🌙';
     };
 
-    window.autoCompletarCodigoTitulo = function() {
-        const val = document.getElementById('adm-t-tema-select').value; if (!val || val === "General") return;
-        const partes = val.split(" "); document.getElementById('adm-t-codigo').value = partes[0] || ''; document.getElementById('adm-t-titulo').value = partes.slice(1).join(" ") || '';
-    };
-
-    window.insertarTablaEnEditor = function() {
-        document.execCommand('insertHTML', false, `<table style="width:100%; border-collapse:collapse; margin:15px 0;"><tr><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Condición / Criterio</th><th style="border:1px solid #cbd5e1; padding:10px; background-color:#0056b3; color:white;">Conducta MINSA</th></tr><tr><td style="border:1px solid #cbd5e1; padding:10px;">Leve / Ambulatorio</td><td style="border:1px solid #cbd5e1; padding:10px;">Manejo inicial</td></tr></table><p></p>`);
-    };
-
-    window.convertirUrlAEmbed = function(url) {
-        if (!url) return ''; url = url.trim();
-        if (url.includes('youtube.com/watch?v=')) return `https://www.youtube.com/embed/${url.split('v=')[1]?.split('&')[0]}`;
-        if (url.includes('youtu.be/')) return `https://www.youtube.com/embed/${url.split('youtu.be/')[1]?.split('?')[0]}`;
-        if (url.includes('drive.google.com/file/d/')) return `https://drive.google.com/file/d/${url.split('/file/d/')[1]?.split('/')[0]}/preview`;
-        return url;
+    window.ver = function(id) {
+        document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+        document.getElementById(id).classList.add('activa');
     };
 
     // Pomodoro
@@ -1816,7 +1851,7 @@
         bienvenidaMascotaMostradaTurno = false; popupAnuncioMostrado = false; ver('vista-login');
     };
 
-    // === 5. PERFIL DE USUARIO Y DR. PANDY ===
+    // === 5. PERFIL DE USUARIO Y MASCOTA DR. PANDY ===
     async function cargarPerfil() {
         const sb = obtenerSupabase(); if (!user || !sb) return;
 
@@ -1831,13 +1866,12 @@
             p = { nombres: nombreGoogle, apellidos: '', rol: 'estudiante', plan: 'gratuito', prefijo_trato: 'Colega', estado: 'activo', preguntas_hoy: 0, dni: '00000000', carrera: 'No especificada' };
         }
 
-        // Comprobación de Expiración de Códigos Temporales
         if (p.plan_expira_en) {
             const expira = new Date(p.plan_expira_en);
             if (new Date() > expira && p.plan !== 'gratuito') {
                 await sb.from('perfiles').update({ plan: 'gratuito', plan_expira_en: null }).eq('id', user.id);
                 p.plan = 'gratuito'; p.plan_expira_en = null;
-                mostrarAvisoModal("Plan Expirado", "Tu acceso de prueba temporal ha finalizado. Puedes adquirir un plan en la Tienda.", "⏳");
+                mostrarAvisoModal("Plan Expirado", "Tu periodo de acceso temporal ha concluido. Puedes adquirir un plan en la Tienda.", "⏳");
             }
         }
 
@@ -1868,7 +1902,7 @@
         if (document.getElementById('p-uni')) document.getElementById('p-uni').value = p.universidad || '';
         if (document.getElementById('p-esc')) document.getElementById('p-esc').value = p.escuela_profesional || '';
 
-        // Mascota: Panda Único Institucional
+        // Mascota Dr. Pandy
         const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
         if (m) {
             perfilMascota = { cabeza: m.accesorio_cabeza || 'ninguno', cuerpo: m.accesorio_cuerpo || 'ninguno', monedas: m.monedas || 50, energia: m.energia || 100, nivel: m.nivel || 1.0 };
@@ -1885,7 +1919,7 @@
         if (perfilMascota.nivel >= 8) rango = "Especialista";
         document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${rango})`;
 
-        renderizarPandaSVG();
+        renderizarPandaVisual();
 
         const msgCoach = document.getElementById('coach-mensaje');
         if (msgCoach) { 
@@ -1909,20 +1943,21 @@
                 const frase = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
                 document.getElementById('txt-bienvenida-mascota').innerText = frase.replace('{nombre}', perfilUsuario.nombres || 'Colega');
                 const canvasBienvenida = document.getElementById('avatar-canvas-bienvenida');
-                if (canvasBienvenida) { canvasBienvenida.innerHTML = generarSVGDrPandy(140); }
+                if (canvasBienvenida) { canvasBienvenida.innerHTML = generarHTMLDrPandy(140); }
                 modalBienvenida.style.display = 'flex'; bienvenidaMascotaMostradaTurno = true;
             }
         }
     };
 
-    // === 6. ILUSTRACIÓN HD DEL DR. PANDY (SVG EXCLUSIVO) ===
-    window.generarSVGDrPandy = function(ancho = 100) {
+    // Renderizado del Dr. Pandy (Soporta imagen PNG en alta definición o fallback vectorial)
+    window.generarHTMLDrPandy = function(ancho = 100) {
+        if (pandyImagenCustom) {
+            return `<img src="${pandyImagenCustom}" class="panda-animado" style="width:${ancho}px; height:${ancho}px; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(0,0,0,0.25));" alt="Dr. Pandy">`;
+        }
+
         const cabeza = perfilMascota.cabeza || 'ninguno';
         const cuerpo = perfilMascota.cuerpo || 'ninguno';
-        const nivel = Math.floor(perfilMascota.nivel || 1);
-        let escala = nivel >= 8 ? 1.08 : (nivel >= 4 ? 1.0 : 0.92);
-
-        // Atuendos (Cuerpo) con colores coincidentes
+        
         let svgCuerpo = `
             <ellipse cx="50" cy="72" rx="30" ry="24" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
             <ellipse cx="50" cy="73" rx="19" ry="16" fill="#f8fafc"/>
@@ -1933,102 +1968,79 @@
         `;
 
         if (cuerpo === 'mandil') {
-            svgCuerpo += `
-                <path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
-                <path d="M46 64 L46 91 M54 64 L54 91" stroke="#cbd5e1" stroke-width="1.5"/>
-                <circle cx="50" cy="74" r="2.2" fill="#0056b3"/>
-                <circle cx="50" cy="82" r="2.2" fill="#0056b3"/>
-                <path d="M30 76 h8 v10 h-8 Z" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
-            `;
+            svgCuerpo += `<path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/><path d="M46 64 L46 91 M54 64 L54 91" stroke="#cbd5e1" stroke-width="1.5"/><circle cx="50" cy="74" r="2.2" fill="#0056b3"/><circle cx="50" cy="82" r="2.2" fill="#0056b3"/>`;
         } else if (cuerpo === 'scrub') {
-            svgCuerpo += `
-                <path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
-                <path d="M42 62 L50 74 L58 62" fill="none" stroke="#075985" stroke-width="2.5"/>
-            `;
+            svgCuerpo += `<path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#0284c7" stroke="#0369a1" stroke-width="2"/><path d="M42 62 L50 74 L58 62" fill="none" stroke="#075985" stroke-width="2.5"/>`;
         } else if (cuerpo === 'chaleco') {
-            // Chaleco SERUMS Reglamentario (Amarillo y Rojo)
-            svgCuerpo += `
-                <path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#eab308" stroke="#ca8a04" stroke-width="2"/>
-                <rect x="28" y="75" width="44" height="6" fill="#dc2626"/>
-                <rect x="28" y="83" width="44" height="3" fill="#ffffff" opacity="0.8"/>
-            `;
+            svgCuerpo += `<path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#eab308" stroke="#ca8a04" stroke-width="2"/><rect x="28" y="75" width="44" height="6" fill="#dc2626"/><rect x="28" y="83" width="44" height="3" fill="#ffffff" opacity="0.8"/>`;
         } else if (cuerpo === 'corbata') {
-            svgCuerpo += `
-                <path d="M26 64 Q50 60 74 64 L70 90 Q50 93 30 90 Z" fill="#ffffff" stroke="#cbd5e1"/>
-                <polygon points="50,66 54,70 53,85 50,89 47,85 46,70" fill="#dc2626"/>
-            `;
+            svgCuerpo += `<path d="M26 64 Q50 60 74 64 L70 90 Q50 93 30 90 Z" fill="#ffffff" stroke="#cbd5e1"/><polygon points="50,66 54,70 53,85 50,89 47,85 46,70" fill="#dc2626"/>`;
         }
 
-        // Accesorios (Cabeza)
         let svgAccesorios = "";
-        if (cabeza === 'gorro') {
-            svgAccesorios = `<path d="M24 22 Q50 8 76 22 Q72 14 50 12 Q28 14 24 22 Z" fill="#0284c7"/><rect x="23" y="20" width="54" height="6" rx="3" fill="#0369a1"/>`;
-        } else if (cabeza === 'birrete') {
-            svgAccesorios = `<polygon points="50,4 82,16 50,25 18,16" fill="#1e293b"/><rect x="36" y="21" width="28" height="6" fill="#0f172a"/><line x1="50" y1="16" x2="74" y2="26" stroke="#ffd700" stroke-width="2.5"/><circle cx="74" cy="27" r="2.5" fill="#ffd700"/>`;
-        } else if (cabeza === 'esteto') {
-            svgAccesorios = `<path d="M34 52 Q50 68 66 52" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="64" r="5" fill="#ffd700" stroke="#ca8a04" stroke-width="1.5"/>`;
-        } else if (cabeza === 'lentes') {
-            svgAccesorios = `<circle cx="39" cy="38" r="9" fill="none" stroke="#1e293b" stroke-width="2.5"/><circle cx="61" cy="38" r="9" fill="none" stroke="#1e293b" stroke-width="2.5"/><line x1="48" y1="38" x2="52" y2="38" stroke="#1e293b" stroke-width="2.5"/>`;
-        } else if (cabeza === 'frontoluz') {
-            svgAccesorios = `<rect x="28" y="24" width="44" height="5" fill="#334155" rx="2"/><circle cx="50" cy="26" r="6.5" fill="#94a3b8" stroke="#334155" stroke-width="2"/><circle cx="50" cy="26" r="3" fill="#f8fafc"/>`;
-        }
+        if (cabeza === 'gorro') svgAccesorios = `<path d="M24 22 Q50 8 76 22 Q72 14 50 12 Q28 14 24 22 Z" fill="#0284c7"/><rect x="23" y="20" width="54" height="6" rx="3" fill="#0369a1"/>`;
+        else if (cabeza === 'birrete') svgAccesorios = `<polygon points="50,4 82,16 50,25 18,16" fill="#1e293b"/><rect x="36" y="21" width="28" height="6" fill="#0f172a"/><line x1="50" y1="16" x2="74" y2="26" stroke="#ffd700" stroke-width="2.5"/><circle cx="74" cy="27" r="2.5" fill="#ffd700"/>`;
+        else if (cabeza === 'esteto') svgAccesorios = `<path d="M34 52 Q50 68 66 52" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="64" r="5" fill="#ffd700" stroke="#ca8a04" stroke-width="1.5"/>`;
+        else if (cabeza === 'lentes') svgAccesorios = `<circle cx="39" cy="38" r="9" fill="none" stroke="#1e293b" stroke-width="2.5"/><circle cx="61" cy="38" r="9" fill="none" stroke="#1e293b" stroke-width="2.5"/><line x1="48" y1="38" x2="52" y2="38" stroke="#1e293b" stroke-width="2.5"/>`;
+        else if (cabeza === 'frontoluz') svgAccesorios = `<rect x="28" y="24" width="44" height="5" fill="#334155" rx="2"/><circle cx="50" cy="26" r="6.5" fill="#94a3b8" stroke="#334155" stroke-width="2"/><circle cx="50" cy="26" r="3" fill="#f8fafc"/>`;
 
         return `
-        <svg viewBox="0 0 100 100" class="panda-animado" style="width: ${ancho}px; height: ${ancho}px; transform: scale(${escala});">
-            <!-- Orejas Panda -->
-            <circle cx="26" cy="18" r="12" fill="#0f172a"/>
-            <circle cx="74" cy="18" r="12" fill="#0f172a"/>
-            <circle cx="26" cy="18" r="6" fill="#334155"/>
-            <circle cx="74" cy="18" r="6" fill="#334155"/>
-            
-            <!-- Cuerpo -->
+        <svg viewBox="0 0 100 100" class="panda-animado" style="width: ${ancho}px; height: ${ancho}px;">
+            <circle cx="26" cy="18" r="12" fill="#0f172a"/><circle cx="74" cy="18" r="12" fill="#0f172a"/>
             ${svgCuerpo}
-            
-            <!-- Cabeza -->
             <ellipse cx="50" cy="39" rx="28" ry="24" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
-            
-            <!-- Ojeras Negras Características -->
             <ellipse cx="38" cy="37" rx="9" ry="11" fill="#0f172a" transform="rotate(-15 38 37)"/>
             <ellipse cx="62" cy="37" rx="9" ry="11" fill="#0f172a" transform="rotate(15 62 37)"/>
-            
-            <!-- Ojos Brillantes -->
-            <circle cx="39" cy="36" r="3.5" fill="#ffffff"/>
-            <circle cx="61" cy="36" r="3.5" fill="#ffffff"/>
-            <circle cx="40" cy="35" r="1.5" fill="#0f172a"/>
-            <circle cx="60" cy="35" r="1.5" fill="#0f172a"/>
-            
-            <!-- Mejillas Tiernas -->
+            <circle cx="39" cy="36" r="3.5" fill="#ffffff"/><circle cx="61" cy="36" r="3.5" fill="#ffffff"/>
+            <circle cx="40" cy="35" r="1.5" fill="#0f172a"/><circle cx="60" cy="35" r="1.5" fill="#0f172a"/>
             <ellipse cx="30" cy="46" rx="4.5" ry="2.5" fill="#f43f5e" opacity="0.45"/>
             <ellipse cx="70" cy="46" rx="4.5" ry="2.5" fill="#f43f5e" opacity="0.45"/>
-            
-            <!-- Nariz y Boca -->
             <polygon points="46,45 54,45 50,49" fill="#0f172a"/>
             <path d="M47 50 Q50 53 53 50" fill="none" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>
-            
-            <!-- Accesorios Dinámicos -->
             ${svgAccesorios}
         </svg>`;
     };
 
-    window.renderizarPandaSVG = function() {
-        const canvas = document.getElementById('avatar-canvas'); if (canvas) canvas.innerHTML = generarSVGDrPandy(115);
-        const coach = document.getElementById('avatar-canvas-coach'); if (coach) coach.innerHTML = generarSVGDrPandy(85);
+    window.renderizarPandaVisual = function() {
+        const canvas = document.getElementById('avatar-canvas'); if (canvas) canvas.innerHTML = generarHTMLDrPandy(115);
+        const coach = document.getElementById('avatar-canvas-coach'); if (coach) coach.innerHTML = generarHTMLDrPandy(85);
     };
 
     window.acariciarPanda = function() {
         const frasesAfecto = [
-            "¡Ronroneo médico! 🩺 ¡Vamos que tú puedes!",
-            "¡Gracias por el cariño! Sigue repasando con fuerza. 🎋",
-            "¡El Dr. Pandy confía 100% en tu ingreso!",
-            "¡Energía positiva para asegurar tu plaza! ⭐"
+            "¡Dr. Pandy listo para la ronda médica! 🩺",
+            "¡El estudio constante asegura tu plaza! 🎋",
+            "¡Vamos colega, ningún caso se nos escapa! ⭐",
+            "¡Tu esfuerzo de hoy es tu plaza de mañana! 🏆"
         ];
         mostrarAvisoModal("Dr. Pandy dice:", frasesAfecto[Math.floor(Math.random() * frasesAfecto.length)], "🐼");
+    };
+
+    window.guardarPandaCustom = function() {
+        const file = document.getElementById('file-pandy-custom').files[0];
+        if (!file) return mostrarAvisoModal("Aviso", "Selecciona una imagen PNG del Dr. Pandy.", "⚠️");
+        const reader = new FileReader();
+        reader.onload = async function(e) {
+            const b64 = e.target.result;
+            await guardarConfiguracionBase('pandy_imagen_hd', b64);
+            pandyImagenCustom = b64;
+            renderizarPandaVisual();
+            mostrarAvisoModal("Dr. Pandy Actualizado", "Render del Dr. Pandy aplicado en toda la academia.", "🐼");
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.restaurarPandaDefault = async function() {
+        await guardarConfiguracionBase('pandy_imagen_hd', '');
+        pandyImagenCustom = "";
+        renderizarPandaVisual();
+        mostrarAvisoModal("Restaurado", "Dr. Pandy restablecido.", "✔");
     };
 
     window.equiparPrenda = async function(tipo, prenda) {
         if (tipo === 'cabeza') perfilMascota.cabeza = prenda;
         if (tipo === 'cuerpo') perfilMascota.cuerpo = prenda;
-        renderizarPandaSVG();
+        renderizarPandaVisual();
         const sb = obtenerSupabase();
         if (sb && user) {
             const payload = {};
@@ -2040,7 +2052,7 @@
 
     window.comprarAlimento = async function(costo, energiaGanada) {
         if (perfilMascota.monedas < costo) { 
-            mostrarAvisoModal("Pandy-Coins Insuficientes", `Necesitas ${costo} monedas. Responde preguntas en el banco para ganar más.`, "🪙"); 
+            mostrarAvisoModal("Pandy-Coins Insuficientes", `Necesitas ${costo} monedas. Responde casos en el banco para ganar más.`, "🪙"); 
             return; 
         }
         perfilMascota.monedas -= costo;
@@ -2054,16 +2066,189 @@
         if (perfilMascota.nivel >= 4 && perfilMascota.nivel < 8) rango = "Médico SERUMS";
         if (perfilMascota.nivel >= 8) rango = "Especialista";
         document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${rango})`;
-        renderizarPandaSVG();
+        renderizarPandaVisual();
 
         const sb = obtenerSupabase();
         if (sb && user) {
             await sb.from('perfil_mascota').update({ monedas: perfilMascota.monedas, energia: perfilMascota.energia, nivel: perfilMascota.nivel }).eq('user_id', user.id);
         }
-        mostrarAvisoModal("¡Qué rico!", "El Dr. Pandy recuperó energía y subió de experiencia.", "🎋");
+        mostrarAvisoModal("¡Qué rico!", "El Dr. Pandy recuperó energía y subió su experiencia.", "🎋");
     };
 
-    // === 7. GESTIÓN DE CURSOS Y BANQUEO (CON RESCATE ADAPTATIVO) ===
+    // === 6. PRECIOS CONFIGURABLES Y TIENDA ===
+    window.cargarPreciosEnFormulario = function() {
+        if (document.getElementById('adm-precio-banqueo')) document.getElementById('adm-precio-banqueo').value = preciosPlanes.banqueo;
+        if (document.getElementById('adm-precio-clinico')) document.getElementById('adm-precio-clinico').value = preciosPlanes.clinico;
+        if (document.getElementById('adm-precio-elite')) document.getElementById('adm-precio-elite').value = preciosPlanes.elite;
+    };
+
+    window.guardarPreciosTienda = async function() {
+        const b = parseInt(document.getElementById('adm-precio-banqueo').value) || 49;
+        const c = parseInt(document.getElementById('adm-precio-clinico').value) || 89;
+        const e = parseInt(document.getElementById('adm-precio-elite').value) || 139;
+
+        preciosPlanes = { banqueo: b, clinico: c, elite: e };
+        await guardarConfiguracionBase('tienda_precios', JSON.stringify(preciosPlanes));
+        actualizarDisplaysPrecios();
+        mostrarAvisoModal("Precios Guardados", "Las tarifas de la tienda se actualizaron correctamente.", "💲");
+    };
+
+    function actualizarDisplaysPrecios() {
+        if (document.getElementById('precio-display-banqueo')) document.getElementById('precio-display-banqueo').innerText = `S/ ${preciosPlanes.banqueo}.00`;
+        if (document.getElementById('precio-display-clinico')) document.getElementById('precio-display-clinico').innerText = `S/ ${preciosPlanes.clinico}.00`;
+        if (document.getElementById('precio-display-elite')) document.getElementById('precio-display-elite').innerText = `S/ ${preciosPlanes.elite}.00`;
+
+        if (document.getElementById('btn-precio-modal-banqueo')) document.getElementById('btn-precio-modal-banqueo').innerText = `S/ ${preciosPlanes.banqueo}`;
+        if (document.getElementById('btn-precio-modal-clinico')) document.getElementById('btn-precio-modal-clinico').innerText = `S/ ${preciosPlanes.clinico}`;
+        if (document.getElementById('btn-precio-modal-elite')) document.getElementById('btn-precio-modal-elite').innerText = `S/ ${preciosPlanes.elite}`;
+    }
+
+    window.contactarWhatsAppCompra = function(nombrePlan) {
+        let precio = preciosPlanes.elite;
+        if (nombrePlan.includes('Banqueo')) precio = preciosPlanes.banqueo;
+        if (nombrePlan.includes('Clínico')) precio = preciosPlanes.clinico;
+
+        const urlWa = whatsappLinkGlobal || "https://wa.me/51999999999";
+        const mensaje = encodeURIComponent(`Hola Proserum's Academia, deseo adquirir el ${nombrePlan} (S/ ${precio}.00) para mi preparación SERUMS.`);
+        const urlFinal = urlWa.includes('?') ? `${urlWa}&text=${mensaje}` : `${urlWa}?text=${mensaje}`;
+        window.open(urlFinal, '_blank');
+    };
+
+    // === 7. GESTIÓN DE CÓDIGOS, CUPONES Y CORPORATIVOS ===
+    window.alternarCamposCodigo = function() {
+        const tipo = document.getElementById('adm-cod-tipo').value;
+        document.getElementById('caja-porcentaje-desc').style.display = (tipo === 'descuento') ? 'block' : 'none';
+    };
+
+    window.crearCodigoPromocional = async function() {
+        const sb = obtenerSupabase();
+        let codigo = document.getElementById('adm-cod-texto').value.trim().toUpperCase();
+        if (!codigo) {
+            codigo = 'PROMO' + Math.random().toString(36).substring(2, 7).toUpperCase();
+        }
+        const tipo = document.getElementById('adm-cod-tipo').value;
+        const plan = document.getElementById('adm-cod-plan').value;
+        const pct = document.getElementById('adm-cod-pct').value;
+
+        const payload = {
+            codigo: codigo,
+            tipo: tipo,
+            plan_desbloqueado: plan,
+            descuento_pct: tipo === 'descuento' ? parseInt(pct) : 0,
+            usos_restantes: 100
+        };
+
+        const { error } = await sb.from('codigos_promocionales').insert([payload]);
+        if (error) {
+            let codigos = [];
+            try { 
+                const res = await sb.from('configuracion_academia').select('valor').eq('clave', 'lista_codigos_promo').single();
+                if (res.data?.valor) codigos = JSON.parse(res.data.valor);
+            } catch(e){}
+            codigos.push(payload);
+            await guardarConfiguracionBase('lista_codigos_promo', JSON.stringify(codigos));
+        }
+
+        mostrarAvisoModal("¡Código Generado!", `Código creado con éxito: ${codigo}`, "🎟️");
+        document.getElementById('adm-cod-texto').value = '';
+        cargarListaCodigosAdmin();
+    };
+
+    window.cargarListaCodigosAdmin = async function() {
+        const sb = obtenerSupabase();
+        const tbody = document.getElementById('tabla-codigos-adm-body');
+        if (!tbody) return;
+        tbody.innerHTML = '<tr><td colspan="4">Cargando códigos...</td></tr>';
+        
+        let lista = [];
+        const { data } = await sb.from('codigos_promocionales').select('*');
+        if (data && data.length > 0) { lista = data; }
+        else {
+            try {
+                const res = await sb.from('configuracion_academia').select('valor').eq('clave', 'lista_codigos_promo').single();
+                if (res.data?.valor) lista = JSON.parse(res.data.valor);
+            } catch(e){}
+        }
+
+        listaCodigosAdminMemoria = lista;
+        if (lista.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay códigos generados aún.</td></tr>'; return; }
+
+        tbody.innerHTML = '';
+        lista.forEach((c, idx) => {
+            let detalle = 'Pase 24 Horas';
+            if (c.tipo === 'descuento') detalle = `${c.descuento_pct}% Descuento`;
+            if (c.tipo === 'tiempo_7d') detalle = 'Pase 7 Días';
+            if (c.tipo === 'corporativo') detalle = 'Convenio Corporativo';
+
+            tbody.innerHTML += `
+                <tr>
+                    <td><strong>${c.codigo}</strong></td>
+                    <td>${detalle}</td>
+                    <td>${c.plan_desbloqueado?.toUpperCase() || 'ÉLITE'}</td>
+                    <td><button class="btn-p" style="width:auto; padding:4px 10px; font-size:0.8em; background:#dc3545;" onclick="eliminarCodigoPromo(${idx}, '${c.id || ''}')">Borrar</button></td>
+                </tr>`;
+        });
+    };
+
+    window.eliminarCodigoPromo = async function(idx, id) {
+        const sb = obtenerSupabase();
+        if (id) { await sb.from('codigos_promocionales').delete().eq('id', id); }
+        else {
+            listaCodigosAdminMemoria.splice(idx, 1);
+            await guardarConfiguracionBase('lista_codigos_promo', JSON.stringify(listaCodigosAdminMemoria));
+        }
+        cargarListaCodigosAdmin();
+    };
+
+    window.procesarCanjeCodigo = async function() {
+        const cod = document.getElementById('input-canje-codigo').value.trim().toUpperCase();
+        if (!cod) return mostrarAvisoModal("Código Requerido", "Ingresa un código válido.", "⚠️");
+        
+        const sb = obtenerSupabase();
+        let codigoEncontrado = null;
+
+        const { data } = await sb.from('codigos_promocionales').select('*').eq('codigo', cod).single();
+        if (data) { codigoEncontrado = data; }
+        else {
+            try {
+                const res = await sb.from('configuracion_academia').select('valor').eq('clave', 'lista_codigos_promo').single();
+                if (res.data?.valor) {
+                    const arr = JSON.parse(res.data.valor);
+                    codigoEncontrado = arr.find(x => x.codigo === cod);
+                }
+            } catch(e){}
+        }
+
+        if (!codigoEncontrado) {
+            mostrarAvisoModal("Código Inválido", "El código ingresado no existe o no tiene vigencia.", "❌");
+            return;
+        }
+
+        // Flujo Corporativo / Descuento -> WhatsApp de Coordinación
+        if (codigoEncontrado.tipo === 'corporativo' || codigoEncontrado.tipo === 'descuento') {
+            const urlWa = whatsappLinkGlobal || "https://wa.me/51999999999";
+            const detalle = codigoEncontrado.tipo === 'corporativo' ? `convenio corporativo [${cod}]` : `cupón de descuento de ${codigoEncontrado.descuento_pct}% [${cod}]`;
+            const msg = encodeURIComponent(`Hola Proserum's Academia, deseo validar mi ${detalle} para mi cuenta: ${user.email}.`);
+            const urlFinal = urlWa.includes('?') ? `${urlWa}&text=${msg}` : `${urlWa}?text=${msg}`;
+            
+            cerrarModales();
+            mostrarAvisoModal("Código Verificado", "Tu código ha sido validado. Te estamos redirigiendo a WhatsApp para confirmar la activación de tu acceso con secretaría académica.", "📲");
+            setTimeout(() => { window.open(urlFinal, '_blank'); }, 1500);
+            return;
+        }
+
+        // Flujo Activación Temporal Directa (24h / 7d)
+        const horas = codigoEncontrado.tipo === 'tiempo_7d' ? 168 : 24;
+        const expira = new Date(Date.now() + horas * 60 * 60 * 1000).toISOString();
+        const planActivar = codigoEncontrado.plan_desbloqueado || 'elite';
+
+        await sb.from('perfiles').update({ plan: planActivar, plan_expira_en: expira }).eq('id', user.id);
+        cerrarModales();
+        mostrarAvisoModal("¡Pase Activado!", `Se ha desbloqueado el ${planActivar.toUpperCase()} por ${horas} horas continuas. ¡Aprovecha al máximo tu preparación!`, "🌟");
+        await cargarPerfil();
+    };
+
+    // === 8. BANQUEO Y RESCATE ADAPTATIVO ===
     window.cargarCursosDashboard = async function() {
         const sb = obtenerSupabase(); const cont = document.getElementById('grid-cursos-dashboard'); cont.innerHTML = '';
         const cursos = [
@@ -2126,7 +2311,7 @@
         if (tipo === 'curso') { 
             document.getElementById('pantalla-banqueo-curso').style.display = 'block'; 
             actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo'); 
-            renderizarPandaSVG(); 
+            renderizarPandaVisual(); 
         } else if (tipo === 'simulacros_oficiales') { 
             document.getElementById('pantalla-simulacros-oficiales').style.display = 'block'; 
             cargarSimulacrosOficialesEstudiante(); 
@@ -2146,7 +2331,7 @@
     window.cargarSiguientePregunta = async function() {
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
         if (esBasico && perfilUsuario.preguntas_hoy >= 25) { 
-            mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado (25/25)', 'Has completado tus 25 preguntas diarias de la cuenta básica. Pasa al Plan Banqueo o Plan Élite para practicar sin límites.'); 
+            mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado (25/25)', 'Has completado tus 25 preguntas diarias de la cuenta básica. Pasa al Plan Banqueo o Plan Élite para practicar sin restricciones.'); 
             return; 
         }
         
@@ -2157,12 +2342,12 @@
 
         if (preguntasFalladasBuffer.length > 0) { 
             preguntaActual = preguntasFalladasBuffer.shift(); 
-            mostrarPreguntaEnPantalla(preguntaActual, "🛟 RESCATE CLÍNICO (PREGUNTA FALLADA)"); 
+            mostrarPreguntaEnPantalla(preguntaActual, "🛟 RESCATE CLÍNICO (CASO FALLADO)"); 
             return; 
         }
         if (preguntasIaBuffer.length > 0) { 
             preguntaActual = preguntasIaBuffer.shift(); 
-            mostrarPreguntaEnPantalla(preguntaActual, "✨ FORMULADA CON IA"); 
+            mostrarPreguntaEnPantalla(preguntaActual, "✨ CASO INÉDITO IA"); 
             return; 
         }
 
@@ -2202,12 +2387,12 @@
             document.getElementById('fb-tit').innerText = '✔ ¡Correcto!'; 
             perfilMascota.monedas += 2; 
             document.getElementById('m-monedas').innerText = perfilMascota.monedas;
-            const frasesOk = ["¡Excelente juicio clínico! 🩺✨", "¡Así se responde para asegurar el puesto! 🌟", "¡Esa es la clave exacta del MINSA! 🎯"]; 
+            const frasesOk = ["¡Excelente razonamiento clínico! 🩺✨", "¡Así se responde para asegurar el puesto! 🌟", "¡Esa es la clave oficial del MINSA! 🎯"]; 
             msgCoach.innerText = frasesOk[Math.floor(Math.random() * frasesOk.length)];
         } else {
             fb.className = 'fb-box fb-err'; 
             document.getElementById('fb-tit').innerText = '✖ Incorrecto';
-            const frasesErr = ["¡No te preocupes! Repasemos la justificación técnica. 💪", "¡De este fallo saldrá un punto ganado en el examen! 📚", "Tranquilo, la clave es dominar el concepto. ⏳"]; 
+            const frasesErr = ["¡No te preocupes! Repasemos la justificación técnica. 💪", "¡De este fallo saldrá un punto seguro en el examen! 📚", "Tranquilo, dominaremos este criterio. ⏳"]; 
             msgCoach.innerText = frasesErr[Math.floor(Math.random() * frasesErr.length)];
         }
         
@@ -2232,7 +2417,7 @@
         const { data: intentos } = await sb.from('intentos_usuario').select('pregunta_id').eq('user_id', user.id).eq('es_correcta', false).order('id', { ascending: false }).limit(20);
         
         if (!intentos || intentos.length === 0) { 
-            mostrarAvisoModal("¡Excelente!", "No tienes errores recientes registrados. ¡Estás al 100%!", "✨"); 
+            mostrarAvisoModal("¡Excelente!", "No tienes errores recientes registrados. ¡Estás impecable!", "✨"); 
             return; 
         }
         
@@ -2251,10 +2436,10 @@
         const cantidad = parseInt(document.getElementById('cfg-sim-cantidad').value) || 25;
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
         if (esBasico && cantidad > 25) { 
-            mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'El Plan Básico permite simulacros armados de hasta 25 preguntas. Pasa al Plan Élite para rendir exámenes de 50 a 100 preguntas.'); 
+            mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'El Plan Básico permite simulacros armados de hasta 25 preguntas. Pasa al Plan Élite para rendir exámenes de 50 o 100 preguntas.'); 
             return; 
         }
-        mostrarAvisoModal("Simulacro Configurado", `Preparando examen personalizado de ${cantidad} preguntas. ¡A darlo todo!`, "📝"); 
+        mostrarAvisoModal("Simulacro Iniciado", `Preparando examen personalizado de ${cantidad} preguntas. ¡A darlo todo!`, "📝"); 
         activarModalidadBanqueo('curso'); 
         document.getElementById('btn-aplicar-filtro').click();
     };
@@ -2275,7 +2460,7 @@
         });
     };
 
-    // === 8. TEORÍA, FLASHCARDS Y FIJAS ===
+    // === 9. TEORÍA, FLASHCARDS Y FIJAS ===
     window.cargarTemasTeoricos = async function() {
         const sb = obtenerSupabase();
         const { data: temas } = await sb.from('temas').select('*').order('id', { ascending: true }); 
@@ -2395,7 +2580,7 @@
         });
     };
 
-    // === 9. VACIADORES DE IA (DESCENTRALIZADOS) ===
+    // === 10. VACIADORES DE IA ===
     window.vaciadorPreguntaIA = function() {
         const txt = document.getElementById('vaciador-p-texto').value.trim();
         if (!txt) { mostrarAvisoModal("Vaciador IA", "Pega el texto de la pregunta.", "⚠️"); return; }
@@ -2452,126 +2637,6 @@
 
         document.getElementById('tabla-draft-simulacro-container').style.display = 'block';
         mostrarAvisoModal("Draft Masivo", `Se previsualizan ${simulacroBorrador100.length} preguntas estructuradas. Completa el título abajo y presiona Crear Simulacro.`, "📊");
-    };
-
-    // === 10. SISTEMA DE CÓDIGOS Y CUPONES ===
-    window.alternarCamposCodigo = function() {
-        const tipo = document.getElementById('adm-cod-tipo').value;
-        document.getElementById('caja-porcentaje-desc').style.display = (tipo === 'descuento') ? 'block' : 'none';
-    };
-
-    window.crearCodigoPromocional = async function() {
-        const sb = obtenerSupabase();
-        let codigo = document.getElementById('adm-cod-texto').value.trim().toUpperCase();
-        if (!codigo) {
-            codigo = 'PROMO' + Math.random().toString(36).substring(2, 7).toUpperCase();
-        }
-        const tipo = document.getElementById('adm-cod-tipo').value;
-        const plan = document.getElementById('adm-cod-plan').value;
-        const pct = document.getElementById('adm-cod-pct').value;
-
-        const payload = {
-            codigo: codigo,
-            tipo: tipo,
-            plan_desbloqueado: plan,
-            descuento_pct: tipo === 'descuento' ? parseInt(pct) : 0,
-            usos_restantes: 100
-        };
-
-        const { error } = await sb.from('codigos_promocionales').insert([payload]);
-        if (error) {
-            // Guardado de respaldo en configuración si no existe la tabla específica
-            let codigos = [];
-            try { codigos = JSON.parse(await sb.from('configuracion_academia').select('valor').eq('clave', 'lista_codigos_promo').single().then(r => r.data?.valor)) || []; } catch(e){}
-            codigos.push(payload);
-            await guardarConfiguracionBase('lista_codigos_promo', JSON.stringify(codigos));
-        }
-
-        mostrarAvisoModal("¡Código Generado!", `Código creado: ${codigo}`, "🎟️");
-        document.getElementById('adm-cod-texto').value = '';
-        cargarListaCodigosAdmin();
-    };
-
-    window.cargarListaCodigosAdmin = async function() {
-        const sb = obtenerSupabase();
-        const tbody = document.getElementById('tabla-codigos-adm-body');
-        tbody.innerHTML = '<tr><td colspan="4">Cargando códigos...</td></tr>';
-        
-        let lista = [];
-        const { data } = await sb.from('codigos_promocionales').select('*');
-        if (data && data.length > 0) { lista = data; }
-        else {
-            try {
-                const res = await sb.from('configuracion_academia').select('valor').eq('clave', 'lista_codigos_promo').single();
-                if (res.data?.valor) lista = JSON.parse(res.data.valor);
-            } catch(e){}
-        }
-
-        listaCodigosAdminMemoria = lista;
-        if (lista.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay códigos generados aún.</td></tr>'; return; }
-
-        tbody.innerHTML = '';
-        lista.forEach((c, idx) => {
-            const detalle = c.tipo === 'descuento' ? `${c.descuento_pct}% Descuento` : (c.tipo === 'tiempo_24h' ? 'Pase 24 Horas' : 'Pase 7 Días');
-            tbody.innerHTML += `
-                <tr>
-                    <td><strong>${c.codigo}</strong></td>
-                    <td>${detalle}</td>
-                    <td>${c.plan_desbloqueado?.toUpperCase() || 'ÉLITE'}</td>
-                    <td><button class="btn-p" style="width:auto; padding:4px 10px; font-size:0.8em; background:#dc3545;" onclick="eliminarCodigoPromo(${idx}, '${c.id || ''}')">Borrar</button></td>
-                </tr>`;
-        });
-    };
-
-    window.eliminarCodigoPromo = async function(idx, id) {
-        const sb = obtenerSupabase();
-        if (id) { await sb.from('codigos_promocionales').delete().eq('id', id); }
-        else {
-            listaCodigosAdminMemoria.splice(idx, 1);
-            await guardarConfiguracionBase('lista_codigos_promo', JSON.stringify(listaCodigosAdminMemoria));
-        }
-        cargarListaCodigosAdmin();
-    };
-
-    window.procesarCanjeCodigo = async function() {
-        const cod = document.getElementById('input-canje-codigo').value.trim().toUpperCase();
-        if (!cod) return mostrarAvisoModal("Código Requerido", "Ingresa un código válido.", "⚠️");
-        
-        const sb = obtenerSupabase();
-        let codigoEncontrado = null;
-
-        const { data } = await sb.from('codigos_promocionales').select('*').eq('codigo', cod).single();
-        if (data) { codigoEncontrado = data; }
-        else {
-            try {
-                const res = await sb.from('configuracion_academia').select('valor').eq('clave', 'lista_codigos_promo').single();
-                if (res.data?.valor) {
-                    const arr = JSON.parse(res.data.valor);
-                    codigoEncontrado = arr.find(x => x.codigo === cod);
-                }
-            } catch(e){}
-        }
-
-        if (!codigoEncontrado) {
-            mostrarAvisoModal("Código Inválido", "El código ingresado no existe o ya caducó.", "❌");
-            return;
-        }
-
-        if (codigoEncontrado.tipo === 'descuento') {
-            mostrarAvisoModal("¡Cupón Aplicado!", `Cupón de ${codigoEncontrado.descuento_pct}% de descuento verificado. Contáctanos por WhatsApp para completar tu inscripción con rebaja.`, "🎉");
-            cerrarModales();
-            return;
-        }
-
-        // Activación de Pase Temporal
-        const horas = codigoEncontrado.tipo === 'tiempo_7d' ? 168 : 24;
-        const expira = new Date(Date.now() + horas * 60 * 60 * 1000).toISOString();
-        const planActivar = codigoEncontrado.plan_desbloqueado || 'elite';
-
-        await sb.from('perfiles').update({ plan: planActivar, plan_expira_en: expira }).eq('id', user.id);
-        cerrarModales();
-        mostrarAvisoModal("¡Pase Activado!", `Se ha desbloqueado el ${planActivar.toUpperCase()} por ${horas} horas. ¡Aprovecha al máximo tu entrenamiento!`, "🌟");
-        await cargarPerfil();
     };
 
     // === 11. ESTADÍSTICAS Y RANKING ===
@@ -2647,7 +2712,7 @@
         });
     };
 
-    // === 12. PANEL DOCENTE Y CONFIGURACIONES ===
+    // === 12. CONFIGURACIONES GLOBALES Y ADMINISTRADOR ===
     window.guardarConfiguracionBase = async function(clave, valorStr) {
         const sb = obtenerSupabase();
         try {
@@ -2671,9 +2736,15 @@
                     const admTxt = document.getElementById('adm-texto-metodologia'); if (admTxt) admTxt.value = item.valor;
                 }
                 if (item.clave === 'terminos_condiciones' && item.valor) {
-                    textoTerminosMemoria = item.valor;
                     const elTerm = document.getElementById('cuerpo-terminos-display'); if (elTerm) elTerm.innerHTML = item.valor.replace(/\n/g, '<br>');
                     const admTerm = document.getElementById('adm-texto-terminos'); if (admTerm) admTerm.value = item.valor;
+                }
+                if (item.clave === 'tienda_precios' && item.valor) {
+                    try { preciosPlanes = JSON.parse(item.valor); actualizarDisplaysPrecios(); } catch(e){}
+                }
+                if (item.clave === 'pandy_imagen_hd' && item.valor) {
+                    pandyImagenCustom = item.valor;
+                    renderizarPandaVisual();
                 }
                 if (item.clave === 'banner_login_lista' && item.valor) { try { carruselLoginImagenes = JSON.parse(item.valor) || []; } catch(e){} }
                 if (item.clave === 'popup_anuncio_lista' && item.valor) { try { carruselPopupImagenes = JSON.parse(item.valor) || []; } catch(e){} }
@@ -2681,6 +2752,7 @@
                 if (item.clave === 'redes_sociales' && item.valor) { 
                     try {
                         const rs = JSON.parse(item.valor);
+                        if (rs.wa) whatsappLinkGlobal = rs.wa;
                         document.getElementById('adm-link-wa').value = rs.wa || '';
                         document.getElementById('adm-link-dc').value = rs.dc || '';
                         document.getElementById('adm-link-fb').value = rs.fb || '';
@@ -2689,7 +2761,7 @@
                         const bDc = document.getElementById('btn-flotante-dc');
                         const bFb = document.getElementById('btn-flotante-fb');
                         
-                        if (rs.wa) { bWa.href = rs.wa.includes('http') ? rs.wa : `https://${rs.wa}`; bWa.style.display = 'flex'; } else { bWa.style.display = 'none'; }
+                        if (rs.wa) { bWa.href = rs.wa.includes('http') ? rs.wa : `https://${rs.wa}`; bWa.style.display = 'flex'; }
                         if (rs.dc) { bDc.href = rs.dc.includes('http') ? rs.dc : `https://${rs.dc}`; bDc.style.display = 'flex'; } else { bDc.style.display = 'none'; }
                         if (rs.fb) { bFb.href = rs.fb.includes('http') ? rs.fb : `https://${rs.fb}`; bFb.style.display = 'flex'; } else { bFb.style.display = 'none'; }
                     } catch(e){}
@@ -2706,7 +2778,8 @@
         renderizarCalendarioCompleto();
         renderizarCarruselLogin();
         renderizarListasAdminAnuncios();
-        cargarListaCodigosAdmin();
+        actualizarDisplaysPrecios();
+        cargarPreciosEnFormulario();
 
         if (user && !popupAnuncioMostrado) { lanzarPopupAnuncioSiExiste(); }
     };
@@ -2714,7 +2787,6 @@
     window.guardarTerminosCondiciones = async function() {
         const txt = document.getElementById('adm-texto-terminos').value.trim();
         await guardarConfiguracionBase('terminos_condiciones', txt);
-        textoTerminosMemoria = txt;
         document.getElementById('cuerpo-terminos-display').innerHTML = txt.replace(/\n/g, '<br>');
         mostrarAvisoModal("¡Guardado!", "Los términos y condiciones se actualizaron.", "📜");
     };
@@ -2725,17 +2797,10 @@
             dc: document.getElementById('adm-link-dc').value.trim(),
             fb: document.getElementById('adm-link-fb').value.trim()
         };
+        whatsappLinkGlobal = redes.wa;
         await guardarConfiguracionBase('redes_sociales', JSON.stringify(redes));
         cargarConfiguracionesGenerales();
         mostrarAvisoModal("Redes Guardadas", "Botones de soporte actualizados.", "💬");
-    };
-
-    window.contactarWhatsAppCompra = function(nombrePlan, precio) {
-        const waLink = document.getElementById('adm-link-wa').value.trim();
-        const num = waLink ? waLink : "https://wa.me/51999999999";
-        const mensaje = encodeURIComponent(`Hola Proserum's Academia, deseo adquirir el ${nombrePlan} (S/ ${precio}.00) para mi preparación SERUMS.`);
-        const urlFinal = num.includes('?') ? `${num}&text=${mensaje}` : `${num}?text=${mensaje}`;
-        window.open(urlFinal, '_blank');
     };
 
     window.guardarLogoCustom = function() {
@@ -2898,9 +2963,10 @@
         }
     };
 
-    // === 13. GESTIÓN DOCENTE: ALUMNOS Y PLANES ===
+    // === 13. ALUMNOS Y PLANES (GESTIÓN DOCENTE) ===
     window.cargarAlumnosAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-alumnos-adm-body');
+        if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="5">Sincronizando alumnos...</td></tr>';
         const { data } = await sb.from('perfiles').select('*').order('creado_en', { ascending: false });
         if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="5">No hay alumnos registrados.</td></tr>'; return; }
@@ -2941,7 +3007,7 @@
     window.asignarPlanAdmin = async function(id, nuevoPlan) {
         const sb = obtenerSupabase();
         await sb.from('perfiles').update({ plan: nuevoPlan, plan_expira_en: null }).eq('id', id);
-        mostrarAvisoModal("Plan Asignado", `El alumno ahora tiene asignado el plan: ${nuevoPlan.toUpperCase()}`, "✔");
+        mostrarAvisoModal("Plan Asignado", `El alumno ahora tiene asignado el: ${nuevoPlan.toUpperCase()}`, "✔");
         cargarAlumnosAdmin();
     };
 
@@ -2965,6 +3031,7 @@
     // CRUD DE TEMAS
     window.cargarListaTemasAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-temas-adm-body');
+        if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="4">Cargando temas...</td></tr>';
         const { data } = await sb.from('temas').select('*').order('id', { ascending: false });
         if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay temas registrados.</td></tr>'; return; }
@@ -3046,6 +3113,7 @@
     // CRUD DE PREGUNTAS
     window.cargarListaPreguntasAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-preguntas-adm-body');
+        if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="4">Cargando preguntas...</td></tr>';
         const { data } = await sb.from('preguntas').select('id, area_id, enunciado, dificultad').order('id', { ascending: false }).limit(50);
         if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay preguntas registradas.</td></tr>'; return; }
@@ -3113,6 +3181,7 @@
     // CRUD DE LAS FIJAS
     window.cargarListaFijasAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-fijas-adm-body');
+        if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="3">Cargando fijas...</td></tr>';
         const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
         if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay fijas registradas.</td></tr>'; return; }
@@ -3173,6 +3242,7 @@
     // CRUD DE FLASHCARDS
     window.cargarListaFlashcardsAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-flashcards-adm-body');
+        if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="3">Cargando flashcards...</td></tr>';
         const { data } = await sb.from('flashcards').select('*').order('id', { ascending: false });
         if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay flashcards registradas.</td></tr>'; return; }
@@ -3233,6 +3303,7 @@
     // CRUD DE SIMULACROS
     window.cargarListaSimulacrosAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-simulacros-adm-body');
+        if (!tbody) return;
         const { data } = await sb.from('simulacros').select('*').order('id', { ascending: false });
         if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay simulacros creados.</td></tr>'; return; }
         tbody.innerHTML = '';
@@ -3350,3 +3421,5 @@
         }
     };
 </script>
+</body>
+</html>
