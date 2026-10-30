@@ -47,19 +47,20 @@
         body { background-color: var(--bg-body); color: var(--text-main); font-size: 14.5px; }
         .pantalla { display: none; min-height: 100vh; } .pantalla.activa { display: flex; }
 
-        /* Contenedor del Logo Ampliado */
-        .emblema-serums-pro { display: inline-flex; align-items: center; justify-content: center; width: 140px; height: 140px; background: transparent; border-radius: 18px; flex-shrink: 0; position: relative; }
+        /* Contenedor del Logo Ampliado y Transparente */
+        .emblema-serums-pro { display: inline-flex; align-items: center; justify-content: center; width: 140px; height: 140px; background: transparent; border-radius: 18px; flex-shrink: 0; overflow: hidden; position: relative; }
         .emblema-serums-pro img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15)); }
+        .emblema-serums-pro svg { width: 90px; height: 90px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
         
         .logo-box-main { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
         .logo-titulo-portada { font-size: 3.5em; font-weight: 900; color: #0056b3; letter-spacing: -0.5px; line-height: 1.1; text-align: left; }
         body.dark-mode .logo-titulo-portada { color: #60a5fa; }
         .logo-titulo-portada span { color: #28a745; display: block; font-size: 0.7em; letter-spacing: 2px; }
         
-        /* Modificadores Navbar */
+        /* Modificadores Navbar para el Logo */
         .side-logo-header { padding: 25px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 15px; }
         .side-logo-header .emblema-serums-pro { width: 75px; height: 75px; }
-        .side-logo-header .logo-titulo { color: #ffffff !important; font-size: 1.5em; line-height: 1.1; font-weight: 900;}
+        .side-logo-header .logo-titulo { color: #ffffff !important; font-size: 1.5em; line-height: 1.1; font-weight: 900; }
         .side-logo-header .logo-titulo span { color: #28a745; font-size: 0.75em; display: block; }
 
         .fondo-auth-premium { width: 100%; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at top left, #002b5c, #001229); padding: 30px 15px; overflow-y: auto; }
@@ -162,12 +163,11 @@
         .widget-mascota-lateral { background: linear-gradient(135deg, #0056b3, #008080); color: white; padding: 25px 20px; border-radius: 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center; }
         body.dark-mode .widget-mascota-lateral { background: linear-gradient(135deg, #1e3a8a, #0f766e); }
         
-        .avatar-canvas-box { position: relative; width: 135px; height: 135px; margin-bottom: 12px; display: flex; justify-content: center; align-items: center; }
-        .avatar-canvas-box img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.25)); }
+        .avatar-canvas-box { position: relative; width: 135px; height: 135px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; cursor: pointer; overflow: hidden; }
         
-        /* Animación suave de respiración CSS */
-        @keyframes respirarPanda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        .panda-animado { animation: respirarPanda 2.5s infinite ease-in-out; }
+        /* Animación suave de respiración CSS para los PNG del Panda */
+        @keyframes respirarPanda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px) scale(1.02); } }
+        .panda-animado { animation: respirarPanda 3s infinite ease-in-out; }
 
         .campo-select-pro { appearance: none; background-color: var(--input-bg); background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding: 12px 35px 12px 14px !important; cursor: pointer; color: var(--text-main); font-weight: 500; border: 1px solid var(--border-color); border-radius: 10px; box-shadow: var(--shadow-sm); font-size: 0.95em; }
         .campo-select-pro:hover { border-color: var(--primary); }
@@ -228,7 +228,7 @@
         .badge-clinico { background: #fde68a; color: #b45309; }
         .badge-elite { background: #bbf7d0; color: #15803d; }
 
-        /* Semáforo Anti-Copia */
+        /* Semáforo Anti-Copia (Bloquea selección de texto para proteger tu temario) */
         .seccion-anticopia { -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; user-select: none !important; pointer-events: auto; }
         .semaforo-card { background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border-color); margin-bottom: 16px; overflow: hidden; }
         .semaforo-header { padding: 14px 18px; font-weight: 700; color: white; display: flex; justify-content: space-between; align-items: center; }
@@ -243,9 +243,9 @@
         .modal-box { background: var(--bg-card); border-radius: 20px; padding: 30px; max-width: 540px; width: 92%; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.4); position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color); color: var(--text-main); }
         .btn-cerrar-x { position: absolute; top: 12px; right: 18px; background: none; border: none; font-size: 1.6em; cursor: pointer; color: var(--text-muted); font-weight: bold; }
         
-        /* Botones Flotantes */
+        /* Botones Flotantes de Redes Sociales (Se controlan desde JS) */
         .flotante-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 9998; }
-        .btn-flotante { width: 55px; height: 55px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.6em; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: 0.3s; text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
+        .btn-flotante { width: 55px; height: 55px; border-radius: 50%; color: white; display: none; align-items: center; justify-content: center; font-size: 1.6em; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: 0.3s; text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
         .btn-flotante:hover { transform: scale(1.1); }
         .btn-wa { background: #25d366; } 
         .btn-dc { background: #5865F2; } 
@@ -280,6 +280,7 @@
         .grafico-pastel-box { width: 160px; height: 160px; border-radius: 50%; background: conic-gradient(#28a745 0% var(--pct), #dc3545 var(--pct) 100%); display: flex; justify-content: center; align-items: center; margin: 0 auto; box-shadow: var(--shadow-sm); }
         .grafico-pastel-inner { width: 120px; height: 120px; background: var(--bg-card); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 1.4em; }
         .ranking-list { list-style: none; margin-top: 15px; } .ranking-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-bottom: 1px solid var(--border-color); font-size: 0.95em; } .ranking-item:last-child { border-bottom: none; } .ranking-item.me { background: rgba(0, 123, 255, 0.1); border-radius: 8px; font-weight: bold; color: var(--primary); border-bottom: none; } .r-pos { width: 30px; font-weight: 900; color: var(--text-muted); } .me .r-pos { color: var(--primary); } .r-score { font-weight: 900; }
+        
         .footer-oficial { margin-top: auto; padding: 25px 20px; text-align: center; color: var(--text-muted); font-size: 0.85em; border-top: 1px solid var(--border-color); }
         .footer-oficial a { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; margin: 0 8px; }
     </style>
@@ -410,7 +411,7 @@
             <aside class="sidebar">
                 <div class="side-logo-header">
                     <div class="emblema-serums-pro" id="logo-app-container">
-                        <svg viewBox="0 0 100 100" fill="none">
+                        <svg viewBox="0 0 100 100" fill="none" style="width: 40px; height: 40px;">
                             <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="5"/>
                             <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
                             <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
@@ -471,7 +472,7 @@
                             </div>
                             <div class="dashboard-col-mascota">
                                 <div class="widget-mascota-lateral">
-                                    <div class="avatar-canvas-box" id="avatar-canvas"></div>
+                                    <div class="avatar-canvas-box" id="avatar-canvas" onclick="acariciarPanda()"></div>
                                     <h4 id="m-nombre" style="font-size: 1.2em; margin-bottom: 4px; font-weight: 800;">Dr. Pandy</h4>
                                     <span id="m-nivel-tag" style="background: rgba(255,255,255,0.25); padding: 3px 12px; border-radius: 12px; font-size: 0.75em; margin-bottom: 10px; font-weight: bold;">Nv. 1 (Interno)</span>
                                     <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.3); border-radius: 8px; margin-bottom: 10px; overflow: hidden;">
@@ -480,7 +481,7 @@
                                     <p style="font-size: 0.9em; margin-bottom: 14px;">🪙 <strong id="m-monedas">50</strong> Pandy-Coins</p>
                                     <div style="display: flex; gap: 8px; width: 100%;">
                                         <button class="btn-p" style="background: #28a745; padding: 9px;" onclick="abrirModalAlimentar()">🍖 Alimentar</button>
-                                        <button class="btn-p" style="background: #6f42c1; padding: 9px;" onclick="mostrarAvisoModal('Dr. Pandy', '¡El Dr. Pandy reacciona automáticamente según tu estudio y energía!', '🐼')">✨ Estado</button>
+                                        <button class="btn-p" style="background: #6f42c1; padding: 9px;" onclick="mostrarAvisoModal('Dr. Pandy', '¡El Dr. Pandy reacciona automáticamente según tu nivel de estudio y tu energía!', '🐼')">✨ Estado</button>
                                     </div>
                                 </div>
                             </div>
@@ -1016,16 +1017,17 @@
                                 <span style="background: rgba(111,66,193,0.15); color: #6f42c1; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9em;">Modo Administrador</span>
                             </div>
                             
+                            <!-- PESTAÑAS (BOTONES) -->
                             <div class="pestanas-admin">
                                 <button type="button" class="tab-btn-adm activa" onclick="verSubTabAdmin('p')">➕ Pregunta</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('t')">📖 Tema</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('fijas_adm')">🔥 La Fija</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Simulacros</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Flashcard</button>
-                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('codigos')">🎟️ Códigos y Cupones</button>
-                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('precios')">💲 Precios Tienda</button>
-                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('anuncios')">📢 Config. Base y Redes</button>
-                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos y Planes</button>
+                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('codigos')">🎟️ Cupones</button>
+                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('precios')">💲 Precios</button>
+                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('anuncios')">📢 Pandy y Redes</button>
+                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('a')">👥 Alumnos</button>
                             </div>
 
                             <!-- PESTAÑA: PREGUNTAS -->
@@ -1221,7 +1223,7 @@
                             <div id="subtab-adm-codigos" class="subtab-adm">
                                 <div class="admin-form-box">
                                     <h3 style="color: #6f42c1; margin-bottom: 12px; font-size: 1.2em;">🎟️ Generador de Códigos de Activación y Cupones</h3>
-                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Crea códigos promocionales para regalar accesos temporales o cupones de descuento.</p>
+                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Crea códigos promocionales para regalar accesos temporales, convenios corporativos o cupones de descuento.</p>
                                     
                                     <div class="fila">
                                         <div class="campo">
@@ -1230,7 +1232,7 @@
                                                 <option value="tiempo_24h">Pase Temporal (24 Horas)</option>
                                                 <option value="tiempo_7d">Pase Temporal (7 Días)</option>
                                                 <option value="descuento">Cupón de Descuento (%)</option>
-                                                <option value="corporativo">Código Corporativo (Contacto WhatsApp)</option>
+                                                <option value="corporativo">Código Corporativo (Validación Vía WhatsApp)</option>
                                             </select>
                                         </div>
                                         <div class="campo" id="caja-porcentaje-desc" style="display: none;">
@@ -1249,7 +1251,7 @@
                                             <input type="text" id="adm-cod-texto" placeholder="Ej: SERUMS2026, CORPO_MINSA o PROMO24">
                                         </div>
                                         <div class="campo">
-                                            <label>Plan que Desbloquea (si es temporal):</label>
+                                            <label>Plan que Desbloquea (si es temporal o corporativo):</label>
                                             <select id="adm-cod-plan" class="campo-select-pro">
                                                 <option value="elite">Plan Élite (Completo)</option>
                                                 <option value="clinico">Plan Clínico</option>
@@ -1442,7 +1444,7 @@
                         <a onclick="abrirModalPlanes()">Planes de Preparación</a> | 
                         <a onclick="abrirModalCanjearCodigo()">Canjear Cupón</a>
                     </p>
-                    <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Plataforma Oficial de Alto Rendimiento SERUMS. Versión 5.0 Pro.</p>
+                    <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Plataforma Oficial de Alto Rendimiento SERUMS. Versión 3.2 Pro.</p>
                 </footer>
             </main>
         </div>
@@ -1570,12 +1572,12 @@
     const MAPEO_CURSOS_ID = { "Salud Pública": 1, "Cuidado Integral de Salud": 2, "Gestión de Servicios de Salud": 5, "Investigación": 4, "Ética e Interculturalidad": 3 };
     const MAPEO_ID_CURSOS = { 1: "Salud Pública", 2: "Cuidado Integral de Salud", 5: "Gestión de Servicios de Salud", 4: "Investigación", 3: "Ética e Interculturalidad" };
 
-    // === 2. VARIABLES DE ESTADO Y PLATAFORMA ===
+    // === 2. VARIABLES GLOBALES DE ESTADO ===
     let user = null;
     let perfilUsuario = null;
     let perfilMascota = { energia: 100, monedas: 50, nivel: 1.0 };
     
-    // Estados del Dr. Pandy (se llenarán con los PNG subidos desde el panel)
+    // Almacén de las imágenes PNG del Dr. Pandy (se cargarán desde Supabase)
     let pandyEstados = {
         normal: "",
         correcto: "",
@@ -1614,12 +1616,13 @@
     let bienvenidaMascotaMostradaTurno = false;
     let popupAnuncioMostrado = false;
 
-    // Pomodoro
+    // Variables Pomodoro
     let pomoTiempoRestante = 25 * 60;
     let pomoTimer = null;
     let pomoEnMarcha = false;
 
-    // Sanitizador Universal de WhatsApp (Corrige el error de formato)
+    // === 3. UTILIDADES Y SANITIZADORES ===
+    // Limpia cualquier número ingresado y lo convierte a formato oficial wa.me/51...
     function sanitizarEnlaceWhatsApp(entrada) {
         if (!entrada) return "https://wa.me/51999999999";
         entrada = entrada.trim();
@@ -1629,7 +1632,35 @@
         return `https://wa.me/${soloNum}`;
     }
 
-    // === 3. NAVEGACIÓN Y COMPONENTES UI ===
+    window.mostrarAvisoModal = function(titulo, mensaje, icono = "💡") {
+        document.getElementById('aviso-titulo').innerText = titulo;
+        document.getElementById('aviso-cuerpo').innerText = mensaje;
+        document.getElementById('aviso-icono').innerText = icono;
+        document.getElementById('modal-aviso-general').style.display = 'flex';
+    };
+
+    window.alternarModoOscuro = function() {
+        document.body.classList.toggle('dark-mode');
+        const esOscuro = document.body.classList.contains('dark-mode');
+        localStorage.setItem('ps_tema', esOscuro ? 'dark' : 'light');
+        document.getElementById('icono-tema').innerText = esOscuro ? '☀️' : '🌙';
+    };
+
+    window.ver = function(id) {
+        document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
+        document.getElementById(id).classList.add('activa');
+    };
+
+    // Apertura y Cierre de Modales
+    window.abrirModalPlanes = function() { document.getElementById('modal-planes-compra').style.display = 'flex'; };
+    window.abrirModalCanjearCodigo = function() { document.getElementById('modal-canjear-codigo').style.display = 'flex'; };
+    window.abrirModalTerminos = function() { document.getElementById('modal-terminos').style.display = 'flex'; };
+    window.abrirModalRecuperar = function() { document.getElementById('modal-recuperar').style.display = 'flex'; };
+    window.abrirArmarioMascota = function() { mostrarAvisoModal("Dr. Pandy", "El Dr. Pandy ahora cambia de estado automáticamente. Sus vestimentas se activarán por nivel.", "🐼"); };
+    window.abrirModalAlimentar = function() { document.getElementById('modal-alimentar').style.display = 'flex'; };
+    window.cerrarModales = function() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); };
+
+    // === 4. SISTEMA DE NAVEGACIÓN Y PERMISOS ===
     window.subSec = function(nom) {
         ['dash', 'semaforo', 'crono', 'temas', 'banqueo', 'flashcards', 'fijas', 'tienda', 'stats', 'perfil', 'admin'].forEach(s => {
             const el = document.getElementById('sec-' + s);
@@ -1645,21 +1676,21 @@
         if (nom === 'dash') cargarCursosDashboard();
         if (nom === 'flashcards') {
             if (!tieneAccesoA('flashcards')) {
-                mostrarBloqueoFree('sec-flashcards', '🗂️ Módulo de Flashcards', 'Las flashcards inteligentes con SRS son exclusivas del Plan Clínico y Plan Élite.');
+                mostrarBloqueoFree('sec-flashcards', '🗂️ Módulo de Flashcards', 'Las flashcards inteligentes con Repetición Espaciada son exclusivas del Plan Clínico y Plan Élite.');
                 return;
             }
-            cargarFlashcardsDesdeBD();
+            if (typeof cargarFlashcardsDesdeBD === 'function') cargarFlashcardsDesdeBD();
         }
         if (nom === 'fijas') {
             if (!tieneAccesoA('fijas')) {
-                mostrarBloqueoFree('sec-fijas', '🔥 Las Fijas SERUMS', 'Las perlas clínicas oficiales son exclusivas del Plan Clínico y Plan Élite.');
+                mostrarBloqueoFree('sec-fijas', '🔥 Las Fijas SERUMS', 'Las perlas clínicas de alta rentabilidad son exclusivas del Plan Clínico y Plan Élite.');
                 return;
             }
-            cargarLasFijasSERUMS();
+            if (typeof cargarLasFijasSERUMS === 'function') cargarLasFijasSERUMS();
         }
-        if (nom === 'stats') cargarEstadisticas();
+        if (nom === 'stats') { if (typeof cargarEstadisticas === 'function') cargarEstadisticas(); }
         if (nom === 'temas') {
-            cargarTemasTeoricos();
+            if (typeof cargarTemasTeoricos === 'function') cargarTemasTeoricos();
             document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
             const firstCard = document.querySelector('#tabs-teoria .card-c');
             if (firstCard) firstCard.classList.add('activa');
@@ -1668,7 +1699,7 @@
             if (typeof cargarAlumnosAdmin === 'function') cargarAlumnosAdmin();
             if (typeof verSubTabAdmin === 'function') verSubTabAdmin('p');
         }
-        if (nom === 'crono') renderizarCalendarioCompleto();
+        if (nom === 'crono') { if (typeof renderizarCalendarioCompleto === 'function') renderizarCalendarioCompleto(); }
         if (nom === 'banqueo') volverASelectorModalidades();
     };
 
@@ -1695,33 +1726,32 @@
             </div>`;
     };
 
-    window.mostrarAvisoModal = function(titulo, mensaje, icono = "💡") {
-        document.getElementById('aviso-titulo').innerText = titulo;
-        document.getElementById('aviso-cuerpo').innerText = mensaje;
-        document.getElementById('aviso-icono').innerText = icono;
-        document.getElementById('modal-aviso-general').style.display = 'flex';
+    // === 5. POMODORO WIDGET ===
+    window.actualizarDisplayPomodoro = function() {
+        const min = Math.floor(pomoTiempoRestante / 60).toString().padStart(2, '0');
+        const sec = (pomoTiempoRestante % 60).toString().padStart(2, '0');
+        document.getElementById('pomo-display').innerText = `${min}:${sec}`;
     };
-    
-    window.abrirModalPlanes = function() { document.getElementById('modal-planes-compra').style.display = 'flex'; };
-    window.abrirModalCanjearCodigo = function() { document.getElementById('modal-canjear-codigo').style.display = 'flex'; };
-    window.abrirModalTerminos = function() { document.getElementById('modal-terminos').style.display = 'flex'; };
-    window.abrirModalRecuperar = function() { document.getElementById('modal-recuperar').style.display = 'flex'; };
-    window.abrirModalAlimentar = function() { document.getElementById('modal-alimentar').style.display = 'flex'; };
-    window.cerrarModales = function() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); };
-
-    window.alternarModoOscuro = function() {
-        document.body.classList.toggle('dark-mode');
-        const esOscuro = document.body.classList.contains('dark-mode');
-        localStorage.setItem('ps_tema', esOscuro ? 'dark' : 'light');
-        document.getElementById('icono-tema').innerText = esOscuro ? '☀️' : '🌙';
+    window.iniciarPomodoro = function() {
+        if (pomoEnMarcha) return;
+        pomoEnMarcha = true;
+        pomoTimer = setInterval(() => {
+            if (pomoTiempoRestante > 0) {
+                pomoTiempoRestante--;
+                actualizarDisplayPomodoro();
+            } else {
+                clearInterval(pomoTimer);
+                pomoEnMarcha = false;
+                mostrarAvisoModal("¡Bloque Finalizado!", "Excelente concentración. Tómate 5 minutos de descanso activo.", "⏰");
+                pomoTiempoRestante = 25 * 60;
+                actualizarDisplayPomodoro();
+            }
+        }, 1000);
     };
+    window.pausarPomodoro = function() { clearInterval(pomoTimer); pomoEnMarcha = false; };
+    window.resetPomodoro = function() { clearInterval(pomoTimer); pomoEnMarcha = false; pomoTiempoRestante = 25 * 60; actualizarDisplayPomodoro(); };
 
-    window.ver = function(id) {
-        document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('activa'));
-        document.getElementById(id).classList.add('activa');
-    };
-
-    // === 4. AUTENTICACIÓN Y SESIÓN ===
+    // === 6. AUTENTICACIÓN (LOGIN / REGISTRO) ===
     window.iniciarConGoogle = async function() {
         const sb = obtenerSupabase(); if (!sb) return;
         const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin } });
@@ -1730,11 +1760,13 @@
 
     async function checkSesion() {
         const sb = obtenerSupabase(); if (!sb) return;
+        
         sb.auth.onAuthStateChange(async (event, session) => {
             if (session && (event === 'SIGNED_IN' || event === 'INITIAL_SESSION')) {
                 user = session.user; await cargarPerfil();
                 if (document.getElementById('vista-login').classList.contains('activa') || document.getElementById('vista-registro').classList.contains('activa')) {
-                    ver('vista-app'); subSec('dash'); mostrarBienvenidaMascota(); lanzarPopupAnuncioSiExiste();
+                    ver('vista-app'); subSec('dash'); mostrarBienvenidaMascota(); 
+                    if (typeof lanzarPopupAnuncioSiExiste === 'function') lanzarPopupAnuncioSiExiste();
                 }
                 if (typeof cargarConfiguracionesGenerales === 'function') cargarConfiguracionesGenerales();
             }
@@ -1744,7 +1776,8 @@
         if (session) {
             user = session.user; await cargarPerfil();
             if (document.getElementById('vista-login').classList.contains('activa')) {
-                ver('vista-app'); subSec('dash'); mostrarBienvenidaMascota(); lanzarPopupAnuncioSiExiste();
+                ver('vista-app'); subSec('dash'); mostrarBienvenidaMascota(); 
+                if (typeof lanzarPopupAnuncioSiExiste === 'function') lanzarPopupAnuncioSiExiste();
             }
             if (typeof cargarConfiguracionesGenerales === 'function') cargarConfiguracionesGenerales();
         } else { 
@@ -1762,7 +1795,8 @@
             const { data, error } = await sb.auth.signInWithPassword({ email: document.getElementById('l-email').value.trim(), password: document.getElementById('l-pass').value });
             if (error) throw error;
             user = data.user; await cargarPerfil(); ver('vista-app'); subSec('dash'); 
-            mostrarBienvenidaMascota(); lanzarPopupAnuncioSiExiste(); 
+            mostrarBienvenidaMascota(); 
+            if (typeof lanzarPopupAnuncioSiExiste === 'function') lanzarPopupAnuncioSiExiste();
             if (typeof cargarConfiguracionesGenerales === 'function') cargarConfiguracionesGenerales();
         } catch (err) { errDiv.innerText = err.message || "Credenciales no válidas."; errDiv.style.display = 'block'; } 
         finally { btn.disabled = false; btn.innerText = 'Ingresar al Aula'; }
@@ -1791,7 +1825,7 @@
         bienvenidaMascotaMostradaTurno = false; popupAnuncioMostrado = false; ver('vista-login');
     };
 
-    // === 5. PERFIL Y RENDERIZADO DEL DR. PANDY (SOPORTE PNG MÚLTIPLE) ===
+    // === 7. PERFIL DE USUARIO Y DR. PANDY (IMÁGENES DINÁMICAS) ===
     async function cargarPerfil() {
         const sb = obtenerSupabase(); if (!user || !sb) return;
 
@@ -1806,6 +1840,7 @@
             p = { nombres: nombreGoogle, apellidos: '', rol: 'estudiante', plan: 'gratuito', prefijo_trato: 'Colega', estado: 'activo', preguntas_hoy: 0, dni: '00000000', carrera: 'No especificada' };
         }
 
+        // Revisar expiración de códigos 24h/7d
         if (p.plan_expira_en) {
             const expira = new Date(p.plan_expira_en);
             if (new Date() > expira && p.plan !== 'gratuito') {
@@ -1842,6 +1877,7 @@
         if (document.getElementById('p-uni')) document.getElementById('p-uni').value = p.universidad || '';
         if (document.getElementById('p-esc')) document.getElementById('p-esc').value = p.escuela_profesional || '';
 
+        // Cargar energía y monedas del Panda
         const { data: m } = await sb.from('perfil_mascota').select('*').eq('user_id', user.id).single();
         if (m) {
             perfilMascota = { monedas: m.monedas || 50, energia: m.energia || 100, nivel: m.nivel || 1.0 };
@@ -1867,17 +1903,38 @@
         }
     }
 
-    // Render del Dr. Pandy basado EXCLUSIVAMENTE en las imágenes PNG cargadas
+    document.getElementById('form-mi-perfil').addEventListener('submit', async (e) => {
+        e.preventDefault(); const sb = obtenerSupabase(); if (!sb || !user) return;
+        const payload = { nombres: document.getElementById('p-nom').value.trim(), apellidos: document.getElementById('p-ape').value.trim(), colegiatura: document.getElementById('p-col').value.trim(), telefono: document.getElementById('p-tel').value.trim(), region: document.getElementById('p-reg').value.trim(), universidad: document.getElementById('p-uni').value.trim(), escuela_profesional: document.getElementById('p-esc').value.trim() };
+        const { error } = await sb.from('perfiles').update(payload).eq('id', user.id);
+        if (error) mostrarAvisoModal("Error", error.message, "⚠️"); 
+        else { mostrarAvisoModal("¡Perfil Guardado!", "Tus datos se actualizaron correctamente.", "✔"); cargarPerfil(); }
+    });
+
+    window.mostrarBienvenidaMascota = function() {
+        if (!bienvenidaMascotaMostradaTurno && perfilUsuario) {
+            const modalBienvenida = document.getElementById('modal-bienvenida-mascota');
+            if (modalBienvenida) {
+                const frase = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
+                document.getElementById('txt-bienvenida-mascota').innerText = frase.replace('{nombre}', perfilUsuario.nombres || 'Colega');
+                const canvasBienvenida = document.getElementById('avatar-canvas-bienvenida');
+                if (canvasBienvenida) { canvasBienvenida.innerHTML = generarHTMLDrPandy(140, 'normal'); }
+                modalBienvenida.style.display = 'flex'; bienvenidaMascotaMostradaTurno = true;
+            }
+        }
+    };
+
+    // Dibujado del Dr. Pandy (Soporta PNG dinámico)
     window.generarHTMLDrPandy = function(ancho = 100, estado = 'normal') {
-        // Si la energía cae de 20 y no es acierto/fallo explícito, fuerza el estado dormido
+        // Forzar estado dormido si la energía es crítica
         if (perfilMascota.energia < 20 && estado === 'normal') estado = 'dormido';
 
-        let imgUsar = pandyEstados[estado] || pandyEstados.normal;
+        let imgUsar = pandyEstados[estado] || pandyEstados['normal'];
         
         if (imgUsar) {
             return `<img src="${imgUsar}" class="panda-animado" style="width:${ancho}px; height:${ancho}px; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(0,0,0,0.25));" alt="Dr. Pandy">`;
         } else {
-            // Fallback emoji si aún no subes los PNG en el panel administrador
+            // Fallback genérico en texto si el administrador no ha subido los PNGs aún
             const emj = { normal: '🐼', correcto: '🐼✨', error: '🐼🤔', dormido: '🐼💤' };
             return `<div class="panda-animado" style="font-size: ${ancho * 0.6}px; line-height: ${ancho}px; text-align:center;">${emj[estado] || '🐼'}</div>`;
         }
@@ -1891,10 +1948,10 @@
 
     window.acariciarPanda = function() {
         const frasesAfecto = [
-            "¡Dr. Pandy listo para la ronda médica! 🩺",
-            "¡El estudio constante asegura tu plaza! 🎋",
-            "¡Vamos colega, ningún caso se nos escapa! ⭐",
-            "¡Tu esfuerzo de hoy es tu plaza de mañana! 🏆"
+            "¡Dr. Pandy a tu servicio! 🩺",
+            "¡Sigue sumando simulacros! 🎋",
+            "¡Aseguremos esa plaza SERUMS juntos! ⭐",
+            "¡Tu esfuerzo dará grandes resultados! 🏆"
         ];
         mostrarAvisoModal("Dr. Pandy dice:", frasesAfecto[Math.floor(Math.random() * frasesAfecto.length)], "🐼");
     };
@@ -1916,17 +1973,16 @@
         if (perfilMascota.nivel >= 8) rango = "Especialista";
         document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${rango})`;
         
-        // Pasa a estado feliz/motivado al alimentarlo
-        renderizarPandaVisual('correcto');
+        renderizarPandaVisual('correcto'); // Lo pone feliz al comer
 
         const sb = obtenerSupabase();
         if (sb && user) {
             await sb.from('perfil_mascota').update({ monedas: perfilMascota.monedas, energia: perfilMascota.energia, nivel: perfilMascota.nivel }).eq('user_id', user.id);
         }
-        mostrarAvisoModal("¡Qué rico!", "El Dr. Pandy recuperó energía y subió su experiencia.", "🎋");
+        mostrarAvisoModal("¡Qué rico!", "El Dr. Pandy recuperó energía y subió su nivel de experiencia.", "🎋");
     };
 
-    // === 6. BANQUEO DE PREGUNTAS Y SIMULADOR ===
+    // === 8. BANQUEO DE PREGUNTAS Y SIMULADOR (CON RESCATE) ===
     window.cargarCursosDashboard = async function() {
         const sb = obtenerSupabase(); const cont = document.getElementById('grid-cursos-dashboard'); cont.innerHTML = '';
         const cursos = [
@@ -1948,7 +2004,7 @@
             const ok = intentosCurso.filter(i => i.es_correcta).length;
             const pct = tot > 0 ? Math.round((ok / tot) * 100) : 0;
             cont.innerHTML += `
-                <div class="card-c" style="border-top-color: ${c.col}; text-align: center;" onclick="subSec('temas'); filtrarTeoria('${c.id}')">
+                <div class="card-c" style="border-top-color: ${c.col}; text-align: center;" onclick="subSec('temas'); if(typeof filtrarTeoria === 'function') filtrarTeoria('${c.id}')">
                     <div class="card-c-icono">${c.icon}</div>
                     <h3>${c.nombre}</h3>
                     <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 12px;">Acceder al temario y clases ➔</p>
@@ -2011,7 +2067,7 @@
     window.cargarSiguientePregunta = async function() {
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
         if (esBasico && perfilUsuario.preguntas_hoy >= 25) { 
-            mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado (25/25)', 'Has completado tus 25 preguntas diarias de la cuenta básica. Pasa al Plan Banqueo o Plan Élite para practicar sin restricciones.'); 
+            mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado (25/25)', 'Has completado tus 25 preguntas diarias del Plan Básico. Pasa al Plan Banqueo o Élite para practicar sin límites.'); 
             return; 
         }
         
@@ -2022,7 +2078,7 @@
 
         if (preguntasFalladasBuffer.length > 0) { 
             preguntaActual = preguntasFalladasBuffer.shift(); 
-            mostrarPreguntaEnPantalla(preguntaActual, "🛟 RESCATE CLÍNICO (CASO FALLADO)"); 
+            mostrarPreguntaEnPantalla(preguntaActual, "🏃 MODO RESCATE (CASO FALLADO)"); 
             renderizarPandaVisual('normal');
             return; 
         }
@@ -2065,8 +2121,8 @@
         const fb = document.getElementById('sim-fb'); 
         const msgCoach = document.getElementById('coach-mensaje');
 
-        // Consumo de energía por cada pregunta (baja 2%)
-        perfilMascota.energia = Math.max(0, perfilMascota.energia - 2);
+        // Desgaste de energía al pensar la pregunta
+        perfilMascota.energia = Math.max(0, perfilMascota.energia - 1.5);
         document.getElementById('m-energia-bar').style.width = `${perfilMascota.energia}%`;
 
         if (esOk) {
@@ -2091,13 +2147,10 @@
 
         const sb = obtenerSupabase();
         if (sb && user) {
-            // Guardar intento
             if (preguntaActual.id) { 
                 await sb.from('intentos_usuario').insert([{ user_id: user.id, pregunta_id: preguntaActual.id, area_id: preguntaActual.area_id || 1, es_correcta: esOk }]); 
             }
-            // Actualizar mascota (monedas y energía)
             await sb.from('perfil_mascota').update({ monedas: perfilMascota.monedas, energia: perfilMascota.energia, nivel: perfilMascota.nivel }).eq('user_id', user.id);
-            // Actualizar límite diario si es básico
             if (!perfilUsuario || perfilUsuario.plan === 'gratuito') { 
                 perfilUsuario.preguntas_hoy = (perfilUsuario.preguntas_hoy || 0) + 1; 
                 await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id); 
@@ -2110,7 +2163,7 @@
         const { data: intentos } = await sb.from('intentos_usuario').select('pregunta_id').eq('user_id', user.id).eq('es_correcta', false).order('id', { ascending: false }).limit(20);
         
         if (!intentos || intentos.length === 0) { 
-            mostrarAvisoModal("¡Excelente!", "No tienes errores recientes registrados. ¡Estás impecable!", "✨"); 
+            mostrarAvisoModal("¡Excelente!", "No tienes errores recientes registrados. ¡Tu precisión es impecable!", "✨"); 
             return; 
         }
         
@@ -2124,21 +2177,21 @@
             document.getElementById('btn-aplicar-filtro').click(); 
         }
     };
-window.iniciarSimulacroArmado = function() {
+    window.iniciarSimulacroArmado = function() {
         const cantidad = parseInt(document.getElementById('cfg-sim-cantidad').value) || 25;
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
         if (esBasico && cantidad > 25) { 
-            mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'El Plan Básico permite simulacros de hasta 25 preguntas. Pasa al Plan Élite para rendir exámenes de 50 o 100 preguntas.'); 
+            mostrarBloqueoFree('pantalla-arma-simulacro', 'Límite de Simulacro', 'El Plan Básico permite simulacros armados de hasta 25 preguntas. Pasa al Plan Élite para rendir exámenes de 50 o 100 preguntas.'); 
             return; 
         }
-        mostrarAvisoModal("Simulacro Iniciado", `Preparando examen de ${cantidad} preguntas. ¡A darlo todo!`, "📝"); 
+        mostrarAvisoModal("Simulacro Iniciado", `Preparando examen personalizado de ${cantidad} preguntas. ¡A darlo todo!`, "📝"); 
         activarModalidadBanqueo('curso'); 
         document.getElementById('btn-aplicar-filtro').click();
     };
 
     window.cargarSimulacrosOficialesEstudiante = async function() {
         const sb = obtenerSupabase(); const cont = document.getElementById('lista-simulacros-habilitados'); cont.innerHTML = '<p>Consultando simulacros vigentes...</p>';
-        if (!sb) return; 
+        if (!sb) return;
         try {
             const { data: sims } = await sb.from('simulacros').select('*').eq('habilitado', true);
             if (!sims || sims.length === 0) { cont.innerHTML = '<div class="card-c"><p style="color: var(--text-muted); font-size: 1.1em;">No hay simulacros habilitados por ahora.</p></div>'; return; }
@@ -2152,7 +2205,7 @@ window.iniciarSimulacroArmado = function() {
                         <button class="btn-p" style="background: #28a745; font-size: 1.05em;" onclick="activarModalidadBanqueo('curso'); document.getElementById('btn-aplicar-filtro').click();">Rendir Simulacro Ahora ➔</button>
                     </div>`; 
             });
-        } catch(e) { cont.innerHTML = '<p style="color:red;">Error al cargar simulacros.</p>'; }
+        } catch (error) { cont.innerHTML = '<p style="color: red;">Error al cargar simulacros.</p>'; }
     };
 
     // === 9. TEORÍA, FLASHCARDS Y FIJAS ===
@@ -2161,7 +2214,7 @@ window.iniciarSimulacroArmado = function() {
         try {
             const { data: temas } = await sb.from('temas').select('*').order('id', { ascending: true }); 
             temasTeoricosEnMemoria = temas || [];
-        } catch(e) { console.error("Error temas:", e); }
+        } catch (error) { console.error("Error al cargar teoría:", error); }
     };
 
     window.toggleTemaAcordeon = function(idCuerpo, idIcono) {
@@ -2197,7 +2250,7 @@ window.iniciarSimulacroArmado = function() {
             const nombreCursoTema = MAPEO_ID_CURSOS[t.area_id] || t.area_id || "Academia"; 
             const embedUrl = convertirUrlAEmbed(t.url_video);
             const btnDescargaPDF = (t.url_pdf && (perfilUsuario?.plan === 'elite' || perfilUsuario?.plan === 'premium')) 
-                ? `<a href="${t.url_pdf}" target="_blank" class="btn-p" style="background:#dc3545; width:auto; padding:8px 16px; margin-bottom:15px; font-size:0.9em;">📄 Descargar Resumen PDF</a>` 
+                ? `<a href="${t.url_pdf}" target="_blank" class="btn-p" style="background:#dc3545; width:auto; padding:8px 16px; margin-bottom:15px; font-size:0.9em;">📄 Descargar Resumen en PDF</a>` 
                 : '';
             
             cont.innerHTML += `
@@ -2205,7 +2258,7 @@ window.iniciarSimulacroArmado = function() {
                 <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleTemaAcordeon('cuerpo-tema-${t.id}', 'icono-tema-${t.id}')">
                     <div style="flex: 1;">
                         <span style="font-size: 0.85em; color: var(--primary); font-weight: 800; text-transform: uppercase; display:block; margin-bottom:5px;">${nombreCursoTema}</span>
-                        <h3 style="color: var(--text-heading); font-size: 1.25em; margin:0;">${t.codigo || ''} - ${t.titulo || ''}</h3>
+                        <h3 style="color: var(--text-heading); font-size: 1.25em; margin:0;">${t.codigo || ''} - ${t.titulo || 'Tema'}</h3>
                     </div>
                     <span id="icono-tema-${t.id}" style="font-size:1.4em; color:var(--text-muted); margin-left:15px;">🔽</span>
                 </div>
@@ -2215,14 +2268,14 @@ window.iniciarSimulacroArmado = function() {
                     <div class="teoria-render" style="font-size: 1.05em; line-height: 1.7; color: var(--text-main);">${t.resumen_teorico || ''}</div>
                     ${embedUrl ? `<div class="video-box-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>` : ''}
                     <div style="margin-top: 25px; text-align: right;">
-                        <button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo || ''}')">🎯 Practicar Banqueo del Tema ➔</button>
+                        <button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo || ''}')">🎯 Practicar Banqueo de este Tema ➔</button>
                     </div>
                 </div>
             </div>`;
         });
 
         if (esBasico) {
-            cont.innerHTML += `<div style="background: rgba(0,86,179,0.05); padding: 25px; border-radius: 16px; text-align: center; margin-top: 30px; border: 2px dashed var(--primary);"><span style="font-size: 3em; display: block; margin-bottom: 10px;">🔒</span><strong style="color: var(--primary); font-size: 1.3em;">Límite gratuito de 3 temas.</strong><p style="color: var(--text-muted); font-size: 1em; margin-bottom: 20px; margin-top: 10px;">Desbloquea el temario completo, videoclases y los PDF con el Plan Élite.</p><button class="btn-p" style="width: auto; padding: 12px 24px; font-size: 1.05em;" onclick="abrirModalPlanes()">Ver Planes de Estudio ➔</button></div>`;
+            cont.innerHTML += `<div style="background: rgba(0,86,179,0.05); padding: 25px; border-radius: 16px; text-align: center; margin-top: 30px; border: 2px dashed var(--primary);"><span style="font-size: 3em; display: block; margin-bottom: 10px;">🔒</span><strong style="color: var(--primary); font-size: 1.3em;">Has alcanzado el límite gratuito de 3 temas por curso.</strong><p style="color: var(--text-muted); font-size: 1em; margin-bottom: 20px; margin-top: 10px;">Desbloquea el temario completo, videoclases y los PDF con el Plan Élite.</p><button class="btn-p" style="width: auto; padding: 12px 24px; font-size: 1.05em;" onclick="abrirModalPlanes()">Ver Planes de Estudio ➔</button></div>`;
         }
     };
 
@@ -2239,7 +2292,7 @@ window.iniciarSimulacroArmado = function() {
 
         const filtradas = todasLasFlashcards.filter(f => String(f.area_id) === String(areaIdStr) || MAPEO_CURSOS_ID[f.area_id] == areaIdStr); 
         const cont = document.getElementById('contenedor-flashcards'); cont.innerHTML = '';
-        if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay flashcards publicadas para este curso.</p>'; return; }
+        if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay flashcards publicadas para este eje temático.</p>'; return; }
 
         filtradas.forEach(f => { 
             cont.innerHTML += `
@@ -2249,9 +2302,9 @@ window.iniciarSimulacroArmado = function() {
                     <div class="card-back">
                         <div style="flex:1; display:flex; align-items:center;">${f.reverso}</div>
                         <div class="srs-botones" onclick="event.stopPropagation()">
-                            <button class="btn-srs btn-srs-dif" onclick="mostrarAvisoModal('Repetición', 'Tarjeta registrada como difícil.', '🔄')">Difícil</button>
-                            <button class="btn-srs btn-srs-med" onclick="mostrarAvisoModal('Repetición', 'Buen razonamiento.', '✅')">Medio</button>
-                            <button class="btn-srs btn-srs-fac" onclick="mostrarAvisoModal('Repetición', '¡Dominado!', '🌟')">Fácil</button>
+                            <button class="btn-srs btn-srs-dif" onclick="mostrarAvisoModal('Repetición Espaciada', 'Tarjeta registrada como difícil. Dr. Pandy te la repetirá pronto.', '🔄')">Difícil</button>
+                            <button class="btn-srs btn-srs-med" onclick="mostrarAvisoModal('Repetición Espaciada', 'Buen razonamiento. Programada a intervalo medio.', '✅')">Medio</button>
+                            <button class="btn-srs btn-srs-fac" onclick="mostrarAvisoModal('Repetición Espaciada', '¡Dominado! Agendada a largo plazo.', '🌟')">Fácil</button>
                         </div>
                     </div>
                 </div>
@@ -2460,11 +2513,11 @@ window.iniciarSimulacroArmado = function() {
                             if (rs.wa) whatsappLinkGlobal = rs.wa;
                             if (rs.switches) swRedes = rs.switches;
                             
-                            document.getElementById('adm-link-wa').value = rs.wa || '';
-                            document.getElementById('adm-link-dc').value = rs.dc || '';
-                            document.getElementById('adm-link-fb').value = rs.fb || '';
-                            document.getElementById('adm-link-ig').value = rs.ig || '';
-                            document.getElementById('adm-link-tg').value = rs.tg || '';
+                            if (document.getElementById('adm-link-wa')) document.getElementById('adm-link-wa').value = rs.wa || '';
+                            if (document.getElementById('adm-link-dc')) document.getElementById('adm-link-dc').value = rs.dc || '';
+                            if (document.getElementById('adm-link-fb')) document.getElementById('adm-link-fb').value = rs.fb || '';
+                            if (document.getElementById('adm-link-ig')) document.getElementById('adm-link-ig').value = rs.ig || '';
+                            if (document.getElementById('adm-link-tg')) document.getElementById('adm-link-tg').value = rs.tg || '';
                             
                             if (document.getElementById('sw-wa')) document.getElementById('sw-wa').checked = !!swRedes.wa;
                             if (document.getElementById('sw-fb')) document.getElementById('sw-fb').checked = !!swRedes.fb;
@@ -2477,7 +2530,7 @@ window.iniciarSimulacroArmado = function() {
                     }
                 });
             }
-        } catch(e) {}
+        } catch(e) { console.error("Error cargando config", e); }
 
         const inputFecha = document.getElementById('adm-input-fecha-examen');
         const selModalidad = document.getElementById('adm-sel-modalidad-fecha');
@@ -2485,9 +2538,9 @@ window.iniciarSimulacroArmado = function() {
         if (selModalidad) selModalidad.value = modalidadFechaGlobal;
 
         actualizarBannerYMetodologiaSegunModalidad();
-        renderizarCalendarioCompleto();
-        renderizarCarruselLogin();
-        renderizarListasAdminAnuncios();
+        if (typeof renderizarCalendarioCompleto === 'function') renderizarCalendarioCompleto();
+        if (typeof renderizarCarruselLogin === 'function') renderizarCarruselLogin();
+        if (typeof renderizarListasAdminAnuncios === 'function') renderizarListasAdminAnuncios();
         actualizarDisplaysPrecios();
         cargarPreciosEnFormulario();
 
@@ -2545,7 +2598,7 @@ window.iniciarSimulacroArmado = function() {
             const b64 = e.target.result;
             await guardarConfiguracionBase('logo_academia', b64);
             aplicarLogoCustom(b64);
-            mostrarAvisoModal("Logo Actualizado", "Nuevo logo aplicado en toda la academia sin fondo oscuro.", "🎨");
+            mostrarAvisoModal("Logo Actualizado", "Nuevo logo aplicado en toda la academia.", "🎨");
         };
         reader.readAsDataURL(file);
     };
@@ -2583,7 +2636,7 @@ window.iniciarSimulacroArmado = function() {
 
     window.cambiarMesCalendario = function(offset) {
         fechaActualCalendario.setMonth(fechaActualCalendario.getMonth() + offset);
-        renderizarCalendarioCompleto();
+        if (typeof renderizarCalendarioCompleto === 'function') renderizarCalendarioCompleto();
     };
 
     window.renderizarCalendarioCompleto = function() {
@@ -2768,7 +2821,7 @@ window.iniciarSimulacroArmado = function() {
         mostrarAvisoModal("¡Copiados!", `Se copiaron ${tels.length} números al portapapeles.`, "📋");
     };
 
-    // CRUD DE TEMAS CON TRY/CATCH DE PROTECCIÓN (CORRECCIÓN CRÍTICA DE BLOQUEO "Cargando...")
+    // CRUD DE TEMAS (TRY/CATCH CRÍTICO PARA EVITAR BLOQUEOS)
     window.cargarListaTemasAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-temas-adm-body');
         if (!tbody) return;
@@ -2805,7 +2858,7 @@ window.iniciarSimulacroArmado = function() {
         const tema = listaTemasAdminMemoria.find(t => t.id == id); if (!tema) return;
         document.getElementById('adm-t-id').value = tema.id;
         document.getElementById('adm-t-curso').value = MAPEO_ID_CURSOS[tema.area_id] || tema.area_id || "Salud Pública";
-        actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select');
+        if (typeof actualizarTemasEnSelector === 'function') actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select');
         document.getElementById('adm-t-codigo').value = tema.codigo || '';
         document.getElementById('adm-t-titulo').value = tema.titulo || '';
         document.getElementById('adm-t-video').value = tema.url_video || '';
@@ -2860,42 +2913,47 @@ window.iniciarSimulacroArmado = function() {
         }
     });
 
-    // CRUD DE PREGUNTAS
+    // CRUD DE PREGUNTAS (TRY/CATCH)
     window.cargarListaPreguntasAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-preguntas-adm-body');
         if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="4">Cargando preguntas...</td></tr>';
-        const { data } = await sb.from('preguntas').select('id, area_id, enunciado, dificultad').order('id', { ascending: false }).limit(50);
-        if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay preguntas registradas.</td></tr>'; return; }
-        listaPreguntasAdminMemoria = data; tbody.innerHTML = '';
-        data.forEach(p => {
-            const nombreCurso = MAPEO_ID_CURSOS[p.area_id] || 'Salud';
-            const enunCorto = p.enunciado.length > 50 ? p.enunciado.substring(0, 50) + "..." : p.enunciado;
-            tbody.innerHTML += `
-                <tr>
-                    <td>${enunCorto}</td>
-                    <td>${nombreCurso}</td>
-                    <td>${p.dificultad}</td>
-                    <td style="display:flex; gap:6px;">
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionPregunta('${p.id}')">✏️ Editar</button>
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarPregunta('${p.id}')">🗑️ Borrar</button>
-                    </td>
-                </tr>`;
-        });
+        
+        try {
+            const { data, error } = await sb.from('preguntas').select('id, area_id, enunciado, dificultad').order('id', { ascending: false }).limit(50);
+            if (error) throw error;
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay preguntas registradas.</td></tr>'; return; }
+            listaPreguntasAdminMemoria = data; tbody.innerHTML = '';
+            data.forEach(p => {
+                let nombreCurso = 'Academia';
+                if (p.area_id) nombreCurso = MAPEO_ID_CURSOS[p.area_id] || p.area_id;
+                const enunCorto = (p.enunciado && p.enunciado.length > 50) ? p.enunciado.substring(0, 50) + "..." : (p.enunciado || '');
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${enunCorto}</td>
+                        <td>${nombreCurso}</td>
+                        <td>${p.dificultad || ''}</td>
+                        <td style="display:flex; gap:6px;">
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionPregunta('${p.id}')">✏️ Editar</button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarPregunta('${p.id}')">🗑️ Borrar</button>
+                        </td>
+                    </tr>`;
+            });
+        } catch(err) { tbody.innerHTML = '<tr><td colspan="4" style="color:red;">Error cargando preguntas.</td></tr>'; }
     };
 
     window.prepararEdicionPregunta = async function(id) {
         const sb = obtenerSupabase(); const { data: p } = await sb.from('preguntas').select('*').eq('id', id).single();
         if (!p) return;
         document.getElementById('adm-p-id').value = p.id;
-        document.getElementById('adm-p-curso').value = MAPEO_ID_CURSOS[p.area_id] || "Salud Pública";
-        actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema');
+        document.getElementById('adm-p-curso').value = MAPEO_ID_CURSOS[p.area_id] || p.area_id || "Salud Pública";
+        if (typeof actualizarTemasEnSelector === 'function') actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema');
         document.getElementById('adm-p-dif').value = p.dificultad || 'Intermedia';
-        document.getElementById('adm-p-enunciado').value = p.enunciado;
-        document.getElementById('adm-p-oa').value = p.opcion_a; document.getElementById('adm-p-ob').value = p.opcion_b;
-        document.getElementById('adm-p-oc').value = p.opcion_c; document.getElementById('adm-p-od').value = p.opcion_d;
-        document.getElementById('adm-p-correcta').value = p.respuesta_correcta;
-        document.getElementById('adm-p-justificacion').value = p.justificacion;
+        document.getElementById('adm-p-enunciado').value = p.enunciado || '';
+        document.getElementById('adm-p-oa').value = p.opcion_a || ''; document.getElementById('adm-p-ob').value = p.opcion_b || '';
+        document.getElementById('adm-p-oc').value = p.opcion_c || ''; document.getElementById('adm-p-od').value = p.opcion_d || '';
+        document.getElementById('adm-p-correcta').value = p.respuesta_correcta || 'A';
+        document.getElementById('adm-p-justificacion').value = p.justificacion || '';
 
         document.getElementById('btn-submit-pregunta').innerText = "Guardar Cambios";
         document.getElementById('btn-cancel-pregunta').style.display = "inline-block";
@@ -2928,37 +2986,39 @@ window.iniciarSimulacroArmado = function() {
         else { mostrarAvisoModal("¡Guardado!", editId ? "Pregunta actualizada." : "Pregunta guardada.", "✔"); cancelarEdicionPregunta(); cargarListaPreguntasAdmin(); }
     });
 
-    // CRUD DE LAS FIJAS (CON TRY/CATCH)
+    // CRUD DE LAS FIJAS (TRY/CATCH)
     window.cargarListaFijasAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-fijas-adm-body');
         if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="3">Cargando fijas...</td></tr>';
+        
         try {
-            const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
+            const { data, error } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
+            if (error) throw error;
             if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay fijas registradas.</td></tr>'; return; }
             listaFijasAdminMemoria = data; tbody.innerHTML = '';
             data.forEach(f => {
                 tbody.innerHTML += `
                     <tr>
-                        <td>${f.tema}</td>
-                        <td>${f.titulo}</td>
+                        <td>${f.tema || ''}</td>
+                        <td>${f.titulo || ''}</td>
                         <td style="display:flex; gap:6px;">
                             <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionFija('${f.id}')">✏️ Editar</button>
                             <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarFija('${f.id}')">🗑️ Borrar</button>
                         </td>
                     </tr>`;
             });
-        } catch(e) { tbody.innerHTML = `<tr><td colspan="3" style="color:red;">Error de conexión.</td></tr>`; }
+        } catch(err) { tbody.innerHTML = '<tr><td colspan="3" style="color:red;">Error cargando fijas.</td></tr>'; }
     };
 
     window.prepararEdicionFija = function(id) {
         const f = listaFijasAdminMemoria.find(x => x.id == id); if (!f) return;
         document.getElementById('adm-fija-id').value = f.id;
-        document.getElementById('adm-fija-curso').value = MAPEO_ID_CURSOS[f.area_id] || "Salud Pública";
-        actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema');
-        document.getElementById('adm-fija-tema').value = f.tema;
-        document.getElementById('adm-fija-titulo').value = f.titulo;
-        document.getElementById('adm-fija-contenido').value = f.contenido;
+        document.getElementById('adm-fija-curso').value = MAPEO_ID_CURSOS[f.area_id] || f.area_id || "Salud Pública";
+        if (typeof actualizarTemasEnSelector === 'function') actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema');
+        document.getElementById('adm-fija-tema').value = f.tema || '';
+        document.getElementById('adm-fija-titulo').value = f.titulo || '';
+        document.getElementById('adm-fija-contenido').value = f.contenido || '';
         
         document.getElementById('btn-submit-fija').innerText = "Guardar Cambios";
         document.getElementById('btn-cancel-fija').style.display = "inline-block";
@@ -2991,35 +3051,41 @@ window.iniciarSimulacroArmado = function() {
         else { mostrarAvisoModal("¡Guardado!", editId ? "Fija actualizada." : "Fija publicada.", "🔥"); cancelarEdicionFija(); cargarListaFijasAdmin(); }
     });
 
-    // CRUD DE FLASHCARDS
+    // CRUD DE FLASHCARDS (TRY/CATCH)
     window.cargarListaFlashcardsAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-flashcards-adm-body');
         if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="3">Cargando flashcards...</td></tr>';
-        const { data } = await sb.from('flashcards').select('*').order('id', { ascending: false });
-        if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay flashcards registradas.</td></tr>'; return; }
-        listaFlashcardsAdminMemoria = data; tbody.innerHTML = '';
-        data.forEach(f => {
-            const anversoCorto = f.anverso.length > 50 ? f.anverso.substring(0, 50) + "..." : f.anverso;
-            tbody.innerHTML += `
-                <tr>
-                    <td>${anversoCorto}</td>
-                    <td>${MAPEO_ID_CURSOS[f.area_id]}</td>
-                    <td style="display:flex; gap:6px;">
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionFlashcard('${f.id}')">✏️ Editar</button>
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarFlashcard('${f.id}')">🗑️ Borrar</button>
-                    </td>
-                </tr>`;
-        });
+        
+        try {
+            const { data, error } = await sb.from('flashcards').select('*').order('id', { ascending: false });
+            if (error) throw error;
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay flashcards registradas.</td></tr>'; return; }
+            listaFlashcardsAdminMemoria = data; tbody.innerHTML = '';
+            data.forEach(f => {
+                let nombreCurso = 'Academia';
+                if (f.area_id) nombreCurso = MAPEO_ID_CURSOS[f.area_id] || f.area_id;
+                const anversoCorto = (f.anverso && f.anverso.length > 50) ? f.anverso.substring(0, 50) + "..." : (f.anverso || '');
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${anversoCorto}</td>
+                        <td>${nombreCurso}</td>
+                        <td style="display:flex; gap:6px;">
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionFlashcard('${f.id}')">✏️ Editar</button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarFlashcard('${f.id}')">🗑️ Borrar</button>
+                        </td>
+                    </tr>`;
+            });
+        } catch(err) { tbody.innerHTML = '<tr><td colspan="3" style="color:red;">Error cargando flashcards.</td></tr>'; }
     };
 
     window.prepararEdicionFlashcard = function(id) {
         const f = listaFlashcardsAdminMemoria.find(x => x.id == id); if (!f) return;
         document.getElementById('adm-f-id').value = f.id;
-        document.getElementById('adm-f-curso').value = MAPEO_ID_CURSOS[f.area_id] || "Salud Pública";
-        actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema');
-        document.getElementById('adm-f-anverso').value = f.anverso;
-        document.getElementById('adm-f-reverso').value = f.reverso;
+        document.getElementById('adm-f-curso').value = MAPEO_ID_CURSOS[f.area_id] || f.area_id || "Salud Pública";
+        if (typeof actualizarTemasEnSelector === 'function') actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema');
+        document.getElementById('adm-f-anverso').value = f.anverso || '';
+        document.getElementById('adm-f-reverso').value = f.reverso || '';
         
         document.getElementById('btn-submit-flashcard').innerText = "Guardar Cambios";
         document.getElementById('btn-cancel-flashcard').style.display = "inline-block";
@@ -3056,21 +3122,24 @@ window.iniciarSimulacroArmado = function() {
     window.cargarListaSimulacrosAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-simulacros-adm-body');
         if (!tbody) return;
-        const { data } = await sb.from('simulacros').select('*').order('id', { ascending: false });
-        if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay simulacros creados.</td></tr>'; return; }
-        tbody.innerHTML = '';
-        data.forEach(s => {
-            tbody.innerHTML += `
-                <tr>
-                    <td><strong>${s.titulo}</strong></td>
-                    <td>${s.duracion_minutos} min</td>
-                    <td><span style="color:${s.habilitado ? '#28a745' : '#dc3545'}; font-weight:bold;">${s.habilitado ? 'Activo' : 'Inactivo'}</span></td>
-                    <td style="display:flex; gap:6px;">
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${s.habilitado ? '#6c757d' : '#28a745'};" onclick="cambiarEstadoSimulacro('${s.id}', ${!s.habilitado})">${s.habilitado ? 'Ocultar' : 'Activar'}</button>
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarSimulacro('${s.id}')">Borrar</button>
-                    </td>
-                </tr>`;
-        });
+        try {
+            const { data, error } = await sb.from('simulacros').select('*').order('id', { ascending: false });
+            if (error) throw error;
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay simulacros creados.</td></tr>'; return; }
+            tbody.innerHTML = '';
+            data.forEach(s => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${s.titulo || ''}</strong></td>
+                        <td>${s.duracion_minutos || 0} min</td>
+                        <td><span style="color:${s.habilitado ? '#28a745' : '#dc3545'}; font-weight:bold;">${s.habilitado ? 'Activo' : 'Inactivo'}</span></td>
+                        <td style="display:flex; gap:6px;">
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:${s.habilitado ? '#6c757d' : '#28a745'};" onclick="cambiarEstadoSimulacro('${s.id}', ${!s.habilitado})">${s.habilitado ? 'Ocultar' : 'Activar'}</button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarSimulacro('${s.id}')">Borrar</button>
+                        </td>
+                    </tr>`;
+            });
+        } catch(e) { tbody.innerHTML = '<tr><td colspan="4" style="color:red;">Error cargando simulacros.</td></tr>'; }
     };
 
     window.cambiarEstadoSimulacro = async function(id, nuevoEstado) {
@@ -3098,56 +3167,84 @@ window.iniciarSimulacroArmado = function() {
         }
     });
 
-    // SISTEMA CÓDIGOS, CORPORATIVOS Y CUPONES (Nuevas reglas redirección a WhatsApp)
-    window.procesarCanjeCodigo = async function() {
-        const cod = document.getElementById('input-canje-codigo').value.trim().toUpperCase();
-        if (!cod) return mostrarAvisoModal("Código Requerido", "Ingresa un código válido.", "⚠️");
-        
-        const sb = obtenerSupabase();
-        let codigoEncontrado = null;
-
-        const { data } = await sb.from('codigos_promocionales').select('*').eq('codigo', cod).single();
-        if (data) { codigoEncontrado = data; }
-        else {
-            try {
-                const res = await sb.from('configuracion_academia').select('valor').eq('clave', 'lista_codigos_promo').single();
-                if (res.data?.valor) {
-                    const arr = JSON.parse(res.data.valor);
-                    codigoEncontrado = arr.find(x => x.codigo === cod);
-                }
-            } catch(e){}
-        }
-
-        if (!codigoEncontrado) {
-            mostrarAvisoModal("Código Inválido", "El código ingresado no existe o no tiene vigencia.", "❌");
-            return;
-        }
-
-        // Si es Corporativo o Descuento, REDIRIGIR a WhatsApp (No auto-activar)
-        if (codigoEncontrado.tipo === 'corporativo' || codigoEncontrado.tipo === 'descuento') {
-            const urlWa = sanitizarEnlaceWhatsApp(whatsappLinkGlobal);
-            const detalle = codigoEncontrado.tipo === 'corporativo' ? `convenio corporativo [${cod}]` : `cupón de descuento de ${codigoEncontrado.descuento_pct}% [${cod}]`;
-            const msg = encodeURIComponent(`Hola Proserum's Academia, deseo validar mi ${detalle} para mi cuenta: ${user.email}.`);
-            const urlFinal = urlWa.includes('?') ? `${urlWa}&text=${msg}` : `${urlWa}?text=${msg}`;
-            
-            cerrarModales();
-            mostrarAvisoModal("Código Verificado", "Tu código ha sido validado. Te estamos redirigiendo a WhatsApp para confirmar la activación directa con secretaría.", "📲");
-            setTimeout(() => { window.open(urlFinal, '_blank'); }, 2000);
-            return;
-        }
-
-        // Activación Temporal Automática para Pases 24h / 7d
-        const horas = codigoEncontrado.tipo === 'tiempo_7d' ? 168 : 24;
-        const expira = new Date(Date.now() + horas * 60 * 60 * 1000).toISOString();
-        const planActivar = codigoEncontrado.plan_desbloqueado || 'elite';
-
-        await sb.from('perfiles').update({ plan: planActivar, plan_expira_en: expira }).eq('id', user.id);
-        cerrarModales();
-        mostrarAvisoModal("¡Pase Activado!", `Se ha desbloqueado el Plan ${planActivar.toUpperCase()} por ${horas} horas continuas. ¡Aprovecha al máximo tu preparación!`, "🌟");
-        await cargarPerfil();
+    // CARRUSEL Y ANUNCIOS
+    window.renderizarCarruselLogin = function() {
+        const cont = document.getElementById('slides-login-contenedor'); const placeholder = document.getElementById('banner-login-placeholder');
+        if (!cont) return;
+        if (carruselLoginImagenes.length === 0) { if (placeholder) placeholder.style.display = 'block'; return; }
+        if (placeholder) placeholder.style.display = 'none'; cont.innerHTML = '';
+        carruselLoginImagenes.forEach((url, i) => { cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-login-${i}">`; });
+        indexSlideLogin = 0; if (timerCarruselLogin) clearInterval(timerCarruselLogin);
+        if (carruselLoginImagenes.length > 1) { timerCarruselLogin = setInterval(() => { cambiarSlideLogin(1); }, 5000); }
     };
 
-    // PNG DR. PANDY ESTADOS INDIVIDUALES (Administrador)
+    window.cambiarSlideLogin = function(dir) {
+        if (carruselLoginImagenes.length <= 1) return;
+        const actual = document.getElementById(`slide-login-${indexSlideLogin}`); if (actual) actual.classList.remove('activa');
+        indexSlideLogin = (indexSlideLogin + dir + carruselLoginImagenes.length) % carruselLoginImagenes.length;
+        const nuevo = document.getElementById(`slide-login-${indexSlideLogin}`); if (nuevo) nuevo.classList.add('activa');
+    };
+
+    window.lanzarPopupAnuncioSiExiste = function() {
+        if (carruselPopupImagenes.length === 0) return;
+        const cont = document.getElementById('slides-popup-contenedor'); if (!cont) return;
+        cont.innerHTML = '';
+        carruselPopupImagenes.forEach((url, i) => { cont.innerHTML += `<img src="${url}" class="carrusel-img ${i === 0 ? 'activa' : ''}" id="slide-popup-${i}" style="max-height: 420px; width: 100%; object-fit: contain; border-radius: 12px;">`; });
+        indexSlidePopup = 0; document.getElementById('modal-popup-anuncio').style.display = 'flex';
+        popupAnuncioMostrado = true;
+    };
+
+    window.cerrarPopupAnuncio = function() { document.getElementById('modal-popup-anuncio').style.display = 'none'; };
+
+    window.cambiarSlidePopup = function(dir) {
+        if (carruselPopupImagenes.length <= 1) return;
+        const actual = document.getElementById(`slide-popup-${indexSlidePopup}`); if (actual) actual.classList.remove('activa');
+        indexSlidePopup = (indexSlidePopup + dir + carruselPopupImagenes.length) % carruselPopupImagenes.length;
+        const nuevo = document.getElementById(`slide-popup-${indexSlidePopup}`); if (nuevo) nuevo.classList.add('activa');
+    };
+
+    window.agregarImagenCarrusel = async function(tipo) {
+        const inputId = (tipo === 'banner_login') ? 'file-banner-login' : 'file-popup-anuncio';
+        const file = document.getElementById(inputId).files[0];
+        if (!file) return mostrarAvisoModal("Selecciona Imagen", "Elige un archivo.", "⚠️");
+        const reader = new FileReader();
+        reader.onload = async function(evt) {
+            const b64 = evt.target.result;
+            if (tipo === 'banner_login') {
+                carruselLoginImagenes.push(b64); await guardarConfiguracionBase('banner_login_lista', JSON.stringify(carruselLoginImagenes)); renderizarCarruselLogin();
+            } else {
+                carruselPopupImagenes.push(b64); await guardarConfiguracionBase('popup_anuncio_lista', JSON.stringify(carruselPopupImagenes));
+            }
+            if (typeof renderizarListasAdminAnuncios === 'function') renderizarListasAdminAnuncios(); 
+            document.getElementById(inputId).value = '';
+            mostrarAvisoModal("¡Imagen Añadida!", "El carrusel se actualizó correctamente.", "✔");
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.eliminarImagenCarrusel = async function(tipo, index) {
+        if (tipo === 'banner_login') {
+            carruselLoginImagenes.splice(index, 1); await guardarConfiguracionBase('banner_login_lista', JSON.stringify(carruselLoginImagenes)); renderizarCarruselLogin();
+        } else {
+            carruselPopupImagenes.splice(index, 1); await guardarConfiguracionBase('popup_anuncio_lista', JSON.stringify(carruselPopupImagenes));
+        }
+        if (typeof renderizarListasAdminAnuncios === 'function') renderizarListasAdminAnuncios(); 
+        mostrarAvisoModal("Imagen Eliminada", "Se borró del carrusel.", "🗑️");
+    };
+
+    window.renderizarListasAdminAnuncios = function() {
+        const contLogin = document.getElementById('lista-anuncios-login-adm'); const contPopup = document.getElementById('lista-anuncios-popup-adm');
+        if (contLogin) {
+            contLogin.innerHTML = '';
+            carruselLoginImagenes.forEach((url, idx) => { contLogin.innerHTML += `<div style="position: relative; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: 120px; height: 80px;"><img src="${url}" style="width: 100%; height: 100%; object-fit: cover;"><button type="button" onclick="eliminarImagenCarrusel('banner_login', ${idx})" style="position: absolute; top: 2px; right: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">✕</button></div>`; });
+        }
+        if (contPopup) {
+            contPopup.innerHTML = '';
+            carruselPopupImagenes.forEach((url, idx) => { contPopup.innerHTML += `<div style="position: relative; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: 120px; height: 80px;"><img src="${url}" style="width: 100%; height: 100%; object-fit: cover;"><button type="button" onclick="eliminarImagenCarrusel('popup_anuncio', ${idx})" style="position: absolute; top: 2px; right: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">✕</button></div>`; });
+        }
+    };
+
+    // Subida de PNGs del Panda
     window.guardarPandaEstado = function(estado) {
         const fileInput = document.getElementById('file-pandy-' + estado);
         if (!fileInput || !fileInput.files[0]) return mostrarAvisoModal("Aviso", "Selecciona una imagen PNG transparente.", "⚠️");
@@ -3157,13 +3254,11 @@ window.iniciarSimulacroArmado = function() {
             const b64 = e.target.result;
             pandyEstados[estado] = b64;
             await guardarConfiguracionBase('pandy_estados', JSON.stringify(pandyEstados));
-            mostrarAvisoModal("Dr. Pandy Actualizado", `La emoción '${estado.toUpperCase()}' se ha actualizado.`, "🐼");
+            mostrarAvisoModal("Dr. Pandy Actualizado", `La emoción '${estado.toUpperCase()}' se ha guardado exitosamente.`, "🐼");
             renderizarPandaVisual('normal');
         };
         reader.readAsDataURL(fileInput.files[0]);
     };
-
 </script>
 </body>
 </html>
-
