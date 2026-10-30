@@ -1563,8 +1563,136 @@
                 </div>
             </div>
         </div>
-    </div>
-cargarLasFijasSERUMS();
+    <script>
+    // === 1. CONFIGURACIÓN BASE Y METADATOS ===
+    const FRASES_MOTIVACIONALES = [
+        "¡Qué alegría verte de nuevo, {nombre}! Hoy sumaremos puntos decisivos.",
+        "¡Paso a paso, {nombre}! La constancia en el banqueo asegura tu plaza.",
+        "¡Excelente día para aprender, {nombre}! Cada caso clínico te acerca a la meta.",
+        "¡A darle con todo, {nombre}! Tu vocación médica dará grandes frutos.",
+        "¡Confía en tu preparación, {nombre}! Estás construyendo tu mejor versión.",
+        "¡Mucho éxito en la jornada de hoy, {nombre}! Vamos a dominar este temario.",
+        "¡Tu plaza SERUMS te está esperando, {nombre}! A demostrar todo lo que sabes.",
+        "¡Vamos colega, {nombre}! Con calma, juicio clínico y enfoque total.",
+        "¡Qué orgullo ver tu disciplina, {nombre}! Hoy será un día de gran avance.",
+        "¡La meta está clara, {nombre}! Ninguna pregunta es rival para tu estudio."
+    ];
+
+    const TEMARIO_OFICIAL_MINSA = {
+        "Salud Pública": ["1.1 Conceptos básicos de salud pública (definiciones, FESP)", "1.2 Epidemiologia (conceptos básicos, mediciones e indicadores)", "1.3 Causalidad y Riesgo", "1.4 Demografía en salud", "1.5 Historia natural del proceso salud enfermedad", "1.6 Etapas y niveles de prevención", "1.7 Pruebas diagnósticas", "1.8 Brotes, epidemias y endemias", "1.9 Vigilancia en salud pública", "1.10 Prevención y Control de infecciones", "1.11 Uso racional de medicamentos", "1.12 Análisis situacional de salud (ASIS)", "1.13 Sistema de Vigilancia Epidemiológica en el pais", "2.1 Determinantes sociales de la salud", "2.2 Determinantes ambientales de salud", "2.3 Participación social y comunitaria", "2.4 Sectorización y ficha familiar", "2.5 Intervenciones comunitarias en salud", "2.6 Trabajo intersectorial en salud", "2.7 Plan de salud local", "2.8 Sistemas de información y TICs en salud", "2.9 Alimentación y Nutrición e inocuidad alimentaria", "2.10 Control de vectores y plagas", "2.11 Gestión y manejo de los resíduos sólidos", "2.12 Salud ocupacional", "2.13 Modelo de salud mental comunitaria", "2.14 Accesibilidad a los servicios de salud", "3.1 Promoción de la salud", "3.2 Información, educación y comunicación para la salud", "3.3 Bioseguridad", "3.4 Gestión del riesgo en emergencias y desastres"],
+        "Cuidado Integral de Salud": ["1.1 Atención integral de salud a la persona por curso de vida", "1.2 Atención centrada en la persona", "1.3 Atención médica en urgencias y emergencias", "1.4 Manejo inicial de emergencias obstétricas y neonatales", "1.5 Riesgo obstétrico", "1.6 Exámenes auxiliares de apoyo al diagnóstico", "1.7 Aspectos legales y forenses en medicina", "2.1 Atención Primaria de salud (APS)", "2.2 Paquete de cuidado integral del niño", "2.3 Paquete de cuidado integral del adolescente", "2.4 Paquete de cuidado integral del joven", "2.5 Paquete de cuidado integral del adulto", "2.6 Paquete de cuidado integral del adulto mayor", "2.7 Cuidados de la salud mental", "2.8 Prevención y control del Cáncer", "2.9 Detección temprana de cáncer infantil", "2.10 Prevención y control de Tuberculosis", "2.11 Esquema regular de vacunación y cadena de frío", "2.12 Esquema nacional de vacunación", "2.13 Prevención y control de anemia y malnutrición", "2.14 Atención integral de ITS, VIH y hepatitis", "2.15 Prevención combinada del VIH", "2.16 Transmisión materno infantil de VIH, sífilis y hepatitis B", "2.17 Prevención y control de enfermedades no transmisibles", "2.18 Enfermedades raras y huérfanas", "2.19 Exposición a metales pesados", "2.20 Infecciones asociadas a la atención de salud", "2.21 Medidas preventivas en salud bucal", "2.22 Enfermedades metaxénicas y zoonóticas", "2.23 Climaterio y menopausia", "2.24 Embarazo, parto, puerperio normal"],
+        "Ética e Interculturalidad": ["1.1 Ética en la función pública", "1.2 Código de ética y deontología profesional", "1.3 Derechos y deberes de los usuarios", "2.1 Comunicación y diálogo intercultural", "2.2 Diversidad cultural y equidad", "2.3 Enfoque intercultural en salud", "2.4 Promoción del Parto vertical", "2.5 Medicina tradicional y alternativa", "2.6 Prevención del estigma y discriminación"],
+        "Investigación": ["1.1 Conceptos básicos de investigación", "1.2 Enfoques cualitativo, cuantitativo y mixto", "1.3 Tipos de investigación", "2.1 Instrumentos de recolección de datos", "2.2 Procesamiento y análisis de datos", "3.1 Elaboración y publicación de resultados", "3.2 Aspectos éticos de la investigación"],
+        "Gestión de Servicios de Salud": ["1.1 Planeamiento Estratégico", "1.2 Análisis estratégico institucional (FODA)", "1.3 Planeamiento Institucional: PEI y POI", "2.1 Documentos normativos: ROF y MOP", "2.2 Clasificación de establecimientos (Categorización)", "2.3 UPSS y Cartera de servicios", "2.4 Sistema de referencia y contrarreferencia (REFCON)", "2.5 Gestión de la Historia Clínica", "2.6 Redes integradas de salud (RIS)", "2.7 Telesalud", "3.1 Gestión de Recursos Humanos", "3.2 Control de inventario y medicamentos (SISMED)", "3.3 Coordinación intersectorial", "3.4 Liderazgo en salud", "3.5 Trabajo colaborativo", "4.1 Garantía y mejora de la calidad", "4.2 Clima y Cultura organizacional"]
+    };
+
+    const MAPEO_CURSOS_ID = { "Salud Pública": 1, "Cuidado Integral de Salud": 2, "Gestión de Servicios de Salud": 5, "Investigación": 4, "Ética e Interculturalidad": 3 };
+    const MAPEO_ID_CURSOS = { 1: "Salud Pública", 2: "Cuidado Integral de Salud", 5: "Gestión de Servicios de Salud", 4: "Investigación", 3: "Ética e Interculturalidad" };
+
+    // === 2. VARIABLES DE ESTADO ===
+    let user = null;
+    let perfilUsuario = null;
+    let perfilMascota = { energia: 100, monedas: 50, nivel: 1.0, cabeza: 'ninguno', cuerpo: 'ninguno' };
+    let pandyImagenCustom = "";
+    
+    let preciosPlanes = { banqueo: 49, clinico: 89, elite: 139 };
+    let whatsappLinkGlobal = "https://wa.me/51999999999";
+    let swRedes = { wa: true, fb: true, dc: true, ig: false };
+
+    let preguntaActual = null;
+    let todasLasFlashcards = [];
+    let todasLasFijas = [];
+    let temasTeoricosEnMemoria = [];
+    let listaTemasAdminMemoria = [];
+    let listaPreguntasAdminMemoria = [];
+    let listaFijasAdminMemoria = [];
+    let listaFlashcardsAdminMemoria = [];
+    let listaCodigosAdminMemoria = [];
+    let preguntasIaBuffer = [];
+    let preguntasFalladasBuffer = [];
+    let listaAlumnosMemoria = [];
+    let simulacroBorrador100 = [];
+    
+    let eventosCalendarioMemoria = {};
+    let fechaExamenGlobal = "2026-11-15";
+    let modalidadFechaGlobal = "oficial";
+    let fechaActualCalendario = new Date();
+    
+    let carruselLoginImagenes = [];
+    let indexSlideLogin = 0;
+    let timerCarruselLogin = null;
+    let carruselPopupImagenes = [];
+    let indexSlidePopup = 0;
+    let bienvenidaMascotaMostradaTurno = false;
+    let popupAnuncioMostrado = false;
+
+    // Pomodoro
+    let pomoTiempoRestante = 25 * 60;
+    let pomoTimer = null;
+    let pomoEnMarcha = false;
+
+    // Sanitizador Universal de WhatsApp
+    function sanitizarEnlaceWhatsApp(entrada) {
+        if (!entrada) return "https://wa.me/51999999999";
+        entrada = entrada.trim();
+        if (entrada.startsWith("http://") || entrada.startsWith("https://")) return entrada;
+        let soloNum = entrada.replace(/\D/g, "");
+        if (soloNum.length === 9) soloNum = "51" + soloNum;
+        return `https://wa.me/${soloNum}`;
+    }
+
+    // === 3. NAVEGACIÓN Y PESTAÑAS ===
+    window.verSubTabAdmin = function(tipo) {
+        document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
+        document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
+        
+        if (window.event && window.event.target && window.event.target.classList.contains('tab-btn-adm')) {
+            window.event.target.classList.add('activa');
+        } else {
+            const btn = Array.from(document.querySelectorAll('.tab-btn-adm')).find(b => b.getAttribute('onclick')?.includes(`'${tipo}'`));
+            if (btn) btn.classList.add('activa');
+        }
+        
+        const subTab = document.getElementById('subtab-adm-' + tipo);
+        if (subTab) subTab.classList.add('activa');
+        
+        if (tipo === 'p') { actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema'); cargarListaPreguntasAdmin(); } 
+        if (tipo === 't') { actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select'); cargarListaTemasAdmin(); } 
+        if (tipo === 'fijas_adm') { actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); cargarListaFijasAdmin(); } 
+        if (tipo === 'f') { actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema'); cargarListaFlashcardsAdmin(); }
+        if (tipo === 'sims') { cargarListaSimulacrosAdmin(); }
+        if (tipo === 'codigos') { cargarListaCodigosAdmin(); }
+        if (tipo === 'precios') { cargarPreciosEnFormulario(); }
+        if (tipo === 'a') { cargarAlumnosAdmin(); } 
+        if (tipo === 'anuncios') { cargarConfiguracionesGenerales(); }
+    };
+
+    window.subSec = function(nom) {
+        ['dash', 'semaforo', 'crono', 'temas', 'banqueo', 'flashcards', 'fijas', 'tienda', 'stats', 'perfil', 'admin'].forEach(s => {
+            const el = document.getElementById('sec-' + s);
+            if (el) el.style.display = 'none';
+        });
+        document.querySelectorAll('.menu li').forEach(l => l.classList.remove('activo'));
+
+        const sec = document.getElementById('sec-' + nom);
+        if (sec) sec.style.display = 'block';
+        const m = document.getElementById('m-' + nom);
+        if (m) m.classList.add('activo');
+
+        if (nom === 'dash') cargarCursosDashboard();
+        if (nom === 'flashcards') {
+            if (!tieneAccesoA('flashcards')) {
+                mostrarBloqueoFree('sec-flashcards', '🗂️ Módulo de Flashcards', 'Las flashcards inteligentes con SRS son exclusivas del Plan Clínico y Plan Élite.');
+                return;
+            }
+            cargarFlashcardsDesdeBD();
+        }
+        if (nom === 'fijas') {
+            if (!tieneAccesoA('fijas')) {
+                mostrarBloqueoFree('sec-fijas', '🔥 Las Fijas SERUMS', 'Las perlas clínicas oficiales son exclusivas del Plan Clínico y Plan Élite.');
+                return;
+            }
+            cargarLasFijasSERUMS();
         }
         if (nom === 'stats') cargarEstadisticas();
         if (nom === 'temas') {
@@ -3309,3 +3437,4 @@ cargarLasFijasSERUMS();
 </script>
 </body>
 </html>
+    </div>
