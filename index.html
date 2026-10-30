@@ -1299,16 +1299,20 @@
                             <!-- PESTAÑA: CONFIGURACIÓN GENERAL Y SWITCHES REDES -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Subir Imagen Oficial del Dr. Pandy (Render 3D)</h3>
-                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu ilustración o render 3D en PNG. El sistema soporta múltiples estados emocionales subiéndolas como JSON o como una sola imagen base.</p>
-                                    <div class="fila">
-                                        <div class="campo">
-                                            <input type="file" id="file-pandy-custom" accept="image/*">
-                                            <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                                <button type="button" class="btn-tool" onclick="guardarPandaCustom()">Aplicar Imagen del Panda</button>
-                                                <button type="button" class="btn-tool" style="background: #dc3545; color: white;" onclick="restaurarPandaDefault()">Restaurar Original</button>
-                                            </div>
-                                        </div>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Personalizar Dr. Pandy (Emociones y Evolución)</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tus imágenes en PNG (fondo transparente). Recomendado: imágenes ligeras menores a 500kb.</p>
+                                    
+                                    <div class="grid-modalidades-banqueo" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                                        <div class="campo"><label>🐼 Bebé/Normal (Por defecto)</label><input type="file" id="p-img-normal" accept="image/*"></div>
+                                        <div class="campo"><label>✨ Feliz / Respuesta Correcta</label><input type="file" id="p-img-feliz" accept="image/*"></div>
+                                        <div class="campo"><label>❌ Triste / Falla Clínica</label><input type="file" id="p-img-triste" accept="image/*"></div>
+                                        <div class="campo"><label>💤 Dormido (Sin energía)</label><input type="file" id="p-img-dormido" accept="image/*"></div>
+                                        <div class="campo" style="grid-column: 1 / -1;"><label>👑 Evolución: Adulto (Al llegar a Nv. 8 / Especialista)</label><input type="file" id="p-img-adulto" accept="image/*"></div>
+                                    </div>
+                                    
+                                    <div style="display: flex; gap: 10px;">
+                                        <button type="button" class="btn-p" style="width: auto; background: #6f42c1;" onclick="guardarPandyMultiples()">Guardar Emociones del Panda</button>
+                                        <button type="button" class="btn-tool" style="background: #dc3545; color: white; padding: 12px 20px;" onclick="restaurarPandaDefault()">Restaurar Original</button>
                                     </div>
                                 </div>
                                 <div class="admin-form-box">
@@ -1991,13 +1995,27 @@
     };
 
     // Render del Dr. Pandy según Estado Emocional Integrado
+    // Render del Dr. Pandy según Estado Emocional Integrado y Evolución
     window.generarHTMLDrPandy = function(ancho = 100, estado = 'normal') {
-        const imgEmocion = pandyImagenesCustom[estado] || pandyImagenesCustom['normal'];
+        let imgEmocion = pandyImagenesCustom[estado];
+        
+        // Lógica de EVOLUCIÓN: Si es Nivel 8+ (Especialista) y estamos en estado normal, usa el Adulto
+        if (estado === 'normal' && perfilMascota && perfilMascota.nivel >= 8 && pandyImagenesCustom['adulto']) {
+            imgEmocion = pandyImagenesCustom['adulto'];
+        }
+        
+        // Si no subiste una imagen específica para esa emoción, usa la normal (o el adulto si evolucionó)
+        if (!imgEmocion) {
+            imgEmocion = (perfilMascota && perfilMascota.nivel >= 8 && pandyImagenesCustom['adulto']) 
+                         ? pandyImagenesCustom['adulto'] 
+                         : pandyImagenesCustom['normal'];
+        }
         
         if (imgEmocion) {
             return `<img src="${imgEmocion}" class="panda-animado" style="width:${ancho}px; height:${ancho}px; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(0,0,0,0.25));" alt="Dr. Pandy">`;
         }
 
+        // --- (Si no hay imágenes subidas, dibuja el SVG por defecto) ---
         let ojoIzquierdo = `<circle cx="39" cy="36" r="3.5" fill="#ffffff"/><circle cx="40" cy="35" r="1.5" fill="#0f172a"/>`;
         let ojoDerecho = `<circle cx="61" cy="36" r="3.5" fill="#ffffff"/><circle cx="60" cy="35" r="1.5" fill="#0f172a"/>`;
         let boca = `<path d="M47 50 Q50 53 53 50" fill="none" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>`;
@@ -2033,33 +2051,42 @@
         </svg>`;
     };
 
-    window.renderizarPandaVisual = function(estado = 'normal') {
-        const canvas = document.getElementById('avatar-canvas'); if (canvas) canvas.innerHTML = generarHTMLDrPandy(115, estado);
-        const coach = document.getElementById('avatar-canvas-coach'); if (coach) coach.innerHTML = generarHTMLDrPandy(85, estado);
-    };
+    // Función que procesa la subida de todas las imágenes
+    window.guardarPandyMultiples = async function() {
+        const btn = event.target;
+        btn.innerText = "Guardando...";
+        
+        const leerArchivo = (id) => new Promise((resolve) => {
+            const file = document.getElementById(id).files[0];
+            if (!file) return resolve(null);
+            const r = new FileReader();
+            r.onload = (e) => resolve(e.target.result);
+            r.readAsDataURL(file);
+        });
 
-    window.acariciarPanda = function() {
-        const frasesAfecto = [
-            "¡Dr. Pandy listo para la ronda médica! 🩺",
-            "¡El estudio constante asegura tu plaza! 🎋",
-            "¡Vamos colega, ningún caso se nos escapa! ⭐",
-            "¡Tu esfuerzo de hoy es tu plaza de mañana! 🏆"
-        ];
-        mostrarAvisoModal("Dr. Pandy dice:", frasesAfecto[Math.floor(Math.random() * frasesAfecto.length)], "🐼");
-    };
+        const imgNormal = await leerArchivo('p-img-normal');
+        const imgFeliz = await leerArchivo('p-img-feliz');
+        const imgTriste = await leerArchivo('p-img-triste');
+        const imgDormido = await leerArchivo('p-img-dormido');
+        const imgAdulto = await leerArchivo('p-img-adulto');
 
-    window.guardarPandaCustom = function() {
-        const file = document.getElementById('file-pandy-custom').files[0];
-        if (!file) return mostrarAvisoModal("Aviso", "Selecciona una imagen PNG del Dr. Pandy.", "⚠️");
-        const reader = new FileReader();
-        reader.onload = async function(e) {
-            const b64 = e.target.result;
-            pandyImagenesCustom['normal'] = b64;
-            await guardarConfiguracionBase('pandy_imagen_hd', JSON.stringify(pandyImagenesCustom));
-            renderizarPandaVisual();
-            mostrarAvisoModal("Dr. Pandy Actualizado", "Render del Dr. Pandy aplicado en toda la academia.", "🐼");
-        };
-        reader.readAsDataURL(file);
+        if (imgNormal) pandyImagenesCustom['normal'] = imgNormal;
+        if (imgFeliz) {
+            pandyImagenesCustom['correcto'] = imgFeliz;
+            pandyImagenesCustom['saludo'] = imgFeliz;
+            pandyImagenesCustom['motivado'] = imgFeliz;
+        }
+        if (imgTriste) {
+            pandyImagenesCustom['error'] = imgTriste;
+            pandyImagenesCustom['triste'] = imgTriste;
+        }
+        if (imgDormido) pandyImagenesCustom['dormido'] = imgDormido;
+        if (imgAdulto) pandyImagenesCustom['adulto'] = imgAdulto;
+
+        await guardarConfiguracionBase('pandy_imagen_hd', JSON.stringify(pandyImagenesCustom));
+        renderizarPandaVisual();
+        btn.innerText = "Guardar Emociones del Panda";
+        mostrarAvisoModal("Dr. Pandy Actualizado", "Las nuevas emociones y evoluciones se guardaron correctamente.", "🐼");
     };
 
     window.restaurarPandaDefault = async function() {
@@ -2487,6 +2514,7 @@
         const sb = obtenerSupabase();
         const { data: temas } = await sb.from('temas').select('*').order('id', { ascending: true }); 
         temasTeoricosEnMemoria = temas || [];
+        filtrarTeoria('todos'); // <--- Esta línea hace que aparezcan inmediatamente
     };
 
     window.toggleTemaAcordeon = function(idCuerpo, idIcono) {
