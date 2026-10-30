@@ -2052,6 +2052,21 @@
     };
 
     // Función que procesa la subida de todas las imágenes
+    window.renderizarPandaVisual = function(estado = 'normal') {
+        const canvas = document.getElementById('avatar-canvas'); if (canvas) canvas.innerHTML = generarHTMLDrPandy(115, estado);
+        const coach = document.getElementById('avatar-canvas-coach'); if (coach) coach.innerHTML = generarHTMLDrPandy(85, estado);
+    };
+
+    window.acariciarPanda = function() {
+        const frasesAfecto = [
+            "¡Dr. Pandy listo para la ronda médica! 🩺",
+            "¡El estudio constante asegura tu plaza! 🎋",
+            "¡Vamos colega, ningún caso se nos escapa! ⭐",
+            "¡Tu esfuerzo de hoy es tu plaza de mañana! 🏆"
+        ];
+        mostrarAvisoModal("Dr. Pandy dice:", frasesAfecto[Math.floor(Math.random() * frasesAfecto.length)], "🐼");
+    };
+
     window.guardarPandyMultiples = async function() {
         const btn = event.target;
         btn.innerText = "Guardando...";
