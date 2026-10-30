@@ -47,8 +47,10 @@
         body { background-color: var(--bg-body); color: var(--text-main); font-size: 14.5px; }
         .pantalla { display: none; min-height: 100vh; } .pantalla.activa { display: flex; }
 
-        .emblema-serums-pro { display: inline-flex; align-items: center; justify-content: center; width: 85px; height: 85px; background: linear-gradient(135deg, #002b5c, #0056b3); border-radius: 22px; box-shadow: 0 6px 20px rgba(0,43,92,0.4); flex-shrink: 0; border: 2px solid #ffd700; overflow: hidden; position: relative; }
-        .emblema-serums-pro svg { width: 56px; height: 56px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        /* Contenedor del Logo con fondo transparente real */
+        .emblema-serums-pro { display: inline-flex; align-items: center; justify-content: center; width: 110px; height: 110px; background: transparent; border-radius: 18px; flex-shrink: 0; overflow: hidden; position: relative; }
+        .emblema-serums-pro img { width: 100%; height: 100%; object-fit: contain; }
+        .emblema-serums-pro svg { width: 75px; height: 75px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
         
         .logo-box-main { display: flex; align-items: center; justify-content: center; gap: 18px; margin-bottom: 25px; }
         .logo-titulo-portada { font-size: 2.7em; font-weight: 900; color: #0056b3; letter-spacing: -0.5px; line-height: 1.1; }
@@ -106,9 +108,8 @@
         .layout { width: 100%; display: flex; height: 100vh; overflow: hidden; position: relative; }
         .sidebar { width: 275px; background: var(--sidebar-bg); border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; flex-shrink: 0; }
         
-        .side-logo-header { padding: 22px 18px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 14px; }
-        .side-logo-header .emblema-serums-pro { width: 52px; height: 52px; border-radius: 14px; border-width: 1px; }
-        .side-logo-header .emblema-serums-pro svg { width: 34px; height: 34px; }
+        .side-logo-header { padding: 18px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 12px; }
+        .side-logo-header .emblema-serums-pro { width: 55px; height: 55px; }
         .side-logo-header .logo-titulo { color: #ffffff !important; font-size: 1.25em; line-height: 1.2; }
         
         .menu { list-style: none; padding: 20px 12px; flex: 1; overflow-y: auto; }
@@ -162,9 +163,9 @@
 
         .widget-mascota-lateral { background: linear-gradient(135deg, #0056b3, #008080); color: white; padding: 25px 20px; border-radius: 20px; box-shadow: var(--shadow-md); display: flex; flex-direction: column; align-items: center; text-align: center; }
         body.dark-mode .widget-mascota-lateral { background: linear-gradient(135deg, #1e3a8a, #0f766e); }
-        .avatar-canvas-box { position: relative; width: 125px; height: 125px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; cursor: pointer; overflow: hidden; }
+        .avatar-canvas-box { position: relative; width: 135px; height: 135px; background: rgba(255, 255, 255, 0.15); border-radius: 50%; display: flex; justify-content: center; align-items: center; border: 3px solid rgba(255, 255, 255, 0.4); margin-bottom: 12px; cursor: pointer; overflow: hidden; }
         
-        @keyframes respirarPanda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px) scale(1.02); } }
+        @keyframes respirarPanda { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px) scale(1.02); } }
         .panda-animado { animation: respirarPanda 3s infinite ease-in-out; }
 
         .campo-select-pro { appearance: none; background-color: var(--input-bg); background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px; padding: 12px 35px 12px 14px !important; cursor: pointer; color: var(--text-main); font-weight: 500; border: 1px solid var(--border-color); border-radius: 10px; box-shadow: var(--shadow-sm); font-size: 0.95em; }
@@ -231,6 +232,7 @@
         .badge-clinico { background: #fde68a; color: #b45309; }
         .badge-elite { background: #bbf7d0; color: #15803d; }
 
+        /* Semáforo Anti-Copia */
         .seccion-anticopia { -webkit-user-select: none !important; -moz-user-select: none !important; -ms-user-select: none !important; user-select: none !important; }
         .semaforo-card { background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border-color); margin-bottom: 16px; overflow: hidden; }
         .semaforo-header { padding: 14px 18px; font-weight: 700; color: white; display: flex; justify-content: space-between; align-items: center; }
@@ -245,11 +247,11 @@
         .modal-box { background: var(--bg-card); border-radius: 20px; padding: 30px; max-width: 540px; width: 92%; text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.4); position: relative; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border-color); color: var(--text-main); }
         .btn-cerrar-x { position: absolute; top: 12px; right: 18px; background: none; border: none; font-size: 1.6em; cursor: pointer; color: var(--text-muted); font-weight: bold; }
         
-        /* BOTONES FLOTANTES: VISIBLES POR DEFECTO */
+        /* Botones Flotantes */
         .flotante-container { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 9998; }
         .btn-flotante { width: 55px; height: 55px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 1.6em; box-shadow: 0 6px 20px rgba(0,0,0,0.3); transition: 0.3s; text-decoration: none; border: 2px solid rgba(255,255,255,0.2); }
         .btn-flotante:hover { transform: scale(1.1); }
-        .btn-wa { background: #25d366; } .btn-dc { background: #5865F2; } .btn-fb { background: #1877F2; }
+        .btn-wa { background: #25d366; } .btn-dc { background: #5865F2; } .btn-fb { background: #1877F2; } .btn-ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
         
         .pomodoro-box { background: var(--bg-card-subtle); border: 2px solid #e83e8c; border-radius: 12px; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
         .pomo-time { font-size: 1.6em; font-weight: 900; color: #e83e8c; font-family: monospace; }
@@ -304,7 +306,7 @@
 
                 <div class="columna-formulario">
                     <div class="logo-box-main">
-                        <div class="emblema-serums-pro">
+                        <div class="emblema-serums-pro" id="logo-login-container">
                             <svg viewBox="0 0 100 100" fill="none">
                                 <circle cx="50" cy="50" r="42" fill="#ffffff"/>
                                 <path d="M 25 50 C 25 82, 75 82, 75 50" stroke="#0056b3" stroke-width="5" fill="none" stroke-linecap="round"/>
@@ -351,7 +353,7 @@
         <div class="fondo-auth-premium">
             <div class="card-auth amplia">
                 <div class="logo-box-main">
-                    <div class="emblema-serums-pro" style="width: 60px; height: 60px;">
+                    <div class="emblema-serums-pro" style="width: 70px; height: 70px;">
                         <svg viewBox="0 0 100 100" fill="none">
                             <circle cx="50" cy="50" r="45" fill="#ffffff"/>
                             <path d="M 25 50 C 25 80, 75 80, 75 50" stroke="#0056b3" stroke-width="6" fill="none" stroke-linecap="round"/>
@@ -407,8 +409,8 @@
         <div class="layout">
             <aside class="sidebar">
                 <div class="side-logo-header">
-                    <div class="emblema-serums-pro" style="width: 50px; height: 50px; border-radius: 14px; border-width: 1px;">
-                        <svg viewBox="0 0 100 100" fill="none" style="width: 32px; height: 32px;">
+                    <div class="emblema-serums-pro" style="width: 55px; height: 55px;" id="logo-app-container">
+                        <svg viewBox="0 0 100 100" fill="none" style="width: 34px; height: 34px;">
                             <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="5"/>
                             <rect x="42" y="32" width="16" height="36" fill="#ffd700" rx="3"/>
                             <rect x="32" y="42" width="36" height="16" fill="#ffd700" rx="3"/>
@@ -478,14 +480,14 @@
                                     <p style="font-size: 0.9em; margin-bottom: 14px;">🪙 <strong id="m-monedas">50</strong> Pandy-Coins</p>
                                     <div style="display: flex; gap: 8px; width: 100%;">
                                         <button class="btn-p" style="background: #28a745; padding: 9px;" onclick="abrirModalAlimentar()">🍖 Alimentar</button>
-                                        <button class="btn-p" style="background: #6f42c1; padding: 9px;" onclick="abrirArmarioMascota()">👗 Armario</button>
+                                        <button class="btn-p" style="background: #6f42c1; padding: 9px;" onclick="mostrarAvisoModal('Dr. Pandy', '¡El Dr. Pandy reacciona automáticamente según tu estudio y energía!', '🐼')">✨ Estado</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TEMARIO Y SEMÁFORO ESTRATÉGICO -->
+                    <!-- TEMARIO Y SEMÁFORO ESTRATÉGICO COMPLETO (ANTI-COPIA) -->
                     <div id="sec-semaforo" style="display: none;" class="seccion-anticopia">
                         <div style="background: var(--bg-card); border-radius: 16px; padding: 25px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); margin-bottom: 25px;">
                             <h2 style="color: var(--primary); font-size: 1.5em; margin-bottom: 8px; font-weight: 800;">🎯 Temario Estratégico ENCAPS MINSA (Semáforo de Rentabilidad)</h2>
@@ -559,8 +561,8 @@
                             <div style="padding: 15px 20px;">
                                 <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 5px;">SUB-ÁREA 1: TEMAS ESPECÍFICOS (APS Y CUIDADO INTEGRAL)</strong>
                                 <ul class="semaforo-lista">
-                                    <li>🟢 1.1 Atención integral de salud a la persona por curso de vida familia y comunidad</li>
-                                    <li>🟢 1.2 Atención centrada en la persona de los principales problemas y necesidades de salud frecuentes</li>
+                                    <li>🟢 1.1 Atención integral de salud a la persona por curso de vida familia y comunidad (promoción, prevención, recuperación y rehabilitación)</li>
+                                    <li>🟢 1.2 Atención centrada en la persona (evaluación clínica, diagnóstico, tratamiento y seguimiento) de los principales problemas y necesidades de salud frecuentes</li>
                                     <li>🟡 1.3 Atención médica en situaciones de urgencias, emergencias y referencia</li>
                                     <li>🔴 1.4 Manejo inicial de las emergencias obstétricas y neonatales diagnóstico, estabilización y referencia (respuesta rápida)</li>
                                     <li>🔴 1.5 Riesgo obstétrico</li>
@@ -571,27 +573,27 @@
                                 <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 2: TEMAS TRANSVERSALES</strong>
                                 <ul class="semaforo-lista">
                                     <li>🟢 1.1 Atención Primaria de salud (conceptos y principios)</li>
-                                    <li>🟢 1.2 Cuidado integral en salud por curso de vida para la persona, familia y comunidad</li>
+                                    <li>🟢 1.2 Cuidado integral en salud por curso de vida para la persona, familia y comunidad (definición, componentes, enfoques)</li>
                                     <li>🟢 2.2 Paquete del cuidado integral de salud del niño</li>
                                     <li>🟢 2.3 Paquete de cuidado integral de salud del adolescente</li>
                                     <li>🟡 2.4 Paquete del cuidado integral de salud del joven</li>
                                     <li>🟡 2.5 Paquete del cuidado integral de salud del adulto</li>
                                     <li>🟢 2.6 Paquete del cuidado integral de salud del adulto mayor</li>
                                     <li>🟢 2.7 Cuidados de la salud mental de las personas</li>
-                                    <li>🟡 2.8 Prevención y control del Cáncer: cuello uterino, mama, próstata, colon recto, piel</li>
-                                    <li>🟡 2.9 Detección temprana de cáncer infantil</li>
-                                    <li>🟢 2.10 Prevención y control de la Tuberculosis y canasta PAN TB</li>
-                                    <li>🟢 2.11 Atención de la persona con el esquema regular de vacunación, prevención y control de ESAVI y cadena de frío</li>
+                                    <li>🟡 2.8 Prevención y control del Cáncer: identificación de factores de riesgo, prevención primaria y secundaria, con énfasis en cáncer de cuello uterino, mama, próstata, colon recto, piel</li>
+                                    <li>🟡 2.9 Detección temprana de cáncer infantil (identificación de signos y sintomas)</li>
+                                    <li>🟢 2.10 Prevención y control de la Tuberculosis: búsqueda activa de casos, terapia preventiva, diagnóstico, tratamiento y seguimiento de casos y canasta PAN TB</li>
+                                    <li>🟢 2.11 Atención de la persona con el esquema regular de vacunación, prevención y control de ESAVI y cadena de frío en todas las etapas de vida</li>
                                     <li>🟢 2.12 Esquema nacional de vacunación en el Perú</li>
                                     <li>🟢 2.13 Prevención y control de anemia y otros problemas de malnutrición</li>
-                                    <li>🟢 2.14 Atención integral de ITS, VIH y hepatitis B y C</li>
-                                    <li>🟡 2.15 Prevención combinada del VIH: consejería, tamizaje, seguimiento</li>
-                                    <li>🟢 2.16 Prevención de la transmisión materno infantil del VIH, sífilis y hepatitis B</li>
+                                    <li>🟢 2.14 Atención integral de las infecciones de transmisión sexual, VIH y hepatitis B y C: consejerías, tamizaje, diagnóstico, tratamiento y seguimiento de casos</li>
+                                    <li>🟡 2.15 Prevención combinada del VIH: consejería, tamizaje, seguimiento de casos</li>
+                                    <li>🟢 2.16 Prevención de la trasmisión materno infantil del VIH, sífilis y hepatitis B</li>
                                     <li>🟢 2.17 Prevención y control de enfermedades no transmisibles</li>
-                                    <li>🔴 2.18 Prevención y control de enfermedades raras y huérfanas</li>
-                                    <li>🟡 2.19 Exposición a metales pesados y otras sustancias químicas</li>
+                                    <li>🔴 2.18 Prevención y control de enfermedades raras y huérfanas (detección temprana, tamizaje neonatal, referencia)</li>
+                                    <li>🟡 2.19 Exposición a metales pesados y otras sustancias químicas (factores de riesgo, manifestaciones clinicas, diagnóstico y tratamiento inicial en la intoxicación aguda)</li>
                                     <li>🟢 2.20 Infecciones asociadas a la atención de salud</li>
-                                    <li>🟡 2.21 Medidas preventivas en salud bucal</li>
+                                    <li>🟡 2.21 Medidas preventivas en salud bucal a la persona con énfasis en técnica de cepillado y uso de hilo dental</li>
                                     <li>🟢 2.22 Prevención y control de enfermedades metaxénicas y zoonóticas</li>
                                     <li>🔴 2.23 Climaterio y menopausia</li>
                                     <li>🔴 2.24 Embarazo, parto, puerperio normal</li>
@@ -606,9 +608,9 @@
                                 <span>🟢</span>
                             </div>
                             <div style="padding: 15px 20px;">
-                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 5px;">SUB-ÁREA 1: ÉTICA Y BIOÉTICA</strong>
+                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 5px;">SUB-ÁREA 1: ÉTICA, BIOÉTICA</strong>
                                 <ul class="semaforo-lista">
-                                    <li>🟢 1.1 Ética en la función pública (trato digno, confidencialidad)</li>
+                                    <li>🟢 1.1 Ética en la función pública (trato digno y humanización de la atención; confidencialidad y manejo de la información)</li>
                                     <li>🟢 1.2 Código de ética y deontología profesional</li>
                                     <li>🟢 1.3 Derechos y deberes de los usuarios de los servicios de salud</li>
                                 </ul>
@@ -620,7 +622,7 @@
                                     <li>🟢 2.3 Atención en salud con enfoque intercultural y pertinencia cultural</li>
                                     <li>🟢 2.4 Promoción del Parto vertical</li>
                                     <li>🟢 2.5 Medicina tradicional, complementaria y alternativa</li>
-                                    <li>🟢 2.6 Prevención del estigma y discriminación étnica - cultural</li>
+                                    <li>🟢 2.6 Prevención de la estigma y discriminación étnica - cultural, a poblaciones claves y vulnerables y otras</li>
                                 </ul>
                             </div>
                         </div>
@@ -632,20 +634,20 @@
                                 <span>🟡</span>
                             </div>
                             <div style="padding: 15px 20px;">
-                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 5px;">SUB-ÁREA 1: CONCEPTOS Y CLASIFICACIÓN</strong>
+                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 5px;">SUB-ÁREA 1: CONCEPTOS Y CLASIFICACIÓN DE LAS INVESTIGACIONES</strong>
                                 <ul class="semaforo-lista">
                                     <li>🟢 1.1 Conceptos básicos de investigación</li>
                                     <li>🟢 1.2 Enfoques (cualitativo, cuantitativo y mixto)</li>
                                     <li>🟢 1.3 Tipos de investigación (descriptivo, analítico y experimental)</li>
                                 </ul>
-                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 2: METODOLOGÍA</strong>
+                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 2: METODOLOGÍA DE LA INVESTIGACIÓN</strong>
                                 <ul class="semaforo-lista">
                                     <li>🟢 2.1 Instrumentos de recolección de datos y su validación</li>
                                     <li>🟡 2.2 Procesamiento y análisis de datos</li>
                                 </ul>
-                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 3: EJECUCIÓN</strong>
+                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 3: EJECUCIÓN DE LA INVESTIGACIÓN</strong>
                                 <ul class="semaforo-lista">
-                                    <li>🟢 3.1 Elaboración y publicación de resultados de investigación</li>
+                                    <li>🟢 3.1 Elaboración y publicación de los resultados de investigación</li>
                                     <li>🟢 3.2 Aspectos éticos de la investigación en salud</li>
                                 </ul>
                             </div>
@@ -658,33 +660,33 @@
                                 <span>🟢</span>
                             </div>
                             <div style="padding: 15px 20px;">
-                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 5px;">SUB-ÁREA 1: PLANIFICACIÓN Y PRESUPUESTO</strong>
+                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 5px;">SUB-ÁREA 1: PLANIFICACIÓN Y PRESUPUESTO EN SALUD</strong>
                                 <ul class="semaforo-lista">
                                     <li>🟢 1.1 Planeamiento Estratégico: concepto, marco legal</li>
-                                    <li>🟢 1.2 Análisis estratégico institucional (misión, visión, FODA)</li>
-                                    <li>🟢 1.3 Planeamiento Institucional: PEI, POI</li>
+                                    <li>🟢 1.2 Análisis estratégico institucional (misión, visión, valores de la organización y FODA)</li>
+                                    <li>🟢 1.3 Planeamiento Institucional: PEI, POI (definición, elaboración, seguimiento y evaluación)</li>
                                 </ul>
-                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 2: ORGANIZACIÓN</strong>
+                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 2: ORGANIZACIÓN DE LOS SERVICIOS DE SALUD</strong>
                                 <ul class="semaforo-lista">
-                                    <li>🟡 2.1 Documentos Técnicos Normativos: ROF, MOP</li>
+                                    <li>🟡 2.1 Documentos Técnicos Normativos de Gestión Institucional: ROF, MOP (definición e importancia)</li>
                                     <li>🟢 2.2 Clasificación de establecimientos de salud por categorías</li>
                                     <li>🟢 2.3 UPSS y Cartera de servicios de Salud</li>
-                                    <li>🟢 2.4 Sistema de referencia y contrarreferencia (REFCON)</li>
+                                    <li>🟢 2.4 Sistema de referencia y contrarreferencia de los establecimientos de salud (definición, niveles, criterios y procedimientos)</li>
                                     <li>🟢 2.5 Gestión de la Historia Clínica</li>
                                     <li>🟢 2.6 Redes integradas de salud (RIS)</li>
                                     <li>🟢 2.7 Telesalud</li>
                                 </ul>
-                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 3: ADMINISTRACIÓN</strong>
+                                <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 3: ADMINISTRACIÓN DE LOS SERVICIOS DE SALUD</strong>
                                 <ul class="semaforo-lista">
-                                    <li>🟢 3.1 Gestión de Recursos Humanos</li>
-                                    <li>🟢 3.2 Control de inventario y stock de medicamentos (SISMED)</li>
+                                    <li>🟢 3.1 Gestión de Recursos Humanos (definición, asistencia y permanencia)</li>
+                                    <li>🟢 3.2 Control de inventario y stock de medicamentos</li>
                                     <li>🟢 3.3 Coordinación intersectorial y alianzas estratégicas</li>
                                     <li>🟢 3.4 Liderazgo de los servicios de salud</li>
                                     <li>🟢 3.5 Trabajo colaborativo y eficaz en los servicios de salud</li>
                                 </ul>
                                 <strong style="color: var(--primary); font-size: 0.95em; display: block; margin-top: 15px;">SUB-ÁREA 4: SISTEMA DE GESTIÓN DE LA CALIDAD</strong>
                                 <ul class="semaforo-lista">
-                                    <li>🟢 4.1 Garantía y mejora de la calidad (seguridad del paciente)</li>
+                                    <li>🟢 4.1 Garantía y mejora de la calidad de los servicios de salud (seguridad del paciente, proceso de mejora continua)</li>
                                     <li>🟢 4.2 Clima organizacional y Cultura organizacional</li>
                                 </ul>
                             </div>
@@ -791,7 +793,7 @@
                                 <div class="card-modalidad" style="border-top-color: #d9381e; text-align: center;" onclick="activarModalidadBanqueo('rescate')">
                                     <div style="font-size: 3em; margin-bottom: 12px;">🛟</div>
                                     <h3 style="font-size: 1.25em;">Banqueo de Rescate</h3>
-                                    <p>Simulador adaptativo enfocado en tus 20 preguntas más falladas.</p>
+                                    <p>Simulador adaptativo enfocado en tus preguntas más falladas.</p>
                                 </div>
                             </div>
                         </div>
@@ -869,7 +871,7 @@
 
                                     <div class="mascota-coach-lateral">
                                         <div class="globo-dialogo" id="coach-mensaje" style="font-size: 0.85em; padding: 12px;">¡Vamos con todo, colega! Concéntrate en la clínica. ✨</div>
-                                        <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 90px; height: 90px; margin: 15px auto;" onclick="acariciarPanda()"></div>
+                                        <div class="avatar-canvas-box" id="avatar-canvas-coach" style="width: 95px; height: 95px; margin: 15px auto;" onclick="acariciarPanda()"></div>
                                         <strong style="display: block; font-size: 0.95em; color: var(--primary); margin-top: 10px;">Dr. Pandy</strong>
                                     </div>
                                 </div>
@@ -1219,7 +1221,7 @@
                             <div id="subtab-adm-codigos" class="subtab-adm">
                                 <div class="admin-form-box">
                                     <h3 style="color: #6f42c1; margin-bottom: 12px; font-size: 1.2em;">🎟️ Generador de Códigos de Activación y Cupones</h3>
-                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Crea códigos promocionales para regalar accesos temporales o cupones de descuento para marketing.</p>
+                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Crea códigos promocionales para regalar accesos temporales, convenios corporativos o cupones de descuento.</p>
                                     
                                     <div class="fila">
                                         <div class="campo">
@@ -1228,7 +1230,7 @@
                                                 <option value="tiempo_24h">Pase Temporal (24 Horas)</option>
                                                 <option value="tiempo_7d">Pase Temporal (7 Días)</option>
                                                 <option value="descuento">Cupón de Descuento (%)</option>
-                                                <option value="corporativo">Código Corporativo (Empresa/Institución)</option>
+                                                <option value="corporativo">Código Corporativo (Validación Vía WhatsApp)</option>
                                             </select>
                                         </div>
                                         <div class="campo" id="caja-porcentaje-desc" style="display: none;">
@@ -1244,7 +1246,7 @@
                                     <div class="fila">
                                         <div class="campo">
                                             <label>Código Personalizado (o déjalo en blanco para generar al azar):</label>
-                                            <input type="text" id="adm-cod-texto" placeholder="Ej: SERUMS2026 o PROMO24">
+                                            <input type="text" id="adm-cod-texto" placeholder="Ej: SERUMS2026, CORPO_MINSA o PROMO24">
                                         </div>
                                         <div class="campo">
                                             <label>Plan que Desbloquea (si es temporal o corporativo):</label>
@@ -1296,7 +1298,7 @@
                                 </div>
                             </div>
 
-                            <!-- PESTAÑA: CONFIGURACIÓN GENERAL -->
+                            <!-- PESTAÑA: CONFIGURACIÓN GENERAL Y SWITCHES REDES -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
                                 <div class="admin-form-box">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Subir Imagen Oficial del Dr. Pandy (Render 3D)</h3>
@@ -1313,7 +1315,7 @@
                                 </div>
                                 <div class="admin-form-box">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🎨 Logo de la Academia</h3>
-                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu logotipo (PNG o JPG). Se redimensionará con mayor tamaño y nitidez en toda el aula.</p>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu logotipo (PNG o JPG). Se renderiza con fondo transparente real y mayor tamaño.</p>
                                     <div class="fila">
                                         <div class="campo">
                                             <input type="file" id="file-logo-custom" accept="image/*">
@@ -1325,13 +1327,24 @@
                                     </div>
                                 </div>
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">💬 Enlaces de Soporte y Redes Sociales</h3>
-                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Ingresa el enlace directo. Si dejas el campo vacío, el botón flotante se ocultará automáticamente.</p>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">💬 Redes Sociales y Soporte Flotante (Interruptores On/Off)</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Activa las casillas para mostrar los botones a los alumnos e ingresa los enlaces directos o tu número de celular:</p>
+                                    
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; background: var(--bg-card); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color);">
+                                        <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-wa" checked style="width:18px; height:18px;"> 💬 Mostrar WhatsApp</label>
+                                        <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-fb" checked style="width:18px; height:18px;"> 📘 Mostrar Facebook</label>
+                                        <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-dc" checked style="width:18px; height:18px;"> 👾 Mostrar Discord</label>
+                                        <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-ig" style="width:18px; height:18px;"> 📸 Mostrar Instagram</label>
+                                    </div>
+
                                     <div class="fila">
-                                        <div class="campo"><label>Link o Número de WhatsApp (Ej: https://wa.me/51999999999)</label><input type="url" id="adm-link-wa" placeholder="https://wa.me/51999999999" value="https://wa.me/51999999999"></div>
+                                        <div class="campo"><label>Número o Link de WhatsApp (Ej: 987654321 o https://wa.me/...)</label><input type="text" id="adm-link-wa" placeholder="Ej: 987654321"></div>
                                         <div class="campo"><label>Link de Discord</label><input type="url" id="adm-link-dc" placeholder="https://discord.gg/..."></div>
                                     </div>
-                                    <div class="campo"><label>Link de Facebook</label><input type="url" id="adm-link-fb" placeholder="https://facebook.com/..."></div>
+                                    <div class="fila">
+                                        <div class="campo"><label>Link de Facebook</label><input type="url" id="adm-link-fb" placeholder="https://facebook.com/..."></div>
+                                        <div class="campo"><label>Link de Instagram</label><input type="url" id="adm-link-ig" placeholder="https://instagram.com/..."></div>
+                                    </div>
                                     <button type="button" class="btn-tool" style="padding: 10px 18px; font-size: 1em;" onclick="guardarRedesSociales()">Guardar Redes Sociales</button>
                                 </div>
                                 <div class="admin-form-box">
@@ -1410,7 +1423,7 @@
                         <a onclick="abrirModalPlanes()">Planes de Preparación</a> | 
                         <a onclick="abrirModalCanjearCodigo()">Canjear Cupón</a>
                     </p>
-                    <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Plataforma Oficial de Alto Rendimiento SERUMS. Versión 4.0 Pro.</p>
+                    <p style="font-size: 0.85em; margin-top: 5px; opacity: 0.8;">Plataforma Oficial de Alto Rendimiento SERUMS. Versión 4.2 Pro.</p>
                 </footer>
             </main>
         </div>
@@ -1418,12 +1431,13 @@
 
     <!-- BOTONES FLOTANTES DE REDES SOCIALES -->
     <div class="flotante-container">
+        <a href="#" id="btn-flotante-ig" class="btn-flotante btn-ig" target="_blank" title="Instagram Oficial" style="display: none;">📸</a>
         <a href="#" id="btn-flotante-fb" class="btn-flotante btn-fb" target="_blank" title="Comunidad Facebook">f</a>
         <a href="#" id="btn-flotante-dc" class="btn-flotante btn-dc" target="_blank" title="Servidor Discord">d</a>
         <a href="https://wa.me/51999999999" id="btn-flotante-wa" class="btn-flotante btn-wa" target="_blank" title="Atención por WhatsApp">💬</a>
     </div>
 
-    <!-- MODALES DE LA PLATAFORMA -->
+    <!-- MODAL AVISO GENERAL -->
     <div id="modal-aviso-general" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
         <div class="modal-box">
             <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
@@ -1519,34 +1533,6 @@
         </div>
     </div>
 
-    <!-- MODAL ARMARIO DEL DR. PANDY -->
-    <div id="modal-armario" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
-        <div class="modal-box">
-            <button class="btn-cerrar-x" onclick="cerrarModales()">×</button>
-            <h2 style="color: var(--text-heading); margin-bottom: 15px;">👗 Armario del Dr. Pandy</h2>
-            <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 15px;">Personaliza a tu embajador médico con indumentaria reglamentaria:</p>
-            
-            <h3 style="text-align: left; margin-top: 15px; color: var(--primary); font-size: 1.05em;">Accesorios (Cabeza)</h3>
-            <div class="grid-tienda">
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'ninguno')"><div class="item-icono">❌</div>Nada</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'gorro')"><div class="item-icono">🧢</div>Gorro Quirúrgico</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'birrete')"><div class="item-icono">🎓</div>Birrete Médico</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'esteto')"><div class="item-icono">🩺</div>Estetoscopio</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'lentes')"><div class="item-icono">👓</div>Lentes de Estudio</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cabeza', 'frontoluz')"><div class="item-icono">🔦</div>Frontoluz</div>
-            </div>
-
-            <h3 style="text-align: left; margin-top: 20px; color: var(--primary); font-size: 1.05em;">Indumentaria (Cuerpo)</h3>
-            <div class="grid-tienda">
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'ninguno')"><div class="item-icono">❌</div>Nada</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'mandil')"><div class="item-icono">🥼</div>Mandil Blanco</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'scrub')"><div class="item-icono">👕</div>Scrub Azul</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'chaleco')"><div class="item-icono">🦺</div>Chaleco SERUMS</div>
-                <div class="item-tienda-card" onclick="equiparPrenda('cuerpo', 'corbata')"><div class="item-icono">👔</div>Terno Médico</div>
-            </div>
-        </div>
-    </div>
-
     <!-- MODAL ALIMENTAR AL DR. PANDY -->
     <div id="modal-alimentar" class="modal-overlay" onclick="if(event.target===this) cerrarModales()">
         <div class="modal-box">
@@ -1578,122 +1564,7 @@
             </div>
         </div>
     </div>
-<script>
-    // === 1. CONFIGURACIÓN BASE Y METADATOS ===
-    const FRASES_MOTIVACIONALES = [
-        "¡Qué alegría verte de nuevo, {nombre}! Hoy sumaremos puntos decisivos.",
-        "¡Paso a paso, {nombre}! La constancia en el banqueo asegura tu plaza.",
-        "¡Excelente día para aprender, {nombre}! Cada caso clínico te acerca a la meta.",
-        "¡A darle con todo, {nombre}! Tu vocación médica dará grandes frutos.",
-        "¡Confía en tu preparación, {nombre}! Estás construyendo tu mejor versión.",
-        "¡Mucho éxito en la jornada de hoy, {nombre}! Vamos a dominar este temario.",
-        "¡Tu plaza SERUMS te está esperando, {nombre}! A demostrar todo lo que sabes.",
-        "¡Vamos colega, {nombre}! Con calma, juicio clínico y enfoque total.",
-        "¡Qué orgullo ver tu disciplina, {nombre}! Hoy será un día de gran avance.",
-        "¡La meta está clara, {nombre}! Ninguna pregunta es rival para tu estudio."
-    ];
-
-    const TEMARIO_OFICIAL_MINSA = {
-        "Salud Pública": ["1.1 Conceptos básicos de salud pública (definiciones, FESP)", "1.2 Epidemiologia (conceptos básicos, mediciones e indicadores)", "1.3 Causalidad y Riesgo", "1.4 Demografía en salud", "1.5 Historia natural del proceso salud enfermedad", "1.6 Etapas y niveles de prevención", "1.7 Pruebas diagnósticas", "1.8 Brotes, epidemias y endemias", "1.9 Vigilancia en salud pública", "1.10 Prevención y Control de infecciones", "1.11 Uso racional de medicamentos", "1.12 Análisis situacional de salud (ASIS)", "1.13 Sistema de Vigilancia Epidemiológica en el pais", "2.1 Determinantes sociales de la salud", "2.2 Determinantes ambientales de salud", "2.3 Participación social y comunitaria", "2.4 Sectorización y ficha familiar", "2.5 Intervenciones comunitarias en salud", "2.6 Trabajo intersectorial en salud", "2.7 Plan de salud local", "2.8 Sistemas de información y TICs en salud", "2.9 Alimentación y Nutrición e inocuidad alimentaria", "2.10 Control de vectores y plagas", "2.11 Gestión y manejo de los resíduos sólidos", "2.12 Salud ocupacional", "2.13 Modelo de salud mental comunitaria", "2.14 Accesibilidad a los servicios de salud", "3.1 Promoción de la salud", "3.2 Información, educación y comunicación para la salud", "3.3 Bioseguridad", "3.4 Gestión del riesgo en emergencias y desastres"],
-        "Cuidado Integral de Salud": ["1.1 Atención integral de salud a la persona por curso de vida", "1.2 Atención centrada en la persona", "1.3 Atención médica en urgencias y emergencias", "1.4 Manejo inicial de emergencias obstétricas y neonatales", "1.5 Riesgo obstétrico", "1.6 Exámenes auxiliares de apoyo al diagnóstico", "1.7 Aspectos legales y forenses en medicina", "2.1 Atención Primaria de salud (APS)", "2.2 Paquete de cuidado integral del niño", "2.3 Paquete de cuidado integral del adolescente", "2.4 Paquete de cuidado integral del joven", "2.5 Paquete de cuidado integral del adulto", "2.6 Paquete de cuidado integral del adulto mayor", "2.7 Cuidados de la salud mental", "2.8 Prevención y control del Cáncer", "2.9 Detección temprana de cáncer infantil", "2.10 Prevención y control de Tuberculosis", "2.11 Esquema regular de vacunación y cadena de frío", "2.12 Esquema nacional de vacunación", "2.13 Prevención y control de anemia y malnutrición", "2.14 Atención integral de ITS, VIH y hepatitis", "2.15 Prevención combinada del VIH", "2.16 Transmisión materno infantil de VIH, sífilis y hepatitis B", "2.17 Prevención y control de enfermedades no transmisibles", "2.18 Enfermedades raras y huérfanas", "2.19 Exposición a metales pesados", "2.20 Infecciones asociadas a la atención de salud", "2.21 Medidas preventivas en salud bucal", "2.22 Enfermedades metaxénicas y zoonóticas", "2.23 Climaterio y menopausia", "2.24 Embarazo, parto, puerperio normal"],
-        "Ética e Interculturalidad": ["1.1 Ética en la función pública", "1.2 Código de ética y deontología profesional", "1.3 Derechos y deberes de los usuarios", "2.1 Comunicación y diálogo intercultural", "2.2 Diversidad cultural y equidad", "2.3 Enfoque intercultural en salud", "2.4 Promoción del Parto vertical", "2.5 Medicina tradicional y alternativa", "2.6 Prevención del estigma y discriminación"],
-        "Investigación": ["1.1 Conceptos básicos de investigación", "1.2 Enfoques cualitativo, cuantitativo y mixto", "1.3 Tipos de investigación", "2.1 Instrumentos de recolección de datos", "2.2 Procesamiento y análisis de datos", "3.1 Elaboración y publicación de resultados", "3.2 Aspectos éticos de la investigación"],
-        "Gestión de Servicios de Salud": ["1.1 Planeamiento Estratégico", "1.2 Análisis estratégico institucional (FODA)", "1.3 Planeamiento Institucional: PEI y POI", "2.1 Documentos normativos: ROF y MOP", "2.2 Clasificación de establecimientos (Categorización)", "2.3 UPSS y Cartera de servicios", "2.4 Sistema de referencia y contrarreferencia (REFCON)", "2.5 Gestión de la Historia Clínica", "2.6 Redes integradas de salud (RIS)", "2.7 Telesalud", "3.1 Gestión de Recursos Humanos", "3.2 Control de inventario y medicamentos (SISMED)", "3.3 Coordinación intersectorial", "3.4 Liderazgo en salud", "3.5 Trabajo colaborativo", "4.1 Garantía y mejora de la calidad", "4.2 Clima y Cultura organizacional"]
-    };
-
-    const MAPEO_CURSOS_ID = { "Salud Pública": 1, "Cuidado Integral de Salud": 2, "Gestión de Servicios de Salud": 5, "Investigación": 4, "Ética e Interculturalidad": 3 };
-    const MAPEO_ID_CURSOS = { 1: "Salud Pública", 2: "Cuidado Integral de Salud", 5: "Gestión de Servicios de Salud", 4: "Investigación", 3: "Ética e Interculturalidad" };
-
-    // === 2. VARIABLES DE ESTADO ===
-    let user = null;
-    let perfilUsuario = null;
-    let perfilMascota = { energia: 100, monedas: 50, nivel: 1.0, cabeza: 'ninguno', cuerpo: 'ninguno' };
-    let pandyImagenCustom = "";
-    
-    let preciosPlanes = { banqueo: 49, clinico: 89, elite: 139 };
-    let whatsappLinkGlobal = "https://wa.me/51999999999";
-
-    let preguntaActual = null;
-    let todasLasFlashcards = [];
-    let todasLasFijas = [];
-    let temasTeoricosEnMemoria = [];
-    let listaTemasAdminMemoria = [];
-    let listaPreguntasAdminMemoria = [];
-    let listaFijasAdminMemoria = [];
-    let listaFlashcardsAdminMemoria = [];
-    let listaCodigosAdminMemoria = [];
-    let preguntasIaBuffer = [];
-    let preguntasFalladasBuffer = [];
-    let listaAlumnosMemoria = [];
-    let simulacroBorrador100 = [];
-    
-    let eventosCalendarioMemoria = {};
-    let fechaExamenGlobal = "2026-11-15";
-    let modalidadFechaGlobal = "oficial";
-    let fechaActualCalendario = new Date();
-    
-    let carruselLoginImagenes = [];
-    let indexSlideLogin = 0;
-    let timerCarruselLogin = null;
-    let carruselPopupImagenes = [];
-    let indexSlidePopup = 0;
-    let bienvenidaMascotaMostradaTurno = false;
-    let popupAnuncioMostrado = false;
-
-    // Pomodoro
-    let pomoTiempoRestante = 25 * 60;
-    let pomoTimer = null;
-    let pomoEnMarcha = false;
-
-    // === 3. NAVEGACIÓN Y PESTAÑAS (CORRECCIÓN CRÍTICA PANEL DOCENTE) ===
-    window.verSubTabAdmin = function(tipo) {
-        document.querySelectorAll('.tab-btn-adm').forEach(b => b.classList.remove('activa'));
-        document.querySelectorAll('.subtab-adm').forEach(s => s.classList.remove('activa'));
-        
-        if (event && event.target && event.target.classList.contains('tab-btn-adm')) {
-            event.target.classList.add('activa');
-        }
-        
-        const subTab = document.getElementById('subtab-adm-' + tipo);
-        if (subTab) subTab.classList.add('activa');
-        
-        if (tipo === 'p') { actualizarTemasEnSelector('adm-p-curso', 'adm-p-tema'); cargarListaPreguntasAdmin(); } 
-        if (tipo === 't') { actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select'); cargarListaTemasAdmin(); } 
-        if (tipo === 'fijas_adm') { actualizarTemasEnSelector('adm-fija-curso', 'adm-fija-tema'); cargarListaFijasAdmin(); } 
-        if (tipo === 'f') { actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema'); cargarListaFlashcardsAdmin(); }
-        if (tipo === 'sims') { cargarListaSimulacrosAdmin(); }
-        if (tipo === 'codigos') { cargarListaCodigosAdmin(); }
-        if (tipo === 'precios') { cargarPreciosEnFormulario(); }
-        if (tipo === 'a') { cargarAlumnosAdmin(); } 
-        if (tipo === 'anuncios') { cargarConfiguracionesGenerales(); }
-    };
-
-    window.subSec = function(nom) {
-        ['dash', 'semaforo', 'crono', 'temas', 'banqueo', 'flashcards', 'fijas', 'tienda', 'stats', 'perfil', 'admin'].forEach(s => {
-            const el = document.getElementById('sec-' + s);
-            if (el) el.style.display = 'none';
-        });
-        document.querySelectorAll('.menu li').forEach(l => l.classList.remove('activo'));
-
-        const sec = document.getElementById('sec-' + nom);
-        if (sec) sec.style.display = 'block';
-        const m = document.getElementById('m-' + nom);
-        if (m) m.classList.add('activo');
-
-        if (nom === 'dash') cargarCursosDashboard();
-        if (nom === 'flashcards') {
-            if (!tieneAccesoA('flashcards')) {
-                mostrarBloqueoFree('sec-flashcards', '🗂️ Módulo de Flashcards', 'Las flashcards inteligentes con SRS son exclusivas del Plan Clínico y Plan Élite.');
-                return;
-            }
-            cargarFlashcardsDesdeBD();
-        }
-        if (nom === 'fijas') {
-            if (!tieneAccesoA('fijas')) {
-                mostrarBloqueoFree('sec-fijas', '🔥 Las Fijas SERUMS', 'Las perlas clínicas de alta recurrencia son exclusivas del Plan Clínico y Plan Élite.');
-                return;
-            }
-            cargarLasFijasSERUMS();
+cargarLasFijasSERUMS();
         }
         if (nom === 'stats') cargarEstadisticas();
         if (nom === 'temas') {
@@ -1733,7 +1604,6 @@
             </div>`;
     };
 
-    // Modales y Visibilidad
     window.mostrarAvisoModal = function(titulo, mensaje, icono = "💡") {
         document.getElementById('aviso-titulo').innerText = titulo;
         document.getElementById('aviso-cuerpo').innerText = mensaje;
@@ -1851,7 +1721,7 @@
         bienvenidaMascotaMostradaTurno = false; popupAnuncioMostrado = false; ver('vista-login');
     };
 
-    // === 5. PERFIL DE USUARIO Y MASCOTA DR. PANDY ===
+    // === 5. PERFIL DE USUARIO Y DR. PANDY ===
     async function cargarPerfil() {
         const sb = obtenerSupabase(); if (!user || !sb) return;
 
@@ -1919,7 +1789,7 @@
         if (perfilMascota.nivel >= 8) rango = "Especialista";
         document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${rango})`;
 
-        renderizarPandaVisual();
+        renderizarPandaVisual('saludo');
 
         const msgCoach = document.getElementById('coach-mensaje');
         if (msgCoach) { 
@@ -1943,67 +1813,56 @@
                 const frase = FRASES_MOTIVACIONALES[Math.floor(Math.random() * FRASES_MOTIVACIONALES.length)];
                 document.getElementById('txt-bienvenida-mascota').innerText = frase.replace('{nombre}', perfilUsuario.nombres || 'Colega');
                 const canvasBienvenida = document.getElementById('avatar-canvas-bienvenida');
-                if (canvasBienvenida) { canvasBienvenida.innerHTML = generarHTMLDrPandy(140); }
+                if (canvasBienvenida) { canvasBienvenida.innerHTML = generarHTMLDrPandy(140, 'saludo'); }
                 modalBienvenida.style.display = 'flex'; bienvenidaMascotaMostradaTurno = true;
             }
         }
     };
 
-    // Renderizado del Dr. Pandy (Soporta imagen PNG en alta definición o fallback vectorial)
-    window.generarHTMLDrPandy = function(ancho = 100) {
+    // Render del Dr. Pandy según Estado Emocional
+    window.generarHTMLDrPandy = function(ancho = 100, estado = 'normal') {
         if (pandyImagenCustom) {
             return `<img src="${pandyImagenCustom}" class="panda-animado" style="width:${ancho}px; height:${ancho}px; object-fit:contain; filter:drop-shadow(0 4px 10px rgba(0,0,0,0.25));" alt="Dr. Pandy">`;
         }
 
-        const cabeza = perfilMascota.cabeza || 'ninguno';
-        const cuerpo = perfilMascota.cuerpo || 'ninguno';
-        
-        let svgCuerpo = `
-            <ellipse cx="50" cy="72" rx="30" ry="24" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
-            <ellipse cx="50" cy="73" rx="19" ry="16" fill="#f8fafc"/>
-            <ellipse cx="23" cy="70" rx="9" ry="15" fill="#1e293b" transform="rotate(20 23 70)"/>
-            <ellipse cx="77" cy="70" rx="9" ry="15" fill="#1e293b" transform="rotate(-20 77 70)"/>
-            <ellipse cx="36" cy="90" rx="10" ry="7" fill="#0f172a"/>
-            <ellipse cx="64" cy="90" rx="10" ry="7" fill="#0f172a"/>
-        `;
+        let ojoIzquierdo = `<circle cx="39" cy="36" r="3.5" fill="#ffffff"/><circle cx="40" cy="35" r="1.5" fill="#0f172a"/>`;
+        let ojoDerecho = `<circle cx="61" cy="36" r="3.5" fill="#ffffff"/><circle cx="60" cy="35" r="1.5" fill="#0f172a"/>`;
+        let boca = `<path d="M47 50 Q50 53 53 50" fill="none" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>`;
 
-        if (cuerpo === 'mandil') {
-            svgCuerpo += `<path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/><path d="M46 64 L46 91 M54 64 L54 91" stroke="#cbd5e1" stroke-width="1.5"/><circle cx="50" cy="74" r="2.2" fill="#0056b3"/><circle cx="50" cy="82" r="2.2" fill="#0056b3"/>`;
-        } else if (cuerpo === 'scrub') {
-            svgCuerpo += `<path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#0284c7" stroke="#0369a1" stroke-width="2"/><path d="M42 62 L50 74 L58 62" fill="none" stroke="#075985" stroke-width="2.5"/>`;
-        } else if (cuerpo === 'chaleco') {
-            svgCuerpo += `<path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#eab308" stroke="#ca8a04" stroke-width="2"/><rect x="28" y="75" width="44" height="6" fill="#dc2626"/><rect x="28" y="83" width="44" height="3" fill="#ffffff" opacity="0.8"/>`;
-        } else if (cuerpo === 'corbata') {
-            svgCuerpo += `<path d="M26 64 Q50 60 74 64 L70 90 Q50 93 30 90 Z" fill="#ffffff" stroke="#cbd5e1"/><polygon points="50,66 54,70 53,85 50,89 47,85 46,70" fill="#dc2626"/>`;
+        if (estado === 'correcto' || estado === 'motivado') {
+            boca = `<path d="M46 49 Q50 55 54 49 Z" fill="#dc2626"/>`;
+        } else if (estado === 'error' || estado === 'triste') {
+            boca = `<path d="M47 52 Q50 49 53 52" fill="none" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>`;
+        } else if (estado === 'dormido' || perfilMascota.energia < 20) {
+            ojoIzquierdo = `<path d="M36 37 Q39 40 42 37" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>`;
+            ojoDerecho = `<path d="M58 37 Q61 40 64 37" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>`;
         }
-
-        let svgAccesorios = "";
-        if (cabeza === 'gorro') svgAccesorios = `<path d="M24 22 Q50 8 76 22 Q72 14 50 12 Q28 14 24 22 Z" fill="#0284c7"/><rect x="23" y="20" width="54" height="6" rx="3" fill="#0369a1"/>`;
-        else if (cabeza === 'birrete') svgAccesorios = `<polygon points="50,4 82,16 50,25 18,16" fill="#1e293b"/><rect x="36" y="21" width="28" height="6" fill="#0f172a"/><line x1="50" y1="16" x2="74" y2="26" stroke="#ffd700" stroke-width="2.5"/><circle cx="74" cy="27" r="2.5" fill="#ffd700"/>`;
-        else if (cabeza === 'esteto') svgAccesorios = `<path d="M34 52 Q50 68 66 52" fill="none" stroke="#475569" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="64" r="5" fill="#ffd700" stroke="#ca8a04" stroke-width="1.5"/>`;
-        else if (cabeza === 'lentes') svgAccesorios = `<circle cx="39" cy="38" r="9" fill="none" stroke="#1e293b" stroke-width="2.5"/><circle cx="61" cy="38" r="9" fill="none" stroke="#1e293b" stroke-width="2.5"/><line x1="48" y1="38" x2="52" y2="38" stroke="#1e293b" stroke-width="2.5"/>`;
-        else if (cabeza === 'frontoluz') svgAccesorios = `<rect x="28" y="24" width="44" height="5" fill="#334155" rx="2"/><circle cx="50" cy="26" r="6.5" fill="#94a3b8" stroke="#334155" stroke-width="2"/><circle cx="50" cy="26" r="3" fill="#f8fafc"/>`;
 
         return `
         <svg viewBox="0 0 100 100" class="panda-animado" style="width: ${ancho}px; height: ${ancho}px;">
             <circle cx="26" cy="18" r="12" fill="#0f172a"/><circle cx="74" cy="18" r="12" fill="#0f172a"/>
-            ${svgCuerpo}
+            <ellipse cx="50" cy="72" rx="30" ry="24" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
+            <ellipse cx="50" cy="73" rx="19" ry="16" fill="#f8fafc"/>
+            <ellipse cx="23" cy="70" rx="9" ry="15" fill="#1e293b" transform="rotate(20 23 70)"/>
+            <ellipse cx="77" cy="70" rx="9" ry="15" fill="#1e293b" transform="rotate(-20 77 70)"/>
+            <ellipse cx="36" cy="90" rx="10" ry="7" fill="#0f172a"/><ellipse cx="64" cy="90" rx="10" ry="7" fill="#0f172a"/>
+            <path d="M22 64 Q50 58 78 64 L74 91 Q50 94 26 91 Z" fill="#0284c7" stroke="#0369a1" stroke-width="2"/>
             <ellipse cx="50" cy="39" rx="28" ry="24" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
             <ellipse cx="38" cy="37" rx="9" ry="11" fill="#0f172a" transform="rotate(-15 38 37)"/>
             <ellipse cx="62" cy="37" rx="9" ry="11" fill="#0f172a" transform="rotate(15 62 37)"/>
-            <circle cx="39" cy="36" r="3.5" fill="#ffffff"/><circle cx="61" cy="36" r="3.5" fill="#ffffff"/>
-            <circle cx="40" cy="35" r="1.5" fill="#0f172a"/><circle cx="60" cy="35" r="1.5" fill="#0f172a"/>
+            ${ojoIzquierdo}${ojoDerecho}
             <ellipse cx="30" cy="46" rx="4.5" ry="2.5" fill="#f43f5e" opacity="0.45"/>
             <ellipse cx="70" cy="46" rx="4.5" ry="2.5" fill="#f43f5e" opacity="0.45"/>
             <polygon points="46,45 54,45 50,49" fill="#0f172a"/>
-            <path d="M47 50 Q50 53 53 50" fill="none" stroke="#0f172a" stroke-width="1.8" stroke-linecap="round"/>
-            ${svgAccesorios}
+            ${boca}
+            <polygon points="50,4 82,16 50,25 18,16" fill="#1e293b"/><rect x="36" y="21" width="28" height="6" fill="#0f172a"/>
+            <line x1="50" y1="16" x2="74" y2="26" stroke="#ffd700" stroke-width="2.5"/><circle cx="74" cy="27" r="2.5" fill="#ffd700"/>
         </svg>`;
     };
 
-    window.renderizarPandaVisual = function() {
-        const canvas = document.getElementById('avatar-canvas'); if (canvas) canvas.innerHTML = generarHTMLDrPandy(115);
-        const coach = document.getElementById('avatar-canvas-coach'); if (coach) coach.innerHTML = generarHTMLDrPandy(85);
+    window.renderizarPandaVisual = function(estado = 'normal') {
+        const canvas = document.getElementById('avatar-canvas'); if (canvas) canvas.innerHTML = generarHTMLDrPandy(115, estado);
+        const coach = document.getElementById('avatar-canvas-coach'); if (coach) coach.innerHTML = generarHTMLDrPandy(85, estado);
     };
 
     window.acariciarPanda = function() {
@@ -2037,19 +1896,6 @@
         mostrarAvisoModal("Restaurado", "Dr. Pandy restablecido.", "✔");
     };
 
-    window.equiparPrenda = async function(tipo, prenda) {
-        if (tipo === 'cabeza') perfilMascota.cabeza = prenda;
-        if (tipo === 'cuerpo') perfilMascota.cuerpo = prenda;
-        renderizarPandaVisual();
-        const sb = obtenerSupabase();
-        if (sb && user) {
-            const payload = {};
-            if (tipo === 'cabeza') payload.accesorio_cabeza = prenda;
-            if (tipo === 'cuerpo') payload.accesorio_cuerpo = prenda;
-            await sb.from('perfil_mascota').update(payload).eq('user_id', user.id);
-        }
-    };
-
     window.comprarAlimento = async function(costo, energiaGanada) {
         if (perfilMascota.monedas < costo) { 
             mostrarAvisoModal("Pandy-Coins Insuficientes", `Necesitas ${costo} monedas. Responde casos en el banco para ganar más.`, "🪙"); 
@@ -2066,7 +1912,7 @@
         if (perfilMascota.nivel >= 4 && perfilMascota.nivel < 8) rango = "Médico SERUMS";
         if (perfilMascota.nivel >= 8) rango = "Especialista";
         document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${rango})`;
-        renderizarPandaVisual();
+        renderizarPandaVisual('motivado');
 
         const sb = obtenerSupabase();
         if (sb && user) {
@@ -2108,7 +1954,7 @@
         if (nombrePlan.includes('Banqueo')) precio = preciosPlanes.banqueo;
         if (nombrePlan.includes('Clínico')) precio = preciosPlanes.clinico;
 
-        const urlWa = whatsappLinkGlobal || "https://wa.me/51999999999";
+        const urlWa = sanitizarEnlaceWhatsApp(whatsappLinkGlobal);
         const mensaje = encodeURIComponent(`Hola Proserum's Academia, deseo adquirir el ${nombrePlan} (S/ ${precio}.00) para mi preparación SERUMS.`);
         const urlFinal = urlWa.includes('?') ? `${urlWa}&text=${mensaje}` : `${urlWa}?text=${mensaje}`;
         window.open(urlFinal, '_blank');
@@ -2224,20 +2070,18 @@
             return;
         }
 
-        // Flujo Corporativo / Descuento -> WhatsApp de Coordinación
         if (codigoEncontrado.tipo === 'corporativo' || codigoEncontrado.tipo === 'descuento') {
-            const urlWa = whatsappLinkGlobal || "https://wa.me/51999999999";
+            const urlWa = sanitizarEnlaceWhatsApp(whatsappLinkGlobal);
             const detalle = codigoEncontrado.tipo === 'corporativo' ? `convenio corporativo [${cod}]` : `cupón de descuento de ${codigoEncontrado.descuento_pct}% [${cod}]`;
             const msg = encodeURIComponent(`Hola Proserum's Academia, deseo validar mi ${detalle} para mi cuenta: ${user.email}.`);
             const urlFinal = urlWa.includes('?') ? `${urlWa}&text=${msg}` : `${urlWa}?text=${msg}`;
             
             cerrarModales();
-            mostrarAvisoModal("Código Verificado", "Tu código ha sido validado. Te estamos redirigiendo a WhatsApp para confirmar la activación de tu acceso con secretaría académica.", "📲");
+            mostrarAvisoModal("Código Verificado", "Tu código ha sido validado. Te estamos redirigiendo a WhatsApp para confirmar la activación con secretaría.", "📲");
             setTimeout(() => { window.open(urlFinal, '_blank'); }, 1500);
             return;
         }
 
-        // Flujo Activación Temporal Directa (24h / 7d)
         const horas = codigoEncontrado.tipo === 'tiempo_7d' ? 168 : 24;
         const expira = new Date(Date.now() + horas * 60 * 60 * 1000).toISOString();
         const planActivar = codigoEncontrado.plan_desbloqueado || 'elite';
@@ -2311,7 +2155,7 @@
         if (tipo === 'curso') { 
             document.getElementById('pantalla-banqueo-curso').style.display = 'block'; 
             actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo'); 
-            renderizarPandaVisual(); 
+            renderizarPandaVisual('normal'); 
         } else if (tipo === 'simulacros_oficiales') { 
             document.getElementById('pantalla-simulacros-oficiales').style.display = 'block'; 
             cargarSimulacrosOficialesEstudiante(); 
@@ -2343,11 +2187,13 @@
         if (preguntasFalladasBuffer.length > 0) { 
             preguntaActual = preguntasFalladasBuffer.shift(); 
             mostrarPreguntaEnPantalla(preguntaActual, "🛟 RESCATE CLÍNICO (CASO FALLADO)"); 
+            renderizarPandaVisual('normal');
             return; 
         }
         if (preguntasIaBuffer.length > 0) { 
             preguntaActual = preguntasIaBuffer.shift(); 
             mostrarPreguntaEnPantalla(preguntaActual, "✨ CASO INÉDITO IA"); 
+            renderizarPandaVisual('normal');
             return; 
         }
 
@@ -2363,6 +2209,7 @@
 
         preguntaActual = data[Math.floor(Math.random() * data.length)]; 
         mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad || 'Intermedia'}`);
+        renderizarPandaVisual('normal');
     };
 
     window.mostrarPreguntaEnPantalla = function(p, sub) {
@@ -2389,11 +2236,13 @@
             document.getElementById('m-monedas').innerText = perfilMascota.monedas;
             const frasesOk = ["¡Excelente razonamiento clínico! 🩺✨", "¡Así se responde para asegurar el puesto! 🌟", "¡Esa es la clave oficial del MINSA! 🎯"]; 
             msgCoach.innerText = frasesOk[Math.floor(Math.random() * frasesOk.length)];
+            renderizarPandaVisual('correcto');
         } else {
             fb.className = 'fb-box fb-err'; 
             document.getElementById('fb-tit').innerText = '✖ Incorrecto';
             const frasesErr = ["¡No te preocupes! Repasemos la justificación técnica. 💪", "¡De este fallo saldrá un punto seguro en el examen! 📚", "Tranquilo, dominaremos este criterio. ⏳"]; 
             msgCoach.innerText = frasesErr[Math.floor(Math.random() * frasesErr.length)];
+            renderizarPandaVisual('error');
         }
         
         document.getElementById('fb-txt').innerText = preguntaActual.justificacion; 
@@ -2476,17 +2325,20 @@
     window.filtrarTeoria = function(areaIdStr) {
         const cont = document.getElementById('lista-temas-contenedor'); cont.innerHTML = '';
         document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
-        document.querySelectorAll('#tabs-teoria .card-c').forEach(tarjeta => { if (tarjeta.getAttribute('onclick').includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } });
+        document.querySelectorAll('#tabs-teoria .card-c').forEach(tarjeta => { if (tarjeta.getAttribute('onclick')?.includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } });
 
         let temasFiltrados = temasTeoricosEnMemoria; 
-        if (areaIdStr !== 'todos') { temasFiltrados = temasTeoricosEnMemoria.filter(t => t.area_id == areaIdStr); }
+        if (areaIdStr !== 'todos') { 
+            temasFiltrados = temasTeoricosEnMemoria.filter(t => String(t.area_id) === String(areaIdStr) || MAPEO_CURSOS_ID[t.area_id] == areaIdStr); 
+        }
 
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
         if (esBasico) {
             const conteoPorArea = {};
             temasFiltrados = temasFiltrados.filter(t => { 
-                if (!conteoPorArea[t.area_id]) conteoPorArea[t.area_id] = 0; 
-                if (conteoPorArea[t.area_id] < 3) { conteoPorArea[t.area_id]++; return true; } 
+                const aId = t.area_id || 1;
+                if (!conteoPorArea[aId]) conteoPorArea[aId] = 0; 
+                if (conteoPorArea[aId] < 3) { conteoPorArea[aId]++; return true; } 
                 return false; 
             });
         }
@@ -2494,7 +2346,7 @@
         if (temasFiltrados.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em;">No hay resúmenes publicados para este curso aún.</p>'; return; }
 
         temasFiltrados.forEach(t => {
-            const nombreCursoTema = MAPEO_ID_CURSOS[t.area_id] || "Academia"; 
+            const nombreCursoTema = MAPEO_ID_CURSOS[t.area_id] || t.area_id || "Academia"; 
             const embedUrl = convertirUrlAEmbed(t.url_video);
             const btnDescargaPDF = (t.url_pdf && (perfilUsuario?.plan === 'elite' || perfilUsuario?.plan === 'premium')) 
                 ? `<a href="${t.url_pdf}" target="_blank" class="btn-p" style="background:#dc3545; width:auto; padding:8px 16px; margin-bottom:15px; font-size:0.9em;">📄 Descargar Resumen en PDF</a>` 
@@ -2505,7 +2357,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleTemaAcordeon('cuerpo-tema-${t.id}', 'icono-tema-${t.id}')">
                     <div style="flex: 1;">
                         <span style="font-size: 0.85em; color: var(--primary); font-weight: 800; text-transform: uppercase; display:block; margin-bottom:5px;">${nombreCursoTema}</span>
-                        <h3 style="color: var(--text-heading); font-size: 1.25em; margin:0;">${t.codigo} - ${t.titulo}</h3>
+                        <h3 style="color: var(--text-heading); font-size: 1.25em; margin:0;">${t.codigo || ''} - ${t.titulo || ''}</h3>
                     </div>
                     <span id="icono-tema-${t.id}" style="font-size:1.4em; color:var(--text-muted); margin-left:15px;">🔽</span>
                 </div>
@@ -2515,7 +2367,7 @@
                     <div class="teoria-render" style="font-size: 1.05em; line-height: 1.7; color: var(--text-main);">${t.resumen_teorico || ''}</div>
                     ${embedUrl ? `<div class="video-box-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>` : ''}
                     <div style="margin-top: 25px; text-align: right;">
-                        <button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo}')">🎯 Practicar Banqueo de este Tema ➔</button>
+                        <button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo || ''}')">🎯 Practicar Banqueo de este Tema ➔</button>
                     </div>
                 </div>
             </div>`;
@@ -2533,9 +2385,10 @@
 
     window.filtrarFlashcardsBtn = function(areaIdStr) {
         document.querySelectorAll('#tabs-flashcards .card-c').forEach(b => b.classList.remove('activa'));
-        document.querySelectorAll('#tabs-flashcards .card-c').forEach(tarjeta => { if (tarjeta.getAttribute('onclick').includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } });
+        document.querySelectorAll('#tabs-flashcards .card-c').forEach(tarjeta => { if (tarjeta.getAttribute('onclick')?.includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } });
 
-        const filtradas = todasLasFlashcards.filter(f => f.area_id == areaIdStr); const cont = document.getElementById('contenedor-flashcards'); cont.innerHTML = '';
+        const filtradas = todasLasFlashcards.filter(f => String(f.area_id) === String(areaIdStr) || MAPEO_CURSOS_ID[f.area_id] == areaIdStr); 
+        const cont = document.getElementById('contenedor-flashcards'); cont.innerHTML = '';
         if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay flashcards publicadas para este eje temático.</p>'; return; }
 
         filtradas.forEach(f => { 
@@ -2564,10 +2417,10 @@
 
     window.cambiarPildoraFija = function(btn, filtro) {
         document.querySelectorAll('#tabs-fijas .card-c').forEach(b => b.classList.remove('activa'));
-        if (btn) { btn.classList.add('activa'); } else { document.querySelector('#tabs-fijas .card-c').classList.add('activa'); }
+        if (btn) { btn.classList.add('activa'); } else { document.querySelector('#tabs-fijas .card-c')?.classList.add('activa'); }
 
         const cont = document.getElementById('contenedor-fijas-cards'); cont.innerHTML = '';
-        const filtradas = (filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => f.area_id == filtro);
+        const filtradas = (filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => String(f.area_id) === String(filtro) || MAPEO_CURSOS_ID[f.area_id] == filtro);
         if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay fijas disponibles para este filtro.</p>'; return; }
 
         filtradas.forEach(f => { 
@@ -2744,7 +2597,7 @@
                 }
                 if (item.clave === 'pandy_imagen_hd' && item.valor) {
                     pandyImagenCustom = item.valor;
-                    renderizarPandaVisual();
+                    renderizarPandaVisual('normal');
                 }
                 if (item.clave === 'banner_login_lista' && item.valor) { try { carruselLoginImagenes = JSON.parse(item.valor) || []; } catch(e){} }
                 if (item.clave === 'popup_anuncio_lista' && item.valor) { try { carruselPopupImagenes = JSON.parse(item.valor) || []; } catch(e){} }
@@ -2753,17 +2606,19 @@
                     try {
                         const rs = JSON.parse(item.valor);
                         if (rs.wa) whatsappLinkGlobal = rs.wa;
+                        if (rs.switches) swRedes = rs.switches;
+                        
                         document.getElementById('adm-link-wa').value = rs.wa || '';
                         document.getElementById('adm-link-dc').value = rs.dc || '';
                         document.getElementById('adm-link-fb').value = rs.fb || '';
+                        document.getElementById('adm-link-ig').value = rs.ig || '';
                         
-                        const bWa = document.getElementById('btn-flotante-wa');
-                        const bDc = document.getElementById('btn-flotante-dc');
-                        const bFb = document.getElementById('btn-flotante-fb');
+                        if (document.getElementById('sw-wa')) document.getElementById('sw-wa').checked = !!swRedes.wa;
+                        if (document.getElementById('sw-fb')) document.getElementById('sw-fb').checked = !!swRedes.fb;
+                        if (document.getElementById('sw-dc')) document.getElementById('sw-dc').checked = !!swRedes.dc;
+                        if (document.getElementById('sw-ig')) document.getElementById('sw-ig').checked = !!swRedes.ig;
                         
-                        if (rs.wa) { bWa.href = rs.wa.includes('http') ? rs.wa : `https://${rs.wa}`; bWa.style.display = 'flex'; }
-                        if (rs.dc) { bDc.href = rs.dc.includes('http') ? rs.dc : `https://${rs.dc}`; bDc.style.display = 'flex'; } else { bDc.style.display = 'none'; }
-                        if (rs.fb) { bFb.href = rs.fb.includes('http') ? rs.fb : `https://${rs.fb}`; bFb.style.display = 'flex'; } else { bFb.style.display = 'none'; }
+                        actualizarVisibilidadBotonesFlotantes(rs);
                     } catch(e){}
                 }
             });
@@ -2784,6 +2639,18 @@
         if (user && !popupAnuncioMostrado) { lanzarPopupAnuncioSiExiste(); }
     };
 
+    function actualizarVisibilidadBotonesFlotantes(rs) {
+        const bWa = document.getElementById('btn-flotante-wa');
+        const bDc = document.getElementById('btn-flotante-dc');
+        const bFb = document.getElementById('btn-flotante-fb');
+        const bIg = document.getElementById('btn-flotante-ig');
+
+        if (swRedes.wa && rs.wa) { bWa.href = sanitizarEnlaceWhatsApp(rs.wa); bWa.style.display = 'flex'; } else { bWa.style.display = 'none'; }
+        if (swRedes.fb && rs.fb) { bFb.href = rs.fb.includes('http') ? rs.fb : `https://${rs.fb}`; bFb.style.display = 'flex'; } else { bFb.style.display = 'none'; }
+        if (swRedes.dc && rs.dc) { bDc.href = rs.dc.includes('http') ? rs.dc : `https://${rs.dc}`; bDc.style.display = 'flex'; } else { bDc.style.display = 'none'; }
+        if (swRedes.ig && rs.ig) { bIg.href = rs.ig.includes('http') ? rs.ig : `https://${rs.ig}`; bIg.style.display = 'flex'; } else { bIg.style.display = 'none'; }
+    }
+
     window.guardarTerminosCondiciones = async function() {
         const txt = document.getElementById('adm-texto-terminos').value.trim();
         await guardarConfiguracionBase('terminos_condiciones', txt);
@@ -2792,15 +2659,23 @@
     };
 
     window.guardarRedesSociales = async function() {
+        swRedes = {
+            wa: document.getElementById('sw-wa').checked,
+            fb: document.getElementById('sw-fb').checked,
+            dc: document.getElementById('sw-dc').checked,
+            ig: document.getElementById('sw-ig').checked
+        };
         const redes = {
-            wa: document.getElementById('adm-link-wa').value.trim(),
+            wa: sanitizarEnlaceWhatsApp(document.getElementById('adm-link-wa').value.trim()),
             dc: document.getElementById('adm-link-dc').value.trim(),
-            fb: document.getElementById('adm-link-fb').value.trim()
+            fb: document.getElementById('adm-link-fb').value.trim(),
+            ig: document.getElementById('adm-link-ig').value.trim(),
+            switches: swRedes
         };
         whatsappLinkGlobal = redes.wa;
         await guardarConfiguracionBase('redes_sociales', JSON.stringify(redes));
-        cargarConfiguracionesGenerales();
-        mostrarAvisoModal("Redes Guardadas", "Botones de soporte actualizados.", "💬");
+        actualizarVisibilidadBotonesFlotantes(redes);
+        mostrarAvisoModal("Redes Guardadas", "Botones de soporte y visibilidad actualizados.", "💬");
     };
 
     window.guardarLogoCustom = function() {
@@ -2811,7 +2686,7 @@
             const b64 = e.target.result;
             await guardarConfiguracionBase('logo_academia', b64);
             aplicarLogoCustom(b64);
-            mostrarAvisoModal("Logo Actualizado", "Nuevo logo aplicado en toda la academia.", "🎨");
+            mostrarAvisoModal("Logo Actualizado", "Nuevo logo aplicado en toda la academia sin fondo oscuro.", "🎨");
         };
         reader.readAsDataURL(file);
     };
@@ -2823,9 +2698,12 @@
 
     window.aplicarLogoCustom = function(b64) {
         if (!b64) return;
-        document.querySelectorAll('.emblema-serums-pro').forEach(el => {
-            el.style.background = 'transparent'; el.style.border = 'none'; el.style.boxShadow = 'none';
-            el.innerHTML = `<img src="${b64}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 12px;">`;
+        ['logo-login-container', 'logo-app-container'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.style.background = 'transparent';
+                el.innerHTML = `<img src="${b64}" style="width: 100%; height: 100%; object-fit: contain;" alt="Logo Academia">`;
+            }
         });
     };
 
@@ -3028,36 +2906,44 @@
         mostrarAvisoModal("¡Copiados!", `Se copiaron ${tels.length} números al portapapeles.`, "📋");
     };
 
-    // CRUD DE TEMAS
+    // CRUD DE TEMAS (DESCONGELADO Y CORREGIDO)
     window.cargarListaTemasAdmin = async function() {
         const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-temas-adm-body');
         if (!tbody) return;
         tbody.innerHTML = '<tr><td colspan="4">Cargando temas...</td></tr>';
-        const { data } = await sb.from('temas').select('*').order('id', { ascending: false });
-        if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay temas registrados.</td></tr>'; return; }
-        listaTemasAdminMemoria = data; tbody.innerHTML = '';
-        data.forEach(t => {
-            const nombreCurso = MAPEO_ID_CURSOS[t.area_id] || 'Academia';
-            tbody.innerHTML += `
-                <tr>
-                    <td><strong>${t.codigo}</strong></td>
-                    <td>${t.titulo}</td>
-                    <td>${nombreCurso}</td>
-                    <td style="display:flex; gap:6px;">
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionTema('${t.id}')">✏️ Editar</button>
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarTema('${t.id}')">🗑️ Borrar</button>
-                    </td>
-                </tr>`;
-        });
+        
+        try {
+            const { data, error } = await sb.from('temas').select('*').order('id', { ascending: false });
+            if (error) throw error;
+            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay temas registrados.</td></tr>'; return; }
+            
+            listaTemasAdminMemoria = data; tbody.innerHTML = '';
+            data.forEach(t => {
+                const nombreCurso = MAPEO_ID_CURSOS[t.area_id] || t.area_id || 'Academia';
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${t.codigo || 'S/C'}</strong></td>
+                        <td>${t.titulo || 'Sin título'}</td>
+                        <td>${nombreCurso}</td>
+                        <td style="display:flex; gap:6px;">
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionTema('${t.id}')">✏️ Editar</button>
+                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarTema('${t.id}')">🗑️ Borrar</button>
+                        </td>
+                    </tr>`;
+            });
+        } catch(err) {
+            console.error("Error cargando lista de temas:", err);
+            tbody.innerHTML = `<tr><td colspan="4" style="color:red;">Error al cargar temas: ${err.message || 'Verifica la consola'}</td></tr>`;
+        }
     };
 
     window.prepararEdicionTema = function(id) {
         const tema = listaTemasAdminMemoria.find(t => t.id == id); if (!tema) return;
         document.getElementById('adm-t-id').value = tema.id;
-        document.getElementById('adm-t-curso').value = MAPEO_ID_CURSOS[tema.area_id] || "Salud Pública";
+        document.getElementById('adm-t-curso').value = MAPEO_ID_CURSOS[tema.area_id] || tema.area_id || "Salud Pública";
         actualizarTemasEnSelector('adm-t-curso', 'adm-t-tema-select');
-        document.getElementById('adm-t-codigo').value = tema.codigo;
-        document.getElementById('adm-t-titulo').value = tema.titulo;
+        document.getElementById('adm-t-codigo').value = tema.codigo || '';
+        document.getElementById('adm-t-titulo').value = tema.titulo || '';
         document.getElementById('adm-t-video').value = tema.url_video || '';
         document.getElementById('adm-t-pdf').value = tema.url_pdf || '';
         document.getElementById('adm-t-editor').innerHTML = tema.resumen_teorico || '';
