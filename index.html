@@ -459,15 +459,15 @@
                     <!-- INICIO (DASHBOARD) -->
                     <div id="sec-dash">
                         <!-- BANNER DE CLASES EN VIVO -->
-                        <div style="background: linear-gradient(135deg, #6f42c1, #4a148c); border-radius: 16px; padding: 20px 25px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: var(--shadow-md); color: white;">
+                        <div id="banner-aula-vivo" style="display: none; background: linear-gradient(135deg, #6f42c1, #4a148c); border-radius: 16px; padding: 20px 25px; margin-bottom: 25px; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: var(--shadow-md); color: white;">
                             <div style="display: flex; align-items: center; gap: 15px;">
                                 <div style="font-size: 2.5em; background: rgba(255,255,255,0.2); width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); animation: respirarPanda 2s infinite;">🔴</div>
                                 <div>
-                                    <h3 style="font-size: 1.25em; margin-bottom: 4px; font-weight: 800;">Aula en Vivo (Zoom / Meet)</h3>
-                                    <p style="font-size: 0.95em; opacity: 0.9;">Únete a la masterclass de orientación y banqueo con los docentes.</p>
+                                    <h3 style="font-size: 1.25em; margin-bottom: 4px; font-weight: 800;">Aula en Vivo Masterclass</h3>
+                                    <p style="font-size: 0.95em; opacity: 0.9;">Únete a la orientación y banqueo con los docentes.</p>
                                 </div>
                             </div>
-                            <a href="https://meet.google.com/tu-link-aqui" target="_blank" style="background: #ffd700; color: #4a148c; padding: 12px 24px; border-radius: 12px; font-weight: 900; text-decoration: none; font-size: 1.05em; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Unirse a la Clase ➔</a>
+                            <a href="#" id="btn-link-aula-vivo" target="_blank" style="background: #ffd700; color: #4a148c; padding: 12px 24px; border-radius: 12px; font-weight: 900; text-decoration: none; font-size: 1.05em; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Unirse a la Clase ➔</a>
                         </div>
                         <div id="banner-examen-dinamico" class="banner-countdown-dias">
                             <div style="display: flex; align-items: center; gap: 14px;">
@@ -1286,29 +1286,55 @@
                                 </div>
                             </div>
 
-                            <!-- PESTAÑA: CONFIGURAR PRECIOS TIENDA -->
+                            <!-- PESTAÑA: CONFIGURAR PRECIOS TIENDA Y AULA EN VIVO -->
                             <div id="subtab-adm-precios" class="subtab-adm">
+                                <div class="admin-form-box" style="border-left: 4px solid #6f42c1; margin-bottom: 20px;">
+                                    <h3 style="color: #6f42c1; font-size: 1.2em; margin-bottom: 10px;">🔴 Control del Aula en Vivo</h3>
+                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 15px;">Activa el banner superior para que los alumnos ingresen a tu clase (Zoom, Meet, YouTube).</p>
+                                    <div class="fila">
+                                        <div class="campo" style="display: flex; align-items: flex-end; padding-bottom: 10px;">
+                                            <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer; font-size:1.1em; color:var(--text-main);">
+                                                <input type="checkbox" id="sw-aula-vivo" style="width:20px; height:20px;"> Activar Banner de Clase en Vivo
+                                            </label>
+                                        </div>
+                                        <div class="campo">
+                                            <label>Enlace de la Clase (Meet / Zoom):</label>
+                                            <input type="url" id="adm-link-aula" placeholder="Ej: https://meet.google.com/abc-defg-hij">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn-p" style="width: auto; padding: 12px 24px; background: #6f42c1;" onclick="guardarAulaEnVivo()">Guardar Estado del Aula</button>
+                                </div>
+
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.2em; margin-bottom: 10px;">💲 Precios de la Tienda</h3>
-                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Modifica los precios en soles de cada plan cuando desees lanzar promociones o subir tarifas:</p>
+                                    <h3 style="color: var(--primary); font-size: 1.2em; margin-bottom: 10px;">💲 Precios y Disponibilidad de la Tienda</h3>
+                                    <p style="color: var(--text-muted); font-size: 0.95em; margin-bottom: 20px;">Modifica los precios o desmarca la casilla "Activo" para mostrar un plan como "Próximamente".</p>
                                     
                                     <div class="fila">
-                                        <div class="campo">
-                                            <label>Precio Plan Banqueo (S/):</label>
-                                            <input type="number" step="0.01" id="adm-precio-banqueo" value="49.00">
+                                        <div class="campo" style="background: var(--bg-card); padding: 15px; border-radius: 10px; border: 1px solid #bae6fd;">
+                                            <label style="display:flex; justify-content:space-between; align-items:center;">
+                                                <span style="color:#0284c7;">Precio Banqueo (S/)</span>
+                                                <input type="checkbox" id="sw-plan-b" checked style="width:18px; height:18px;" title="¿Plan Disponible?">
+                                            </label>
+                                            <input type="number" step="0.01" id="adm-precio-banqueo" value="49.00" style="margin-top:8px;">
                                         </div>
-                                        <div class="campo">
-                                            <label>Precio Plan Clínico (S/):</label>
-                                            <input type="number" step="0.01" id="adm-precio-clinico" value="89.00">
+                                        <div class="campo" style="background: var(--bg-card); padding: 15px; border-radius: 10px; border: 1px solid #fde68a;">
+                                            <label style="display:flex; justify-content:space-between; align-items:center;">
+                                                <span style="color:#b45309;">Precio Clínico (S/)</span>
+                                                <input type="checkbox" id="sw-plan-c" checked style="width:18px; height:18px;" title="¿Plan Disponible?">
+                                            </label>
+                                            <input type="number" step="0.01" id="adm-precio-clinico" value="89.00" style="margin-top:8px;">
                                         </div>
                                     </div>
                                     <div class="fila">
-                                        <div class="campo">
-                                            <label>Precio Plan Élite (S/):</label>
-                                            <input type="number" step="0.01" id="adm-precio-elite" value="139.00">
+                                        <div class="campo" style="background: var(--bg-card); padding: 15px; border-radius: 10px; border: 1px solid #bbf7d0;">
+                                            <label style="display:flex; justify-content:space-between; align-items:center;">
+                                                <span style="color:#15803d;">Precio Élite (S/)</span>
+                                                <input type="checkbox" id="sw-plan-e" checked style="width:18px; height:18px;" title="¿Plan Disponible?">
+                                            </label>
+                                            <input type="number" step="0.01" id="adm-precio-elite" value="139.00" style="margin-top:8px;">
                                         </div>
                                     </div>
-                                    <button type="button" class="btn-p" style="width: auto; padding: 12px 24px; background: #28a745;" onclick="guardarPreciosTienda()">Guardar Nuevos Precios</button>
+                                    <button type="button" class="btn-p" style="width: auto; padding: 12px 24px; background: #28a745;" onclick="guardarPreciosTienda()">Guardar Tienda</button>
                                 </div>
                             </div>
 
@@ -2153,31 +2179,81 @@
     };
 
     // === 6. PRECIOS CONFIGURABLES Y TIENDA (Con Decimales) ===
+let configAulaVivo = { activo: false, link: "" };
+
     window.cargarPreciosEnFormulario = function() {
         if (document.getElementById('adm-precio-banqueo')) document.getElementById('adm-precio-banqueo').value = Number(preciosPlanes.banqueo).toFixed(2);
         if (document.getElementById('adm-precio-clinico')) document.getElementById('adm-precio-clinico').value = Number(preciosPlanes.clinico).toFixed(2);
         if (document.getElementById('adm-precio-elite')) document.getElementById('adm-precio-elite').value = Number(preciosPlanes.elite).toFixed(2);
+        
+        if (document.getElementById('sw-plan-b')) document.getElementById('sw-plan-b').checked = preciosPlanes.activo_b !== false;
+        if (document.getElementById('sw-plan-c')) document.getElementById('sw-plan-c').checked = preciosPlanes.activo_c !== false;
+        if (document.getElementById('sw-plan-e')) document.getElementById('sw-plan-e').checked = preciosPlanes.activo_e !== false;
+
+        if (document.getElementById('sw-aula-vivo')) document.getElementById('sw-aula-vivo').checked = configAulaVivo.activo;
+        if (document.getElementById('adm-link-aula')) document.getElementById('adm-link-aula').value = configAulaVivo.link;
     };
 
     window.guardarPreciosTienda = async function() {
         const b = parseFloat(document.getElementById('adm-precio-banqueo').value) || 49.00;
         const c = parseFloat(document.getElementById('adm-precio-clinico').value) || 89.00;
         const e = parseFloat(document.getElementById('adm-precio-elite').value) || 139.00;
+        
+        const act_b = document.getElementById('sw-plan-b').checked;
+        const act_c = document.getElementById('sw-plan-c').checked;
+        const act_e = document.getElementById('sw-plan-e').checked;
 
-        preciosPlanes = { banqueo: b, clinico: c, elite: e };
+        preciosPlanes = { banqueo: b, clinico: c, elite: e, activo_b: act_b, activo_c: act_c, activo_e: act_e };
         await guardarConfiguracionBase('tienda_precios', JSON.stringify(preciosPlanes));
         actualizarDisplaysPrecios();
-        mostrarAvisoModal("Precios Guardados", "Las tarifas de la tienda se actualizaron correctamente.", "💲");
+        mostrarAvisoModal("Tienda Actualizada", "Los precios y disponibilidades han sido guardados.", "💲");
     };
 
-    function actualizarDisplaysPrecios() {
-        if (document.getElementById('precio-display-banqueo')) document.getElementById('precio-display-banqueo').innerText = `S/ ${Number(preciosPlanes.banqueo).toFixed(2)}`;
-        if (document.getElementById('precio-display-clinico')) document.getElementById('precio-display-clinico').innerText = `S/ ${Number(preciosPlanes.clinico).toFixed(2)}`;
-        if (document.getElementById('precio-display-elite')) document.getElementById('precio-display-elite').innerText = `S/ ${Number(preciosPlanes.elite).toFixed(2)}`;
+    window.guardarAulaEnVivo = async function() {
+        configAulaVivo = {
+            activo: document.getElementById('sw-aula-vivo').checked,
+            link: document.getElementById('adm-link-aula').value.trim()
+        };
+        await guardarConfiguracionBase('aula_en_vivo', JSON.stringify(configAulaVivo));
+        aplicarAulaEnVivoVisibilidad();
+        mostrarAvisoModal("Aula en Vivo", "El estado del banner se ha actualizado correctamente.", "🔴");
+    };
 
-        if (document.getElementById('btn-precio-modal-banqueo')) document.getElementById('btn-precio-modal-banqueo').innerText = `S/ ${Number(preciosPlanes.banqueo).toFixed(2)}`;
-        if (document.getElementById('btn-precio-modal-clinico')) document.getElementById('btn-precio-modal-clinico').innerText = `S/ ${Number(preciosPlanes.clinico).toFixed(2)}`;
-        if (document.getElementById('btn-precio-modal-elite')) document.getElementById('btn-precio-modal-elite').innerText = `S/ ${Number(preciosPlanes.elite).toFixed(2)}`;
+    function aplicarAulaEnVivoVisibilidad() {
+        const banner = document.getElementById('banner-aula-vivo');
+        const btnLink = document.getElementById('btn-link-aula-vivo');
+        if (banner && btnLink) {
+            banner.style.display = configAulaVivo.activo ? 'flex' : 'none';
+            btnLink.href = configAulaVivo.link || '#';
+        }
+    }
+
+    function actualizarDisplaysPrecios() {
+        const act_b = preciosPlanes.activo_b !== false;
+        const act_c = preciosPlanes.activo_c !== false;
+        const act_e = preciosPlanes.activo_e !== false;
+
+        const updateBtn = (idTxt, idBtn, precio, activo, planNombre) => {
+            const elTxt = document.getElementById(idTxt);
+            const elBtn = document.getElementById(idBtn); // Botones de la tienda
+            const elBtnModal = document.getElementById(`btn-precio-modal-${planNombre.toLowerCase().split(' ')[0]}`); // Botones del modal emergente
+            
+            if (elTxt) elTxt.innerText = activo ? `S/ ${Number(precio).toFixed(2)}` : 'Próximamente';
+            if (elBtn) {
+                elBtn.innerText = activo ? 'Comprar por WhatsApp ➔' : 'No Disponible';
+                elBtn.style.opacity = activo ? '1' : '0.5';
+                elBtn.disabled = !activo;
+            }
+            if (elBtnModal) {
+                elBtnModal.innerText = activo ? `S/ ${Number(precio).toFixed(2)}` : 'Próximamente';
+                elBtnModal.style.opacity = activo ? '1' : '0.5';
+                elBtnModal.disabled = !activo;
+            }
+        };
+
+        updateBtn('precio-display-banqueo', 'btn-tienda-b', preciosPlanes.banqueo, act_b, 'Banqueo');
+        updateBtn('precio-display-clinico', 'btn-tienda-c', preciosPlanes.clinico, act_c, 'Clinico');
+        updateBtn('precio-display-elite', 'btn-tienda-e', preciosPlanes.elite, act_e, 'Elite');
     }
 
     window.contactarWhatsAppCompra = function(nombrePlan) {
@@ -2871,6 +2947,9 @@
                 }
                 if (item.clave === 'tienda_precios' && item.valor) {
                     try { preciosPlanes = JSON.parse(item.valor); actualizarDisplaysPrecios(); } catch(e){}
+                }
+                if (item.clave === 'aula_en_vivo' && item.valor) {
+                    try { configAulaVivo = JSON.parse(item.valor); aplicarAulaEnVivoVisibilidad(); } catch(e){}
                 }
                 if (item.clave === 'pandy_imagen_hd' && item.valor) {
                     try {
