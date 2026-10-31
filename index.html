@@ -282,6 +282,11 @@
         .ranking-list { list-style: none; margin-top: 15px; } .ranking-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; border-bottom: 1px solid var(--border-color); font-size: 0.95em; } .ranking-item:last-child { border-bottom: none; } .ranking-item.me { background: rgba(0, 123, 255, 0.1); border-radius: 8px; font-weight: bold; color: var(--primary); border-bottom: none; } .r-pos { width: 30px; font-weight: 900; color: var(--text-muted); } .me .r-pos { color: var(--primary); } .r-score { font-weight: 900; }
         .footer-oficial { margin-top: auto; padding: 25px 20px; text-align: center; color: var(--text-muted); font-size: 0.85em; border-top: 1px solid var(--border-color); }
         .footer-oficial a { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; margin: 0 8px; }
+        .btn-op-a { border-left: 6px solid #f59e0b !important; }
+        .btn-op-b { border-left: 6px solid #10b981 !important; }
+        .btn-op-c { border-left: 6px solid #8b5cf6 !important; }
+        .btn-op-d { border-left: 6px solid #3b82f6 !important; }
+        .barra-stat { height: 5px; border-radius: 3px; margin-top: 6px; transition: width 0.5s ease; }
     </style>
 </head>
 <body>
@@ -453,6 +458,17 @@
 
                     <!-- INICIO (DASHBOARD) -->
                     <div id="sec-dash">
+                        <!-- BANNER DE CLASES EN VIVO -->
+                        <div style="background: linear-gradient(135deg, #6f42c1, #4a148c); border-radius: 16px; padding: 20px 25px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: var(--shadow-md); color: white;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 2.5em; background: rgba(255,255,255,0.2); width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; border: 2px solid rgba(255,255,255,0.5); animation: respirarPanda 2s infinite;">🔴</div>
+                                <div>
+                                    <h3 style="font-size: 1.25em; margin-bottom: 4px; font-weight: 800;">Aula en Vivo (Zoom / Meet)</h3>
+                                    <p style="font-size: 0.95em; opacity: 0.9;">Únete a la masterclass de orientación y banqueo con los docentes.</p>
+                                </div>
+                            </div>
+                            <a href="https://meet.google.com/tu-link-aqui" target="_blank" style="background: #ffd700; color: #4a148c; padding: 12px 24px; border-radius: 12px; font-weight: 900; text-decoration: none; font-size: 1.05em; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">Unirse a la Clase ➔</a>
+                        </div>
                         <div id="banner-examen-dinamico" class="banner-countdown-dias">
                             <div style="display: flex; align-items: center; gap: 14px;">
                                 <span style="font-size: 2.2em;" id="icono-modalidad-fecha">🎯</span>
@@ -2431,10 +2447,10 @@
         document.getElementById('sim-info').innerText = sub; 
         document.getElementById('sim-enunciado').innerText = p.enunciado;
         document.getElementById('sim-opciones').innerHTML = `
-            <button class="btn-op" onclick="responder('A')">A) ${p.opcion_a}</button>
-            <button class="btn-op" onclick="responder('B')">B) ${p.opcion_b}</button>
-            <button class="btn-op" onclick="responder('C')">C) ${p.opcion_c}</button>
-            <button class="btn-op" onclick="responder('D')">D) ${p.opcion_d}</button>
+            <button class="btn-op btn-op-a" onclick="responder('A')"><strong>A)</strong> ${p.opcion_a}<div id="stat-A" style="display:none;"></div></button>
+            <button class="btn-op btn-op-b" onclick="responder('B')"><strong>B)</strong> ${p.opcion_b}<div id="stat-B" style="display:none;"></div></button>
+            <button class="btn-op btn-op-c" onclick="responder('C')"><strong>C)</strong> ${p.opcion_c}<div id="stat-C" style="display:none;"></div></button>
+            <button class="btn-op btn-op-d" onclick="responder('D')"><strong>D)</strong> ${p.opcion_d}<div id="stat-D" style="display:none;"></div></button>
         `;
     };
 
@@ -2463,6 +2479,29 @@
         document.getElementById('fb-txt').innerText = preguntaActual.justificacion; 
         fb.style.display = 'block'; 
         document.getElementById('btn-sig').style.display = 'block';
+
+        // Estadísticas Simuladas de Comunidad
+        const correctOpt = preguntaActual.respuesta_correcta;
+        let pcts = {A: 0, B: 0, C: 0, D: 0};
+        let options = ['A', 'B', 'C', 'D'];
+        
+        pcts[correctOpt] = Math.floor(Math.random() * (85 - 55 + 1)) + 55;
+        let remaining = 100 - pcts[correctOpt];
+        let wrongOpts = options.filter(o => o !== correctOpt);
+        
+        pcts[wrongOpts[0]] = Math.floor(Math.random() * (remaining - 10)) + 5;
+        remaining -= pcts[wrongOpts[0]];
+        pcts[wrongOpts[1]] = Math.floor(Math.random() * remaining);
+        pcts[wrongOpts[2]] = remaining - pcts[wrongOpts[1]];
+
+        options.forEach(letra => {
+            const statDiv = document.getElementById('stat-' + letra);
+            let color = "";
+            if(letra==='A') color="#f59e0b"; if(letra==='B') color="#10b981"; if(letra==='C') color="#8b5cf6"; if(letra==='D') color="#3b82f6";
+            statDiv.innerHTML = `<div style="font-size:0.85em; margin-top:8px; color:var(--text-muted); font-weight:bold;">${pcts[letra]}% de postulantes marcó esta opción</div>
+                                 <div class="barra-stat" style="width:${pcts[letra]}%; background:${color}; opacity:0.8;"></div>`;
+            statDiv.style.display = 'block';
+        });
 
         const sb = obtenerSupabase();
         if (sb && user) {
