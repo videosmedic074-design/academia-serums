@@ -2541,28 +2541,37 @@
     window.filtrarTeoria = function(areaIdStr) {
         const cont = document.getElementById('lista-temas-contenedor'); cont.innerHTML = '';
         document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
-        document.querySelectorAll('#tabs-teoria .card-c').forEach(tarjeta => { if (tarjeta.getAttribute('onclick')?.includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } });
+        document.querySelectorAll('#tabs-teoria .card-c').forEach(tarjeta => { 
+            if (tarjeta.getAttribute('onclick')?.includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } 
+        });
 
         let temasFiltrados = temasTeoricosEnMemoria; 
         if (areaIdStr !== 'todos') { 
-            temasFiltrados = temasTeoricosEnMemoria.filter(t => String(t.area_id) === String(areaIdStr) || MAPEO_CURSOS_ID[t.area_id] == areaIdStr); 
+            temasFiltrados = temasTeoricosEnMemoria.filter(t => 
+                String(t.area_id) === String(areaIdStr) || 
+                MAPEO_CURSOS_ID[t.area_id] == areaIdStr ||
+                MAPEO_ID_CURSOS[areaIdStr] === t.area_id
+            ); 
         }
 
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
         if (esBasico) {
             const conteoPorArea = {};
             temasFiltrados = temasFiltrados.filter(t => { 
-                const aId = t.area_id || 1;
+                const aId = typeof t.area_id === 'string' ? MAPEO_CURSOS_ID[t.area_id] : t.area_id;
                 if (!conteoPorArea[aId]) conteoPorArea[aId] = 0; 
                 if (conteoPorArea[aId] < 3) { conteoPorArea[aId]++; return true; } 
                 return false; 
             });
         }
 
-        if (temasFiltrados.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em;">No hay resúmenes publicados para este curso aún.</p>'; return; }
+        if (temasFiltrados.length === 0) { 
+            cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em;">No hay resúmenes publicados para este curso aún.</p>'; 
+            return; 
+        }
 
         temasFiltrados.forEach(t => {
-            const nombreCursoTema = MAPEO_ID_CURSOS[t.area_id] || t.area_id || "Academia"; 
+            const nombreCursoTema = (typeof t.area_id === 'number' || !isNaN(t.area_id)) ? MAPEO_ID_CURSOS[t.area_id] : t.area_id; 
             const embedUrl = convertirUrlAEmbed(t.url_video);
             const btnDescargaPDF = (t.url_pdf && (perfilUsuario?.plan === 'elite' || perfilUsuario?.plan === 'premium')) 
                 ? `<a href="${t.url_pdf}" target="_blank" class="btn-p" style="background:#dc3545; width:auto; padding:8px 16px; margin-bottom:15px; font-size:0.9em;">📄 Descargar Resumen en PDF</a>` 
@@ -2592,6 +2601,19 @@
         if (esBasico) {
             cont.innerHTML += `<div style="background: rgba(0,86,179,0.05); padding: 25px; border-radius: 16px; text-align: center; margin-top: 30px; border: 2px dashed var(--primary);"><span style="font-size: 3em; display: block; margin-bottom: 10px;">🔒</span><strong style="color: var(--primary); font-size: 1.3em;">Has alcanzado el límite gratuito de 3 temas por curso.</strong><p style="color: var(--text-muted); font-size: 1em; margin-bottom: 20px; margin-top: 10px;">Desbloquea el temario completo, videoclases y los PDF con el Plan Élite.</p><button class="btn-p" style="width: auto; padding: 12px 24px; font-size: 1.05em;" onclick="abrirModalPlanes()">Ver Planes de Estudio ➔</button></div>`;
         }
+    };
+
+    window.convertirUrlAEmbed = function(url) {
+        if (!url) return null;
+        let videoId = '';
+        try {
+            if (url.includes('youtube.com/watch')) {
+                videoId = new URL(url).searchParams.get('v');
+            } else if (url.includes('youtu.be/')) {
+                videoId = url.split('youtu.be/')[1].split('?')[0];
+            }
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+        } catch(e) { return null; }
     };
 
     window.cargarFlashcardsDesdeBD = async function() {
