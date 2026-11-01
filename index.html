@@ -3479,12 +3479,20 @@ let configAulaVivo = { activo: false, link: "" };
         document.getElementById('adm-f-id').value = f.id;
         document.getElementById('adm-f-curso').value = MAPEO_ID_CURSOS[f.area_id] || "Salud Pública";
         actualizarTemasEnSelector('adm-f-curso', 'adm-f-tema');
+        
+        // Verifica el tema de la BD y lo coloca en el selector
+        if (f.tema && f.tema !== 'Temas Generales') {
+            document.getElementById('adm-f-tema').value = f.tema;
+        } else {
+            document.getElementById('adm-f-tema').value = 'General';
+        }
+        
         document.getElementById('adm-f-anverso').value = f.anverso;
         document.getElementById('adm-f-reverso').value = f.reverso;
         
         document.getElementById('btn-submit-flashcard').innerText = "Guardar Cambios";
         document.getElementById('btn-cancel-flashcard').style.display = "inline-block";
-        mostrarAvisoModal("Modo Edición", "Editando Flashcard.", "✏️");
+        mostrarAvisoModal("Modo Edición", "Editando Flashcard. Revisa el tema arriba.", "✏️");
     };
 
     window.cancelarEdicionFlashcard = function() {
@@ -3503,14 +3511,28 @@ let configAulaVivo = { activo: false, link: "" };
         e.preventDefault(); const sb = obtenerSupabase(); 
         const editId = document.getElementById('adm-f-id').value;
         const cursoNombre = document.getElementById('adm-f-curso').value; const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-        const payload = { area_id: areaId, anverso: document.getElementById('adm-f-anverso').value.trim(), reverso: document.getElementById('adm-f-reverso').value.trim() };
+        
+        // Capturar el tema exacto
+        let valorTema = document.getElementById('adm-f-tema').value;
+        if(valorTema === 'General') valorTema = 'Temas Generales';
+
+        const payload = { 
+            area_id: areaId, 
+            tema: valorTema, 
+            anverso: document.getElementById('adm-f-anverso').value.trim(), 
+            reverso: document.getElementById('adm-f-reverso').value.trim() 
+        };
         
         let errorMsg = null;
         if (editId) { const { error } = await sb.from('flashcards').update(payload).eq('id', editId); errorMsg = error; }
         else { const { error } = await sb.from('flashcards').insert([payload]); errorMsg = error; }
         
         if (errorMsg) mostrarAvisoModal("Error", errorMsg.message, "⚠️"); 
-        else { mostrarAvisoModal("¡Guardado!", "Flashcard guardada correctamente.", "✔"); cancelarEdicionFlashcard(); cargarListaFlashcardsAdmin(); }
+        else { 
+            mostrarAvisoModal("¡Guardado!", "Tarjeta asignada al tema: " + valorTema, "✔"); 
+            cancelarEdicionFlashcard(); 
+            cargarListaFlashcardsAdmin(); 
+        }
     });
 
     // CRUD DE SIMULACROS
