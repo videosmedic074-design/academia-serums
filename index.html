@@ -2655,6 +2655,7 @@ let configAulaVivo = { activo: false, link: "" };
 
     window.filtrarTeoria = function(areaIdStr) {
         const cont = document.getElementById('lista-temas-contenedor'); cont.innerHTML = '';
+        cont.className = 'grid-modalidades-banqueo'; // Usamos grid de botones
         document.querySelectorAll('#tabs-teoria .card-c').forEach(b => b.classList.remove('activa'));
         document.querySelectorAll('#tabs-teoria .card-c').forEach(tarjeta => { 
             if (tarjeta.getAttribute('onclick')?.includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } 
@@ -2662,11 +2663,7 @@ let configAulaVivo = { activo: false, link: "" };
 
         let temasFiltrados = temasTeoricosEnMemoria; 
         if (areaIdStr !== 'todos') { 
-            temasFiltrados = temasTeoricosEnMemoria.filter(t => 
-                String(t.area_id) === String(areaIdStr) || 
-                MAPEO_CURSOS_ID[t.area_id] == areaIdStr ||
-                MAPEO_ID_CURSOS[areaIdStr] === t.area_id
-            ); 
+            temasFiltrados = temasTeoricosEnMemoria.filter(t => String(t.area_id) === String(areaIdStr) || MAPEO_CURSOS_ID[t.area_id] == areaIdStr || MAPEO_ID_CURSOS[areaIdStr] === t.area_id); 
         }
 
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
@@ -2680,42 +2677,41 @@ let configAulaVivo = { activo: false, link: "" };
             });
         }
 
-        if (temasFiltrados.length === 0) { 
-            cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em;">No hay resúmenes publicados para este curso aún.</p>'; 
-            return; 
-        }
+        if (temasFiltrados.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column:1/-1;">No hay resúmenes publicados para este curso aún.</p>'; return; }
 
         temasFiltrados.forEach(t => {
-            const nombreCursoTema = (typeof t.area_id === 'number' || !isNaN(t.area_id)) ? MAPEO_ID_CURSOS[t.area_id] : t.area_id; 
-            const embedUrl = convertirUrlAEmbed(t.url_video);
-            const btnDescargaPDF = (t.url_pdf && (perfilUsuario?.plan === 'elite' || perfilUsuario?.plan === 'premium')) 
-                ? `<a href="${t.url_pdf}" target="_blank" class="btn-p" style="background:#dc3545; width:auto; padding:8px 16px; margin-bottom:15px; font-size:0.9em;">📄 Descargar Resumen en PDF</a>` 
-                : '';
-            
             cont.innerHTML += `
-            <div class="card-c" style="margin-bottom: 15px; padding: 20px; text-align: left;">
-                <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleTemaAcordeon('cuerpo-tema-${t.id}', 'icono-tema-${t.id}')">
-                    <div style="flex: 1;">
-                        <span style="font-size: 0.85em; color: var(--primary); font-weight: 800; text-transform: uppercase; display:block; margin-bottom:5px;">${nombreCursoTema}</span>
-                        <h3 style="color: var(--text-heading); font-size: 1.25em; margin:0;">${t.codigo || ''} - ${t.titulo || ''}</h3>
-                    </div>
-                    <span id="icono-tema-${t.id}" style="font-size:1.4em; color:var(--text-muted); margin-left:15px;">🔽</span>
-                </div>
-                
-                <div id="cuerpo-tema-${t.id}" style="display: none; margin-top: 18px; border-top: 1px solid var(--border-color); padding-top: 18px;">
-                    ${btnDescargaPDF}
-                    <div class="teoria-render" style="font-size: 1.05em; line-height: 1.7; color: var(--text-main);">${t.resumen_teorico || ''}</div>
-                    ${embedUrl ? `<div class="video-box-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>` : ''}
-                    <div style="margin-top: 25px; text-align: right;">
-                        <button class="btn-p" style="width: auto; padding: 12px 22px; background: #28a745; font-size: 1.05em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo || ''}')">🎯 Practicar Banqueo de este Tema ➔</button>
-                    </div>
-                </div>
+            <div class="card-c" style="border-top-color: var(--primary);" onclick="verTeoriaDetalle('${t.id}', '${areaIdStr}')">
+                <div style="font-size: 2.5em; margin-bottom: 10px;">📖</div>
+                <h3 style="font-size: 1.1em; margin-bottom: 8px;">${t.codigo || ''} ${t.titulo || ''}</h3>
+                <p style="color: var(--text-muted); font-size: 0.85em;">Ingresar al tema ➔</p>
             </div>`;
         });
 
-        if (esBasico) {
-            cont.innerHTML += `<div style="background: rgba(0,86,179,0.05); padding: 25px; border-radius: 16px; text-align: center; margin-top: 30px; border: 2px dashed var(--primary);"><span style="font-size: 3em; display: block; margin-bottom: 10px;">🔒</span><strong style="color: var(--primary); font-size: 1.3em;">Has alcanzado el límite gratuito de 3 temas por curso.</strong><p style="color: var(--text-muted); font-size: 1em; margin-bottom: 20px; margin-top: 10px;">Desbloquea el temario completo, videoclases y los PDF con el Plan Élite.</p><button class="btn-p" style="width: auto; padding: 12px 24px; font-size: 1.05em;" onclick="abrirModalPlanes()">Ver Planes de Estudio ➔</button></div>`;
-        }
+        if (esBasico) { cont.innerHTML += `<div style="grid-column:1/-1; background: rgba(0,86,179,0.05); padding: 25px; border-radius: 16px; text-align: center; border: 2px dashed var(--primary);"><strong style="color: var(--primary); font-size: 1.2em;">Límite gratuito alcanzado.</strong><p style="margin: 10px 0;">Desbloquea el temario completo con el Plan Élite.</p><button class="btn-p" style="width: auto; padding: 10px 20px;" onclick="abrirModalPlanes()">Ver Planes</button></div>`; }
+    };
+
+    window.verTeoriaDetalle = function(temaId, areaIdStr) {
+        const cont = document.getElementById('lista-temas-contenedor');
+        cont.className = ''; // Quitamos grid para ver a pantalla completa
+        const t = temasTeoricosEnMemoria.find(x => String(x.id) === String(temaId));
+        if(!t) return;
+        const nombreCursoTema = (typeof t.area_id === 'number' || !isNaN(t.area_id)) ? MAPEO_ID_CURSOS[t.area_id] : t.area_id; 
+        const embedUrl = convertirUrlAEmbed(t.url_video);
+        const btnDescargaPDF = (t.url_pdf && (perfilUsuario?.plan === 'elite' || perfilUsuario?.plan === 'premium')) ? `<a href="${t.url_pdf}" target="_blank" class="btn-p" style="background:#dc3545; width:auto; padding:8px 16px; margin-bottom:15px; font-size:0.9em;">📄 Descargar Resumen PDF</a>` : '';
+        
+        cont.innerHTML = `
+        <button class="btn-tool" style="margin-bottom:15px; padding:10px 15px;" onclick="filtrarTeoria('${areaIdStr}')">◀ Volver a los Temas</button>
+        <div style="background: var(--bg-card); padding: 35px; border-radius: 16px; box-shadow: var(--shadow-sm); border: 1px solid var(--border-color); border-top: 5px solid var(--primary);">
+            <span style="font-size: 0.9em; color: var(--primary); font-weight: 800; text-transform: uppercase;">${nombreCursoTema}</span>
+            <h2 style="color: var(--text-heading); font-size: 1.8em; margin: 8px 0 20px 0;">${t.codigo || ''} - ${t.titulo || ''}</h2>
+            ${btnDescargaPDF}
+            <div class="teoria-render" style="font-size: 1.1em; line-height: 1.8; color: var(--text-main);">${t.resumen_teorico || ''}</div>
+            ${embedUrl ? `<div class="video-box-container"><iframe src="${embedUrl}" allowfullscreen></iframe></div>` : ''}
+            <div style="margin-top: 35px; text-align: center; border-top:1px solid var(--border-color); padding-top:25px;">
+                <button class="btn-p" style="width: auto; padding: 14px 26px; background: #28a745; font-size: 1.1em;" onclick="irAPracticarTemaEspecifico('${nombreCursoTema}', '${t.codigo || ''}')">🎯 Practicar Banqueo de este Tema ➔</button>
+            </div>
+        </div>`;
     };
 
     window.convertirUrlAEmbed = function(url) {
@@ -2736,30 +2732,74 @@ let configAulaVivo = { activo: false, link: "" };
         const { data } = await sb.from('flashcards').select('*'); todasLasFlashcards = data || []; filtrarFlashcardsBtn('1'); 
     };
 
+    let mazoActivoFc = [];
+    let indexFc = 0;
+
     window.filtrarFlashcardsBtn = function(areaIdStr) {
         document.querySelectorAll('#tabs-flashcards .card-c').forEach(b => b.classList.remove('activa'));
-        document.querySelectorAll('#tabs-flashcards .card-c').forEach(tarjeta => { if (tarjeta.getAttribute('onclick')?.includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } });
+        document.querySelectorAll('#tabs-flashcards .card-c').forEach(tarjeta => { 
+            if (tarjeta.getAttribute('onclick')?.includes(`('${areaIdStr}')`)) { tarjeta.classList.add('activa'); } 
+        });
 
         const filtradas = todasLasFlashcards.filter(f => String(f.area_id) === String(areaIdStr) || MAPEO_CURSOS_ID[f.area_id] == areaIdStr); 
-        const cont = document.getElementById('contenedor-flashcards'); cont.innerHTML = '';
-        if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay flashcards publicadas para este eje temático.</p>'; return; }
+        const cont = document.getElementById('contenedor-flashcards'); 
+        cont.innerHTML = ''; cont.className = 'grid-modalidades-banqueo';
 
-        filtradas.forEach(f => { 
+        if (filtradas.length === 0) { cont.innerHTML = '<p style="color:var(--text-muted); font-size:1.1em; grid-column:1/-1;">No hay flashcards para este curso.</p>'; return; }
+
+        const temasUnicos = [...new Set(filtradas.map(f => f.tema || 'Temas Generales'))];
+        temasUnicos.forEach(tema => {
+            const num = filtradas.filter(f => (f.tema || 'Temas Generales') === tema).length;
             cont.innerHTML += `
-            <div class="card-flip" onclick="this.classList.toggle('volteada')">
+            <div class="card-c" style="border-top-color: #007bff;" onclick="iniciarMazoVisual('${areaIdStr}', '${tema}')">
+                <div style="font-size: 2.5em; margin-bottom: 10px;">🗂️</div>
+                <h3 style="font-size: 1.1em; margin-bottom: 8px;">${tema}</h3>
+                <p style="color: var(--text-muted); font-size: 0.9em; font-weight:bold;">${num} Tarjetas</p>
+            </div>`;
+        });
+    };
+
+    window.iniciarMazoVisual = function(areaIdStr, tema) {
+        mazoActivoFc = todasLasFlashcards.filter(f => (String(f.area_id) === String(areaIdStr) || MAPEO_CURSOS_ID[f.area_id] == areaIdStr) && (f.tema || 'Temas Generales') === tema);
+        indexFc = 0;
+        renderizarFlashcardUnica(areaIdStr);
+    };
+
+    window.renderizarFlashcardUnica = function(areaIdStr) {
+        const cont = document.getElementById('contenedor-flashcards');
+        cont.className = ''; 
+        const f = mazoActivoFc[indexFc];
+        
+        cont.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <button class="btn-tool" style="padding:10px 15px;" onclick="filtrarFlashcardsBtn('${areaIdStr}')">◀ Volver a Temas</button>
+            <span style="font-weight:bold; color:var(--primary); font-size:1.1em;">Tarjeta ${indexFc + 1} de ${mazoActivoFc.length}</span>
+        </div>
+        
+        <div style="display:flex; justify-content:center; align-items:center; gap:20px;">
+            <button class="btn-tool" style="font-size:1.8em; padding:10px 20px; border-radius:12px;" onclick="cambiarFlashcard(-1, '${areaIdStr}')" ${indexFc === 0 ? 'disabled' : ''}>◀</button>
+            
+            <div class="card-flip" onclick="this.classList.toggle('volteada')" style="width:100%; max-width:500px; height:280px; perspective:1000px;">
                 <div class="card-inner">
-                    <div class="card-front">${f.anverso}</div>
-                    <div class="card-back">
-                        <div style="flex:1; display:flex; align-items:center;">${f.reverso}</div>
+                    <div class="card-front" style="font-size:1.25em;">${f.anverso}</div>
+                    <div class="card-back" style="font-size:1.15em;">
+                        <div style="flex:1; display:flex; align-items:center; justify-content:center; padding-bottom:15px;">${f.reverso}</div>
                         <div class="srs-botones" onclick="event.stopPropagation()">
-                            <button class="btn-srs btn-srs-dif" onclick="mostrarAvisoModal('Repetición Espaciada', 'Tarjeta registrada como difícil. Dr. Pandy te la repetirá pronto.', '🔄')">Difícil</button>
-                            <button class="btn-srs btn-srs-med" onclick="mostrarAvisoModal('Repetición Espaciada', 'Buen razonamiento. Programada a intervalo medio.', '✅')">Medio</button>
-                            <button class="btn-srs btn-srs-fac" onclick="mostrarAvisoModal('Repetición Espaciada', '¡Dominado! Agendada a largo plazo.', '🌟')">Fácil</button>
+                            <button class="btn-srs btn-srs-dif" onclick="mostrarAvisoModal('SRS', 'Programada para repasar pronto.', '🔄')">Difícil</button>
+                            <button class="btn-srs btn-srs-med" onclick="mostrarAvisoModal('SRS', 'Buen razonamiento.', '✅')">Medio</button>
+                            <button class="btn-srs btn-srs-fac" onclick="mostrarAvisoModal('SRS', 'Agendada a largo plazo.', '🌟')">Fácil</button>
                         </div>
                     </div>
                 </div>
-            </div>`; 
-        });
+            </div>
+            
+            <button class="btn-tool" style="font-size:1.8em; padding:10px 20px; border-radius:12px;" onclick="cambiarFlashcard(1, '${areaIdStr}')" ${indexFc === mazoActivoFc.length - 1 ? 'disabled' : ''}>▶</button>
+        </div>`;
+    };
+
+    window.cambiarFlashcard = function(dir, areaIdStr) {
+        indexFc += dir;
+        renderizarFlashcardUnica(areaIdStr);
     };
 
     window.cargarLasFijasSERUMS = async function() {
@@ -2772,17 +2812,38 @@ let configAulaVivo = { activo: false, link: "" };
         document.querySelectorAll('#tabs-fijas .card-c').forEach(b => b.classList.remove('activa'));
         if (btn) { btn.classList.add('activa'); } else { document.querySelector('#tabs-fijas .card-c')?.classList.add('activa'); }
 
-        const cont = document.getElementById('contenedor-fijas-cards'); cont.innerHTML = '';
-        const filtradas = (filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => String(f.area_id) === String(filtro) || MAPEO_CURSOS_ID[f.area_id] == filtro);
-        if (filtradas.length === 0) { cont.innerHTML = '<p style="color: var(--text-muted); font-size: 1.1em; grid-column: 1/-1;">No hay fijas disponibles para este filtro.</p>'; return; }
+        const cont = document.getElementById('contenedor-fijas-cards'); 
+        cont.innerHTML = ''; cont.className = 'grid-modalidades-banqueo';
 
-        filtradas.forEach(f => { 
+        const filtradas = (filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => String(f.area_id) === String(filtro) || MAPEO_CURSOS_ID[f.area_id] == filtro);
+        if (filtradas.length === 0) { cont.innerHTML = '<p style="color:var(--text-muted); font-size:1.1em; grid-column:1/-1;">No hay fijas para este filtro.</p>'; return; }
+
+        const temasUnicos = [...new Set(filtradas.map(f => f.tema || 'Temas Generales'))];
+        temasUnicos.forEach(tema => {
+            const num = filtradas.filter(f => (f.tema || 'Temas Generales') === tema).length;
             cont.innerHTML += `
-            <div class="card-modalidad" style="border-top-color: #ffd700; text-align: left;">
-                <span style="font-size: 0.85em; color: #b78103; font-weight: bold; display: block; margin-bottom: 6px;">🔥 LA FIJA | ${f.tema || 'PUNTO CLAVE'}</span>
+            <div class="card-c" style="border-top-color: #ffd700;" onclick="verFijasTemaDetalle('${filtro}', '${tema}')">
+                <div style="font-size: 2.5em; margin-bottom: 10px;">🔥</div>
+                <h3 style="font-size: 1.1em; margin-bottom: 8px;">${tema}</h3>
+                <p style="color: var(--text-muted); font-size: 0.9em; font-weight:bold;">${num} Perlas Clínicas</p>
+            </div>`;
+        });
+    };
+
+    window.verFijasTemaDetalle = function(filtro, tema) {
+        const cont = document.getElementById('contenedor-fijas-cards');
+        cont.className = 'grid-modalidades-banqueo';
+        const filtradas = ((filtro === 'todos') ? todasLasFijas : todasLasFijas.filter(f => String(f.area_id) === String(filtro) || MAPEO_CURSOS_ID[f.area_id] == filtro)).filter(f => (f.tema || 'Temas Generales') === tema);
+        
+        cont.innerHTML = `<div style="grid-column: 1/-1;"><button class="btn-tool" style="margin-bottom:10px; padding:10px 15px;" onclick="cambiarPildoraFija(null, '${filtro}')">◀ Volver a Temas</button></div>`;
+        
+        filtradas.forEach(f => {
+            cont.innerHTML += `
+            <div class="card-modalidad" style="border-top-color: #ffd700; text-align: left; cursor: default;">
+                <span style="font-size: 0.85em; color: #b78103; font-weight: bold; display: block; margin-bottom: 6px;">🔥 LA FIJA</span>
                 <h3 style="margin-top: 5px; font-size: 1.35em;">${f.titulo}</h3>
                 <p style="color: var(--text-main); font-size: 1.05em; line-height: 1.6; margin-top: 10px;">${f.contenido}</p>
-            </div>`; 
+            </div>`;
         });
     };
 
@@ -3267,36 +3328,6 @@ let configAulaVivo = { activo: false, link: "" };
     };
 
     // CRUD DE TEMAS (DESCONGELADO Y CORREGIDO)
-    window.cargarListaTemasAdmin = async function() {
-        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-temas-adm-body');
-        if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="4">Cargando temas...</td></tr>';
-        
-        try {
-            const { data, error } = await sb.from('temas').select('*').order('id', { ascending: false });
-            if (error) throw error;
-            if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay temas registrados.</td></tr>'; return; }
-            
-            listaTemasAdminMemoria = data; tbody.innerHTML = '';
-            data.forEach(t => {
-                const nombreCurso = MAPEO_ID_CURSOS[t.area_id] || t.area_id || 'Academia';
-                tbody.innerHTML += `
-                    <tr>
-                        <td><strong>${t.codigo || 'S/C'}</strong></td>
-                        <td>${t.titulo || 'Sin título'}</td>
-                        <td>${nombreCurso}</td>
-                        <td style="display:flex; gap:6px;">
-                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionTema('${t.id}')">✏️ Editar</button>
-                            <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarTema('${t.id}')">🗑️ Borrar</button>
-                        </td>
-                    </tr>`;
-            });
-        } catch(err) {
-            console.error("Error cargando lista de temas:", err);
-            tbody.innerHTML = `<tr><td colspan="4" style="color:red;">Error al cargar temas: ${err.message || 'Verifica la consola'}</td></tr>`;
-        }
-    };
-
     window.prepararEdicionTema = function(id) {
         const tema = listaTemasAdminMemoria.find(t => t.id == id); if (!tema) return;
         document.getElementById('adm-t-id').value = tema.id;
@@ -3357,29 +3388,6 @@ let configAulaVivo = { activo: false, link: "" };
     });
 
     // CRUD DE PREGUNTAS
-    window.cargarListaPreguntasAdmin = async function() {
-        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-preguntas-adm-body');
-        if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="4">Cargando preguntas...</td></tr>';
-        const { data } = await sb.from('preguntas').select('id, area_id, enunciado, dificultad').order('id', { ascending: false }).limit(50);
-        if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="4">No hay preguntas registradas.</td></tr>'; return; }
-        listaPreguntasAdminMemoria = data; tbody.innerHTML = '';
-        data.forEach(p => {
-            const nombreCurso = MAPEO_ID_CURSOS[p.area_id] || 'Salud';
-            const enunCorto = p.enunciado.length > 50 ? p.enunciado.substring(0, 50) + "..." : p.enunciado;
-            tbody.innerHTML += `
-                <tr>
-                    <td>${enunCorto}</td>
-                    <td>${nombreCurso}</td>
-                    <td>${p.dificultad}</td>
-                    <td style="display:flex; gap:6px;">
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionPregunta('${p.id}')">✏️ Editar</button>
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarPregunta('${p.id}')">🗑️ Borrar</button>
-                    </td>
-                </tr>`;
-        });
-    };
-
     window.prepararEdicionPregunta = async function(id) {
         const sb = obtenerSupabase(); const { data: p } = await sb.from('preguntas').select('*').eq('id', id).single();
         if (!p) return;
@@ -3425,26 +3433,6 @@ let configAulaVivo = { activo: false, link: "" };
     });
 
     // CRUD DE LAS FIJAS
-    window.cargarListaFijasAdmin = async function() {
-        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-fijas-adm-body');
-        if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="3">Cargando fijas...</td></tr>';
-        const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false });
-        if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay fijas registradas.</td></tr>'; return; }
-        listaFijasAdminMemoria = data; tbody.innerHTML = '';
-        data.forEach(f => {
-            tbody.innerHTML += `
-                <tr>
-                    <td>${f.tema}</td>
-                    <td>${f.titulo}</td>
-                    <td style="display:flex; gap:6px;">
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionFija('${f.id}')">✏️ Editar</button>
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarFija('${f.id}')">🗑️ Borrar</button>
-                    </td>
-                </tr>`;
-        });
-    };
-
     window.prepararEdicionFija = function(id) {
         const f = listaFijasAdminMemoria.find(x => x.id == id); if (!f) return;
         document.getElementById('adm-fija-id').value = f.id;
@@ -3486,27 +3474,6 @@ let configAulaVivo = { activo: false, link: "" };
     });
 
     // CRUD DE FLASHCARDS
-    window.cargarListaFlashcardsAdmin = async function() {
-        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-flashcards-adm-body');
-        if (!tbody) return;
-        tbody.innerHTML = '<tr><td colspan="3">Cargando flashcards...</td></tr>';
-        const { data } = await sb.from('flashcards').select('*').order('id', { ascending: false });
-        if (!data || data.length === 0) { tbody.innerHTML = '<tr><td colspan="3">No hay flashcards registradas.</td></tr>'; return; }
-        listaFlashcardsAdminMemoria = data; tbody.innerHTML = '';
-        data.forEach(f => {
-            const anversoCorto = f.anverso.length > 50 ? f.anverso.substring(0, 50) + "..." : f.anverso;
-            tbody.innerHTML += `
-                <tr>
-                    <td>${anversoCorto}</td>
-                    <td>${MAPEO_ID_CURSOS[f.area_id]}</td>
-                    <td style="display:flex; gap:6px;">
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#0056b3;" onclick="prepararEdicionFlashcard('${f.id}')">✏️ Editar</button>
-                        <button class="btn-p" style="width:auto; padding:6px 12px; font-size:0.85em; background:#dc3545;" onclick="eliminarFlashcard('${f.id}')">🗑️ Borrar</button>
-                    </td>
-                </tr>`;
-        });
-    };
-
     window.prepararEdicionFlashcard = function(id) {
         const f = listaFlashcardsAdminMemoria.find(x => x.id == id); if (!f) return;
         document.getElementById('adm-f-id').value = f.id;
@@ -3665,6 +3632,75 @@ let configAulaVivo = { activo: false, link: "" };
             contPopup.innerHTML = '';
             carruselPopupImagenes.forEach((url, idx) => { contPopup.innerHTML += `<div style="position: relative; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: 120px; height: 80px;"><img src="${url}" style="width: 100%; height: 100%; object-fit: cover;"><button type="button" onclick="eliminarImagenCarrusel('popup_anuncio', ${idx})" style="position: absolute; top: 2px; right: 2px; background: #dc3545; color: white; border: none; border-radius: 4px; padding: 2px 6px; cursor: pointer;">✕</button></div>`; });
         }
+    };
+    // Estado de Paginación del Panel Docente
+    let pagAdm = { p: 0, t: 0, f: 0, fc: 0 };
+    const LMT = 40; // 40 items por página
+
+    window.cargarListaPreguntasAdmin = async function(dir = 0) {
+        pagAdm.p += dir; if(pagAdm.p < 0) pagAdm.p = 0;
+        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-preguntas-adm-body');
+        tbody.innerHTML = '<tr><td colspan="4">Cargando...</td></tr>';
+        const { data } = await sb.from('preguntas').select('id, area_id, enunciado, dificultad').order('id', { ascending: false }).range(pagAdm.p * LMT, (pagAdm.p + 1) * LMT - 1);
+        if (!data || data.length === 0) { 
+            if(pagAdm.p > 0) { pagAdm.p--; return cargarListaPreguntasAdmin(0); }
+            tbody.innerHTML = '<tr><td colspan="4">No hay preguntas registradas.</td></tr>'; return; 
+        }
+        listaPreguntasAdminMemoria = data; tbody.innerHTML = '';
+        data.forEach(p => {
+            const enunCorto = p.enunciado.length > 50 ? p.enunciado.substring(0, 50) + "..." : p.enunciado;
+            tbody.innerHTML += `<tr><td>${enunCorto}</td><td>${MAPEO_ID_CURSOS[p.area_id]||'Salud'}</td><td>${p.dificultad}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; background:#0056b3;" onclick="prepararEdicionPregunta('${p.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; background:#dc3545;" onclick="eliminarPregunta('${p.id}')">🗑️</button></td></tr>`;
+        });
+        tbody.innerHTML += `<tr><td colspan="4" style="text-align:center; padding:15px;"><button class="btn-tool" onclick="cargarListaPreguntasAdmin(-1)">◀ Ant</button> <span style="margin:0 15px; font-weight:bold;">Pág ${pagAdm.p + 1}</span> <button class="btn-tool" onclick="cargarListaPreguntasAdmin(1)">Sig ▶</button></td></tr>`;
+    };
+
+    window.cargarListaTemasAdmin = async function(dir = 0) {
+        pagAdm.t += dir; if(pagAdm.t < 0) pagAdm.t = 0;
+        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-temas-adm-body');
+        tbody.innerHTML = '<tr><td colspan="4">Cargando...</td></tr>';
+        const { data } = await sb.from('temas').select('*').order('id', { ascending: false }).range(pagAdm.t * LMT, (pagAdm.t + 1) * LMT - 1);
+        if (!data || data.length === 0) { 
+            if(pagAdm.t > 0) { pagAdm.t--; return cargarListaTemasAdmin(0); }
+            tbody.innerHTML = '<tr><td colspan="4">No hay temas registrados.</td></tr>'; return; 
+        }
+        listaTemasAdminMemoria = data; tbody.innerHTML = '';
+        data.forEach(t => {
+            tbody.innerHTML += `<tr><td><strong>${t.codigo||'S/C'}</strong></td><td>${t.titulo||''}</td><td>${MAPEO_ID_CURSOS[t.area_id]||t.area_id}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; background:#0056b3;" onclick="prepararEdicionTema('${t.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; background:#dc3545;" onclick="eliminarTema('${t.id}')">🗑️</button></td></tr>`;
+        });
+        tbody.innerHTML += `<tr><td colspan="4" style="text-align:center; padding:15px;"><button class="btn-tool" onclick="cargarListaTemasAdmin(-1)">◀ Ant</button> <span style="margin:0 15px; font-weight:bold;">Pág ${pagAdm.t + 1}</span> <button class="btn-tool" onclick="cargarListaTemasAdmin(1)">Sig ▶</button></td></tr>`;
+    };
+
+    window.cargarListaFijasAdmin = async function(dir = 0) {
+        pagAdm.f += dir; if(pagAdm.f < 0) pagAdm.f = 0;
+        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-fijas-adm-body');
+        tbody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
+        const { data } = await sb.from('fijas_serums').select('*').order('id', { ascending: false }).range(pagAdm.f * LMT, (pagAdm.f + 1) * LMT - 1);
+        if (!data || data.length === 0) { 
+            if(pagAdm.f > 0) { pagAdm.f--; return cargarListaFijasAdmin(0); }
+            tbody.innerHTML = '<tr><td colspan="3">No hay fijas registradas.</td></tr>'; return; 
+        }
+        listaFijasAdminMemoria = data; tbody.innerHTML = '';
+        data.forEach(f => {
+            tbody.innerHTML += `<tr><td>${f.tema}</td><td>${f.titulo}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; background:#0056b3;" onclick="prepararEdicionFija('${f.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; background:#dc3545;" onclick="eliminarFija('${f.id}')">🗑️</button></td></tr>`;
+        });
+        tbody.innerHTML += `<tr><td colspan="3" style="text-align:center; padding:15px;"><button class="btn-tool" onclick="cargarListaFijasAdmin(-1)">◀ Ant</button> <span style="margin:0 15px; font-weight:bold;">Pág ${pagAdm.f + 1}</span> <button class="btn-tool" onclick="cargarListaFijasAdmin(1)">Sig ▶</button></td></tr>`;
+    };
+
+    window.cargarListaFlashcardsAdmin = async function(dir = 0) {
+        pagAdm.fc += dir; if(pagAdm.fc < 0) pagAdm.fc = 0;
+        const sb = obtenerSupabase(); const tbody = document.getElementById('tabla-flashcards-adm-body');
+        tbody.innerHTML = '<tr><td colspan="3">Cargando...</td></tr>';
+        const { data } = await sb.from('flashcards').select('*').order('id', { ascending: false }).range(pagAdm.fc * LMT, (pagAdm.fc + 1) * LMT - 1);
+        if (!data || data.length === 0) { 
+            if(pagAdm.fc > 0) { pagAdm.fc--; return cargarListaFlashcardsAdmin(0); }
+            tbody.innerHTML = '<tr><td colspan="3">No hay flashcards registradas.</td></tr>'; return; 
+        }
+        listaFlashcardsAdminMemoria = data; tbody.innerHTML = '';
+        data.forEach(f => {
+            const anversoCorto = f.anverso.length > 50 ? f.anverso.substring(0, 50) + "..." : f.anverso;
+            tbody.innerHTML += `<tr><td>${anversoCorto}</td><td>${MAPEO_ID_CURSOS[f.area_id]}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; background:#0056b3;" onclick="prepararEdicionFlashcard('${f.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; background:#dc3545;" onclick="eliminarFlashcard('${f.id}')">🗑️</button></td></tr>`;
+        });
+        tbody.innerHTML += `<tr><td colspan="3" style="text-align:center; padding:15px;"><button class="btn-tool" onclick="cargarListaFlashcardsAdmin(-1)">◀ Ant</button> <span style="margin:0 15px; font-weight:bold;">Pág ${pagAdm.fc + 1}</span> <button class="btn-tool" onclick="cargarListaFlashcardsAdmin(1)">Sig ▶</button></td></tr>`;
     };
 </script>
 </body>
