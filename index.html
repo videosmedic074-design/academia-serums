@@ -1341,48 +1341,44 @@
                             <!-- PESTAÑA: CONFIGURACIÓN GENERAL Y SWITCHES REDES -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Personalizar Dr. Pandy (Emociones y Evolución)</h3>
-                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tus imágenes en PNG (fondo transparente). Recomendado: imágenes ligeras menores a 500kb.</p>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Personalizar Dr. Pandy (Enlaces de GitHub)</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube las imágenes a tu repositorio de GitHub y escribe aquí sus nombres exactos.</p>
                                     
                                     <div class="grid-modalidades-banqueo" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
-                                        <div class="campo"><label>🐼 Bebé/Normal (Por defecto)</label><input type="file" id="p-img-normal" accept="image/*"></div>
-                                        <div class="campo"><label>✨ Feliz / Respuesta Correcta</label><input type="file" id="p-img-feliz" accept="image/*"></div>
-                                        <div class="campo"><label>❌ Triste / Falla Clínica</label><input type="file" id="p-img-triste" accept="image/*"></div>
-                                        <div class="campo"><label>💤 Dormido (Sin energía)</label><input type="file" id="p-img-dormido" accept="image/*"></div>
-                                        <div class="campo" style="grid-column: 1 / -1;"><label>👑 Evolución: Adulto (Al llegar a Nv. 8 / Especialista)</label><input type="file" id="p-img-adulto" accept="image/*"></div>
+                                        <div class="campo"><label>🐼 Bebé/Normal</label><input type="text" id="p-img-normal" placeholder="Ej: panda-normal.png"></div>
+                                        <div class="campo"><label>✨ Feliz / Correcta</label><input type="text" id="p-img-feliz" placeholder="Ej: panda-feliz.png"></div>
+                                        <div class="campo"><label>❌ Triste / Falla</label><input type="text" id="p-img-triste" placeholder="Ej: panda-error.png"></div>
+                                        <div class="campo"><label>💤 Dormido</label><input type="text" id="p-img-dormido" placeholder="Ej: panda-dormido.png"></div>
+                                        <div class="campo" style="grid-column: 1 / -1;"><label>👑 Adulto (Nv. 8)</label><input type="text" id="p-img-adulto" placeholder="Ej: panda-adulto.png"></div>
                                     </div>
                                     
                                     <div style="display: flex; gap: 10px;">
-                                        <button type="button" class="btn-p" style="width: auto; background: #6f42c1;" onclick="guardarPandyMultiples()">Guardar Emociones del Panda</button>
+                                        <button type="button" class="btn-p" style="width: auto; background: #6f42c1;" onclick="guardarPandyMultiples()">Guardar Enlaces del Panda</button>
                                         <button type="button" class="btn-tool" style="background: #dc3545; color: white; padding: 12px 20px;" onclick="restaurarPandaDefault()">Restaurar Original</button>
                                     </div>
                                 </div>
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🎨 Logo de la Academia</h3>
-                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu logotipo (PNG o JPG). Se renderiza con fondo transparente real y mayor tamaño.</p>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🎨 Logo de la Academia (Enlace de GitHub)</h3>
                                     <div class="fila">
                                         <div class="campo">
-                                            <input type="file" id="file-logo-custom" accept="image/*">
+                                            <input type="text" id="file-logo-custom" placeholder="Ej: logo.png">
                                             <div style="display: flex; gap: 10px; margin-top: 10px;">
-                                                <button type="button" class="btn-tool" onclick="guardarLogoCustom()">Subir y Aplicar Logo</button>
+                                                <button type="button" class="btn-tool" onclick="guardarLogoCustom()">Aplicar Nombre del Logo</button>
                                                 <button type="button" class="btn-tool" style="background: #dc3545; color: white;" onclick="restaurarLogoDefault()">Restaurar Default</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">💬 Redes Sociales y Soporte Flotante (Interruptores On/Off)</h3>
-                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Activa las casillas para mostrar los botones a los alumnos e ingresa los enlaces directos o tu número de celular:</p>
-                                    
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">💬 Redes Sociales y Soporte Flotante</h3>
                                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; background: var(--bg-card); padding: 15px; border-radius: 10px; border: 1px solid var(--border-color);">
                                         <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-wa" checked style="width:18px; height:18px;"> 💬 Mostrar WhatsApp</label>
                                         <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-fb" checked style="width:18px; height:18px;"> 📘 Mostrar Facebook</label>
                                         <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-dc" checked style="width:18px; height:18px;"> 👾 Mostrar Discord</label>
                                         <label style="display:flex; align-items:center; gap:8px; font-weight:bold; cursor:pointer;"><input type="checkbox" id="sw-ig" style="width:18px; height:18px;"> 📸 Mostrar Instagram</label>
                                     </div>
-
                                     <div class="fila">
-                                        <div class="campo"><label>Número o Link de WhatsApp (Ej: 987654321 o https://wa.me/...)</label><input type="text" id="adm-link-wa" placeholder="Ej: 987654321"></div>
+                                        <div class="campo"><label>Número o Link de WhatsApp</label><input type="text" id="adm-link-wa" placeholder="Ej: 987654321"></div>
                                         <div class="campo"><label>Link de Discord</label><input type="url" id="adm-link-dc" placeholder="https://discord.gg/..."></div>
                                     </div>
                                     <div class="fila">
@@ -1392,45 +1388,44 @@
                                     <button type="button" class="btn-tool" style="padding: 10px 18px; font-size: 1em;" onclick="guardarRedesSociales()">Guardar Redes Sociales</button>
                                 </div>
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📜 Términos, Condiciones y Políticas de la Academia</h3>
-                                    <textarea id="adm-texto-terminos" rows="6" placeholder="Redacta o edita aquí los términos de servicio, propiedad intelectual y reglas de uso del aula virtual..."></textarea>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📜 Términos, Condiciones y Políticas</h3>
+                                    <textarea id="adm-texto-terminos" rows="6" placeholder="Redacta o edita aquí los términos..."></textarea>
                                     <button type="button" class="btn-tool" style="padding: 10px 18px; margin-top: 10px; font-size: 1em;" onclick="guardarTerminosCondiciones()">Guardar Términos</button>
                                 </div>
                                 <div class="admin-form-box">
-                                    <div class="admin-form-box">
-    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📢 Banners Publicitarios (Enlaces URL)</h3>
-    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu banner a <a href="https://postimages.org/" target="_blank" style="color:var(--primary); font-weight:bold;">postimages.org</a> y pega aquí el "Enlace Directo".</p>
-    <div class="fila">
-        <div class="campo">
-            <label>Banner Login (Carrusel):</label>
-            <input type="url" id="url-banner-login" placeholder="https://... (Enlace directo)">
-            <button type="button" class="btn-tool" style="margin-top:6px;" onclick="agregarBannerUrl('banner_login')">➕ Agregar Enlace</button>
-            <div id="lista-anuncios-login-adm" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
-        </div>
-        <div class="campo">
-            <label>Pop-up de Bienvenida:</label>
-            <input type="url" id="url-popup-anuncio" placeholder="https://... (Enlace directo)">
-            <button type="button" class="btn-tool" style="margin-top:6px;" onclick="agregarBannerUrl('popup_anuncio')">➕ Agregar Enlace</button>
-            <div id="lista-anuncios-popup-adm" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
-        </div>
-    </div>
-</div>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📢 Banners Publicitarios (Enlaces URL Externos)</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu banner a <a href="https://postimages.org/" target="_blank" style="color:var(--primary); font-weight:bold;">postimages.org</a> y pega aquí el "Enlace Directo".</p>
+                                    <div class="fila">
+                                        <div class="campo">
+                                            <label>Banner Login (Carrusel):</label>
+                                            <input type="url" id="url-banner-login" placeholder="https://... (Enlace directo)">
+                                            <button type="button" class="btn-tool" style="margin-top:6px;" onclick="agregarBannerUrl('banner_login')">➕ Agregar Enlace</button>
+                                            <div id="lista-anuncios-login-adm" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
+                                        </div>
+                                        <div class="campo">
+                                            <label>Pop-up de Bienvenida:</label>
+                                            <input type="url" id="url-popup-anuncio" placeholder="https://... (Enlace directo)">
+                                            <button type="button" class="btn-tool" style="margin-top:6px;" onclick="agregarBannerUrl('popup_anuncio')">➕ Agregar Enlace</button>
+                                            <div id="lista-anuncios-popup-adm" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📅 Configuración de Fecha y Cronograma Editable</h3>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📅 Configuración de Fecha y Cronograma</h3>
                                     <div class="fila" style="margin-bottom: 15px;">
-                                        <div class="campo"><label>Modalidad de la Fecha Activa:</label><select id="adm-sel-modalidad-fecha" class="campo-select-pro"><option value="oficial" selected>Fecha Oficial Confirmada</option><option value="probable">Fecha Probable / Estimada</option></select></div>
+                                        <div class="campo"><label>Modalidad:</label><select id="adm-sel-modalidad-fecha" class="campo-select-pro"><option value="oficial" selected>Fecha Oficial Confirmada</option><option value="probable">Fecha Probable / Estimada</option></select></div>
                                         <div class="campo"><label>Fecha del Examen:</label><input type="date" id="adm-input-fecha-examen" style="padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);"></div>
                                     </div>
                                     <div class="campo">
-                                        <label>Mensaje Personalizado del Cronograma de Estudio (Opcional):</label>
-                                        <textarea id="adm-texto-metodologia" rows="4" placeholder="Ej: Esta semana estudiaremos Salud Pública y repasaremos simulacros el sábado..."></textarea>
+                                        <label>Mensaje Personalizado del Cronograma:</label>
+                                        <textarea id="adm-texto-metodologia" rows="4" placeholder="Ej: Esta semana estudiaremos..."></textarea>
                                     </div>
                                     <div class="campo" style="margin-bottom: 15px;">
-                                        <label>Anotación en el Calendario (Ej: Simulacro Semanal):</label>
+                                        <label>Anotación en el Calendario:</label>
                                         <div style="display: flex; gap: 8px;">
                                             <input type="date" id="adm-cal-fecha" style="width: auto; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
                                             <input type="text" id="adm-cal-texto" placeholder="Etiqueta del día" style="flex: 1; padding: 10px; border-radius: 8px; border: 1px solid var(--border-color);">
-                                            <button type="button" class="btn-tool" onclick="guardarEventoCalendario()">➕ Agregar Día al Calendario</button>
+                                            <button type="button" class="btn-tool" onclick="guardarEventoCalendario()">➕ Agregar Día</button>
                                         </div>
                                     </div>
                                     <button type="button" class="btn-p" style="width: auto; margin: 0; padding: 14px 26px; font-size: 1.05em;" onclick="guardarConfiguracionFechaExamen()">Guardar Configuración y Cronograma</button>
@@ -2109,20 +2104,12 @@
     window.guardarPandyMultiples = async function() {
         const btn = event.target;
         btn.innerText = "Guardando...";
-        
-        const leerArchivo = (id) => new Promise((resolve) => {
-            const file = document.getElementById(id).files[0];
-            if (!file) return resolve(null);
-            const r = new FileReader();
-            r.onload = (e) => resolve(e.target.result);
-            r.readAsDataURL(file);
-        });
 
-        const imgNormal = await leerArchivo('p-img-normal');
-        const imgFeliz = await leerArchivo('p-img-feliz');
-        const imgTriste = await leerArchivo('p-img-triste');
-        const imgDormido = await leerArchivo('p-img-dormido');
-        const imgAdulto = await leerArchivo('p-img-adulto');
+        const imgNormal = document.getElementById('p-img-normal').value.trim();
+        const imgFeliz = document.getElementById('p-img-feliz').value.trim();
+        const imgTriste = document.getElementById('p-img-triste').value.trim();
+        const imgDormido = document.getElementById('p-img-dormido').value.trim();
+        const imgAdulto = document.getElementById('p-img-adulto').value.trim();
 
         if (imgNormal) pandyImagenesCustom['normal'] = imgNormal;
         if (imgFeliz) {
@@ -2138,18 +2125,17 @@
         if (imgAdulto) pandyImagenesCustom['adulto'] = imgAdulto;
 
         await guardarConfiguracionBase('pandy_imagen_hd', JSON.stringify(pandyImagenesCustom));
-        renderizarPandaVisual();
-        btn.innerText = "Guardar Emociones del Panda";
-        mostrarAvisoModal("Dr. Pandy Actualizado", "Las nuevas emociones y evoluciones se guardaron correctamente.", "🐼");
+        renderizarPandaVisual('normal');
+        btn.innerText = "Guardar Nombres del Panda";
+        mostrarAvisoModal("Dr. Pandy Actualizado", "Los archivos vinculados a GitHub se guardaron.", "🐼");
     };
 
     window.restaurarPandaDefault = async function() {
         pandyImagenesCustom = { normal: "", correcto: "", error: "", dormido: "", saludo: "" };
         await guardarConfiguracionBase('pandy_imagen_hd', '');
-        renderizarPandaVisual();
+        renderizarPandaVisual('normal');
         mostrarAvisoModal("Restaurado", "Dr. Pandy restablecido.", "✔");
     };
-
     window.comprarAlimento = async function(costo, energiaGanada) {
         if (perfilMascota.monedas < costo) { 
             mostrarAvisoModal("Pandy-Coins Insuficientes", `Necesitas ${costo} monedas. Responde casos en el banco para ganar más.`, "🪙"); 
@@ -3096,49 +3082,62 @@ let configAulaVivo = { activo: false, link: "" };
         mostrarAvisoModal("Redes Guardadas", "Botones de soporte y visibilidad actualizados.", "💬");
     };
 
-    window.guardarLogoCustom = function() {
-        const file = document.getElementById('file-logo-custom').files[0];
-        if (!file) return mostrarAvisoModal("Aviso", "Selecciona una imagen.", "⚠️");
-        const reader = new FileReader();
-        reader.onload = async function(e) {
-            const b64 = e.target.result;
-            await guardarConfiguracionBase('logo_academia', b64);
-            aplicarLogoCustom(b64);
-            mostrarAvisoModal("Logo Actualizado", "Nuevo logo aplicado en toda la academia sin fondo oscuro.", "🎨");
-        };
-        reader.readAsDataURL(file);
+    window.guardarLogoCustom = async function() {
+        const url = document.getElementById('file-logo-custom').value.trim();
+        if (!url) return mostrarAvisoModal("Aviso", "Escribe el nombre del archivo (Ej: logo.png).", "⚠️");
+        await guardarConfiguracionBase('logo_academia', url);
+        aplicarLogoCustom(url);
+        mostrarAvisoModal("Logo Actualizado", "El logo está vinculado a GitHub.", "🎨");
     };
 
     window.restaurarLogoDefault = async function() {
         await guardarConfiguracionBase('logo_academia', '');
         location.reload(); 
     };
-
     window.renderizarPandaVisual = function(emocion = 'normal') {
         const pandaCont = document.getElementById('panda-mascota-container');
-        if (!pandaCont) return;
-
-        // Conecta con los nombres exactos que subiste a GitHub
+        const pandaBienvenida = document.getElementById('avatar-canvas-bienvenida');
+        const pandaLateral = document.getElementById('avatar-canvas');
+        const pandaCoach = document.getElementById('avatar-canvas-coach');
+        
         const imagenesEstaticas = {
-            'normal': 'panda-normal.png',
-            'correcto': 'panda-feliz.png',
-            'error': 'panda-error.png',
-            'triste': 'panda-error.png',
-            'dormido': 'panda-dormido.png',
-            'adulto': 'panda-adulto.png'
+            'normal': pandyImagenesCustom['normal'] || 'panda-normal.png',
+            'correcto': pandyImagenesCustom['correcto'] || 'panda-feliz.png',
+            'saludo': pandyImagenesCustom['saludo'] || 'panda-feliz.png',
+            'motivado': pandyImagenesCustom['motivado'] || 'panda-feliz.png',
+            'error': pandyImagenesCustom['error'] || 'panda-error.png',
+            'triste': pandyImagenesCustom['triste'] || 'panda-error.png',
+            'dormido': pandyImagenesCustom['dormido'] || 'panda-dormido.png',
+            'adulto': pandyImagenesCustom['adulto'] || 'panda-adulto.png'
         };
 
-        const imgFuente = imagenesEstaticas[emocion] || imagenesEstaticas['normal'];
+        let imgFuente = imagenesEstaticas[emocion] || imagenesEstaticas['normal'];
+        if (emocion === 'normal' && perfilMascota && perfilMascota.nivel >= 8 && imagenesEstaticas['adulto']) {
+            imgFuente = imagenesEstaticas['adulto'];
+        }
         
-        pandaCont.innerHTML = `<img src="${imgFuente}" alt="Dr. Pandy" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); animation: respirarPanda 3s ease-in-out infinite;">`;
+        const imgTag = `<img src="${imgFuente}" alt="Dr. Pandy" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); animation: respirarPanda 3s ease-in-out infinite;">`;
+        
+        if (pandaCont) pandaCont.innerHTML = imgTag;
+        if (pandaBienvenida && emocion === 'saludo') pandaBienvenida.innerHTML = imgTag;
+        if (pandaLateral && emocion === 'saludo') pandaLateral.innerHTML = imgTag;
+        if (pandaCoach && (emocion === 'correcto' || emocion === 'error')) pandaCoach.innerHTML = imgTag;
     };
 
     window.aplicarLogoCustom = function(urlStr) {
         const logoNav = document.getElementById('logo-main');
         const logoDash = document.getElementById('logo-dash');
-        const rutaLogoFijo = 'logo.png'; 
+        const logoLogin = document.querySelector('#logo-login-container');
+        const logoApp = document.querySelector('#logo-app-container');
+        
+        const rutaLogoFijo = urlStr || 'logo.png'; 
+        
         if (logoNav) logoNav.src = rutaLogoFijo;
         if (logoDash) logoDash.src = rutaLogoFijo;
+        
+        const imgLogoCustom = `<img src="${rutaLogoFijo}" style="width: 100%; height: 100%; object-fit: contain;">`;
+        if (logoLogin) logoLogin.innerHTML = imgLogoCustom;
+        if (logoApp) logoApp.innerHTML = imgLogoCustom;
     };
 
     window.guardarConfiguracionFechaExamen = async function() {
