@@ -1342,7 +1342,7 @@
                             <div id="subtab-adm-anuncios" class="subtab-adm">
                                 <div class="admin-form-box">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Personalizar Dr. Pandy (Enlaces de GitHub)</h3>
-                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube las imágenes a tu repositorio de GitHub y escribe aquí sus nombres exactos.</p>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube las imágenes a tu repositorio de GitHub y escribe aquí sus nombres exactos (Ej: panda-normal.png).</p>
                                     
                                     <div class="grid-modalidades-banqueo" style="grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
                                         <div class="campo"><label>🐼 Bebé/Normal</label><input type="text" id="p-img-normal" placeholder="Ej: panda-normal.png"></div>
@@ -1353,7 +1353,7 @@
                                     </div>
                                     
                                     <div style="display: flex; gap: 10px;">
-                                        <button type="button" class="btn-p" style="width: auto; background: #6f42c1;" onclick="guardarPandyMultiples()">Guardar Enlaces del Panda</button>
+                                        <button type="button" class="btn-p" style="width: auto; background: #6f42c1;" onclick="guardarPandyMultiples()">Guardar Nombres del Panda</button>
                                         <button type="button" class="btn-tool" style="background: #dc3545; color: white; padding: 12px 20px;" onclick="restaurarPandaDefault()">Restaurar Original</button>
                                     </div>
                                 </div>
@@ -1393,7 +1393,7 @@
                                     <button type="button" class="btn-tool" style="padding: 10px 18px; margin-top: 10px; font-size: 1em;" onclick="guardarTerminosCondiciones()">Guardar Términos</button>
                                 </div>
                                 <div class="admin-form-box">
-                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📢 Banners Publicitarios (Enlaces URL Externos)</h3>
+                                    <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">📢 Banners Publicitarios (Enlaces Externos)</h3>
                                     <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube tu banner a <a href="https://postimages.org/" target="_blank" style="color:var(--primary); font-weight:bold;">postimages.org</a> y pega aquí el "Enlace Directo".</p>
                                     <div class="fila">
                                         <div class="campo">
@@ -1418,7 +1418,7 @@
                                     </div>
                                     <div class="campo">
                                         <label>Mensaje Personalizado del Cronograma:</label>
-                                        <textarea id="adm-texto-metodologia" rows="4" placeholder="Ej: Esta semana estudiaremos..."></textarea>
+                                        <textarea id="adm-texto-metodologia" rows="4"></textarea>
                                     </div>
                                     <div class="campo" style="margin-bottom: 15px;">
                                         <label>Anotación en el Calendario:</label>
@@ -1431,7 +1431,6 @@
                                     <button type="button" class="btn-p" style="width: auto; margin: 0; padding: 14px 26px; font-size: 1.05em;" onclick="guardarConfiguracionFechaExamen()">Guardar Configuración y Cronograma</button>
                                 </div>
                             </div>
-
                             <!-- PESTAÑA: ALUMNOS Y PLANES -->
                             <div id="subtab-adm-a" class="subtab-adm">
                                 <div style="display: flex; gap: 12px; margin-bottom: 20px;">
@@ -2456,50 +2455,116 @@ let configAulaVivo = { activo: false, link: "" };
         }
     };
 
-    window.iniciarBanqueoFiltro = function() {
+    let mazoBanqueo = [];
+    let indexBanqueo = 0;
+    let respuestasDadas = {};
+
+    window.iniciarBanqueoFiltro = async function() {
+        document.getElementById('btn-aplicar-filtro').innerText = 'Cargando...';
+        document.getElementById('btn-aplicar-filtro').disabled = true;
+
+        const sb = obtenerSupabase();
+        const cursoNombre = document.getElementById('sel-curso-banqueo').value;
+        const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
+        const limite = parseInt(document.getElementById('sel-cantidad-preguntas-bd').value) || 10;
+        
+        const { data } = await sb.from('preguntas').select('*').eq('area_id', areaId);
+        
+        if (!data || data.length === 0) { 
+            mostrarAvisoModal("Sin Casos", "Aún no hay preguntas en este curso.", "⚠️");
+            document.getElementById('btn-aplicar-filtro').innerText = 'Aplicar Filtro ➔';
+            document.getElementById('btn-aplicar-filtro').disabled = false;
+            return; 
+        }
+
+        mazoBanqueo = data.sort(() => 0.5 - Math.random()).slice(0, limite);
+        indexBanqueo = 0;
+        respuestasDadas = {}; 
+
         document.getElementById('btn-aplicar-filtro').style.display = 'none';
+        document.getElementById('btn-aplicar-filtro').innerText = 'Aplicar Filtro ➔';
+        document.getElementById('btn-aplicar-filtro').disabled = false;
+        
         document.getElementById('zona-practica-activa').style.display = 'block';
         cargarSiguientePregunta();
     };
 
-    window.cargarSiguientePregunta = async function() {
+    window.cargarSiguientePregunta = function() {
+        const btnOld = document.getElementById('btn-sig'); if(btnOld) btnOld.style.display = 'none';
         const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
-        if (esBasico && perfilUsuario.preguntas_hoy >= 25) { 
-            mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado (25/25)', 'Has completado tus 25 preguntas diarias de la cuenta básica. Pasa al Plan Banqueo o Plan Élite para practicar sin restricciones.'); 
+        
+        if (esBasico && (perfilUsuario.preguntas_hoy || 0) >= 25 && !respuestasDadas[indexBanqueo]) { 
+            mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado (25/25)', 'Has completado tus 25 preguntas diarias de la cuenta básica.'); 
             return; 
+        }
+
+        if (indexBanqueo < 0) indexBanqueo = 0;
+        if (indexBanqueo >= mazoBanqueo.length) {
+            finalizarSesionBanqueo();
+            return;
         }
         
-        const sb = obtenerSupabase(); 
-        document.getElementById('sim-fb').style.display = 'none'; 
-        document.getElementById('btn-sig').style.display = 'none';
-        document.getElementById('contador-diario').innerText = esBasico ? `Hoy: ${perfilUsuario.preguntas_hoy || 0} / 25` : `Ilimitado (${perfilUsuario.plan.toUpperCase()})`;
-
-        if (preguntasFalladasBuffer.length > 0) { 
-            preguntaActual = preguntasFalladasBuffer.shift(); 
-            mostrarPreguntaEnPantalla(preguntaActual, "🛟 RESCATE CLÍNICO (CASO FALLADO)"); 
-            renderizarPandaVisual('normal');
-            return; 
-        }
-        if (preguntasIaBuffer.length > 0) { 
-            preguntaActual = preguntasIaBuffer.shift(); 
-            mostrarPreguntaEnPantalla(preguntaActual, "✨ CASO INÉDITO IA"); 
-            renderizarPandaVisual('normal');
-            return; 
-        }
-
-        const cursoNombre = document.getElementById('sel-curso-banqueo').value; 
-        const areaId = MAPEO_CURSOS_ID[cursoNombre] || 1;
-        const { data } = await sb.from('preguntas').select('*').eq('area_id', areaId);
+        preguntaActual = mazoBanqueo[indexBanqueo];
+        document.getElementById('contador-diario').innerText = `Pregunta ${indexBanqueo + 1} de ${mazoBanqueo.length}`;
         
-        if (!data || data.length === 0) { 
-            document.getElementById('sim-enunciado').innerText = 'Aún no hay casos registrados en este módulo.'; 
-            document.getElementById('sim-opciones').innerHTML = ''; 
-            return; 
-        }
-
-        preguntaActual = data[Math.floor(Math.random() * data.length)]; 
         mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad || 'Intermedia'}`);
-        renderizarPandaVisual('normal');
+        
+        let navHtml = `<div style="display:flex; justify-content:space-between; margin-top: 25px; align-items:center;">`;
+        navHtml += `<button class="btn-tool" style="padding:12px 20px; font-size:1.05em;" onclick="indexBanqueo--; cargarSiguientePregunta()" ${indexBanqueo === 0 ? 'disabled' : ''}>◀ Anterior</button>`;
+        navHtml += `<button id="btn-sig-dinamico" class="btn-p" style="width:auto; padding:12px 20px; font-size:1.05em; display:none;" onclick="indexBanqueo++; cargarSiguientePregunta()">${indexBanqueo === mazoBanqueo.length - 1 ? 'Finalizar Sesión ✔' : 'Siguiente Pregunta ➔'}</button>`;
+        navHtml += `</div>`;
+        
+        document.getElementById('sim-opciones').innerHTML += navHtml;
+        document.getElementById('sim-fb').style.display = 'none';
+
+        if (respuestasDadas[indexBanqueo]) {
+            document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
+            restaurarFeedback(respuestasDadas[indexBanqueo], false);
+        } else {
+            renderizarPandaVisual('normal');
+        }
+    };
+
+    window.finalizarSesionBanqueo = function() {
+        let correctas = 0;
+        let respondidas = 0;
+        const total = mazoBanqueo.length;
+
+        for (let i = 0; i < total; i++) {
+            if (respuestasDadas[i]) {
+                respondidas++;
+                if (respuestasDadas[i].correcta) correctas++;
+            }
+        }
+
+        const pct = total > 0 ? Math.round((correctas / total) * 100) : 0;
+        let emocion = "normal";
+        let msj = "Sigue practicando, cada error es una oportunidad de mejora.";
+        
+        if (pct >= 70) { emocion = "correcto"; msj = "¡Excelente rendimiento! Vas por muy buen camino para tu plaza."; }
+        else if (pct < 50) { emocion = "triste"; msj = "Hay que reforzar este tema. ¡No te rindas, repasa la teoría!"; }
+
+        renderizarPandaVisual(emocion);
+        
+        document.getElementById('sim-info').innerText = "RESULTADOS DE LA SESIÓN";
+        document.getElementById('contador-diario').innerText = "Finalizado";
+        document.getElementById('sim-enunciado').innerHTML = `
+            <div style="text-align: center; padding: 20px;">
+                <h2 style="font-size: 2.2em; color: var(--primary); margin-bottom: 10px;">¡Sesión Completada!</h2>
+                <div style="font-size: 4.5em; font-weight: 900; color: ${pct >= 60 ? '#28a745' : '#dc3545'}; margin: 15px 0;">
+                    ${pct}%
+                </div>
+                <p style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">Nota: ${correctas} correctas de ${total} casos</p>
+                <p style="color: var(--text-muted); font-size: 1.05em; margin-bottom: 25px;">Respondidas: ${respondidas} / ${total}</p>
+                <p style="font-size: 1.1em; font-weight: 600; color: var(--text-heading); background: var(--bg-card-subtle); padding: 15px; border-radius: 10px; border: 1px dashed var(--border-color);">
+                    💡 ${msj}
+                </p>
+            </div>
+        `;
+        document.getElementById('sim-opciones').innerHTML = `
+            <button class="btn-p" style="padding: 16px; font-size: 1.1em; margin-top: 15px; width: 100%;" onclick="volverASelectorModalidades()">Volver al Menú de Modalidades ➔</button>
+        `;
+        document.getElementById('sim-fb').style.display = 'none';
     };
 
     window.mostrarPreguntaEnPantalla = function(p, sub) {
@@ -2516,51 +2581,9 @@ let configAulaVivo = { activo: false, link: "" };
     window.responder = async function(opt) {
         document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
         const esOk = (opt === preguntaActual.respuesta_correcta); 
-        const fb = document.getElementById('sim-fb'); 
-        const msgCoach = document.getElementById('coach-mensaje');
-
-        if (esOk) {
-            fb.className = 'fb-box fb-ok'; 
-            document.getElementById('fb-tit').innerText = '✔ ¡Correcto!'; 
-            perfilMascota.monedas += 2; 
-            document.getElementById('m-monedas').innerText = perfilMascota.monedas;
-            const frasesOk = ["¡Excelente razonamiento clínico! 🩺✨", "¡Así se responde para asegurar el puesto! 🌟", "¡Esa es la clave oficial del MINSA! 🎯"]; 
-            msgCoach.innerText = frasesOk[Math.floor(Math.random() * frasesOk.length)];
-            renderizarPandaVisual('correcto');
-        } else {
-            fb.className = 'fb-box fb-err'; 
-            document.getElementById('fb-tit').innerText = '✖ Incorrecto';
-            const frasesErr = ["¡No te preocupes! Repasemos la justificación técnica. 💪", "¡De este fallo saldrá un punto seguro en el examen! 📚", "Tranquilo, dominaremos este criterio. ⏳"]; 
-            msgCoach.innerText = frasesErr[Math.floor(Math.random() * frasesErr.length)];
-            renderizarPandaVisual('error');
-        }
         
-        document.getElementById('fb-txt').innerText = preguntaActual.justificacion; 
-        fb.style.display = 'block'; 
-        document.getElementById('btn-sig').style.display = 'block';
-
-        // Estadísticas Simuladas de Comunidad
-        const correctOpt = preguntaActual.respuesta_correcta;
-        let pcts = {A: 0, B: 0, C: 0, D: 0};
-        let options = ['A', 'B', 'C', 'D'];
-        
-        pcts[correctOpt] = Math.floor(Math.random() * (85 - 55 + 1)) + 55;
-        let remaining = 100 - pcts[correctOpt];
-        let wrongOpts = options.filter(o => o !== correctOpt);
-        
-        pcts[wrongOpts[0]] = Math.floor(Math.random() * (remaining - 10)) + 5;
-        remaining -= pcts[wrongOpts[0]];
-        pcts[wrongOpts[1]] = Math.floor(Math.random() * remaining);
-        pcts[wrongOpts[2]] = remaining - pcts[wrongOpts[1]];
-
-        options.forEach(letra => {
-            const statDiv = document.getElementById('stat-' + letra);
-            let color = "";
-            if(letra==='A') color="#f59e0b"; if(letra==='B') color="#10b981"; if(letra==='C') color="#8b5cf6"; if(letra==='D') color="#3b82f6";
-            statDiv.innerHTML = `<div style="font-size:0.85em; margin-top:8px; color:var(--text-muted); font-weight:bold;">${pcts[letra]}% de postulantes marcó esta opción</div>
-                                 <div class="barra-stat" style="width:${pcts[letra]}%; background:${color}; opacity:0.8;"></div>`;
-            statDiv.style.display = 'block';
-        });
+        respuestasDadas[indexBanqueo] = { opcion: opt, correcta: esOk };
+        restaurarFeedback(respuestasDadas[indexBanqueo], true);
 
         const sb = obtenerSupabase();
         if (sb && user) {
@@ -2572,6 +2595,47 @@ let configAulaVivo = { activo: false, link: "" };
                 await sb.from('perfiles').update({ preguntas_hoy: perfilUsuario.preguntas_hoy }).eq('id', user.id); 
             }
         }
+    };
+
+    window.restaurarFeedback = function(estado, sumarMonedas) {
+        const fb = document.getElementById('sim-fb'); 
+        const msgCoach = document.getElementById('coach-mensaje');
+        const btnSig = document.getElementById('btn-sig-dinamico');
+
+        if (estado.correcta) {
+            fb.className = 'fb-box fb-ok'; 
+            document.getElementById('fb-tit').innerText = '✔ ¡Correcto!'; 
+            if (sumarMonedas && typeof perfilMascota !== 'undefined') {
+                perfilMascota.monedas += 2; 
+                document.getElementById('m-monedas').innerText = perfilMascota.monedas;
+            }
+            const frasesOk = ["¡Excelente razonamiento clínico! 🩺✨", "¡Así se responde para asegurar el puesto! 🌟", "¡Esa es la clave oficial! 🎯"]; 
+            if (msgCoach) msgCoach.innerText = frasesOk[Math.floor(Math.random() * frasesOk.length)];
+            renderizarPandaVisual('correcto');
+        } else {
+            fb.className = 'fb-box fb-err'; 
+            document.getElementById('fb-tit').innerText = '✖ Incorrecto';
+            const frasesErr = ["¡No te preocupes! Repasemos la justificación técnica. 💪", "¡De este fallo saldrá un punto seguro! 📚", "Tranquilo, dominaremos este criterio. ⏳"]; 
+            if (msgCoach) msgCoach.innerText = frasesErr[Math.floor(Math.random() * frasesErr.length)];
+            renderizarPandaVisual('error');
+        }
+        
+        document.getElementById('fb-txt').innerText = preguntaActual.justificacion; 
+        fb.style.display = 'block'; 
+        if (btnSig) btnSig.style.display = 'block';
+
+        const correctOpt = preguntaActual.respuesta_correcta;
+        ['A', 'B', 'C', 'D'].forEach(letra => {
+            const statDiv = document.getElementById('stat-' + letra);
+            if (statDiv) {
+                let color = "";
+                if(letra==='A') color="#f59e0b"; if(letra==='B') color="#10b981"; if(letra==='C') color="#8b5cf6"; if(letra==='D') color="#3b82f6";
+                let pct = (letra === correctOpt) ? Math.floor(Math.random() * (85 - 55 + 1)) + 55 : Math.floor(Math.random() * 15);
+                statDiv.innerHTML = `<div style="font-size:0.85em; margin-top:8px; color:var(--text-muted); font-weight:bold;">${pct}% de postulantes marcó esta opción</div>
+                                     <div class="barra-stat" style="width:${pct}%; background:${color}; opacity:0.8;"></div>`;
+                statDiv.style.display = 'block';
+            }
+        });
     };
 
     window.banquearPreguntasFalladas = async function() {
