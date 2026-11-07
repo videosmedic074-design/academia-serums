@@ -829,35 +829,57 @@
                             <h1 style="color: var(--text-heading); font-size: 1.6em; margin-bottom: 10px;">Centro de Entrenamiento y Banqueo</h1>
                             <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.05em;">Selecciona cómo deseas practicar para el examen SERUMS:</p>
 
-                            <div class="grid-modalidades-banqueo">
-                                <div class="card-modalidad" style="text-align: center;" onclick="activarModalidadBanqueo('curso')">
-                                    <div style="font-size: 3em; margin-bottom: 12px;">🎯</div>
-                                    <h3 style="font-size: 1.25em;">Por Curso y Tema</h3>
-                                    <p>Entrena con preguntas oficiales. Sesiones de 10 a 100 casos.</p>
-                                </div>
-                                <div class="card-modalidad" style="border-top-color: #28a745; text-align: center;" onclick="activarModalidadBanqueo('simulacros_oficiales')">
-                                    <div style="font-size: 3em; margin-bottom: 12px;">📋</div>
-                                    <h3 style="font-size: 1.25em;">Simulacros Oficiales</h3>
-                                    <p>Exámenes completos habilitados con temporizador.</p>
-                                </div>
-                                <div class="card-modalidad" style="border-top-color: #6f42c1; text-align: center;" onclick="activarModalidadBanqueo('arma_tu_simulacro')">
-                                    <div style="font-size: 3em; margin-bottom: 12px;">⚙️</div>
-                                    <h3 style="font-size: 1.25em;">Arma tu Examen</h3>
-                                    <p>Configura dificultad y cursos exactos a tu medida.</p>
-                                </div>
-                                <div class="card-modalidad" style="border-top-color: #d9381e; text-align: center;" onclick="activarModalidadBanqueo('rescate')">
-                                    <div style="font-size: 3em; margin-bottom: 12px;">🏃‍♂️</div>
-                                    <h3 style="font-size: 1.25em;">Banqueo de Rescate</h3>
-                                    <p>Simulador adaptativo enfocado en tus preguntas más falladas.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-modalidad" style="border-top-color: #facc15; text-align: center; background: linear-gradient(135deg, #2e1065, #4c1d95); color: white; border: 3px solid #facc15;" onclick="activarModalidadBanqueo('examenes_oficiales')">
-                                    <div style="font-size: 3em; margin-bottom: 12px;">🏆</div>
-                                    <h3 style="font-size: 1.25em; color: #facc15;">Exámenes ENCAPS / SERUMS</h3>
-                                    <p style="color: #cbd5e1;">Practica con exámenes oficiales pasados en modo interactivo.</p>
+                            <!-- Le añadimos minmax(180px) para que entren los 5 botones en una sola línea en pantallas grandes -->
+                            <div class="grid-modalidades-banqueo" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+                                
+                                <div class="card-modalidad" style="border-top-color: #facc15; text-align: center; background: linear-gradient(135deg, #2e1065, #4c1d95); color: white; border: 3px solid #facc15;" onclick="activarModalidadBanqueo('examenes_oficiales')">
+                                    <div style="font-size: 2.8em; margin-bottom: 12px;">🏆</div>
+                                    <h3 style="font-size: 1.15em; color: #facc15;">Exámenes Oficiales</h3>
+                                    <p style="color: #cbd5e1; font-size: 0.9em;">Dr. Pandy Quiz interactivo.</p>
                                 </div>
 
+                                <div class="card-modalidad" style="text-align: center;" onclick="activarModalidadBanqueo('curso')">
+                                    <div style="font-size: 2.8em; margin-bottom: 12px;">🎯</div>
+                                    <h3 style="font-size: 1.15em;">Por Curso y Tema</h3>
+                                    <p style="font-size: 0.9em;">Sesiones de 10 a 100 casos.</p>
+                                </div>
+                                
+                                <div class="card-modalidad" style="border-top-color: #28a745; text-align: center;" onclick="activarModalidadBanqueo('simulacros_oficiales')">
+                                    <div style="font-size: 2.8em; margin-bottom: 12px;">📋</div>
+                                    <h3 style="font-size: 1.15em;">Simulacros Oficiales</h3>
+                                    <p style="font-size: 0.9em;">Simulacros con temporizador.</p>
+                                </div>
+                                
+                                <div class="card-modalidad" style="border-top-color: #6f42c1; text-align: center;" onclick="activarModalidadBanqueo('arma_tu_simulacro')">
+                                    <div style="font-size: 2.8em; margin-bottom: 12px;">⚙️</div>
+                                    <h3 style="font-size: 1.15em;">Arma tu Examen</h3>
+                                    <p style="font-size: 0.9em;">Configura a tu medida.</p>
+                                </div>
+                                
+                                <div class="card-modalidad" style="border-top-color: #d9381e; text-align: center;" onclick="activarModalidadBanqueo('rescate')">
+                                    <div style="font-size: 2.8em; margin-bottom: 12px;">🏃‍♂️</div>
+                                    <h3 style="font-size: 1.15em;">Banqueo de Rescate</h3>
+                                    <p style="font-size: 0.9em;">Repasa tus fallas.</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                        <!-- PANTALLA OCULTA DE EXÁMENES OFICIALES -->
+                        <div id="pantalla-examenes-oficiales" style="display: none;">
+                            <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                            <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">🏆 Archivo de Exámenes ENCAPS (Modo Dr. Pandy Quiz)</h2>
+                            
+                            <div class="campo" style="max-width: 300px; margin-bottom: 20px;">
+                                <label style="font-weight: bold; font-size: 0.9em;">Modalidad de Tiempo:</label>
+                                <select id="sel-tiempo-examen" class="campo-select-pro">
+                                    <option value="con_tiempo">Con Temporizador (120 Min)</option>
+                                    <option value="sin_tiempo">Modo Libre (Sin Tiempo)</option>
+                                </select>
+                            </div>
+                            <div id="lista-examenes-habilitados" class="grid-modalidades-banqueo"></div>
+                        </div>
+                        
                         <!-- Modo: Por Curso -->
                         <div id="pantalla-banqueo-curso" style="display: none;">
                             <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
