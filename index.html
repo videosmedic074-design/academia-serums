@@ -2706,37 +2706,51 @@
 
     window.cargarSiguientePregunta = function() {
         const btnOld = document.getElementById('btn-sig'); if(btnOld) btnOld.style.display = 'none';
-        const esBasico = !perfilUsuario || perfilUsuario.plan === 'gratuito';
-        
-        if (esBasico && (perfilUsuario.preguntas_hoy || 0) >= 25 && !respuestasDadas[indexBanqueo]) { 
+        const navDinamico = document.getElementById('btn-sig-dinamico'); if(navDinamico) navDinamico.style.display = 'none';
+
+        // Verificación segura del usuario y sus límites
+        let esBasico = false;
+        let limiteAlcanzado = false;
+        if (typeof perfilUsuario !== 'undefined' && perfilUsuario) {
+            esBasico = perfilUsuario.plan === 'gratuito';
+            if (esBasico && (perfilUsuario.preguntas_hoy || 0) >= 25) limiteAlcanzado = true;
+        }
+
+        if (limiteAlcanzado && (typeof respuestasDadas !== 'undefined' && !respuestasDadas[indexBanqueo])) { 
             mostrarBloqueoFree('pantalla-banqueo-curso', 'Límite Diario Alcanzado (25/25)', 'Has completado tus 25 preguntas diarias de la cuenta básica.'); 
             return; 
         }
 
         if (indexBanqueo < 0) indexBanqueo = 0;
         if (indexBanqueo >= mazoBanqueo.length) {
-            finalizarSesionBanqueo();
+            if(typeof finalizarSesionBanqueo === 'function') finalizarSesionBanqueo();
             return;
         }
         
         preguntaActual = mazoBanqueo[indexBanqueo];
-        document.getElementById('contador-diario').innerText = `Pregunta ${indexBanqueo + 1} de ${mazoBanqueo.length}`;
+        const contadorEl = document.getElementById('contador-diario');
+        if (contadorEl) contadorEl.innerText = `Pregunta ${indexBanqueo + 1} de ${mazoBanqueo.length}`;
         
         mostrarPreguntaEnPantalla(preguntaActual, `Dificultad: ${preguntaActual.dificultad || 'Intermedia'}`);
         
-        let navHtml = `<div style="display:flex; justify-content:space-between; margin-top: 25px; align-items:center;">`;
+        // Limpiamos los botones de navegación anteriores para no duplicarlos
+        const oldNav = document.getElementById('nav-dinamico-banqueo');
+        if (oldNav) oldNav.remove();
+
+        let navHtml = `<div id="nav-dinamico-banqueo" style="display:flex; justify-content:space-between; margin-top: 25px; align-items:center;">`;
         navHtml += `<button class="btn-tool" style="padding:12px 20px; font-size:1.05em;" onclick="indexBanqueo--; cargarSiguientePregunta()" ${indexBanqueo === 0 ? 'disabled' : ''}>◀ Anterior</button>`;
         navHtml += `<button id="btn-sig-dinamico" class="btn-p" style="width:auto; padding:12px 20px; font-size:1.05em; display:none;" onclick="indexBanqueo++; cargarSiguientePregunta()">${indexBanqueo === mazoBanqueo.length - 1 ? 'Finalizar Sesión ✔' : 'Siguiente Pregunta ➔'}</button>`;
         navHtml += `</div>`;
         
         document.getElementById('sim-opciones').innerHTML += navHtml;
-        document.getElementById('sim-fb').style.display = 'none';
+        const fbBox = document.getElementById('sim-fb');
+        if (fbBox) fbBox.style.display = 'none';
 
-        if (respuestasDadas[indexBanqueo]) {
-            document.querySelectorAll('.btn-op').forEach(b => b.disabled = true);
-            restaurarFeedback(respuestasDadas[indexBanqueo], false);
+        if (typeof respuestasDadas !== 'undefined' && respuestasDadas[indexBanqueo]) {
+            document.querySelectorAll('.btn-op, .btn-pandyquiz').forEach(b => b.disabled = true);
+            if(typeof restaurarFeedback === 'function') restaurarFeedback(respuestasDadas[indexBanqueo], false);
         } else {
-            renderizarPandaVisual('normal');
+            if(typeof renderizarPandaVisual === 'function') renderizarPandaVisual('normal');
         }
     };
 
@@ -2783,40 +2797,46 @@
     };
 
     window.mostrarPreguntaEnPantalla = function(p, sub) {
-        document.getElementById('sim-info').innerText = sub; 
+        const infoEl = document.getElementById('sim-info');
+        if (infoEl) infoEl.innerText = sub; 
         
-        if (modoInterfazActivo === 'pandyquiz') {
-            document.getElementById('sim-enunciado').innerHTML = p.enunciado;
+        // Verifica si la variable existe de forma segura. Si no, asume 'clasico'.
+        const modoActual = (typeof modoInterfazActivo !== 'undefined') ? modoInterfazActivo : 'clasico';
+        const boxPregunta = document.querySelector('.box-pregunta');
+
+        if (modoActual === 'pandyquiz') {
+            document.getElementById('sim-enunciado').innerHTML = p.enunciado || "Sin enunciado";
             document.getElementById('sim-opciones').innerHTML = `
                 <div class="pandyquiz-grid">
                     <button class="btn-pandyquiz btn-pandyquiz-a" onclick="responder('A')">
                         <svg class="pandyquiz-shape" viewBox="0 0 100 100"><polygon points="50,15 85,85 15,85" fill="white"/></svg> 
-                        <div style="flex:1;"><span>${p.opcion_a}</span><div id="stat-A" style="display:none; width:100%; margin-top:8px;"></div></div>
+                        <div style="flex:1;"><span>${p.opcion_a || 'Opción A'}</span><div id="stat-A" style="display:none; width:100%; margin-top:8px;"></div></div>
                     </button>
                     <button class="btn-pandyquiz btn-pandyquiz-b" onclick="responder('B')">
                         <svg class="pandyquiz-shape" viewBox="0 0 100 100"><polygon points="50,10 90,50 50,90 10,50" fill="white"/></svg> 
-                        <div style="flex:1;"><span>${p.opcion_b}</span><div id="stat-B" style="display:none; width:100%; margin-top:8px;"></div></div>
+                        <div style="flex:1;"><span>${p.opcion_b || 'Opción B'}</span><div id="stat-B" style="display:none; width:100%; margin-top:8px;"></div></div>
                     </button>
                     <button class="btn-pandyquiz btn-pandyquiz-c" onclick="responder('C')">
                         <svg class="pandyquiz-shape" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="white"/></svg> 
-                        <div style="flex:1;"><span>${p.opcion_c}</span><div id="stat-C" style="display:none; width:100%; margin-top:8px;"></div></div>
+                        <div style="flex:1;"><span>${p.opcion_c || 'Opción C'}</span><div id="stat-C" style="display:none; width:100%; margin-top:8px;"></div></div>
                     </button>
                     <button class="btn-pandyquiz btn-pandyquiz-d" onclick="responder('D')">
                         <svg class="pandyquiz-shape" viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" fill="white"/></svg> 
-                        <div style="flex:1;"><span>${p.opcion_d}</span><div id="stat-D" style="display:none; width:100%; margin-top:8px;"></div></div>
+                        <div style="flex:1;"><span>${p.opcion_d || 'Opción D'}</span><div id="stat-D" style="display:none; width:100%; margin-top:8px;"></div></div>
                     </button>
                 </div>
             `;
-            document.querySelector('.box-pregunta').classList.add('modo-pandyquiz');
+            if (boxPregunta) boxPregunta.classList.add('modo-pandyquiz');
         } else {
-            document.getElementById('sim-enunciado').innerText = p.enunciado;
+            // DISEÑO CLÁSICO (A PRUEBA DE FALLOS)
+            document.getElementById('sim-enunciado').innerHTML = p.enunciado || "Sin enunciado";
             document.getElementById('sim-opciones').innerHTML = `
-                <button class="btn-op btn-op-a" onclick="responder('A')"><strong>A)</strong> ${p.opcion_a}<div id="stat-A" style="display:none;"></div></button>
-                <button class="btn-op btn-op-b" onclick="responder('B')"><strong>B)</strong> ${p.opcion_b}<div id="stat-B" style="display:none;"></div></button>
-                <button class="btn-op btn-op-c" onclick="responder('C')"><strong>C)</strong> ${p.opcion_c}<div id="stat-C" style="display:none;"></div></button>
-                <button class="btn-op btn-op-d" onclick="responder('D')"><strong>D)</strong> ${p.opcion_d}<div id="stat-D" style="display:none;"></div></button>
+                <button class="btn-op btn-op-a" onclick="responder('A')"><strong>A)</strong> ${p.opcion_a || 'Opción A'}<div id="stat-A" style="display:none;"></div></button>
+                <button class="btn-op btn-op-b" onclick="responder('B')"><strong>B)</strong> ${p.opcion_b || 'Opción B'}<div id="stat-B" style="display:none;"></div></button>
+                <button class="btn-op btn-op-c" onclick="responder('C')"><strong>C)</strong> ${p.opcion_c || 'Opción C'}<div id="stat-C" style="display:none;"></div></button>
+                <button class="btn-op btn-op-d" onclick="responder('D')"><strong>D)</strong> ${p.opcion_d || 'Opción D'}<div id="stat-D" style="display:none;"></div></button>
             `;
-            document.querySelector('.box-pregunta').classList.remove('modo-pandyquiz');
+            if (boxPregunta) boxPregunta.classList.remove('modo-pandyquiz');
         }
     };
 
