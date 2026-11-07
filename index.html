@@ -834,7 +834,7 @@
                                 
                                 <div class="card-modalidad" style="border-top-color: #facc15; text-align: center; background: linear-gradient(135deg, #2e1065, #4c1d95); color: white; border: 3px solid #facc15;" onclick="activarModalidadBanqueo('examenes_oficiales')">
                                     <div style="font-size: 2.8em; margin-bottom: 12px;">🏆</div>
-                                    <h3 style="font-size: 1.15em; color: #facc15;">Exámenes Oficiales</h3>
+                                    <h3 style="font-size: 1.15em; color: #facc15;">Exámenes ENCAPS / SERUMS</h3>
                                     <p style="color: #cbd5e1; font-size: 0.9em;">Dr. Pandy Quiz interactivo.</p>
                                 </div>
 
@@ -2633,8 +2633,15 @@
         document.getElementById('pantalla-banqueo-curso').style.display = 'none'; 
         document.getElementById('pantalla-simulacros-oficiales').style.display = 'none'; 
         document.getElementById('pantalla-arma-simulacro').style.display = 'none'; 
+        
+        // Esta es la línea clave que ocultará la pantalla rebelde:
+        const pantallaExamenes = document.getElementById('pantalla-examenes-oficiales');
+        if(pantallaExamenes) pantallaExamenes.style.display = 'none';
+        
         document.getElementById('zona-practica-activa').style.display = 'none';
-        document.getElementById('btn-aplicar-filtro').style.display = 'block';
+        
+        const btnFiltro = document.getElementById('btn-aplicar-filtro');
+        if(btnFiltro) btnFiltro.style.display = 'block';
     };
 
     window.activarModalidadBanqueo = function(tipo) {
