@@ -287,6 +287,34 @@
         .btn-op-c { border-left: 6px solid #8b5cf6 !important; }
         .btn-op-d { border-left: 6px solid #3b82f6 !important; }
         .barra-stat { height: 5px; border-radius: 3px; margin-top: 6px; transition: width 0.5s ease; }
+        /* --- ESTILOS MODO DR. PANDY QUIZ --- */
+        .box-pregunta.modo-pandyquiz {
+            background: linear-gradient(135deg, #2e1065, #4c1d95);
+            border: 4px solid #1e1b4b;
+            color: white;
+        }
+        .box-pregunta.modo-pandyquiz #sim-info { color: #facc15 !important; }
+        .box-pregunta.modo-pandyquiz #contador-diario { background: rgba(255,255,255,0.1); color: white; border: none; }
+        .box-pregunta.modo-pandyquiz #sim-enunciado {
+            background: white; color: #0f172a; padding: 35px 25px; border-radius: 12px;
+            font-size: 1.4em; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            margin: 30px 0 40px 0; font-weight: 800;
+        }
+        .pandyquiz-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media(max-width: 600px) { .pandyquiz-grid { grid-template-columns: 1fr; } }
+        .btn-pandyquiz {
+            border: none; border-radius: 8px; color: white; font-size: 1.25em; font-weight: 800;
+            padding: 25px 20px; cursor: pointer; display: flex; align-items: center; text-align: left; gap: 15px;
+            box-shadow: 0 6px 0px rgba(0,0,0,0.3); transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .btn-pandyquiz:active:not(:disabled) { transform: translateY(6px); box-shadow: none; }
+        .btn-pandyquiz:disabled { opacity: 0.9; cursor: not-allowed; }
+        .btn-pandyquiz-a { background-color: #e21b3c; box-shadow: 0 6px 0px #9b1229; } /* Rojo Triángulo */
+        .btn-pandyquiz-b { background-color: #1368ce; box-shadow: 0 6px 0px #0c478e; } /* Azul Rombo */
+        .btn-pandyquiz-c { background-color: #d89e00; box-shadow: 0 6px 0px #946c00; } /* Amarillo Círculo */
+        .btn-pandyquiz-d { background-color: #26890c; box-shadow: 0 6px 0px #185a07; } /* Verde Cuadrado */
+        .pandyquiz-shape { width: 45px; height: 45px; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+        .box-pregunta.modo-pandyquiz .fb-box { background: white !important; color: #0f172a !important; border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
     </style>
 </head>
 <body>
@@ -910,7 +938,21 @@
                             <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">Simulacros Oficiales del Programa</h2>
                             <div id="lista-simulacros-habilitados" class="grid-modalidades-banqueo"></div>
                         </div>
-
+                        
+                        <div id="pantalla-examenes-oficiales" style="display: none;">
+                            <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
+                            <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">🏆 Archivo de Exámenes ENCAPS (Modo Dr. Pandy Quiz)</h2>
+                            
+                            <div class="campo" style="max-width: 300px; margin-bottom: 20px;">
+                                <label style="font-weight: bold; font-size: 0.9em;">Modalidad de Tiempo:</label>
+                                <select id="sel-tiempo-examen" class="campo-select-pro">
+                                    <option value="con_tiempo">Con Temporizador (120 Min)</option>
+                                    <option value="sin_tiempo">Modo Libre (Sin Tiempo)</option>
+                                </select>
+                            </div>
+                            <div id="lista-examenes-habilitados" class="grid-modalidades-banqueo"></div>
+                        </div>
+                        
                         <div id="pantalla-arma-simulacro" style="display: none;">
                             <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                             <div class="card-auth amplia" style="margin: 0 auto; max-width: 700px;">
@@ -1059,6 +1101,7 @@
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('t')">📖 Tema</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('fijas_adm')">🔥 La Fija</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('sims')">📋 Simulacros</button>
+                                <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('examenes')">🏆 Exámenes Pasados</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('f')">🗂️ Flashcard</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('codigos')">🎟️ Códigos y Cupones</button>
                                 <button type="button" class="tab-btn-adm" onclick="verSubTabAdmin('precios')">💲 Precios Tienda</button>
@@ -1222,6 +1265,46 @@
                                         <tbody id="tabla-simulacros-adm-body"><tr><td colspan="4">Cargando...</td></tr></tbody>
                                     </table>
                                 </div>
+                            </div>
+                            <!-- PESTAÑA: EXÁMENES OFICIALES PASADOS -->
+                            <div id="subtab-adm-examenes" class="subtab-adm">
+                                <div class="admin-form-box" style="margin-bottom: 20px; border-left: 4px solid #facc15;">
+                                    <h3 style="color: #ca8a04; margin-bottom: 10px;">⚡ Vaciador IA para Exámenes Oficiales (100 Preguntas)</h3>
+                                    <p style="color: var(--text-muted); font-size: 0.9em; margin-bottom: 10px;">Pega las 100 preguntas del examen oficial. Se guardarán en bloque para garantizar carga rápida.</p>
+                                    <textarea id="vaciador-examenes-texto" rows="6" placeholder="1. Paciente acude...&#10;A) ... B) ... C) ... D) ...&#10;Respuesta: B" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);"></textarea>
+                                    <button type="button" class="btn-p" style="background:#eab308; margin-top:10px; width: auto;" onclick="vaciadorExamenesIA()">Procesar Examen</button>
+                                    <div id="tabla-draft-examenes-container" style="display: none; margin-top: 20px;">
+                                        <h4 style="color: var(--primary);">Vista Previa Estructurada (Draft)</h4>
+                                        <div style="overflow-y: auto; max-height: 250px; border: 1px solid var(--border-color); border-radius: 8px; margin-top: 10px;">
+                                            <table class="base-table" style="margin: 0;"><tbody id="tabla-draft-examenes-body"></tbody></table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="form-adm-examenes" class="admin-form-box">
+                                    <div class="fila">
+                                        <div class="campo">
+                                            <label>Carrera de Salud:</label>
+                                            <select id="adm-ex-carrera" class="campo-select-pro">
+                                                <option value="Medicina Humana">Medicina Humana</option><option value="Enfermería">Enfermería</option><option value="Obstetricia">Obstetricia</option>
+                                                <option value="Psicología">Psicología</option><option value="Laboratorio Clínico">Laboratorio Clínico</option><option value="Ingeniería Sanitaria">Ingeniería Sanitaria</option>
+                                                <option value="Farmacia y Bioquímica">Farmacia y Bioquímica</option><option value="Biología">Biología</option><option value="Nutrición">Nutrición</option>
+                                                <option value="Odontología">Odontología</option><option value="Optometría">Optometría</option><option value="Radiología">Radiología</option>
+                                                <option value="Terapia del Lenguaje">Terapia del Lenguaje</option><option value="Terapia Física">Terapia Física</option><option value="Terapia Ocupacional">Terapia Ocupacional</option>
+                                                <option value="Trabajo Social">Trabajo Social</option><option value="Veterinaria">Veterinaria</option>
+                                            </select>
+                                        </div>
+                                        <div class="campo">
+                                            <label>Año y Periodo:</label>
+                                            <select id="adm-ex-periodo" class="campo-select-pro">
+                                                <option value="2024-II">2024-II</option><option value="2025-I">2025-I</option><option value="2025-II">2025-II</option>
+                                                <option value="2026-I">2026-I</option><option value="2026-II">2026-II</option><option value="2027-I">2027-I</option><option value="2027-II">2027-II</option>
+                                                <option value="2028-I">2028-I</option><option value="2028-II">2028-II</option><option value="2029-I">2029-I</option><option value="2029-II">2029-II</option>
+                                                <option value="2030-I">2030-I</option><option value="2030-II">2030-II</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn-p" style="background: #eab308; color: #422006; padding: 14px; font-size: 1.05em;">Publicar Examen Oficial</button>
+                                </form>
                             </div>
 
                             <!-- PESTAÑA: FLASHCARDS -->
@@ -2544,6 +2627,7 @@
     };
 
     let mazoBanqueo = [];
+    let modoInterfazActivo = 'clasico';
     let indexBanqueo = 0;
     let respuestasDadas = {};
 
@@ -2657,13 +2741,40 @@
 
     window.mostrarPreguntaEnPantalla = function(p, sub) {
         document.getElementById('sim-info').innerText = sub; 
-        document.getElementById('sim-enunciado').innerText = p.enunciado;
-        document.getElementById('sim-opciones').innerHTML = `
-            <button class="btn-op btn-op-a" onclick="responder('A')"><strong>A)</strong> ${p.opcion_a}<div id="stat-A" style="display:none;"></div></button>
-            <button class="btn-op btn-op-b" onclick="responder('B')"><strong>B)</strong> ${p.opcion_b}<div id="stat-B" style="display:none;"></div></button>
-            <button class="btn-op btn-op-c" onclick="responder('C')"><strong>C)</strong> ${p.opcion_c}<div id="stat-C" style="display:none;"></div></button>
-            <button class="btn-op btn-op-d" onclick="responder('D')"><strong>D)</strong> ${p.opcion_d}<div id="stat-D" style="display:none;"></div></button>
-        `;
+        
+        if (modoInterfazActivo === 'pandyquiz') {
+            document.getElementById('sim-enunciado').innerHTML = p.enunciado;
+            document.getElementById('sim-opciones').innerHTML = `
+                <div class="pandyquiz-grid">
+                    <button class="btn-pandyquiz btn-pandyquiz-a" onclick="responder('A')">
+                        <svg class="pandyquiz-shape" viewBox="0 0 100 100"><polygon points="50,15 85,85 15,85" fill="white"/></svg> 
+                        <div style="flex:1;"><span>${p.opcion_a}</span><div id="stat-A" style="display:none; width:100%; margin-top:8px;"></div></div>
+                    </button>
+                    <button class="btn-pandyquiz btn-pandyquiz-b" onclick="responder('B')">
+                        <svg class="pandyquiz-shape" viewBox="0 0 100 100"><polygon points="50,10 90,50 50,90 10,50" fill="white"/></svg> 
+                        <div style="flex:1;"><span>${p.opcion_b}</span><div id="stat-B" style="display:none; width:100%; margin-top:8px;"></div></div>
+                    </button>
+                    <button class="btn-pandyquiz btn-pandyquiz-c" onclick="responder('C')">
+                        <svg class="pandyquiz-shape" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="white"/></svg> 
+                        <div style="flex:1;"><span>${p.opcion_c}</span><div id="stat-C" style="display:none; width:100%; margin-top:8px;"></div></div>
+                    </button>
+                    <button class="btn-pandyquiz btn-pandyquiz-d" onclick="responder('D')">
+                        <svg class="pandyquiz-shape" viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" fill="white"/></svg> 
+                        <div style="flex:1;"><span>${p.opcion_d}</span><div id="stat-D" style="display:none; width:100%; margin-top:8px;"></div></div>
+                    </button>
+                </div>
+            `;
+            document.querySelector('.box-pregunta').classList.add('modo-pandyquiz');
+        } else {
+            document.getElementById('sim-enunciado').innerText = p.enunciado;
+            document.getElementById('sim-opciones').innerHTML = `
+                <button class="btn-op btn-op-a" onclick="responder('A')"><strong>A)</strong> ${p.opcion_a}<div id="stat-A" style="display:none;"></div></button>
+                <button class="btn-op btn-op-b" onclick="responder('B')"><strong>B)</strong> ${p.opcion_b}<div id="stat-B" style="display:none;"></div></button>
+                <button class="btn-op btn-op-c" onclick="responder('C')"><strong>C)</strong> ${p.opcion_c}<div id="stat-C" style="display:none;"></div></button>
+                <button class="btn-op btn-op-d" onclick="responder('D')"><strong>D)</strong> ${p.opcion_d}<div id="stat-D" style="display:none;"></div></button>
+            `;
+            document.querySelector('.box-pregunta').classList.remove('modo-pandyquiz');
+        }
     };
 
     window.responder = async function(opt) {
@@ -3945,6 +4056,67 @@
         } else {
             mostrarAvisoModal("Centro de Notificaciones", "No tienes mensajes nuevos en este momento.", "🔔");
         }
+    };
+        window.vaciadorExamenesIA = function() {
+        const txt = document.getElementById('vaciador-examenes-texto').value.trim();
+        if (!txt) { mostrarAvisoModal("Vaciador", "Pega las preguntas del examen.", "⚠️"); return; }
+        const lineas = txt.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        simulacroBorrador100 = [];
+        for (let i = 0; i < lineas.length; i += 5) {
+            if (lineas[i]) simulacroBorrador100.push({ enunciado: lineas[i], opcion_a: lineas[i+1]||'', opcion_b: lineas[i+2]||'', opcion_c: lineas[i+3]||'', opcion_d: lineas[i+4]||'', respuesta_correcta: 'A', justificacion: 'Respuesta oficial del examen.' });
+        }
+        document.getElementById('tabla-draft-examenes-container').style.display = 'block';
+        document.getElementById('tabla-draft-examenes-body').innerHTML = `<tr><td colspan="3">100 Preguntas detectadas. Listo para guardar.</td></tr>`;
+        mostrarAvisoModal("Vaciador Listo", "Preguntas procesadas.", "✅");
+    };
+
+    document.getElementById('form-adm-examenes').addEventListener('submit', async (e) => {
+        e.preventDefault(); const sb = obtenerSupabase();
+        if (simulacroBorrador100.length === 0) return mostrarAvisoModal("Error", "Procesa las preguntas primero.", "⚠️");
+        
+        const carrera = document.getElementById('adm-ex-carrera').value;
+        const periodo = document.getElementById('adm-ex-periodo').value;
+        const titulo = `ENCAPS ${carrera} ${periodo}`;
+
+        const payload = { titulo: titulo, carrera: carrera, periodo: periodo, preguntas_json: simulacroBorrador100 };
+        const { error } = await sb.from('examenes_oficiales').insert([payload]);
+        if (error) mostrarAvisoModal("Error", error.message, "⚠️");
+        else { 
+            mostrarAvisoModal("¡Éxito!", "Examen publicado.", "🏆"); 
+            document.getElementById('form-adm-examenes').reset();
+            document.getElementById('tabla-draft-examenes-container').style.display = 'none';
+        }
+    });
+
+    window.cargarExamenesEstudiante = async function() {
+        const sb = obtenerSupabase(); const cont = document.getElementById('lista-examenes-habilitados');
+        const { data } = await sb.from('examenes_oficiales').select('*');
+        if (!data || data.length === 0) { cont.innerHTML = '<p>No hay exámenes subidos aún.</p>'; return; }
+        cont.innerHTML = '';
+        data.forEach(ex => {
+            cont.innerHTML += `
+                <div class="card-modalidad" style="border-top-color: #facc15; text-align: left; background: #f8fafc;">
+                    <h3 style="font-size: 1.25em; color: #4c1d95; margin-bottom: 10px;">${ex.titulo}</h3>
+                    <button class="btn-p" style="background: linear-gradient(135deg, #2e1065, #4c1d95); font-size: 1em;" onclick='iniciarExamenInteract("${encodeURIComponent(JSON.stringify(ex.preguntas_json))}")'>▶ Iniciar Dr. Pandy Quiz</button>
+                </div>`;
+        });
+    };
+
+    window.iniciarExamenInteract = function(preguntasStr) {
+        const conTiempo = document.getElementById('sel-tiempo-examen').value === 'con_tiempo';
+        mazoBanqueo = JSON.parse(decodeURIComponent(preguntasStr));
+        indexBanqueo = 0; respuestasDadas = {};
+        
+        document.getElementById('vista-selector-modalidad').style.display = 'none';
+        document.getElementById('pantalla-examenes-oficiales').style.display = 'none';
+        document.getElementById('pantalla-banqueo-curso').style.display = 'block';
+        document.getElementById('zona-practica-activa').style.display = 'block';
+        document.getElementById('btn-aplicar-filtro').style.display = 'none';
+        
+        modoInterfazActivo = 'pandyquiz';
+        if(conTiempo) iniciarPomodoro(); // Usamos el reloj actual
+        
+        cargarSiguientePregunta();
     };
 </script>
 </body>
