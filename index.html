@@ -434,6 +434,7 @@
                     <li id="m-tienda" onclick="subSec('tienda')">🛒 Tienda Proserum's</li>
                     <li id="m-stats" onclick="subSec('stats')">📈 Mis Estadísticas</li>
                     <li id="m-perfil" onclick="subSec('perfil')">👤 Mi Perfil</li>
+                    <li id="m-discord" onclick="abrirCentroConsultas()" style="color: #60a5fa; font-weight: bold; border-top: 1px solid rgba(255,255,255,0.08); margin-top: 5px;">💬 Centro de Consultas</li>
                     <li id="m-admin" class="admin-btn" style="display: none;" onclick="subSec('admin')">🛠️ Panel Docente</li>
                     <li class="cerrar" onclick="salir()">🚪 Cerrar Sesión</li>
                 </ul>
@@ -446,15 +447,26 @@
                             <h1 id="txt-saludo" style="color: var(--text-heading); font-size: 1.65em; font-weight: 800;">Hola, Colega</h1>
                             <p style="color: var(--text-muted); font-size: 0.95em;">Preparación de alto impacto SERUMS con estrategia técnica.</p>
                         </div>
-                        <div class="header-actions">
+                        <div class="header-actions" style="display: flex; align-items: center; gap: 15px;">
                             <button class="btn-theme-toggle" onclick="alternarModoOscuro()"><span id="icono-tema">🌙</span></button>
-                            <button class="btn-tool" style="padding: 8px 14px; border-radius: 20px; font-weight: bold; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--primary);" onclick="abrirModalCanjearCodigo()">🎟️ Canjear Código</button>
-                            <div id="contenedor-membresia-top" class="banner-plan-top plan-basico">
+                            
+                            <!-- Campanita de Notificaciones -->
+                            <div style="position: relative; cursor: pointer;" onclick="mostrarAvisoModal('Centro de Notificaciones', 'Aquí aparecerán los anuncios, cupones flash y avisos del docente.', '🔔')">
+                                <span style="font-size: 1.4em;">🔔</span>
+                                <span style="position: absolute; top: -3px; right: -5px; background: #dc3545; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 0.7em; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid var(--bg-body);">1</span>
+                            </div>
+
+                            <!-- Botón de Plan -->
+                            <div id="contenedor-membresia-top" class="banner-plan-top plan-basico" style="cursor: pointer;" onclick="abrirModalPlanes()">
                                 <span id="badge-membresia-txt">Plan Básico</span>
-                                <button id="btn-upgrade-top" class="btn-p" style="padding: 4px 10px; font-size: 0.85em; margin-left: 8px; box-shadow:none;" onclick="abrirModalPlanes()">Mejorar</button>
+                            </div>
+
+                            <!-- Avatar del Usuario -->
+                            <div style="display: flex; align-items: center; gap: 8px; cursor: pointer; background: var(--bg-card); padding: 5px 12px 5px 5px; border-radius: 30px; border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);" onclick="subSec('perfil')">
+                                <div id="avatar-top-display" style="width: 32px; height: 32px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">👨‍⚕️</div>
+                                <span id="nombre-top-display" style="font-weight: 600; font-size: 0.9em;">Perfil</span>
                             </div>
                         </div>
-                    </div>
 
                     <!-- INICIO (DASHBOARD) -->
                     <div id="sec-dash">
@@ -1005,6 +1017,18 @@
                             <p style="color: var(--text-muted); font-size: 1.05em; margin-bottom: 25px; text-align: center;">Actualiza tus datos para soporte, comunicación docente y gestión de tu plaza.</p>
                             <form id="form-mi-perfil">
                                 <div class="fila">
+                                    <div class="campo" style="text-align: center; margin-bottom: 20px;">
+                                    <label style="margin-bottom: 10px;">Elige tu Avatar Médico (Cero consumo de datos):</label>
+                                    <div style="display: flex; justify-content: center; gap: 10px; font-size: 2em; cursor: pointer;">
+                                        <div class="avatar-opt" onclick="seleccionarAvatar('👨‍⚕️')">👨‍⚕️</div>
+                                        <div class="avatar-opt" onclick="seleccionarAvatar('👩‍⚕️')">👩‍⚕️</div>
+                                        <div class="avatar-opt" onclick="seleccionarAvatar('🦊')">🦊</div>
+                                        <div class="avatar-opt" onclick="seleccionarAvatar('🐶')">🐶</div>
+                                        <div class="avatar-opt" onclick="seleccionarAvatar('🐱')">🐱</div>
+                                        <div class="avatar-opt" onclick="seleccionarAvatar('🦸‍♂️')">🦸‍♂️</div>
+                                    </div>
+                                    <input type="hidden" id="p-avatar-val" value="👨‍⚕️">
+                                </div>
                                     <div class="campo"><label>Nombres</label><input type="text" id="p-nom" required></div>
                                     <div class="campo"><label>Apellidos</label><input type="text" id="p-ape" required></div>
                                 </div>
@@ -2135,13 +2159,56 @@
         renderizarPandaVisual('normal');
         mostrarAvisoModal("Restaurado", "Dr. Pandy restablecido.", "✔");
     };
+    window.abrirCentroConsultas = function() {
+        const linkDiscord = document.getElementById('adm-link-dc') ? document.getElementById('adm-link-dc').value : 'https://discord.com';
+        if (linkDiscord && linkDiscord.includes('http')) {
+            window.open(linkDiscord, '_blank');
+        } else {
+            mostrarAvisoModal("Centro de Consultas", "El enlace a Discord estará disponible muy pronto.", "💬");
+        }
+    };
+
+    window.seleccionarAvatar = function(emoji) {
+        document.getElementById('p-avatar-val').value = emoji;
+        document.getElementById('avatar-top-display').innerText = emoji;
+        mostrarAvisoModal("Avatar Seleccionado", `Has elegido el avatar: ${emoji}`, "🎨");
+    };
+
+    window.generarPremioPandyAutomático = async function(nivel, userEmail) {
+        const sb = obtenerSupabase();
+        if (!sb) return;
+        
+        // Creamos un código único
+        const codigoPremio = `PANDY-NV${nivel}-` + Math.random().toString(36).substring(2, 6).toUpperCase();
+        
+        const payload = {
+            codigo: codigoPremio,
+            tipo: nivel === 4 ? 'tiempo_24h' : 'descuento',
+            plan_desbloqueado: 'elite',
+            descuento_pct: nivel === 4 ? 0 : 30, // Nivel 4 = 24h gratis | Nivel 8 = 30% Dscto
+            usos_restantes: 1 // Solo se puede usar 1 vez
+        };
+
+        await sb.from('codigos_promocionales').insert([payload]);
+
+        const msj = nivel === 4 
+            ? `¡Tu disciplina da frutos! Por llevar al Dr. Pandy a Nivel 4 (Médico SERUMS), te regalamos 24 horas de PLAN ÉLITE. \n\nTu código único es: ${codigoPremio}\n\nCanjéalo ahora mismo en la barra superior.`
+            : `¡Impresionante! Has alcanzado el Nivel 8 (Especialista). Tienes un 30% de descuento asegurado para tu compra del Plan Élite. \n\nTu código único es: ${codigoPremio}`;
+
+        mostrarAvisoModal(`¡Evolución Nivel ${nivel}! 🎉`, msj, "🎁");
+    };
+
     window.comprarAlimento = async function(costo, energiaGanada) {
+        cerrarModales(); 
+        
         if (perfilMascota.monedas < costo) { 
-            mostrarAvisoModal("Pandy-Coins Insuficientes", `Necesitas ${costo} monedas. Responde casos en el banco para ganar más.`, "🪙"); 
+            setTimeout(() => { mostrarAvisoModal("Monedas Insuficientes", `Necesitas ${costo} Pandy-Coins. ¡Resuelve más casos para ganar monedas!`, "💰"); }, 300);
             return; 
         }
+        
         perfilMascota.monedas -= costo;
         perfilMascota.energia = Math.min(100, perfilMascota.energia + energiaGanada);
+        const nivelAnterior = perfilMascota.nivel;
         perfilMascota.nivel = Math.min(10, perfilMascota.nivel + (costo * 0.02));
 
         document.getElementById('m-monedas').innerText = perfilMascota.monedas;
@@ -2150,19 +2217,32 @@
         let rango = "Interno";
         if (perfilMascota.nivel >= 4 && perfilMascota.nivel < 8) rango = "Médico SERUMS";
         if (perfilMascota.nivel >= 8) rango = "Especialista";
-        document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${rango})`;
+        if (document.getElementById('m-nivel-tag')) document.getElementById('m-nivel-tag').innerText = `Nv. ${Math.floor(perfilMascota.nivel)} (${rango})`;
+        
         renderizarPandaVisual('motivado');
 
         const sb = obtenerSupabase();
         if (sb && user) {
             await sb.from('perfil_mascota').update({ monedas: perfilMascota.monedas, energia: perfilMascota.energia, nivel: perfilMascota.nivel }).eq('user_id', user.id);
         }
-        mostrarAvisoModal("¡Qué rico!", "El Dr. Pandy recuperó energía y subió su experiencia.", "🎋");
+        
+        // LÓGICA DE RECOMPENSAS AUTOMÁTICAS
+        const alcanzoNivel4 = Math.floor(nivelAnterior) < 4 && Math.floor(perfilMascota.nivel) >= 4;
+        const alcanzoNivel8 = Math.floor(nivelAnterior) < 8 && Math.floor(perfilMascota.nivel) >= 8;
+
+        const yaRecibioPremio4 = localStorage.getItem(`premio_nv4_${user.id}`);
+        const yaRecibioPremio8 = localStorage.getItem(`premio_nv8_${user.id}`);
+
+        if (alcanzoNivel4 && !yaRecibioPremio4) {
+            localStorage.setItem(`premio_nv4_${user.id}`, 'true');
+            setTimeout(() => { generarPremioPandyAutomático(4, user.email); }, 800);
+        } else if (alcanzoNivel8 && !yaRecibioPremio8) {
+            localStorage.setItem(`premio_nv8_${user.id}`, 'true');
+            setTimeout(() => { generarPremioPandyAutomático(8, user.email); }, 800);
+        } else {
+            setTimeout(() => { mostrarAvisoModal("¡Qué rico!", "El Dr. Pandy se alimentó, recuperó energía y subió su experiencia.", "🎋"); }, 300);
+        }
     };
-
-    // === 6. PRECIOS CONFIGURABLES Y TIENDA (Con Decimales) ===
-let configAulaVivo = { activo: false, link: "" };
-
     window.cargarPreciosEnFormulario = function() {
         if (document.getElementById('adm-precio-banqueo')) document.getElementById('adm-precio-banqueo').value = Number(preciosPlanes.banqueo).toFixed(2);
         if (document.getElementById('adm-precio-clinico')) document.getElementById('adm-precio-clinico').value = Number(preciosPlanes.clinico).toFixed(2);
