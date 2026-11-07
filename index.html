@@ -451,9 +451,9 @@
                             <button class="btn-theme-toggle" onclick="alternarModoOscuro()"><span id="icono-tema">🌙</span></button>
                             
                             <!-- Campanita de Notificaciones -->
-                            <div style="position: relative; cursor: pointer;" onclick="mostrarAvisoModal('Centro de Notificaciones', 'Aquí aparecerán los anuncios, cupones flash y avisos del docente.', '🔔')">
+                            <div style="position: relative; cursor: pointer;" onclick="verNotificacion()" id="btn-campana-noti">
                                 <span style="font-size: 1.4em;">🔔</span>
-                                <span style="position: absolute; top: -3px; right: -5px; background: #dc3545; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 0.7em; display: flex; align-items: center; justify-content: center; font-weight: bold; border: 2px solid var(--bg-body);">1</span>
+                                <span id="badge-campana-noti" style="position: absolute; top: -3px; right: -5px; background: #dc3545; color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 0.7em; display: none; align-items: center; justify-content: center; font-weight: bold; border: 2px solid var(--bg-body);">1</span>
                             </div>
 
                             <!-- Botón de Plan -->
@@ -1364,6 +1364,14 @@
 
                             <!-- PESTAÑA: CONFIGURACIÓN GENERAL Y SWITCHES REDES -->
                             <div id="subtab-adm-anuncios" class="subtab-adm">
+                                <div class="admin-form-box">
+                                    <h3 style="color: #0056b3; font-size: 1.1em; margin-bottom: 10px;">🔔 Enviar Notificación a Todos</h3>
+                                    <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Escribe un mensaje o cupón flash. Al enviarlo, aparecerá un punto rojo en la campanita de todos los alumnos. (Para borrar la notificación, deja el espacio en blanco y dale a enviar).</p>
+                                    <div class="campo">
+                                        <textarea id="adm-texto-notificacion" rows="2" placeholder="Ej: ¡Cupón de 30% dscto activo por 2 horas! Código: FLASH30"></textarea>
+                                    </div>
+                                    <button type="button" class="btn-p" style="width: auto; padding: 10px 18px; background: #0056b3;" onclick="guardarNotificacionGlobal()">Enviar Notificación ➔</button>
+                                </div>
                                 <div class="admin-form-box">
                                     <h3 style="color: var(--primary); font-size: 1.1em; margin-bottom: 10px;">🐼 Personalizar Dr. Pandy (Enlaces de GitHub)</h3>
                                     <p style="color: var(--text-muted); margin-bottom: 15px; font-size: 0.9em;">Sube las imágenes a tu repositorio de GitHub y escribe aquí sus nombres exactos (Ej: panda-normal.png).</p>
@@ -3126,6 +3134,12 @@
                 if (item.clave === 'calendario_notas' && item.valor) {
                     try { const parsed = JSON.parse(item.valor); if (typeof parsed === 'object') eventosCalendarioMemoria = parsed; } catch(e){}
                 }
+                if (item.clave === 'notificacion_global') {
+                    notificacionGlobalActual = item.valor || "";
+                    const inputNoti = document.getElementById('adm-texto-notificacion');
+                    if (inputNoti) inputNoti.value = notificacionGlobalActual;
+                    actualizarCampanita(notificacionGlobalActual);
+                }
                 if (item.clave === 'texto_metodologia' && item.valor) {
                     const admTxt = document.getElementById('adm-texto-metodologia'); if (admTxt) admTxt.value = item.valor;
                 }
@@ -3903,6 +3917,34 @@
             tbody.innerHTML += `<tr><td>${anversoCorto}</td><td>${MAPEO_ID_CURSOS[f.area_id]}</td><td style="display:flex; gap:6px;"><button class="btn-p" style="width:auto; padding:6px 12px; background:#0056b3;" onclick="prepararEdicionFlashcard('${f.id}')">✏️ Editar</button><button class="btn-p" style="width:auto; padding:6px 12px; background:#dc3545;" onclick="eliminarFlashcard('${f.id}')">🗑️</button></td></tr>`;
         });
         tbody.innerHTML += `<tr><td colspan="3" style="text-align:center; padding:15px;"><button class="btn-tool" onclick="cargarListaFlashcardsAdmin(-1)">◀ Ant</button> <span style="margin:0 15px; font-weight:bold;">Pág ${pagAdm.fc + 1}</span> <button class="btn-tool" onclick="cargarListaFlashcardsAdmin(1)">Sig ▶</button></td></tr>`;
+    };
+        let notificacionGlobalActual = "";
+
+    window.guardarNotificacionGlobal = async function() {
+        const txt = document.getElementById('adm-texto-notificacion').value.trim();
+        await guardarConfiguracionBase('notificacion_global', txt);
+        notificacionGlobalActual = txt;
+        actualizarCampanita(txt);
+        mostrarAvisoModal("¡Enviado!", "La notificación se ha actualizado para todos los alumnos.", "🔔");
+    };
+
+    window.actualizarCampanita = function(texto) {
+        const badge = document.getElementById('badge-campana-noti');
+        if (badge) {
+            if (texto && texto.length > 0) {
+                badge.style.display = 'flex'; // Muestra el puntito rojo
+            } else {
+                badge.style.display = 'none'; // Oculta el puntito rojo
+            }
+        }
+    };
+
+    window.verNotificacion = function() {
+        if (notificacionGlobalActual && notificacionGlobalActual.length > 0) {
+            mostrarAvisoModal("📢 Anuncio Oficial", notificacionGlobalActual, "🔔");
+        } else {
+            mostrarAvisoModal("Centro de Notificaciones", "No tienes mensajes nuevos en este momento.", "🔔");
+        }
     };
 </script>
 </body>
