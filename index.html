@@ -852,6 +852,11 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="card-modalidad" style="border-top-color: #facc15; text-align: center; background: linear-gradient(135deg, #2e1065, #4c1d95); color: white; border: 3px solid #facc15;" onclick="activarModalidadBanqueo('examenes_oficiales')">
+                                    <div style="font-size: 3em; margin-bottom: 12px;">🏆</div>
+                                    <h3 style="font-size: 1.25em; color: #facc15;">Exámenes ENCAPS / SERUMS</h3>
+                                    <p style="color: #cbd5e1;">Practica con exámenes oficiales pasados en modo interactivo.</p>
+                                </div>
 
                         <!-- Modo: Por Curso -->
                         <div id="pantalla-banqueo-curso" style="display: none;">
@@ -2612,24 +2617,33 @@
 
     window.activarModalidadBanqueo = function(tipo) {
         document.getElementById('vista-selector-modalidad').style.display = 'none';
+        
+        // Reset a modo clásico por defecto
+        if (typeof modoInterfazActivo !== 'undefined') modoInterfazActivo = 'clasico';
+        const box = document.querySelector('.box-pregunta');
+        if (box) {
+            box.classList.remove('modo-kahoot');
+            box.classList.remove('modo-pandyquiz');
+        }
+
         if (tipo === 'curso') { 
             document.getElementById('pantalla-banqueo-curso').style.display = 'block'; 
             actualizarTemasEnSelector('sel-curso-banqueo', 'sel-tema-banqueo'); 
             renderizarPandaVisual('normal'); 
         } else if (tipo === 'simulacros_oficiales') { 
-            document.getElementById('pantalla-simulacros-oficiales').style.display = 'block'; 
+            document.getElementById('pantalla-simulacros-oficiales').style.display = 'block';
+            modoInterfazActivo = 'pandyquiz'; 
             cargarSimulacrosOficialesEstudiante(); 
+        } else if (tipo === 'examenes_oficiales') {
+            document.getElementById('pantalla-examenes-oficiales').style.display = 'block';
+            modoInterfazActivo = 'pandyquiz'; 
+            cargarExamenesEstudiante(); // ¡Esta línea carga la lista de Supabase!
         } else if (tipo === 'arma_tu_simulacro') { 
             document.getElementById('pantalla-arma-simulacro').style.display = 'block'; 
         } else if (tipo === 'rescate') {
             banquearPreguntasFalladas();
         }
     };
-
-    let mazoBanqueo = [];
-    let modoInterfazActivo = 'clasico';
-    let indexBanqueo = 0;
-    let respuestasDadas = {};
 
     window.iniciarBanqueoFiltro = async function() {
         document.getElementById('btn-aplicar-filtro').innerText = 'Cargando...';
