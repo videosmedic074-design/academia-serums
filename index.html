@@ -968,20 +968,6 @@
                             <div id="lista-simulacros-habilitados" class="grid-modalidades-banqueo"></div>
                         </div>
                         
-                        <div id="pantalla-examenes-oficiales" style="display: none;">
-                            <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
-                            <h2 style="color: var(--text-heading); font-size: 1.3em; margin-bottom: 15px;">🏆 Archivo de Exámenes ENCAPS (Modo Dr. Pandy Quiz)</h2>
-                            
-                            <div class="campo" style="max-width: 300px; margin-bottom: 20px;">
-                                <label style="font-weight: bold; font-size: 0.9em;">Modalidad de Tiempo:</label>
-                                <select id="sel-tiempo-examen" class="campo-select-pro">
-                                    <option value="con_tiempo">Con Temporizador (120 Min)</option>
-                                    <option value="sin_tiempo">Modo Libre (Sin Tiempo)</option>
-                                </select>
-                            </div>
-                            <div id="lista-examenes-habilitados" class="grid-modalidades-banqueo"></div>
-                        </div>
-                        
                         <div id="pantalla-arma-simulacro" style="display: none;">
                             <button class="btn-p" style="width: auto; padding: 10px 16px; margin-bottom: 20px; background: var(--text-muted);" onclick="volverASelectorModalidades()">← Volver a Modalidades</button>
                             <div class="card-auth amplia" style="margin: 0 auto; max-width: 700px;">
@@ -2649,10 +2635,9 @@ window.iniciarExamenInteract = function(index) {
                 el.dataset.oldDisplay = el.style.display || ''; el.style.display = 'none'; 
             }
         });
-        document.querySelectorAll('div').forEach(el => {
-            if(el.innerHTML && el.innerHTML.includes('Formular IA') && el.innerHTML.includes('Generador Inteligente')) {
-                el.dataset.oldDisplay = el.style.display || ''; el.style.display = 'none';
-            }
+        document.querySelectorAll('.panel-control-ia').forEach(el => {
+            el.dataset.oldDisplay = el.style.display || ''; 
+            el.style.display = 'none';
         });
         
         // Manejo del Temporizador
@@ -2702,8 +2687,8 @@ window.iniciarExamenInteract = function(index) {
                 el.style.display = el.dataset.oldDisplay;
             }
         });
-        document.querySelectorAll('div').forEach(el => {
-            if(el.innerHTML && el.innerHTML.includes('Formular IA') && el.innerHTML.includes('Generador Inteligente') && el.dataset.oldDisplay !== undefined) {
+        document.querySelectorAll('.panel-control-ia').forEach(el => {
+            if (el.dataset.oldDisplay !== undefined) {
                 el.style.display = el.dataset.oldDisplay;
             }
         });
