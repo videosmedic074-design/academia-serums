@@ -2651,20 +2651,29 @@ window.iniciarExamenInteract = function(index) {
         
         // Cronómetro de 120 minutos (2 horas)
         if (conTiempo) {
+            // Limpiamos el pomodoro clásico si estaba activo
+            if(typeof pomoTimer !== 'undefined') clearInterval(pomoTimer);
             if(typeof intervaloPomodoro !== 'undefined') clearInterval(intervaloPomodoro);
+            
             let tiempoExamen = 7200; // 120 minutos
-            document.getElementById('pomodoro-min').innerText = '120';
-            document.getElementById('pomodoro-sec').innerText = '00';
+            document.getElementById('pomo-display').innerText = '120:00';
+            
             window.intervaloPomodoro = setInterval(() => {
                 tiempoExamen--;
-                let m = Math.floor(tiempoExamen/60); let s = tiempoExamen%60;
-                document.getElementById('pomodoro-min').innerText = m < 10 ? '0'+m : m;
-                document.getElementById('pomodoro-sec').innerText = s < 10 ? '0'+s : s;
+                let m = Math.floor(tiempoExamen/60); 
+                let s = tiempoExamen%60;
+                document.getElementById('pomo-display').innerText = (m < 10 ? '0'+m : m) + ':' + (s < 10 ? '0'+s : s);
+                
                 if(tiempoExamen <= 0) { 
-                    clearInterval(intervaloPomodoro); 
-                    mostrarAvisoModal("Tiempo terminado", "El examen ha concluido."); 
+                    clearInterval(window.intervaloPomodoro); 
+                    mostrarAvisoModal("Tiempo terminado", "El examen ha concluido.", "⏳"); 
+                    finalizarSesionBanqueo(); // Termina el examen automáticamente
                 }
             }, 1000);
+        } else {
+            // Si eligen "Modo libre (Sin tiempo)"
+            document.getElementById('pomo-display').innerText = 'Libre';
+            if(typeof intervaloPomodoro !== 'undefined') clearInterval(intervaloPomodoro);
         }
         
         cargarSiguientePregunta();
