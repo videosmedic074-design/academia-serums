@@ -4151,33 +4151,67 @@
         }
     });
 
+    // Memoria caché para que el navegador no colapse
+    let examenesOficialesCache = [];
+
     window.cargarExamenesEstudiante = async function() {
-        const sb = obtenerSupabase(); const cont = document.getElementById('lista-examenes-habilitados');
+        const sb = obtenerSupabase(); 
+        const cont = document.getElementById('lista-examenes-habilitados');
+        
+        cont.innerHTML = '<p>Cargando exámenes...</p>';
+        
         const { data } = await sb.from('examenes_oficiales').select('*');
-        if (!data || data.length === 0) { cont.innerHTML = '<p>No hay exámenes subidos aún.</p>'; return; }
+        if (!data || data.length === 0) { 
+            cont.innerHTML = '<p>No hay exámenes subidos aún.</p>'; 
+            return; 
+        }
+        
         cont.innerHTML = '';
-        data.forEach(ex => {
+        examenesOficialesCache = data; // Guardamos los datos en la memoria
+        
+        data.forEach((ex, i) => {
             cont.innerHTML += `
-                <div class="card-modalidad" style="border-top-color: #facc15; text-align: left; background: #f8fafc;">
-                    <h3 style="font-size: 1.25em; color: #4c1d95; margin-bottom: 10px;">${ex.titulo}</h3>
-                    <button class="btn-p" style="background: linear-gradient(135deg, #2e1065, #4c1d95); font-size: 1em;" onclick='iniciarExamenInteract("${encodeURIComponent(JSON.stringify(ex.preguntas_json))}")'>▶ Iniciar Dr. Pandy Quiz</button>
+                <div class="card-modalidad" style="border-top-color: #facc15; text-align: left; background: #f8fafc; padding: 20px; border-radius: 10px; border: 1px solid var(--border-color); margin-bottom: 15px;">
+                    <h3 style="font-size: 1.3em; color: #4c1d95; margin-bottom: 12px; font-weight: 800;">🏆 ${ex.titulo}</h3>
+                    <button class="btn-p" style="background: linear-gradient(135deg, #2e1065, #4c1d95); font-size: 1.05em; width: auto; padding: 12px 24px; border: 2px solid #facc15;" onclick="iniciarExamenInteract(${i})">▶ Iniciar Dr. Pandy Quiz</button>
                 </div>`;
         });
     };
 
-    window.iniciarExamenInteract = function(preguntasStr) {
-        const conTiempo = document.getElementById('sel-tiempo-examen').value === 'con_tiempo';
-        mazoBanqueo = JSON.parse(decodeURIComponent(preguntasStr));
-        indexBanqueo = 0; respuestasDadas = {};
+    window.iniciarExamenInteract = function(index) {
+        // Leemos si el alumno quiere temporizador o modo libre
+        const selectTiempo = document.getElementById('sel-tiempo-examen');
+        const conTiempo = selectTiempo && selectTiempo.value === 'con_tiempo';
         
-        document.getElementById('vista-selector-modalidad').style.display = 'none';
-        document.getElementById('pantalla-examenes-oficiales').style.display = 'none';
-        document.getElementById('pantalla-banqueo-curso').style.display = 'block';
-        document.getElementById('zona-practica-activa').style.display = 'block';
-        document.getElementById('btn-aplicar-filtro').style.display = 'none';
+        // Sacamos las 100 preguntas de la memoria caché, al instante
+        const ex = examenesOficialesCache[index];
+        
+        // Extraemos las preguntas de forma segura
+        let preguntasLista = typeof ex.preguntas_json === 'string' ? JSON.parse(ex.preguntas_json) : ex.preguntas_json;
+        
+        mazoBanqueo = preguntasLista;
+        indexBanqueo = 0; 
+        respuestasDadas = {};
+        
+        // Cambiamos de pantalla
+        const vistaSelector = document.getElementById('vista-selector-modalidad');
+        const pantallaExamenes = document.getElementById('pantalla-examenes-oficiales');
+        const pantallaBanqueo = document.getElementById('pantalla-banqueo-curso');
+        const zonaPractica = document.getElementById('zona-practica-activa');
+        const btnFiltro = document.getElementById('btn-aplicar-filtro');
+        
+        if (vistaSelector) vistaSelector.style.display = 'none';
+        if (pantallaExamenes) pantallaExamenes.style.display = 'none';
+        if (pantallaBanqueo) pantallaBanqueo.style.display = 'block';
+        if (zonaPractica) zonaPractica.style.display = 'block';
+        if (btnFiltro) btnFiltro.style.display = 'none'; // Ocultamos el botón "Aplicar Filtro"
         
         modoInterfazActivo = 'pandyquiz';
-        if(conTiempo) iniciarPomodoro(); // Usamos el reloj actual
+        
+        // Iniciamos el cronómetro solo si el alumno lo seleccionó y la función existe
+        if (conTiempo && typeof iniciarPomodoro === 'function') {
+            iniciarPomodoro(); 
+        }
         
         cargarSiguientePregunta();
     };
