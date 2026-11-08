@@ -2634,16 +2634,18 @@
         document.getElementById('pantalla-simulacros-oficiales').style.display = 'none'; 
         document.getElementById('pantalla-arma-simulacro').style.display = 'none'; 
         
-        // Esta es la línea clave que ocultará la pantalla rebelde:
         const pantallaExamenes = document.getElementById('pantalla-examenes-oficiales');
         if(pantallaExamenes) pantallaExamenes.style.display = 'none';
         
         document.getElementById('zona-practica-activa').style.display = 'none';
         
-        const btnFiltro = document.getElementById('btn-aplicar-filtro');
-        if(btnFiltro) btnFiltro.style.display = 'block';
+        // RESTAURAR LOS FILTROS Y EL GENERADOR IA
+        Array.from(document.getElementById('pantalla-banqueo-curso').children).forEach(el => {
+            if (el.id !== 'zona-practica-activa' && el.dataset.oldDisplay !== undefined) {
+                el.style.display = el.dataset.oldDisplay;
+            }
+        });
     };
-
     window.activarModalidadBanqueo = function(tipo) {
         document.getElementById('vista-selector-modalidad').style.display = 'none';
         
@@ -4123,14 +4125,42 @@
         window.vaciadorExamenesIA = function() {
         const txt = document.getElementById('vaciador-examenes-texto').value.trim();
         if (!txt) { mostrarAvisoModal("Vaciador", "Pega las preguntas del examen.", "⚠️"); return; }
+        
         const lineas = txt.split('\n').map(l => l.trim()).filter(l => l.length > 0);
         simulacroBorrador100 = [];
-        for (let i = 0; i < lineas.length; i += 5) {
-            if (lineas[i]) simulacroBorrador100.push({ enunciado: lineas[i], opcion_a: lineas[i+1]||'', opcion_b: lineas[i+2]||'', opcion_c: lineas[i+3]||'', opcion_d: lineas[i+4]||'', respuesta_correcta: 'A', justificacion: 'Respuesta oficial del examen.' });
+        
+        // Nuevo motor de lectura que avanza de 6 en 6 líneas (Pregunta + 4 Opciones + Respuesta)
+        let i = 0;
+        while (i < lineas.length) {
+            let enunciado = lineas[i];
+            let opA = lineas[i+1] || 'A)';
+            let opB = lineas[i+2] || 'B)';
+            let opC = lineas[i+3] || 'C)';
+            let opD = lineas[i+4] || 'D)';
+            let respLetraRaw = lineas[i+5] || 'A'; // Aquí lee la sexta línea
+            
+            // Detecta inteligentemente la letra de la respuesta correcta
+            let letraCorrecta = 'A';
+            let u = respLetraRaw.toUpperCase();
+            if (u.includes('B')) letraCorrecta = 'B';
+            if (u.includes('C')) letraCorrecta = 'C';
+            if (u.includes('D')) letraCorrecta = 'D';
+            
+            simulacroBorrador100.push({ 
+                enunciado: enunciado, 
+                opcion_a: opA, 
+                opcion_b: opB, 
+                opcion_c: opC, 
+                opcion_d: opD, 
+                respuesta_correcta: letraCorrecta, 
+                justificacion: 'Clave oficial: ' + letraCorrecta 
+            });
+            i += 6; 
         }
+        
         document.getElementById('tabla-draft-examenes-container').style.display = 'block';
-        document.getElementById('tabla-draft-examenes-body').innerHTML = `<tr><td colspan="3">100 Preguntas detectadas. Listo para guardar.</td></tr>`;
-        mostrarAvisoModal("Vaciador Listo", "Preguntas procesadas.", "✅");
+        document.getElementById('tabla-draft-examenes-body').innerHTML = `<tr><td colspan="3">${simulacroBorrador100.length} Preguntas y sus respuestas procesadas correctamente.</td></tr>`;
+        mostrarAvisoModal("Lectura Exitosa", "Las respuestas correctas han sido mapeadas.", "✅");
     };
 
     document.getElementById('form-adm-examenes').addEventListener('submit', async (e) => {
@@ -4179,39 +4209,36 @@
     };
 
     window.iniciarExamenInteract = function(index) {
-        // Leemos si el alumno quiere temporizador o modo libre
         const selectTiempo = document.getElementById('sel-tiempo-examen');
         const conTiempo = selectTiempo && selectTiempo.value === 'con_tiempo';
-        
-        // Sacamos las 100 preguntas de la memoria caché, al instante
         const ex = examenesOficialesCache[index];
-        
-        // Extraemos las preguntas de forma segura
         let preguntasLista = typeof ex.preguntas_json === 'string' ? JSON.parse(ex.preguntas_json) : ex.preguntas_json;
         
         mazoBanqueo = preguntasLista;
-        indexBanqueo = 0; 
-        respuestasDadas = {};
+        indexBanqueo = 0; respuestasDadas = {};
         
-        // Cambiamos de pantalla
-        const vistaSelector = document.getElementById('vista-selector-modalidad');
-        const pantallaExamenes = document.getElementById('pantalla-examenes-oficiales');
-        const pantallaBanqueo = document.getElementById('pantalla-banqueo-curso');
-        const zonaPractica = document.getElementById('zona-practica-activa');
-        const btnFiltro = document.getElementById('btn-aplicar-filtro');
+        document.getElementById('vista-selector-modalidad').style.display = 'none';
+        document.getElementById('pantalla-examenes-oficiales').style.display = 'none';
+        document.getElementById('pantalla-banqueo-curso').style.display = 'block';
+        document.getElementById('zona-practica-activa').style.display = 'block';
         
-        if (vistaSelector) vistaSelector.style.display = 'none';
-        if (pantallaExamenes) pantallaExamenes.style.display = 'none';
-        if (pantallaBanqueo) pantallaBanqueo.style.display = 'block';
-        if (zonaPractica) zonaPractica.style.display = 'block';
-        if (btnFiltro) btnFiltro.style.display = 'none'; // Ocultamos el botón "Aplicar Filtro"
+        // OCULTAR FILTROS Y GENERADOR IA DE LA VISTA SUPERIOR
+        Array.from(document.getElementById('pantalla-banqueo-curso').children).forEach(el => {
+            if (el.id !== 'zona-practica-activa') {
+                el.dataset.oldDisplay = el.style.display || ''; // Guarda el estado original
+                el.style.display = 'none'; // Lo oculta para el modo Pandy Quiz
+            }
+        });
+        
+        // OCULTAR O MOSTRAR TEMPORIZADOR POMODORO
+        const btnPomodoro = document.querySelector('button[onclick="iniciarPomodoro()"]');
+        if (btnPomodoro) {
+            const cajaPomodoro = btnPomodoro.closest('div[style*="border"], .card-auth, div').parentElement;
+            if (cajaPomodoro) cajaPomodoro.style.display = conTiempo ? 'block' : 'none';
+        }
         
         modoInterfazActivo = 'pandyquiz';
-        
-        // Iniciamos el cronómetro solo si el alumno lo seleccionó y la función existe
-        if (conTiempo && typeof iniciarPomodoro === 'function') {
-            iniciarPomodoro(); 
-        }
+        if (conTiempo && typeof iniciarPomodoro === 'function') iniciarPomodoro(); 
         
         cargarSiguientePregunta();
     };
