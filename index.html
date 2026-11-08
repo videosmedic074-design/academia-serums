@@ -3056,6 +3056,35 @@ window.iniciarExamenInteract = function(index) {
                 </div>`; 
         });
     };
+        window.renderizarPandaVisual = function(emocion = 'normal') {
+        const pandaCont = document.getElementById('panda-mascota-container');
+        const pandaBienvenida = document.getElementById('avatar-canvas-bienvenida');
+        const pandaLateral = document.getElementById('avatar-canvas');
+        const pandaCoach = document.getElementById('avatar-canvas-coach');
+        
+        const imagenesEstaticas = {
+            'normal': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['normal']) ? pandyImagenesCustom['normal'] : 'panda-normal.png',
+            'correcto': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['correcto']) ? pandyImagenesCustom['correcto'] : 'panda-feliz.png',
+            'saludo': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['saludo']) ? pandyImagenesCustom['saludo'] : 'panda-feliz.png',
+            'motivado': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['motivado']) ? pandyImagenesCustom['motivado'] : 'panda-feliz.png',
+            'error': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['error']) ? pandyImagenesCustom['error'] : 'panda-error.png',
+            'triste': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['triste']) ? pandyImagenesCustom['triste'] : 'panda-error.png',
+            'dormido': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['dormido']) ? pandyImagenesCustom['dormido'] : 'panda-dormido.png',
+            'adulto': (typeof pandyImagenesCustom !== 'undefined' && pandyImagenesCustom['adulto']) ? pandyImagenesCustom['adulto'] : 'panda-adulto.png'
+        };
+
+        let imgFuente = imagenesEstaticas[emocion] || imagenesEstaticas['normal'];
+        if (emocion === 'normal' && typeof perfilMascota !== 'undefined' && perfilMascota && perfilMascota.nivel >= 8 && imagenesEstaticas['adulto']) {
+            imgFuente = imagenesEstaticas['adulto'];
+        }
+        
+        const imgTag = `<img src="${imgFuente}" alt="Dr. Pandy" style="width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2)); animation: respirarPanda 3s ease-in-out infinite;">`;
+        
+        if (pandaCont) pandaCont.innerHTML = imgTag;
+        if (pandaBienvenida && emocion === 'saludo') pandaBienvenida.innerHTML = imgTag;
+        if (pandaLateral && (emocion === 'saludo' || emocion === 'normal' || emocion === 'motivado')) pandaLateral.innerHTML = imgTag;
+        if (pandaCoach && (emocion === 'correcto' || emocion === 'error')) pandaCoach.innerHTML = imgTag;
+    };
 </script>
 </body>
 </html>
