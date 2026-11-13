@@ -495,8 +495,10 @@
                             <button class="btn-menu-movil" onclick="document.querySelector('.sidebar').classList.add('abierta'); document.querySelector('.overlay-sidebar').classList.add('activa');">☰</button>
                             <div>
                                 <h1 id="txt-saludo" style="color: var(--text-heading); font-size: 1.65em; font-weight: 800;">Hola, Colega</h1>
-                            <p style="color: var(--text-muted); font-size: 0.95em;">Preparación de alto impacto SERUMS con estrategia técnica.</p>
+                                <p style="color: var(--text-muted); font-size: 0.95em;">Preparación de alto impacto SERUMS con estrategia técnica.</p>
+                            </div>
                         </div>
+                        
                         <div class="header-actions" style="display: flex; align-items: center; gap: 15px;">
                             <button class="btn-theme-toggle" onclick="alternarModoOscuro()"><span id="icono-tema">🌙</span></button>
                             
@@ -517,7 +519,8 @@
                                 <span id="nombre-top-display" style="font-weight: 600; font-size: 0.9em;">Perfil</span>
                             </div>
                         </div>
-                    </div>
+                    </div> <!-- ¡ESTE ES EL DIV QUE FALTABA Y CAUSÓ EL PROBLEMA! -->
+
                     <!-- INICIO (DASHBOARD) -->
                     <div id="sec-dash">
                         <!-- BANNER DE CLASES EN VIVO -->
