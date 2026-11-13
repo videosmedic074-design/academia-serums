@@ -317,6 +317,21 @@
         .box-pregunta.modo-pandyquiz .fb-box { background: white !important; color: #0f172a !important; border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
         .box-pregunta.modo-pandyquiz [id^="stat-"] * { color: #ffffff !important; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); font-weight: 600; }
         .box-pregunta.modo-pandyquiz [id^="stat-"] { margin-top: 12px !important; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 8px; }
+    /* --- RESPONSIVIDAD PARA CELULARES --- */
+        @media (max-width: 850px) {
+            .sidebar { position: fixed; height: 100vh; z-index: 1000; transform: translateX(-100%); transition: transform 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+            .sidebar.abierta { transform: translateX(0); }
+            .contenido { padding: 20px 15px; }
+            .header-top h1 { font-size: 1.3em; }
+            #nombre-top-display { display: none; }
+            .btn-menu-movil { display: block !important; }
+            .layout-simulador { flex-direction: column; }
+            .mascota-coach-lateral { width: 100%; margin-top: 15px; display: flex; align-items: center; justify-content: space-around; flex-direction: row; }
+            .mascota-coach-lateral .avatar-canvas-box { margin: 0; width: 60px; height: 60px; }
+        }
+        .btn-menu-movil { display: none; background: transparent; border: none; font-size: 1.8em; color: var(--text-heading); cursor: pointer; margin-right: 15px; }
+        .overlay-sidebar { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999; }
+        .overlay-sidebar.activa { display: block; }
     </style>
 </head>
 <body>
@@ -472,9 +487,14 @@
 
             <main class="contenido">
                 <div class="contenido-cuerpo">
+                    <!-- CAPA OSCURA PARA EL MENÚ MÓVIL -->
+                    <div class="overlay-sidebar" onclick="document.querySelector('.sidebar').classList.remove('abierta'); this.classList.remove('activa');"></div>
+                    
                     <div class="header-top">
-                        <div>
-                            <h1 id="txt-saludo" style="color: var(--text-heading); font-size: 1.65em; font-weight: 800;">Hola, Colega</h1>
+                        <div style="display: flex; align-items: center;">
+                            <button class="btn-menu-movil" onclick="document.querySelector('.sidebar').classList.add('abierta'); document.querySelector('.overlay-sidebar').classList.add('activa');">☰</button>
+                            <div>
+                                <h1 id="txt-saludo" style="color: var(--text-heading); font-size: 1.65em; font-weight: 800;">Hola, Colega</h1>
                             <p style="color: var(--text-muted); font-size: 0.95em;">Preparación de alto impacto SERUMS con estrategia técnica.</p>
                         </div>
                         <div class="header-actions" style="display: flex; align-items: center; gap: 15px;">
@@ -1893,6 +1913,13 @@
         if (sec) sec.style.display = 'block';
         const m = document.getElementById('m-' + nom);
         if (m) m.classList.add('activo');
+        
+        // Cerrar menú en celulares automáticamente al cambiar de sección
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay-sidebar');
+        if (sidebar && sidebar.classList.contains('abierta')) {
+            sidebar.classList.remove('abierta');
+            if (overlay) overlay.classList.remove('activa');
 
         if (nom === 'dash') cargarCursosDashboard();
         if (nom === 'flashcards') {
@@ -2648,7 +2675,10 @@ window.iniciarExamenInteract = function(index) {
         }
         
         modoInterfazActivo = 'pandyquiz';
-        
+    
+        // Ocultar mascota para dar pantalla completa al examen oficial
+        const coachLateral = document.querySelector('.mascota-coach-lateral');
+        if (coachLateral) coachLateral.style.display = 'none';
         // Cronómetro de 120 minutos (2 horas)
         if (conTiempo) {
             // Limpiamos el pomodoro clásico si estaba activo
@@ -2689,6 +2719,9 @@ window.iniciarExamenInteract = function(index) {
         if(pantallaExamenes) pantallaExamenes.style.display = 'none';
         
         document.getElementById('zona-practica-activa').style.display = 'none';
+        // Restaurar la mascota para el banqueo normal
+        const coachLateral = document.querySelector('.mascota-coach-lateral');
+        if (coachLateral) coachLateral.style.display = 'block';
         
         // Restaura todo a la normalidad para cuando salgas del examen
         Array.from(document.getElementById('pantalla-banqueo-curso').children).forEach(el => {
