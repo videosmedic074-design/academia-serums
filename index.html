@@ -1913,13 +1913,14 @@
         if (sec) sec.style.display = 'block';
         const m = document.getElementById('m-' + nom);
         if (m) m.classList.add('activo');
-        
+
         // Cerrar menú en celulares automáticamente al cambiar de sección
         const sidebar = document.querySelector('.sidebar');
         const overlay = document.querySelector('.overlay-sidebar');
         if (sidebar && sidebar.classList.contains('abierta')) {
             sidebar.classList.remove('abierta');
             if (overlay) overlay.classList.remove('activa');
+        }
 
         if (nom === 'dash') cargarCursosDashboard();
         if (nom === 'flashcards') {
@@ -2656,18 +2657,24 @@ window.iniciarExamenInteract = function(index) {
         document.getElementById('pantalla-banqueo-curso').style.display = 'block';
         document.getElementById('zona-practica-activa').style.display = 'block';
         
-        // Limpieza total de la pantalla (Oculta filtros y Generador IA)
+        // Limpieza de filtros
         Array.from(document.getElementById('pantalla-banqueo-curso').children).forEach(el => {
             if (el.id !== 'zona-practica-activa') {
                 el.dataset.oldDisplay = el.style.display || ''; el.style.display = 'none'; 
             }
         });
+        
+        // Corrección del panel IA para evitar pantallas blancas
         document.querySelectorAll('.panel-control-ia').forEach(el => {
             el.dataset.oldDisplay = el.style.display || ''; 
             el.style.display = 'none';
         });
+
+        // Ocultar mascota para dar pantalla completa al examen oficial
+        const coachLateral = document.querySelector('.mascota-coach-lateral');
+        if (coachLateral) coachLateral.style.display = 'none';
         
-        // Manejo del Temporizador
+        // Manejo del Temporizador Pomodoro Clásico
         const btnPomodoro = document.querySelector('button[onclick="iniciarPomodoro()"]');
         if (btnPomodoro) {
             const cajaPomodoro = btnPomodoro.closest('div[style*="border"], .card-auth, div').parentElement;
@@ -2675,13 +2682,9 @@ window.iniciarExamenInteract = function(index) {
         }
         
         modoInterfazActivo = 'pandyquiz';
-    
-        // Ocultar mascota para dar pantalla completa al examen oficial
-        const coachLateral = document.querySelector('.mascota-coach-lateral');
-        if (coachLateral) coachLateral.style.display = 'none';
-        // Cronómetro de 120 minutos (2 horas)
+        
+        // Cronómetro de 120 minutos (2 horas) arreglado
         if (conTiempo) {
-            // Limpiamos el pomodoro clásico si estaba activo
             if(typeof pomoTimer !== 'undefined') clearInterval(pomoTimer);
             if(typeof intervaloPomodoro !== 'undefined') clearInterval(intervaloPomodoro);
             
@@ -2697,11 +2700,10 @@ window.iniciarExamenInteract = function(index) {
                 if(tiempoExamen <= 0) { 
                     clearInterval(window.intervaloPomodoro); 
                     mostrarAvisoModal("Tiempo terminado", "El examen ha concluido.", "⏳"); 
-                    finalizarSesionBanqueo(); // Termina el examen automáticamente
+                    finalizarSesionBanqueo();
                 }
             }, 1000);
         } else {
-            // Si eligen "Modo libre (Sin tiempo)"
             document.getElementById('pomo-display').innerText = 'Libre';
             if(typeof intervaloPomodoro !== 'undefined') clearInterval(intervaloPomodoro);
         }
@@ -2719,16 +2721,19 @@ window.iniciarExamenInteract = function(index) {
         if(pantallaExamenes) pantallaExamenes.style.display = 'none';
         
         document.getElementById('zona-practica-activa').style.display = 'none';
+        
         // Restaurar la mascota para el banqueo normal
         const coachLateral = document.querySelector('.mascota-coach-lateral');
         if (coachLateral) coachLateral.style.display = 'block';
-        
+
         // Restaura todo a la normalidad para cuando salgas del examen
         Array.from(document.getElementById('pantalla-banqueo-curso').children).forEach(el => {
             if (el.id !== 'zona-practica-activa' && el.dataset.oldDisplay !== undefined) {
                 el.style.display = el.dataset.oldDisplay;
             }
         });
+        
+        // Corrección del panel IA para evitar pantallas blancas
         document.querySelectorAll('.panel-control-ia').forEach(el => {
             if (el.dataset.oldDisplay !== undefined) {
                 el.style.display = el.dataset.oldDisplay;
@@ -4341,7 +4346,6 @@ window.iniciarExamenInteract = function(index) {
         });
     };
 
-    
 </script>
 </body>
 </html>
